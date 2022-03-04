@@ -5,3 +5,7 @@ dist-ssr
 *.local
 # Generated API Client
 /src/api-client
+
+# Editors
+.vscode
+*.sw[a-p]
