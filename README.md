@@ -1,4 +1,24 @@
-# Vuelix
+# Dashboard
+
+
+## Instalar dependencias
+
+```
+npm install
+```
+
+## Configuración Desarrollo
+
+Poner credenciales de Cube en .env.development
+
+## Iniciar servidor de desarrollo
+> Para verlo funcionando previamente hay que tener funcionando Cube.js y Postgresql
+
+```
+npm run dev
+```
+
+# Vuelix Documentation
 
 Vuelix is a Vue 3 + Vite starter template to scaffold new projects really fast and with a great developer experience.
 
