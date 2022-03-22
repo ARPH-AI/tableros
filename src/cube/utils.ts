@@ -32,13 +32,21 @@ export function obtenerCantidad(resultado: ResultSet) {
 }
 
 export function obtenerMinimo(testArr: number[]): number {
-  return Math.min(...testArr)
+  return isIterable(testArr) ? Math.min(...testArr) : 0
 }
 
 export function obtenerMaximo(testArr: number[]): number {
-  return Math.max(...testArr)
+  return isIterable(testArr) ? Math.max(...testArr) : 0
 }
 
 export function porcentaje(numero: number, porcentaje: number): number {
   return (numero / 100) * porcentaje
+}
+
+function isIterable(obj: any) {
+  // checks for null and undefined
+  if (obj == null) {
+    return false
+  }
+  return typeof obj[Symbol.iterator] === 'function'
 }

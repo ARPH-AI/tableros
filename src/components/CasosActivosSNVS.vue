@@ -5,18 +5,14 @@ import Card from '@/components/Card.vue'
 import { obtenerCantidad } from '@/cube/utils'
 
 const date = '2022-03-06' //hoy
-const titulo = 'Casos Activos'
+const titulo = 'Casos Activos SNVS'
 const totalCasosActivos = {
-  measures: ['casos.identificador'],
-  timeDimensions: [
-    {
-      dimension: 'casos.fecha_covid',
-    },
-  ],
+  measures: ['casosCovidPromSem.cantidadXDiaSNVS'],
+  timeDimensions: [],
   order: {},
   filters: [
     {
-      member: 'casos.fecha_covid',
+      member: 'casosCovidPromSem.Fecha_inicio_Conf',
       operator: 'equals',
       values: [`${date}`],
     },

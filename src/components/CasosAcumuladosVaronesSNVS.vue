@@ -4,28 +4,18 @@ import { QueryBuilder } from '@cubejs-client/vue3'
 import Card from '@/components/Card.vue'
 import { obtenerCantidad } from '@/cube/utils'
 
-const date = '2022-03-06' //hoy
-const titulo = 'Casos Activos'
-const totalCasosActivos = {
-  measures: ['casos.identificador'],
-  timeDimensions: [
-    {
-      dimension: 'casos.fecha_covid',
-    },
-  ],
+const fechaInicio = '2021-01-01' //fecha fija
+const fechaFin = '2022-06-06' //hoy
+const titulo = 'Casos Acumulados Varones'
+const totalCasosAcumulados = {
+  measures: ['CovidEdadSexoMasc.cantidad_masc_snvs'],
+  timeDimensions: [],
   order: {},
-  filters: [
-    {
-      member: 'casos.fecha_covid',
-      operator: 'equals',
-      values: [`${date}`],
-    },
-  ],
 }
 </script>
 
 <template>
-  <query-builder :cubejs-api="cubeApi" :query="totalCasosActivos">
+  <query-builder :cubejs-api="cubeApi" :query="totalCasosAcumulados">
     <template #default="{ loading, resultSet }">
       <div v-if="loading" class="loading">Loading...</div>
       <div v-if="!loading && resultSet !== undefined">

@@ -8,7 +8,7 @@ const fechaInicio = '2021-01-01' //fecha fija
 const fechaFin = '2022-01-01' //hoy
 const titulo = 'Nuevos casos y promedio de los últimos 7 días'
 const totalCasos = {
-  measures: ['casosCovidPromSem.cantidadXDia', 'casosCovidPromSem.promedioSemanal'],
+  measures: ['casosCovidPromSem.cantidadXDiaSNVS', 'casosCovidPromSem.promedioSemanalSNVS'],
   timeDimensions: [
     {
       dimension: 'casosCovidPromSem.Fecha_inicio_Conf',
@@ -42,8 +42,8 @@ const getSeries = (result: ResultSet, filterStr: string, pivot: PivotConfig) => 
       <div v-if="loading" class="loading">Loading...</div>
       <div v-if="!loading && resultSet !== undefined">
         <GraficoBarLine
-          :series-line="getSeries(resultSet, '  Promedio Sem.', pivotConfig)[0]"
-          :series-bar="getSeries(resultSet, '  Casos Diarios', pivotConfig)[0]"
+          :series-line="getSeries(resultSet, '  Promedio Sem. SNVS', pivotConfig)[0]"
+          :series-bar="getSeries(resultSet, '  Casos Diarios SNVS', pivotConfig)[0]"
           :etiquetas="resultSet.chartPivot(pivotConfig).map((row) => row.x)"
           :titulo="titulo"
         />
