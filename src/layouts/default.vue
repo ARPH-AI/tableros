@@ -19,6 +19,14 @@ import RouterViewTransition from '@/components/RouterViewTransition.vue'
                 <span class="ms-1 d-none d-sm-inline"><router-link to="/">General</router-link></span>
               </a>
             </li>
+            <li>
+              <a href="#" class="nav-link align-middle px-0">
+                <i class="fs-4 bi-house"></i>
+                <span class="ms-1 d-none d-sm-inline"
+                  ><router-link :to="{ name: 'snvs_general' }">General SNVS</router-link></span
+                >
+              </a>
+            </li>
             <li class="nav-item">
               <a href="#" class="nav-link align-middle px-0">
                 <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Localización</span>
@@ -29,6 +37,14 @@ import RouterViewTransition from '@/components/RouterViewTransition.vue'
                 <i class="fs-4 bi-house"></i>
                 <span class="ms-1 d-none d-sm-inline"
                   ><router-link :to="{ name: 'sexoyedad' }">Sexo y Edad</router-link></span
+                >
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link align-middle px-0">
+                <i class="fs-4 bi-house"></i>
+                <span class="ms-1 d-none d-sm-inline"
+                  ><router-link :to="{ name: 'snvs_sexoyedad' }">Sexo y Edad SNVS</router-link></span
                 >
               </a>
             </li>

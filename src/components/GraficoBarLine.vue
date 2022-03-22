@@ -18,7 +18,7 @@ const maximoArr = maxLine > maxBar ? maxLine : maxBar
 const por = 0
 const max = Math.ceil(maximoArr + porcentaje(maximoArr, por))
 const min = minLine > minBar ? minBar : minLine
-const interval = 0.5
+const interval = Number((max / 10).toFixed(1))
 
 const etiquetasFormateadas = props.etiquetas.map((item) => format(new Date(item), 'd MMM', { locale: es }))
 
@@ -65,7 +65,6 @@ const option = ref({
       name: 'Casos',
       min,
       max,
-      interval,
     },
   ],
   series: [
