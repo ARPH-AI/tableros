@@ -1,8 +1,6 @@
-import { PetApi } from '@/api-client'
+import { OsmApi } from '@/api-client-osm'
+import { DatosgeoApi } from '@/api-client-datosgeo'
 import axiosInstance from './axios'
 
-/**
- * Example API by Swagger
- * https://editor.swagger.io/
- */
-export const petApi = new PetApi(undefined, undefined, axiosInstance)
+export const osmApi = new OsmApi(undefined, undefined, axiosInstance)
+export const datosgeoApi = new DatosgeoApi(undefined, undefined, axiosInstance)

@@ -3,10 +3,25 @@ const props = defineProps({ cantidad: { type: String, default: '0' }, titulo: { 
 </script>
 
 <template>
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title p-3 border bg-light">{{ titulo }}</h5>
-      <p class="card-text fw-normal fs-1">{{ Number(cantidad).toLocaleString() }}</p>
+  <div
+    class="
+      border-r-4 border-secondary
+      rounded-lg
+      bg-light_smooth-50
+      dark:bg-dark_smooth
+      shadow-lg
+      md:shadow-xl
+      relative
+      overflow-auto
+    "
+  >
+    <div class="text-light_contrast dark:text-dark_contrast pt-2 pb-4 text-center relative z-10">
+      <h3 class="text-3xl font-semibold leading-tight my-3">
+        {{ Number(cantidad).toLocaleString() }}
+      </h3>
+      <h4 class="text-sm uppercase font-extrabold leading-tight">
+        {{ titulo }}
+      </h4>
     </div>
   </div>
 </template>

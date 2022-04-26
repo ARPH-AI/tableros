@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import cubeApi from '@/cube'
 import { QueryBuilder } from '@cubejs-client/vue3'
-import GraficoBar from '@/components/GraficoBar.vue'
 
-const titulo = 'Casos por edad por semana epidemiológica'
-
+const titulo = 'Nuevos casos por grupo de edad'
+const tituloX = 'Semana Epidemiológica'
+const tituloY = 'Casos'
 const totalCasos = {
   measures: ['CovidEdadSexo.identificador'],
   timeDimensions: [
     {
       dimension: 'CovidEdadSexo.Fecha_inicio',
+      //      dateRange: 'last 360 days',
     },
   ],
   order: {
@@ -29,11 +30,15 @@ const pivotConfig = {
 <template>
   <query-builder :cubejs-api="cubeApi" :query="totalCasos">
     <template #default="{ loading, resultSet }">
-      <div v-if="loading" class="loading">Loading...</div>
+      <div v-if="loading" class="flex justify-center items-center">
+        <Spinner />
+      </div>
       <div v-if="!loading && resultSet !== undefined">
-        <GraficoBar
+        <GraficoStackedLines
           :series="resultSet.series(pivotConfig).slice(1)"
           :titulo="titulo"
+          :titulo-y="tituloY"
+          :titulo-x="tituloX"
           :etiquetas="resultSet.chartPivot(pivotConfig).map((row) => row.x)"
         />
       </div>

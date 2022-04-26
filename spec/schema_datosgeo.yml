@@ -1,0 +1,41 @@
+openapi: 3.0.3
+info:
+  title: Servicio de Normalización de Datos Geográficos de Argentina
+  description: 'Permite normalizar y codificar los nombres de unidades territoriales de la Argentina (provincias, departamentos, municipios y localidades) y de sus calles, así como ubicar coordenadas dentro de ellas.'
+  version: 0.5.3
+servers:
+  - url:  https://apis.datos.gob.ar/georef/api/
+paths:
+  /localidades:
+    post:
+      operationId: ObtenerLocalidadesPorLote
+      tags:
+        - datosgeo
+      requestBody:
+        content:
+         application/json:
+            schema:
+              type: object
+              properties:
+                localidades:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      nombre:
+                        type: string
+                      campos:
+                        type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        400:
+          description: Invalid status value
+          content: {}
+        405:
+          description: Invalid input
+          content: {}

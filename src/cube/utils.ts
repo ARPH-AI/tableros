@@ -50,3 +50,15 @@ function isIterable(obj: any) {
   }
   return typeof obj[Symbol.iterator] === 'function'
 }
+
+export const mergeArrayByKey = (arr1, arr2, key1, key2) => {
+  return arr1.map((item, i) => {
+    if (item[key1] === arr2[i][key2]) {
+      return Object.assign({}, item, arr2[i])
+    }
+  })
+}
+
+export const getRandomInRange = (from, to, fixed) => {
+  return (Math.random() * (to - from) + from).toFixed(fixed) * 1
+}

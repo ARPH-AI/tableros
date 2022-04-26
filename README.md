@@ -7,6 +7,12 @@
 npm install
 ```
 
+## Generar Código de API
+> **NOTE:** Requiere java `jvm` tien que estar instalado.
+```
+npm run gen-api
+```
+
 ## Configuración Desarrollo
 
 Poner credenciales de Cube en .env.development

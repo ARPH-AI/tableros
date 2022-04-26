@@ -3,8 +3,9 @@ import cubeApi from '@/cube'
 import { QueryBuilder } from '@cubejs-client/vue3'
 import Card from '@/components/Card.vue'
 import { obtenerCantidad } from '@/cube/utils'
+import { format } from 'date-fns'
 
-const date = '2022-03-06' //hoy
+const date = format(new Date(), 'yyyy-MM-dd')
 const titulo = 'Casos Activos'
 const totalCasosActivos = {
   measures: ['casos.identificador'],
@@ -27,7 +28,9 @@ const totalCasosActivos = {
 <template>
   <query-builder :cubejs-api="cubeApi" :query="totalCasosActivos">
     <template #default="{ loading, resultSet }">
-      <div v-if="loading" class="loading">Loading...</div>
+      <div v-if="loading" class="flex justify-center items-center">
+        <Spinner />
+      </div>
       <div v-if="!loading && resultSet !== undefined">
         <Card :cantidad="obtenerCantidad(resultSet)" :titulo="titulo" />
       </div>

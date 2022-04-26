@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import cubeApi from '@/cube'
 import { QueryBuilder } from '@cubejs-client/vue3'
-import GraficoPiramide from '@/components/GraficoPiramide.vue'
 
-const titulo = 'Casos acumulados por sexo'
+const titulo = 'Casos acumulados por edad y sexo'
 
 const totalCasosMasc = {
   measures: ['CovidEdadSexoMasc.cantidad_masc'],

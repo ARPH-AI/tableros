@@ -3,9 +3,10 @@ import cubeApi from '@/cube'
 import { QueryBuilder } from '@cubejs-client/vue3'
 import TableCard from '@/components/TableCard.vue'
 import { flattenColumns, getDisplayedColumns } from '@/cube/utils'
+import { format } from 'date-fns'
 
-const fechaInicio = '2021-01-01' //fecha fija
-const fechaFin = '2021-09-09' //hoy
+const date = format(new Date(), 'yyyy-MM-dd')
+//const date = '2021-09-09' Donde hay actualmente
 const titulo = 'Total de casos activos por lugar de residencia'
 
 const totalCasos = {
@@ -18,7 +19,7 @@ const totalCasos = {
     {
       member: 'CovidEdadSexoSNVS.Fecha_apertura',
       operator: 'equals',
-      values: [`${fechaFin}`],
+      values: [`${date}`],
     },
   ],
   dimensions: ['CovidEdadSexoSNVS.Ciudad'],
@@ -35,7 +36,9 @@ const pivotConfig = {
 <template>
   <query-builder :cubejs-api="cubeApi" :query="totalCasos">
     <template #default="{ loading, resultSet }">
-      <div v-if="loading" class="loading">Loading...</div>
+      <div v-if="loading" class="flex justify-center items-center">
+        <Spinner />
+      </div>
       <div v-if="!loading && resultSet !== undefined">
         <TableCard
           :datos="resultSet.tablePivot(pivotConfig)"

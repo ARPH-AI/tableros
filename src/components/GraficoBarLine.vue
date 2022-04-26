@@ -5,6 +5,7 @@ import VChart, { THEME_KEY } from 'vue-echarts'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { obtenerMinimo, obtenerMaximo, porcentaje } from '@/cube/utils'
+import { isDark } from '@/composables'
 
 const props = defineProps<{ seriesLine: number[]; seriesBar: number[]; etiquetas: string[]; titulo: string }>()
 
@@ -24,8 +25,11 @@ const etiquetasFormateadas = props.etiquetas.map((item) => format(new Date(item)
 
 const option = ref({
   textStyle: {
-    fontFamily: 'Roboto',
-    fontWeight: 400,
+    fontFamily: 'monospace',
+    fontWeight: 500,
+    fontSize: 16,
+    textBorderColor: '#fe161f',
+    textBorderType: 'solid',
   },
   tooltip: {
     trigger: 'axis',
@@ -36,7 +40,9 @@ const option = ref({
       },
     },
   },
+  darkMode: true,
   toolbox: {
+    orient: 'vertical',
     feature: {
       dataView: { show: true, readOnly: false },
       magicType: { show: true, type: ['line', 'bar'] },
@@ -49,6 +55,9 @@ const option = ref({
   },
   legend: {
     data: ['Casos diarios', 'Promedio semanal'],
+    textStyle: {
+      color: '#00bfcc',
+    },
   },
   xAxis: [
     {
@@ -72,7 +81,7 @@ const option = ref({
       name: 'Casos diarios',
       type: 'bar',
       itemStyle: {
-        color: '#00bfcc',
+        color: '#fe161f',
         borderRadius: 3,
         opacity: 0.4,
       },
@@ -100,17 +109,31 @@ const option = ref({
 </script>
 
 <template>
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title p-3 border bg-light">{{ titulo }}</h5>
-      <v-chart class="chart" :option="option" />
+  <div
+    class="
+      p-2
+      bg-light_smooth-50
+      dark:bg-dark_smooth
+      shadow
+      border-r-4 border-secondary
+      rounded-lg
+      shadow-lg
+      md:shadow-xl
+      relative
+      overflow-auto
+    "
+  >
+    <h5 class="my-4 text-sm uppercase text-light_contrast dark:text-dark_contrast font-extrabold leading-tight">
+      {{ titulo }}
+    </h5>
+    <div class="pl-4 pr-2 justify-center align-center">
+      <v-chart class="chart" :autoresize="true" :option="option" />
     </div>
   </div>
 </template>
 
 <style scoped>
 .chart {
-  height: 500px;
-  width: 100%;
+  height: 32rem;
 }
 </style>

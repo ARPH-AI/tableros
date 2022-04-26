@@ -32,7 +32,9 @@ const pivotConfig = {
 <template>
   <query-builder :cubejs-api="cubeApi" :query="totalCasos">
     <template #default="{ loading, resultSet }">
-      <div v-if="loading" class="loading">Loading...</div>
+      <div v-if="loading" class="flex justify-center items-center">
+        <Spinner />
+      </div>
       <div v-if="!loading && resultSet !== undefined">
         <TableCard
           :datos="resultSet.tablePivot(pivotConfig)"
