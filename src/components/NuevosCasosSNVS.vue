@@ -4,8 +4,6 @@ import { ResultSet, PivotConfig } from '@cubejs-client/core'
 import { QueryBuilder } from '@cubejs-client/vue3'
 import GraficoBarLine from '@/components/GraficoBarLine.vue'
 
-const fechaInicio = '2021-01-01' //fecha fija
-const fechaFin = '2022-01-01' //hoy
 const titulo = 'Nuevos casos y promedio de los últimos 7 días'
 const totalCasos = {
   measures: ['casosCovidPromSem.cantidadXDiaSNVS', 'casosCovidPromSem.promedioSemanalSNVS'],
@@ -13,7 +11,8 @@ const totalCasos = {
     {
       dimension: 'casosCovidPromSem.Fecha_inicio_Conf',
       granularity: 'day',
-      dateRange: [`${fechaInicio}`, `${fechaFin}`],
+      dateRange: 'last 360 days',
+      //      dateRange: [`${fechaInicio}`, `${fechaFin}`],
     },
   ],
   order: {},
@@ -39,7 +38,9 @@ const getSeries = (result: ResultSet, filterStr: string, pivot: PivotConfig) => 
 <template>
   <query-builder :cubejs-api="cubeApi" :query="totalCasos">
     <template #default="{ loading, resultSet }">
-      <div v-if="loading" class="loading">Loading...</div>
+      <div v-if="loading" class="flex justify-center items-center">
+        <Spinner />
+      </div>
       <div v-if="!loading && resultSet !== undefined">
         <GraficoBarLine
           :series-line="getSeries(resultSet, '  Promedio Sem. SNVS', pivotConfig)[0]"

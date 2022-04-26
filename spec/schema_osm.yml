@@ -1,0 +1,91 @@
+openapi: 3.0.3
+info:
+  title: Nominatim
+  description: 'Interface for the search engine used on the OpenStreetMap website'
+  termsOfService: https://wiki.osmfoundation.org/wiki/Privacy_Policy
+  version: 1.0.0
+servers:
+  - url: https://nominatim.openstreetmap.org
+paths:
+  /search.php:
+    get:
+      tags:
+        - osm
+      operationId: findGeoByCity
+      parameters:
+        - in: query
+          name: city
+          description: Ciudad a buscar
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: country
+          description: Pais a buscar
+          required: true
+          schema:
+            type: string
+            enum:
+              - argentina
+        - in: query
+          name: format
+          description: Formato de respuesta
+          required: true
+          schema:
+            type: string
+            enum:
+              - jsonv2
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cities'
+        400:
+          description: Invalid status value
+          content: {}
+        405:
+          description: Invalid input
+          content: {}
+components:
+  schemas:
+    City:
+      type: object
+      properties:
+        place_id:
+          type: integer
+          format: int64
+        licence:
+          type: string
+        osm_type:
+          type: string
+        osm_id:
+          type: integer
+          format: int64
+        bounding_box:
+          type: array
+          items:
+            type: string
+        lat:
+          type: string
+        lon:
+          type: string
+        display_name:
+          type: string
+        place_rank:
+          type: integer
+          format: int32
+        category:
+          type: string
+        type:
+          type: string
+        importance:
+          type: number
+          format: double
+        icon:
+          type: string
+    Cities:
+      type: array
+      items:
+        $ref: '#/components/schemas/City'

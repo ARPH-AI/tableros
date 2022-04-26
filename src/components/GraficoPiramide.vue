@@ -7,7 +7,7 @@ const props = defineProps<{ series: object[]; etiquetas: string[]; titulo: strin
 
 const createSeries = (series) => {
   return series.map((item, index) => {
-    let color = index % 2 ? '#6a34e6' : '#34e6c3'
+    let color = index % 2 ? '#00bfcc' : '#ff6c0a'
     let coeficiente = index % 2 ? 1 : -1
     return {
       name: item.title,
@@ -16,7 +16,6 @@ const createSeries = (series) => {
       stack: 'Total',
       itemStyle: {
         color,
-        shadowColor: '#91cc75',
         barBorderRadius: 5,
         opacity: 0.8,
       },
@@ -37,7 +36,24 @@ const option = ref({
       type: 'shadow',
     },
   },
-  legend: {},
+  darkMode: true,
+  toolbox: {
+    orient: 'vertical',
+    feature: {
+      dataView: { show: true, readOnly: false },
+      magicType: { show: true, type: ['line', 'bar'] },
+      dataZoom: {
+        yAxisIndex: 'none',
+      },
+      restore: { show: true },
+      saveAsImage: { show: true },
+    },
+  },
+  legend: {
+    textStyle: {
+      color: '#00bfcc',
+    },
+  },
   grid: {
     left: '3%',
     right: '4%',
@@ -72,17 +88,28 @@ const option = ref({
 </script>
 
 <template>
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title p-3 border bg-light">{{ titulo }}</h5>
-      <v-chart class="chart" :option="option" />
+  <div
+    class="
+      border-r-4 border-secondary
+      rounded-lg
+      bg-light_smooth-50
+      shadow-lg
+      md:shadow-xl
+      relative
+      bg-light_base
+      dark:bg-dark_smooth
+      shadow
+    "
+  >
+    <div class="p-3 pt-8 pb-10 relative z-10">
+      <h5 class="p-3 font-semibold">{{ titulo }}</h5>
+      <v-chart class="chart" :option="option" :autoresize="true" />
     </div>
   </div>
 </template>
 
 <style scoped>
 .chart {
-  height: 400px;
-  width: 100%;
+  height: 25rem;
 }
 </style>

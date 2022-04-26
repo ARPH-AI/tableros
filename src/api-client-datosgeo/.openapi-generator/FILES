@@ -1,0 +1,12 @@
+.gitignore
+.npmignore
+api.ts
+api/datosgeo-api.ts
+base.ts
+common.ts
+configuration.ts
+git_push.sh
+index.ts
+models/index.ts
+models/inline-object.ts
+models/localidades-localidades.ts

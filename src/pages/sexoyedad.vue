@@ -8,25 +8,31 @@ import CasosAcumuladosVarones from '@/components/CasosAcumuladosVarones.vue'
 import CasosAcumuladosMujeres from '@/components/CasosAcumuladosMujeres.vue'
 import CasosEdadSemanaEpidemiologica from '@/components/CasosEdadSemanaEpidemiologica.vue'
 import CasosAcumuladosSexo from '@/components/CasosAcumuladosSexo.vue'
+import ComorbilidadesFrecuencia from '@/components/ComorbilidadesFrecuencia.vue'
+import ComorbilidadesCantidad from '@/components/ComorbilidadesCantidad.vue'
 </script>
 
 <template>
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <div class="row">
-      <div class="col-md-2">
-        <div class="pb-1">
-          <CasosAcumuladosMujeres />
-        </div>
-        <div class="pb-1">
-          <CasosAcumuladosVarones />
-        </div>
+  <div class="main mt-8 flex grid px-16 py-6 bg-gray-100">
+    <div class="flex items-stretch grid grid-cols-2 px-16 py-6">
+      <div class="p-3">
+        <CasosAcumuladosMujeres />
       </div>
-      <div class="col-md-10">
-        <CasosEdadSemanaEpidemiologica />
+      <div class="p-3">
+        <CasosAcumuladosVarones />
       </div>
-      <div class="col">
-        <Suspense><CasosAcumuladosSexo /></Suspense>
+      <div>
+        <ComorbilidadesFrecuencia />
       </div>
+      <div>
+        <ComorbilidadesCantidad />
+      </div>
+    </div>
+    <div class="">
+      <CasosEdadSemanaEpidemiologica />
+    </div>
+    <div class="">
+      <Suspense><CasosAcumuladosSexo /></Suspense>
     </div>
   </div>
 </template>

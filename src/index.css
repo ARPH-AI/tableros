@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitter&family=Roboto+Mono:wght@200;300;400;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Bitter', serif;
+    font-family: 'Roboto Mono', monospace;
+  }
+}
