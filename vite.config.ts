@@ -30,6 +30,9 @@ export default defineConfig({
       autoInstall: true,
     }),
   ],
+  optimizeDeps: {
+    include: ['axe-core'],
+  },
   resolve: {
     alias: {
       '@/': `${path.resolve(__dirname, './src')}/`,

@@ -24,6 +24,10 @@ Poner credenciales de Cube en .env.development
 npm run dev
 ```
 
+## Accesibilidad
+
+Auditamos con esta biblioteca [vue-a11y](https://github.com/vue-a11y/vue-axe-next) que utiliza [axe-core](https://github.com/dequelabs/axe-core/). Toma en cuenta las siguientes [reglas](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md).
+
 # Vuelix Documentation
 
 Vuelix is a Vue 3 + Vite starter template to scaffold new projects really fast and with a great developer experience.
