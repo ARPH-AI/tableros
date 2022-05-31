@@ -100,9 +100,10 @@ const coords = await getCoords(resultSet.rawData())
 </script>
 
 <template>
-  <div class="main mt-8 px-4 py-4 grid grid-cols-4">
+<div class="">
+  <!-- <div class="grid grid-cols-4 px-4 py-4 mt-8"> -->
     <!-- Left column -->
-    <div class="flex justify-start w-full">
+    <!-- <div class="flex justify-start w-full">
       <FormKit
         v-model="formData"
         type="form"
@@ -111,8 +112,8 @@ const coords = await getCoords(resultSet.rawData())
       >
         <FormKit
           outer-class="w-full"
-          label-class="w-full block mb-1 font-bold"
-          inner-class="bg-light_base-100 text-light_contrast border border-secondary rounded mb-1 overflow-hidden"
+          label-class="block mb-1 w-full font-bold"
+          inner-class="overflow-hidden mb-1 rounded border bg-light_base-100 text-light_contrast border-secondary"
           input-class="px-2 h-10 bg-light_base-100"
           help-class="text-primary"
           type="date"
@@ -121,13 +122,13 @@ const coords = await getCoords(resultSet.rawData())
           help=""
           :value="fecha"
           :validation="[['required']]"
-        />
+        /> -->
 
         <!-- <FormKit
             outer-class="flex justify-start"
             label-class="mb-1 font-bold"
-            inner-class="max-w-md rounded mb-1 overflow-hidden focus-within:border-secondary"
-            input-class="w-full h-10 px-3 border-none text-base"
+            inner-class="overflow-hidden mb-1 max-w-md rounded focus-within:border-secondary"
+            input-class="px-3 w-full h-10 text-base border-none"
             help-class=""
             type="radio"
             name="casos"
@@ -138,20 +139,20 @@ const coords = await getCoords(resultSet.rawData())
               { value: false, label: 'Casos Nuevos' },
             ]"
           /> -->
-        <FormKit
+        <!-- <FormKit
           label-class="block mb-1 font-bold"
-          outer-class="mt-4 flex justify-start"
-          inner-class="border border-secondary rounded-lg mb-1 overflow-hidden focus-within:border-secondary"
-          input-class="h-10 px-3 border-none text-base"
+          outer-class="flex justify-start mt-4"
+          inner-class="overflow-hidden mb-1 rounded-lg border border-secondary focus-within:border-secondary"
+          input-class="px-3 h-10 text-base border-none"
           wrapper-class="mt-8"
           type="text"
           name="ubicacion"
           label="Ubicación"
           placeholder="Villa La Angostura"
         />
-      </FormKit>
-    </div>
-    <div class="grid col-span-3 p-4">
+      </FormKit> -->
+    <!-- </div> -->
+    <div class="">
       <MapaClustering :center="center" :zoom="zoom" :coords="coords" />
     </div>
   </div>

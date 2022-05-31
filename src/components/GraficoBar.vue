@@ -11,9 +11,10 @@ interface Props {
   stacked?: boolean
   tituloX?: string
   tituloY?: string
+  colorTheme?: string
 }
 
-const props = withDefaults(defineProps<Props>(), { stacked: false, tituloY: 'Y', tituloX: 'X' })
+const props = withDefaults(defineProps<Props>(), { colorTheme: 'primary', stacked: false, tituloY: 'Y', tituloX: 'X' })
 
 const stackSeries = (series) => {
   return series.map((item, index) => {
@@ -33,44 +34,50 @@ const stackSeries = (series) => {
   })
 }
 
-const option = ref({
+const light_theme_options = {
   textStyle: {
     fontFamily: 'monospace',
-    fontWeight: 500,
     fontSize: 16,
-    textBorderColor: '#fe161f',
-    textBorderType: 'solid',
+    color: 'black',
   },
   tooltip: {
     trigger: 'axis',
     axisPointer: {
       type: 'shadow', // 'shadow' as default; can also be 'line' or 'shadow'
-    },
-  },
-  darkMode: true,
-  toolbox: {
-    orient: 'vertical',
-    feature: {
-      dataView: { show: true, readOnly: false },
-      magicType: { show: true, type: ['line', 'bar'] },
-      dataZoom: {
-        yAxisIndex: 'none',
+      crossStyle: {
+        color: '#999',
       },
-      restore: { show: true },
-      saveAsImage: { show: true },
     },
   },
   grid: {
-    top: '20%',
-    left: '2%',
-    right: '2%',
-    bottom: '10%',
+    left: '3%',
+    right: '10%',
+    bottom: '20%',
     containLabel: true,
   },
   legend: {
+    width: '80%',
+    bottom: 12,
+    type: 'plain',
     show: true,
     textStyle: {
-      color: '#00bfcc',
+      color: 'black',
+    },
+  },
+  toolbox: {
+    itemSize: 18,
+    top: 1,
+    right: 20,
+    orient: 'vertical',
+    feature: {
+      dataView: { iconStyle: { borderColor: 'black' }, show: true, readOnly: false },
+      magicType: { iconStyle: { borderColor: 'black' }, show: true, type: ['line', 'bar'] },
+      dataZoom: {
+        iconStyle: { borderColor: 'black' },
+        yAxisIndex: 'none',
+      },
+      restore: { iconStyle: { borderColor: 'black' }, show: true },
+      saveAsImage: { iconStyle: { borderColor: 'black' }, show: true },
     },
   },
   yAxis: {
@@ -78,10 +85,11 @@ const option = ref({
     name: props.tituloY,
     inverse: true,
     nameLocation: 'middle',
-    nameGap: 85,
+    nameGap: 25,
     data: props.etiquetas,
   },
   xAxis: {
+    axisLabel: { verticalAlign: 'bottom', padding: 20 },
     type: 'value',
     name: props.tituloX,
     nameLocation: 'middle',
@@ -89,35 +97,89 @@ const option = ref({
     boundaryGap: [0, 0.01],
   },
   series: stackSeries(props.series),
-})
+}
+
+const dark_theme_options = {
+  textStyle: {
+    fontFamily: 'monospace',
+    fontSize: 16,
+    color: 'white',
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow', // 'shadow' as default; can also be 'line' or 'shadow'
+      crossStyle: {
+        color: '#999',
+      },
+    },
+  },
+  grid: {
+    left: '3%',
+    right: '10%',
+    bottom: '20%',
+    containLabel: true,
+  },
+  legend: {
+    width: '80%',
+    bottom: 12,
+    type: 'plain',
+    show: true,
+    textStyle: {
+      color: 'white',
+    },
+  },
+  toolbox: {
+    itemSize: 18,
+    top: 1,
+    right: 20,
+    orient: 'vertical',
+    feature: {
+      dataView: { iconStyle: { borderColor: 'white' }, show: true, readOnly: false },
+      magicType: { iconStyle: { borderColor: 'white' }, show: true, type: ['line', 'bar'] },
+      dataZoom: {
+        iconStyle: { borderColor: 'white' },
+        yAxisIndex: 'none',
+      },
+      restore: { iconStyle: { borderColor: 'white' }, show: true },
+      saveAsImage: { iconStyle: { borderColor: 'white' }, show: true },
+    },
+  },
+  yAxis: {
+    type: 'category',
+    name: props.tituloY,
+    inverse: true,
+    nameLocation: 'middle',
+    nameGap: 25,
+    data: props.etiquetas,
+  },
+  xAxis: {
+    axisLabel: { verticalAlign: 'bottom', padding: 20 },
+    type: 'value',
+    name: props.tituloX,
+    nameLocation: 'middle',
+    nameGap: 25,
+    boundaryGap: [0, 0.01],
+  },
+  series: stackSeries(props.series),
+}
 </script>
 
 <template>
   <div
-    class="
-      border-r-4 border-secondary
-      rounded-lg
-      shadow-lg
-      md:shadow-xl
-      relative
-      overflow-auto
-      bg-light_base
-      dark:bg-dark_smooth
-      shadow
-    "
+    :class="`w-full relative rounded-lg border-r-4 shadow-lg  bg-light_smooth-50 md:shadow-xl bg-light_base dark:bg-dark_smooth border-${props.colorTheme}`"
   >
-    <div class="pt-8 pb-10 relative z-10">
-      <h5 class="my-4 text-sm uppercase text-light_contrast dark:text-dark_contrast font-extrabold leading-tight">
+    <div class="relative z-10 px-3 py-8">
+      <h5 class="p-3 mt-2 font-semibold uppercase text-light_contrast dark:text-dark_contrast">
         {{ titulo }}
       </h5>
-      <v-chart class="chart" :option="option" :autoresize="true" />
+      <v-chart class="chart" :option="isDark ? dark_theme_options : light_theme_options" autoresize />
     </div>
   </div>
 </template>
 
 <style scoped>
 .chart {
-  width: 100%;
   height: 30rem;
 }
 </style>

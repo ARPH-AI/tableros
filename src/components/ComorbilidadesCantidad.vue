@@ -2,7 +2,11 @@
 import cubeApi from '@/cube'
 import { QueryBuilder } from '@cubejs-client/vue3'
 // import { obtenerCantidad } from '@/cube/utils'
-import GraficoDona from '@/components/GraficoDona.vue'
+import { getThemeByDataSource } from '@/composables'
+
+const props = defineProps({
+  dataSource: { type: String, default: 'hsi' },
+})
 
 const titulo = 'Cantidad de comorbilidades en casos confirmados'
 
@@ -30,6 +34,7 @@ const pivotConfig = {
       </div>
       <div v-if="!loading && resultSet !== undefined">
         <GraficoDona
+          :colorTheme="getThemeByDataSource(props.dataSource)"
           :series="resultSet.series(pivotConfig)"
           :titulo="titulo"
           :etiquetas="resultSet.chartPivot(pivotConfig).map((row) => row.x)"

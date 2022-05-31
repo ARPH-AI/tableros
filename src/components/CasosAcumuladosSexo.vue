@@ -1,16 +1,48 @@
 <script setup lang="ts">
 import cubeApi from '@/cube'
 import { QueryBuilder } from '@cubejs-client/vue3'
+import { getThemeByDataSource } from '@/composables'
+
+const props = defineProps({
+  dataSource: { type: String, default: 'hsi' },
+})
 
 const titulo = 'Casos acumulados por edad y sexo'
 
-const totalCasosMasc = {
+const totalCasosMascHSI = {
   measures: ['CovidEdadSexoMasc.cantidad_masc'],
   timeDimensions: [],
   order: {
     'CovidEdadSexoMasc.grupo_edad_masc': 'asc',
   },
   dimensions: ['CovidEdadSexoMasc.grupo_edad_masc'],
+}
+
+const totalCasosMascSNVS = {
+  measures: ['CovidEdadSexoMasc.cantidad_masc_snvs'],
+  timeDimensions: [],
+  order: {
+    'CovidEdadSexoMasc.grupo_edad_masc': 'desc',
+  },
+  dimensions: ['CovidEdadSexoMasc.grupo_edad_masc'],
+}
+
+const totalCasosFemHSI = {
+  measures: ['CovidEdadSexoFem.cantidad_fem'],
+  timeDimensions: [],
+  order: {
+    'CovidEdadSexoFem.grupo_edad_fem': 'asc',
+  },
+  dimensions: ['CovidEdadSexoFem.grupo_edad_fem'],
+}
+
+const totalCasosFemSNVS = {
+  measures: ['CovidEdadSexoFem.cantidad_fem_snvs'],
+  timeDimensions: [],
+  order: {
+    'CovidEdadSexoFem.grupo_edad_fem': 'desc',
+  },
+  dimensions: ['CovidEdadSexoFem.grupo_edad_fem'],
 }
 
 const pivotConfigMasc = {
@@ -20,15 +52,6 @@ const pivotConfigMasc = {
   joinDateRange: false,
 }
 
-const totalCasosFem = {
-  measures: ['CovidEdadSexoFem.cantidad_fem'],
-  timeDimensions: [],
-  order: {
-    'CovidEdadSexoFem.grupo_edad_fem': 'asc',
-  },
-  dimensions: ['CovidEdadSexoFem.grupo_edad_fem'],
-}
-
 const pivotConfigFem = {
   x: ['CovidEdadSexo.Grupo_edad'],
   y: ['measures'],
@@ -36,15 +59,42 @@ const pivotConfigFem = {
   joinDateRange: false,
 }
 
-const resultSetMasc = await cubeApi.load(totalCasosMasc)
-const resultSetFem = await cubeApi.load(totalCasosFem)
+const getTotalCasosMasc = () => {
+  switch (props.dataSource) {
+    case 'hsi':
+      return totalCasosMascHSI
+    case 'snvs':
+      return totalCasosMascSNVS
+  }
+}
+
+const getTotalCasosFem = () => {
+  switch (props.dataSource) {
+    case 'hsi':
+      return totalCasosFemHSI
+    case 'snvs':
+      return totalCasosFemSNVS
+  }
+}
+
+const resultSetMasc = await cubeApi.load(getTotalCasosMasc())
+const resultSetFem = await cubeApi.load(getTotalCasosFem())
+
+const getHardcodedTags = ['0-10', '10-20', '20-30', '30-40', '40-50', ...'90-100']
 </script>
 
 <template>
-  <GraficoPiramide
+  <!-- <GraficoPiramide
+    :colorTheme="getThemeByDataSource(props.dataSource)"
     :series="[...resultSetMasc.series(pivotConfigMasc), ...resultSetFem.series(pivotConfigFem)]"
     :titulo="titulo"
     :etiquetas="resultSetMasc.chartPivot(pivotConfigMasc).map((row) => row.x)"
+  /> -->
+  <GraficoPiramide
+    :colorTheme="getThemeByDataSource(props.dataSource)"
+    :series="[...resultSetMasc.series(pivotConfigMasc), ...resultSetFem.series(pivotConfigFem)]"
+    :titulo="titulo"
+    :etiquetas="getHardcodedTags"
   />
 </template>
 

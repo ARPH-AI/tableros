@@ -2,10 +2,15 @@
 import cubeApi from '@/cube'
 import { QueryBuilder } from '@cubejs-client/vue3'
 // import { obtenerCantidad } from '@/cube/utils'
+import { getThemeByDataSource } from '@/composables'
+
+const props = defineProps({
+  dataSource: { type: String, default: 'hsi' },
+})
 
 const titulo = 'Frecuencia de comorbilidades'
 const tituloX = '% de casos confirmados'
-const tituloY = 'Comorbilidades'
+const tituloY = ''
 
 const totalComorbilidades = {
   measures: ['casosComorbilidad.id_comorbilidad'],
@@ -31,6 +36,7 @@ const pivotConfig = {
       </div>
       <div v-if="!loading && resultSet !== undefined">
         <GraficoBar
+          :colorTheme="getThemeByDataSource(props.dataSource)"
           :series="resultSet.series(pivotConfig)"
           :titulo="titulo"
           :titulo-x="tituloX"

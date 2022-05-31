@@ -1,25 +1,20 @@
 <script setup lang="ts">
-const props = defineProps({ cantidad: { type: String, default: '0' }, titulo: { type: String } })
+const props = defineProps({
+  cantidad: { type: String, default: '0' },
+  titulo: { type: String },
+  colorTheme: { type: String },
+})
 </script>
 
 <template>
   <div
-    class="
-      border-r-4 border-secondary
-      rounded-lg
-      bg-light_smooth-50
-      dark:bg-dark_smooth
-      shadow-lg
-      md:shadow-xl
-      relative
-      overflow-auto
-    "
+    :class="`rounded-lg border-r-4 shadow-lg bg-light_smooth-50 dark:bg-dark_smooth md:shadow-xl border-${props.colorTheme}`"
   >
-    <div class="text-light_contrast dark:text-dark_contrast pt-2 pb-4 text-center relative z-10">
-      <h3 class="text-3xl font-semibold leading-tight my-3">
+    <div class="relative z-10 pt-2 pb-4 text-center text-light_contrast dark:text-dark_contrast">
+      <h3 :class="`my-3 text-3xl font-semibold leading-tight text-${props.colorTheme}`">
         {{ Number(cantidad).toLocaleString() }}
       </h3>
-      <h4 class="text-sm uppercase font-extrabold leading-tight">
+      <h4 class="text-sm font-extrabold leading-tight uppercase">
         {{ titulo }}
       </h4>
     </div>
