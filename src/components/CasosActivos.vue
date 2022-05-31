@@ -58,11 +58,10 @@ const getTotalCasosActivos = () => {
         <Spinner />
       </div>
       <div v-if="!loading && resultSet !== undefined">
-        <Card
-          :color-theme="getThemeByDataSource(props.dataSource)"
-          :cantidad="obtenerCantidad(resultSet)"
-          :titulo="titulo"
-        />
+        <Card 
+        :color-theme="getThemeByDataSource(props.dataSource)"
+        :colorTheme="getThemeByDataSource(props.dataSource)">
+        :cantidad="obtenerCantidad(resultSet)" :titulo="titulo" />
       </div>
     </template>
   </query-builder>

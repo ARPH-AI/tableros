@@ -69,8 +69,8 @@
         </router-link>
 
         <router-link
-          v-if="{ name: `caracterizacion_${state.fuente}` }"
           class="flex justify-self-center p-2 m-2 rounded border-2  group bg-light_base-200 dark:bg-dark_base text-light_contrast dark:text-dark_contrast"
+          v-if="{ name: `caracterizacion_${state.fuente}` }"
           :class="[
             isCurrentRoute(`caracterizacion_${state.fuente}`)
               ? `text-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
@@ -87,8 +87,8 @@
         ></router-link>
 
         <router-link
-          v-if="{ name: `distribucion_espacial_${state.fuente}` }"
           class="flex justify-self-center p-2 m-2 rounded  group bg-light_base-200 dark:bg-dark_base text-light_contrast dark:text-dark_contrast"
+          v-if="{ name: `distribucion_espacial_${state.fuente}` }"
           :class="[
             isCurrentRoute(`distribucion_espacial_${state.fuente}`)
               ? `text-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
@@ -163,7 +163,7 @@
               </svg>
             </button>
             <!-- Toggle darkmode button -->
-            <button class="p-2 rounded-md focus:outline-none focus:ring" @click="toggleDarkMode">
+            <button @click="toggleDarkMode" class="p-2 rounded-md focus:outline-none focus:ring">
               <!-- light icon -->
               <MoonIcon
                 v-show="!isDark"
@@ -200,17 +200,12 @@
               content="Los datos de esta sección corresponden 
               a los registros de la atención ambulatoria en historia clínica electrónica"
             >
-              <Tab
-                v-slot="{ selected }"
-                as="template"
-                class="px-4 py-2 -mb-px text-white border-3 border-primary bg-primary"
-              >
+              <Tab as="template" class="px-4 py-2 -mb-px text-white border-3 border-primary bg-primary">
                 <router-link
                   :class="[selected ? 'shadow-inner opacity-100' : 'border-none opacity-50']"
                   class="py-1 font-extrabold group"
                   :to="{ name: `${state.criterio}_hsi` }"
                   tag="button"
-                  @click="state.fuente = 'hsi'"
                   >HSI</router-link
                 >
               </Tab>
@@ -224,8 +219,8 @@
                   el Sistema Nacional de Vigilancia en Salud"
             >
               <Tab
-                v-slot="{ selected }"
                 class="px-4 py-2 -mb-px font-semibold text-white shadow-lg bg-secondary border-secondary"
+                v-slot="{ selected }"
                 as="template"
               >
                 <router-link
@@ -233,7 +228,6 @@
                   class="py-1 font-extrabold group dark:text-dark_contrast"
                   :to="{ name: `${state.criterio}_snvs` }"
                   tag="button"
-                  @click="state.fuente = 'snvs'"
                   >SNVS</router-link
                 >
               </Tab>
