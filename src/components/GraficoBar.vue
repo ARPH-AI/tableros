@@ -180,6 +180,6 @@ const dark_theme_options = {
 
 <style scoped>
 .chart {
-  height: 30rem;
+  height: 43vh;
 }
 </style>

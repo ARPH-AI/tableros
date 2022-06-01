@@ -170,6 +170,6 @@ const dark_theme_options = ref({
 
 <style scoped>
 .chart {
-  height: 30rem;
+  height: 40vh;
 }
 </style>

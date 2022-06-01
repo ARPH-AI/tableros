@@ -151,6 +151,7 @@ const dark_theme_options = ref({
     },
   },
   grid: {
+    top: '2%',
     left: '3%',
     right: '10%',
     bottom: '20%',
@@ -196,6 +197,6 @@ const dark_theme_options = ref({
 
 <style scoped>
 .chart {
-  height: 28rem;
+  height: 50vh;
 }
 </style>
