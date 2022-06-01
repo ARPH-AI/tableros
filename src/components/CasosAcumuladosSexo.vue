@@ -84,7 +84,7 @@ const getHardcodedTags = ['0-10', '10-20', '20-30', '30-40', '40-50', ...'90-100
 
 <template>
   <GraficoPiramide
-    :colorTheme="getThemeByDataSource(props.dataSource)"
+    :color-theme="getThemeByDataSource(props.dataSource)"
     :series="[...resultSetMasc.series(pivotConfigMasc), ...resultSetFem.series(pivotConfigFem)]"
     :titulo="titulo"
     :etiquetas="resultSetMasc.chartPivot(pivotConfigMasc).map((row) => row.x)"

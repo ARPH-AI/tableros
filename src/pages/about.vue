@@ -8,7 +8,7 @@ meta:
 <template>
   <div class="grid grid-cols-1 h-screen md:grid-cols-5">
     <div
-      class="grid grid-cols-1 px-10 pt-10 bg-gray-100 border-t-2 border-l-2  dark:border-dark_contrast border-light_contrast md:col-span-3"
+      class="grid grid-cols-1 px-10 pt-10 border-t-2 border-l-2  dark:border-dark_contrast border-light_contrast md:col-span-3"
     >
       <div
         class="pt-12 pr-10 border-r-2 border-b-2 border-dashed  full-width dark:border-dark_contrast border-light_contrast"
@@ -21,10 +21,10 @@ meta:
           (SNVS). Tiene como principal objetivo brindar información sistematizada y actualizada para la detección
           temprana y el monitoreo de casos confirmados y activos de Covid 19.
         </p>
-        <p class="pb-3 mb-2">
-          La estructura general del tablero presenta 3 secciones principales: i) Situación actual, ii) Análisis
-          geoespacial - Mapas y iii) Caracterización - Edad, sexo y comorbilidades.
-        </p>
+        <p class="text-left">La estructura general del tablero presenta 3 secciones principales:</p>
+        <p class="text-left">i) Situación actual</p>
+        <p class="text-left">ii) Análisis</p>
+        <p class="text-left">iii) Caracterización - Edad, sexo y comorbilidades.</p>
       </div>
       <div class="grid content-center full-width">
         <h1 class="text-xl uppercase">Análisis geoespacial</h1>

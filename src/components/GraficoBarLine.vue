@@ -7,7 +7,7 @@ import { obtenerMinimo, obtenerMaximo, porcentaje } from '@/cube/utils'
 import { isDark } from '@/composables'
 
 const props = defineProps<{
-  colorTheme: string
+  colorTheme: { type: string; default: 'primary' }
   seriesLine: number[]
   seriesBar: number[]
   etiquetas: string[]
