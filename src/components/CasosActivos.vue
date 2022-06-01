@@ -61,7 +61,7 @@ const getTotalCasosActivos = () => {
       </div>
       <div v-if="!loading && resultSet !== undefined">
         <Card
-          :colorTheme="getThemeByDataSource(props.dataSource)"
+          :color-theme="getThemeByDataSource(props.dataSource)"
           :cantidad="obtenerCantidad(resultSet)"
           :titulo="titulo"
         />

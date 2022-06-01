@@ -18,7 +18,7 @@
         </a>
       </div> -->
       <!-- Navigation -->
-      <nav class="flex px-2 mt-5 font-mono" v-show="sidebarState.isOpen">
+      <nav v-show="sidebarState.isOpen" class="flex px-2 mt-5 font-mono">
         <!-- With sidebar open -->
         <SidebarCollapsible title="TABLERO" :active="isCurrentPath('/situacion_actual_hsi') || isCurrentPath('/')">
           <template #icon>
@@ -44,10 +44,11 @@
           />
         </SidebarCollapsible>
       </nav>
-      <nav class="grid grid-cols-1 items-center px-2 mt-32 font-mono" v-show="!sidebarState.isOpen">
+      <nav v-show="!sidebarState.isOpen" class="grid grid-cols-1 items-center px-2 mt-32 font-mono">
         <!-- Without sidebar open -->
 
         <router-link
+          v-if="{ name: `situacion_actual_${state.fuente}` }"
           class="flex justify-self-center p-2 m-2 rounded group bg-light_base-200 dark:bg-dark_base"
           :class="[
             isCurrentRoute(`situacion_actual_${state.fuente}`) || isCurrentRoute('index')
@@ -60,17 +61,16 @@
                   state.fuente
                 )} dark:hover:text-${getThemeByDataSource(state.fuente)}  dark:text-dark_contrast`,
           ]"
-          v-if="{ name: `situacion_actual_${state.fuente}` }"
           :to="{ name: `situacion_actual_${state.fuente}` }"
           @click="state.criterio = 'situacion_actual'"
-          ><Popper arrow disableClickAway hover interactive content="Situación actual"
+          ><Popper arrow disable-click-away hover interactive content="Situación actual"
             ><TrendingUpIcon class="flex-shrink-0 w-6 h-6 group" aria-hidden="true"></TrendingUpIcon>
           </Popper>
         </router-link>
 
         <router-link
-          class="flex justify-self-center p-2 m-2 rounded border-2  group bg-light_base-200 dark:bg-dark_base text-light_contrast dark:text-dark_contrast"
           v-if="{ name: `caracterizacion_${state.fuente}` }"
+          class="flex justify-self-center p-2 m-2 rounded border-2  group bg-light_base-200 dark:bg-dark_base text-light_contrast dark:text-dark_contrast"
           :class="[
             isCurrentRoute(`caracterizacion_${state.fuente}`)
               ? `text-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
@@ -82,13 +82,13 @@
           ]"
           :to="{ name: `caracterizacion_${state.fuente}` }"
           @click="state.criterio = 'caracterizacion'"
-          ><Popper arrow disableClickAway hover interactive content="Caracterización"
+          ><Popper arrow disable-click-away hover interactive content="Caracterización"
             ><UserGroupIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
         ></router-link>
 
         <router-link
-          class="flex justify-self-center p-2 m-2 rounded  group bg-light_base-200 dark:bg-dark_base text-light_contrast dark:text-dark_contrast"
           v-if="{ name: `distribucion_espacial_${state.fuente}` }"
+          class="flex justify-self-center p-2 m-2 rounded  group bg-light_base-200 dark:bg-dark_base text-light_contrast dark:text-dark_contrast"
           :class="[
             isCurrentRoute(`distribucion_espacial_${state.fuente}`)
               ? `text-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
@@ -100,13 +100,13 @@
           ]"
           :to="{ name: `distribucion_espacial_${state.fuente}` }"
           @click="state.criterio = 'distribucion_espacial'"
-          ><Popper arrow disableClickAway hover interactive content="Geo"
+          ><Popper arrow disable-click-away hover interactive content="Geo"
             ><MapIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
         ></router-link>
 
         <router-link
-          class="flex justify-self-center p-2 m-2 rounded  group bg-light_base-200 dark:bg-dark_base text-light_contrast dark:text-dark_contrast"
           v-if="{ name: `about` }"
+          class="flex justify-self-center p-2 m-2 rounded  group bg-light_base-200 dark:bg-dark_base text-light_contrast dark:text-dark_contrast"
           :class="[
             isCurrentRoute(`about`)
               ? `text-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
@@ -117,14 +117,14 @@
                 )} text-light_contrast dark:hover:text-${getThemeByDataSource(state.fuente)}  dark:text-dark_contrast`,
           ]"
           :to="{ name: `about` }"
-          ><Popper arrow disableClickAway hover interactive content="ARPHAI"
+          ><Popper arrow disable-click-away hover interactive content="ARPHAI"
             ><QuestionMarkCircleIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
         ></router-link>
       </nav>
       <!-- To open sidebar -->
       <button
-        @click="sidebarState.isOpen = !sidebarState.isOpen"
         class="p-2 rounded-md dark:text-dark_contrast lg:hidden"
+        @click="sidebarState.isOpen = !sidebarState.isOpen"
       >
         <svg
           class="w-6 h-6 text-gray-600"
@@ -148,8 +148,8 @@
             </a>
             <!-- Toggle sidebar button -->
             <button
-              @click="sidebarState.isOpen = !sidebarState.isOpen"
               class="p-2 rounded-md dark:text-dark_contrast focus:outline-none focus:ring"
+              @click="sidebarState.isOpen = !sidebarState.isOpen"
             >
               <svg
                 class="w-4 h-4 text-gray-600"
@@ -163,7 +163,7 @@
               </svg>
             </button>
             <!-- Toggle darkmode button -->
-            <button @click="toggleDarkMode" class="p-2 rounded-md focus:outline-none focus:ring">
+            <button class="p-2 rounded-md focus:outline-none focus:ring" @click="toggleDarkMode">
               <!-- light icon -->
               <MoonIcon
                 v-show="!isDark"
@@ -185,7 +185,7 @@
           <span class="float-left font-semibold leading-relaxed align-middle">
             Tablero de información epidemiológica
           </span>
-          <span class="float-left leading-relaxed align-middle"> Última actualización: 27/05/2022 </span>
+          <span class="float-left leading-relaxed align-middle"> Última actualización: {{ currentTime }}</span>
         </div>
         <!-- Tabs -->
         <TabGroup>
@@ -194,46 +194,46 @@
               :class="[isCurrentRoute(`${state.criterio}_hsi`) ? 'hsi' : 'snvs']"
               placement="top"
               arrow
-              disableClickAway
+              disable-click-away
               hover
               interactive
               content="Los datos de esta sección corresponden 
               a los registros de la atención ambulatoria en historia clínica electrónica"
             >
               <Tab
-                as="template"
                 v-slot="{ selected }"
+                as="template"
                 class="px-4 py-2 -mb-px text-white border-3 border-primary bg-primary"
               >
                 <router-link
-                  @click="state.fuente = 'hsi'"
                   :class="[selected ? 'shadow-inner opacity-100' : 'border-none opacity-50']"
                   class="py-1 font-extrabold group"
                   :to="{ name: `${state.criterio}_hsi` }"
                   tag="button"
+                  @click="state.fuente = 'hsi'"
                   >HSI</router-link
                 >
               </Tab>
             </Popper>
             <Popper
               arrow
-              disableClickAway
+              disable-click-away
               hover
               interactive
               content="Los datos de esta sección corresponden a los registros de los eventos de notificación obligatoria en
                   el Sistema Nacional de Vigilancia en Salud"
             >
               <Tab
-                class="px-4 py-2 -mb-px font-semibold text-white shadow-lg bg-secondary border-secondary"
                 v-slot="{ selected }"
+                class="px-4 py-2 -mb-px font-semibold text-white shadow-lg bg-secondary border-secondary"
                 as="template"
               >
                 <router-link
-                  @click="state.fuente = 'snvs'"
                   :class="[selected ? 'shadow-inner border-3 border-secondary opacity-100' : 'opacity-50']"
                   class="py-1 font-extrabold group dark:text-dark_contrast"
                   :to="{ name: `${state.criterio}_snvs` }"
                   tag="button"
+                  @click="state.fuente = 'snvs'"
                   >SNVS</router-link
                 >
               </Tab>
@@ -251,8 +251,7 @@
 
 <script>
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
-import { getColorByDataSource, sidebarState, isDark, toggleDarkMode, useGlobalState } from '@/composables'
+import { sidebarState, isDark, toggleDarkMode, useGlobalState } from '@/composables'
 import {
   MoonIcon,
   QuestionMarkCircleIcon,
@@ -276,6 +275,13 @@ const isCurrentRoute = (routeName) => {
 const isCurrentPath = (path) => {
   return useRouter().currentRoute.value.path.startsWith(path)
 }
+
+var today = new Date()
+var dd = String(today.getDate()).padStart(2, '0')
+var mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
+var yyyy = today.getFullYear()
+
+var currentTime = dd + '/' + mm + '/' + yyyy
 
 export default {
   components: {
@@ -306,6 +312,7 @@ export default {
       toggleDarkMode,
       state,
       getThemeByDataSource,
+      currentTime,
     }
   },
 }

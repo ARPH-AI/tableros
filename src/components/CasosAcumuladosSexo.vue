@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import cubeApi from '@/cube'
-import { QueryBuilder } from '@cubejs-client/vue3'
 import { getThemeByDataSource } from '@/composables'
 
 const props = defineProps({
@@ -91,7 +90,7 @@ const getHardcodedTags = ['0-10', '10-20', '20-30', '30-40', '40-50', ...'90-100
     :etiquetas="resultSetMasc.chartPivot(pivotConfigMasc).map((row) => row.x)"
   /> -->
   <GraficoPiramide
-    :colorTheme="getThemeByDataSource(props.dataSource)"
+    :color-theme="getThemeByDataSource(props.dataSource)"
     :series="[...resultSetMasc.series(pivotConfigMasc), ...resultSetFem.series(pivotConfigFem)]"
     :titulo="titulo"
     :etiquetas="getHardcodedTags"

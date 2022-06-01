@@ -11,14 +11,14 @@ meta:
       <!-- Left column -->
       <div class="grid grid-cols-1 col-span-1 gap-3 lg:col-span-2">
         <div class="grid grid-cols-1 gap-3 lg:grid-cols-2">
-          <CasosAcumuladosMujeres dataSource="snvs" />
-          <CasosAcumuladosVarones dataSource="snvs" />
+          <CasosAcumuladosMujeres data-source="snvs" />
+          <CasosAcumuladosVarones data-source="snvs" />
         </div>
-        <Suspense><CasosAcumuladosSexo dataSource="snvs" /></Suspense>
+        <Suspense><CasosAcumuladosSexo data-source="snvs" /></Suspense>
       </div>
       <!-- Right column -->
       <div class="col-span-1 md:col-span-3 lg:col-span-4">
-        <CasosEdadSemanaEpidemiologica dataSource="snvs" />
+        <CasosEdadSemanaEpidemiologica data-source="snvs" />
       </div>
     </div>
   </div>

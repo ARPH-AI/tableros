@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import 'echarts'
-import VChart, { THEME_KEY } from 'vue-echarts'
+import VChart from 'vue-echarts'
 import { isDark } from '@/composables'
 
 const props = defineProps<{
-  colorTheme: { type: String; default: 'primary' }
+  colorTheme: { type: string; default: 'primary' }
   series: object[]
   etiquetas: string[]
   titulo: string
@@ -13,24 +13,24 @@ const props = defineProps<{
   tituloY: string
 }>()
 
-const emphasisStyle = {
-  focus: 'series',
-  lineStyle: {
-    width: 3,
-  },
-}
+// const emphasisStyle = {
+//   focus: 'series',
+//   lineStyle: {
+//     width: 3,
+//   },
+// }
 
-const stackSeries = (series) => {
-  return series.map((item) => {
-    return {
-      name: item.title,
-      data: item.series.map(({ value }) => value),
-      type: 'line',
-      showSymbol: false,
-      emphasis: emphasisStyle,
-    }
-  })
-}
+// const stackSeries = (series) => {
+//   return series.map((item) => {
+//     return {
+//       name: item.title,
+//       data: item.series.map(({ value }) => value),
+//       type: 'line',
+//       showSymbol: false,
+//       emphasis: emphasisStyle,
+//     }
+//   })
+// }
 const light_theme_options = ref({
   textStyle: {
     fontFamily: 'monospace',

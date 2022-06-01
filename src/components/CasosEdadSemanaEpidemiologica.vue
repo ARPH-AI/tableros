@@ -38,19 +38,20 @@ const totalCasosSNVS = {
   },
   dimensions: ['CovidEdadSexoSNVS.Numero_semana_snvs', 'CovidEdadSexoSNVS.Grupo_edad'],
 }
-const pivotConfigHSI = {
-  x: ['CovidEdadSexo.Fecha_inicio.day'],
-  y: ['CovidEdadSexo.Grupo_edad', 'measures'],
-  fillMissingDates: true,
-  joinDateRange: false,
-}
 
-const pivotConfigSNVS = {
-  x: ['CovidEdadSexoSNVS.Fecha_apertura.day'],
-  y: ['CovidEdadSexoSNVS.Grupo_edad', 'measures'],
-  fillMissingDates: true,
-  joinDateRange: false,
-}
+// const pivotConfigHSI = {
+//   x: ['CovidEdadSexo.Fecha_inicio.day'],
+//   y: ['CovidEdadSexo.Grupo_edad', 'measures'],
+//   fillMissingDates: true,
+//   joinDateRange: false,
+// }
+
+// const pivotConfigSNVS = {
+//   x: ['CovidEdadSexoSNVS.Fecha_apertura.day'],
+//   y: ['CovidEdadSexoSNVS.Grupo_edad', 'measures'],
+//   fillMissingDates: true,
+//   joinDateRange: false,
+// }
 
 const getTotalCasos = () => {
   switch (props.dataSource) {
@@ -135,7 +136,7 @@ const getHardcodedSeries = [
           :etiquetas="resultSet.chartPivot(pivotConfigHSI).map((row) => row.x)"
         /> -->
         <GraficoStackedLines
-          :colorTheme="getThemeByDataSource(props.dataSource)"
+          :color-theme="getThemeByDataSource(props.dataSource)"
           :series="getHardcodedSeries"
           :titulo="titulo"
           :titulo-y="tituloY"

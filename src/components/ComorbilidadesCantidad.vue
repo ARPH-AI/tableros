@@ -34,7 +34,7 @@ const pivotConfig = {
       </div>
       <div v-if="!loading && resultSet !== undefined">
         <GraficoDona
-          :colorTheme="getThemeByDataSource(props.dataSource)"
+          :color-theme="getThemeByDataSource(props.dataSource)"
           :series="resultSet.series(pivotConfig)"
           :titulo="titulo"
           :etiquetas="resultSet.chartPivot(pivotConfig).map((row) => row.x)"

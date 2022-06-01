@@ -9,8 +9,8 @@ const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
 })
 
-const fechaInicio = '2021-01-01' //fecha fija
-const fechaFin = '2022-06-06' //hoy
+// const fechaInicio = '2021-01-01' //fecha fija
+// const fechaFin = '2022-06-06' //hoy
 const titulo = 'Casos activos por Semana Epidemiológica'
 
 const totalCasosSNVS = {
@@ -63,7 +63,7 @@ const getTotalCasosActivos = () => {
       </div>
       <div v-if="!loading && resultSet !== undefined">
         <TableCard
-          :colorTheme="getThemeByDataSource(props.dataSource)"
+          :color-theme="getThemeByDataSource(props.dataSource)"
           :datos="resultSet.tablePivot(pivotConfig)"
           :titulo="titulo"
           :titulos-columnas="flattenColumns(resultSet.tableColumns(pivotConfig))"

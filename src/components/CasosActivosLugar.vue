@@ -3,7 +3,6 @@ import cubeApi from '@/cube'
 import { QueryBuilder } from '@cubejs-client/vue3'
 import TableCard from '@/components/TableCard.vue'
 import { flattenColumns, getDisplayedColumns } from '@/cube/utils'
-import { format } from 'date-fns'
 import { getThemeByDataSource } from '@/composables'
 
 const props = defineProps({
@@ -70,7 +69,7 @@ const getTotalCasos = () => {
       </div>
       <div v-if="!loading && resultSet !== undefined">
         <TableCard
-          :colorTheme="getThemeByDataSource(props.dataSource)"
+          :color-theme="getThemeByDataSource(props.dataSource)"
           :datos="resultSet.tablePivot(pivotConfig)"
           :titulo="titulo"
           :titulos-columnas="flattenColumns(resultSet.tableColumns(pivotConfig))"

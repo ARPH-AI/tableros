@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <SidebarLink @click="isOpen = !isOpen" :title="title" :active="active">
+    <SidebarLink :title="title" :active="active" @click="isOpen = !isOpen">
       <template #icon>
         <slot name="icon">
           <ViewListIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
@@ -39,7 +39,7 @@
       </template>
     </SidebarLink>
 
-    <transition @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave" @leave="leave" appear>
+    <transition appear @before-enter="beforeEnter" @enter="enter" @before-leave="beforeLeave" @leave="leave">
       <div
         v-show="isOpen && (sidebarState.isOpen || sidebarState.isHovered)"
         class="overflow-hidden transition-all duration-200 max-h-0"

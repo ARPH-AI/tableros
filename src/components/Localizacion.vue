@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import cubeApi from '@/cube'
-import { QueryBuilder } from '@cubejs-client/vue3'
-import { flattenColumns, getDisplayedColumns, mergeArrayByKey } from '@/cube/utils'
+import { mergeArrayByKey } from '@/cube/utils'
 import { ref } from 'vue'
-import { format } from 'date-fns'
 import { osmApi, datosgeoApi } from '@/api'
 
 const getCoords = async (resultSet) => {
@@ -100,8 +98,8 @@ const coords = await getCoords(resultSet.rawData())
 </script>
 
 <template>
-<div class="">
-  <!-- <div class="grid grid-cols-4 px-4 py-4 mt-8"> -->
+  <div class="">
+    <!-- <div class="grid grid-cols-4 px-4 py-4 mt-8"> -->
     <!-- Left column -->
     <!-- <div class="flex justify-start w-full">
       <FormKit
@@ -124,7 +122,7 @@ const coords = await getCoords(resultSet.rawData())
           :validation="[['required']]"
         /> -->
 
-        <!-- <FormKit
+    <!-- <FormKit
             outer-class="flex justify-start"
             label-class="mb-1 font-bold"
             inner-class="overflow-hidden mb-1 max-w-md rounded focus-within:border-secondary"
@@ -139,7 +137,7 @@ const coords = await getCoords(resultSet.rawData())
               { value: false, label: 'Casos Nuevos' },
             ]"
           /> -->
-        <!-- <FormKit
+    <!-- <FormKit
           label-class="block mb-1 font-bold"
           outer-class="flex justify-start mt-4"
           inner-class="overflow-hidden mb-1 rounded-lg border border-secondary focus-within:border-secondary"

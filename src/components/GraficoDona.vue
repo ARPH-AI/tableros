@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import 'echarts'
-import VChart, { THEME_KEY } from 'vue-echarts'
+import VChart from 'vue-echarts'
 import { isDark } from '@/composables'
 
 const props = defineProps<{
-  colorTheme: { type: String; default: 'primary' }
+  colorTheme: { type: string; default: 'primary' }
   series: object[]
   etiquetas: string[]
   titulo: string

@@ -90,7 +90,7 @@ const getSeries = (result: ResultSet, filterStr: string, pivot: PivotConfig) => 
           :series-bar="getSeries(resultSet, getSeriesBarName(), pivotConfig)[0]"
           :etiquetas="resultSet.chartPivot(pivotConfig).map((row) => row.x)"
           :titulo="titulo"
-          :colorTheme="getThemeByDataSource(props.dataSource)"
+          :color-theme="getThemeByDataSource(props.dataSource)"
         />
       </div>
     </template>

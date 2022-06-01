@@ -11,24 +11,24 @@ meta:
       <!-- Left column -->
       <div class="grid grid-cols-1 col-span-1 gap-3 lg:col-span-2">
         <div class="grid grid-cols-1 gap-3 lg:grid-cols-2">
-          <CasosAcumuladosMujeres dataSource="hsi" />
-          <CasosAcumuladosVarones dataSource="hsi" />
+          <CasosAcumuladosMujeres data-source="hsi" />
+          <CasosAcumuladosVarones data-source="hsi" />
         </div>
-        <Suspense><CasosAcumuladosSexo dataSource="hsi" /></Suspense>
+        <Suspense><CasosAcumuladosSexo data-source="hsi" /></Suspense>
       </div>
       <!-- Right column -->
       <div class="col-span-1 md:col-span-3 lg:col-span-4">
-        <CasosEdadSemanaEpidemiologica dataSource="hsi" />
+        <CasosEdadSemanaEpidemiologica data-source="hsi" />
       </div>
     </div>
     <div class="grid grid-cols-1 gap-3 lg:grid-cols-3 md:grid-cols-4">
       <!-- Left column -->
       <div class="grid grid-cols-1 col-span-1 gap-3 lg:col-span-1">
-        <ComorbilidadesCantidad dataSource="hsi" />
+        <ComorbilidadesCantidad data-source="hsi" />
       </div>
       <!-- Right column -->
       <div class="col-span-1 md:col-span-3 lg:col-span-2">
-        <ComorbilidadesFrecuencia dataSource="hsi" />
+        <ComorbilidadesFrecuencia data-source="hsi" />
       </div>
     </div>
   </div>

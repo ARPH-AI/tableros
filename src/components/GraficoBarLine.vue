@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
 import 'echarts'
-import VChart, { THEME_KEY } from 'vue-echarts'
+import VChart from 'vue-echarts'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { obtenerMinimo, obtenerMaximo, porcentaje } from '@/cube/utils'
 import { isDark } from '@/composables'
 
 const props = defineProps<{
-  colorTheme: { type: String; default: 'primary' }
+  colorTheme: { type: string; default: 'primary' }
   seriesLine: number[]
   seriesBar: number[]
   etiquetas: string[]
@@ -25,7 +24,7 @@ const maximoArr = maxLine > maxBar ? maxLine : maxBar
 const por = 0
 const max = Math.ceil(maximoArr + porcentaje(maximoArr, por))
 const min = minLine > minBar ? minBar : minLine
-const interval = Number((max / 10).toFixed(1))
+// const interval = Number((max / 10).toFixed(1))
 
 const etiquetasFormateadas = props.etiquetas.map((item) => format(new Date(item), 'd MMM', { locale: es }))
 

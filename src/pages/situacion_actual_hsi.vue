@@ -11,15 +11,15 @@ meta:
       <!-- Left column -->
       <div class="grid grid-cols-1 col-span-1 gap-3 lg:col-span-2">
         <div class="grid grid-cols-1 gap-3 lg:grid-cols-2">
-          <CasosActivos dataSource="hsi" />
-          <CasosAcumulados dataSource="hsi" />
+          <CasosActivos data-source="hsi" />
+          <CasosAcumulados data-source="hsi" />
         </div>
-        <CasosActivosSemanaEpidemiologica dataSource="hsi" />
-        <CasosActivosLugar dataSource="hsi" />
+        <CasosActivosSemanaEpidemiologica data-source="hsi" />
+        <CasosActivosLugar data-source="hsi" />
       </div>
       <!-- Right column -->
       <div class="col-span-4">
-        <NuevosCasos dataSource="hsi" />
+        <NuevosCasos data-source="hsi" />
       </div>
     </div>
   </div>

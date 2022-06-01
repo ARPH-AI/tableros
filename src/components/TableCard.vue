@@ -4,7 +4,7 @@ const props = defineProps<{
   titulo: string
   titulosColumnas: string[]
   titulosMostrados: string[]
-  colorTheme: { type: String }
+  colorTheme: { type: string }
 }>()
 </script>
 
@@ -24,7 +24,14 @@ const props = defineProps<{
       {{ titulo }}
     </h4>
     <div
-      class="flex overflow-y-auto overflow-x-hidden flex-col  scrollbar-thin scrollbar-thumb-secondary scrollbar-track-light_base dark:scrollbar-thumb-secondary dark:scrollbar-track-dark_base"
+      class="
+        flex
+        overflow-y-auto overflow-x-hidden
+        flex-col
+        scrollbar-thin scrollbar-thumb-secondary
+        scrollbar-track-light_base
+        dark:scrollbar-thumb-secondary dark:scrollbar-track-dark_base
+      "
     >
       <div class="sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full lg:px-8">
@@ -33,9 +40,9 @@ const props = defineProps<{
               <thead>
                 <tr>
                   <th
-                    class="p-1 font-semibold whitespace-nowrap border-b-2 dark:border-dark_contrast"
                     v-for="(columna, index) in titulosColumnas"
                     :key="index"
+                    class="p-1 font-semibold whitespace-nowrap border-b-2 dark:border-dark_contrast"
                     scope="col"
                   >
                     {{ columna }}
@@ -44,7 +51,7 @@ const props = defineProps<{
               </thead>
               <tbody class="">
                 <tr v-for="(obj, index) in datos" :key="index">
-                  <td class="p-2 border-b-2 dark:border-dark_contrast" v-for="(value, key) in obj" :key="key">
+                  <td v-for="(value, key) in obj" :key="key" class="p-2 border-b-2 dark:border-dark_contrast">
                     <div class="w-full">
                       {{ value }}
                     </div>

@@ -36,7 +36,7 @@ const pivotConfig = {
       </div>
       <div v-if="!loading && resultSet !== undefined">
         <GraficoBar
-          :colorTheme="getThemeByDataSource(props.dataSource)"
+          :color-theme="getThemeByDataSource(props.dataSource)"
           :series="resultSet.series(pivotConfig)"
           :titulo="titulo"
           :titulo-x="tituloX"
