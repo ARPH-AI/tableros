@@ -1,19 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import 'echarts'
-<<<<<<< HEAD
 import VChart from 'vue-echarts'
 import { isDark } from '@/composables'
 
 const props = defineProps<{
   colorTheme: string
-=======
-import VChart, { THEME_KEY } from 'vue-echarts'
-import { isDark } from '@/composables'
-
-const props = defineProps<{
-  colorTheme: { type: String; default: 'primary' }
->>>>>>> Nueva version de tablero
   series: object[]
   etiquetas: string[]
   titulo: string
@@ -205,10 +197,6 @@ const dark_theme_options = ref({
 
 <style scoped>
 .chart {
-<<<<<<< HEAD
   height: 50vh;
-=======
-  height: 28rem;
->>>>>>> Nueva version de tablero
 }
 </style>
