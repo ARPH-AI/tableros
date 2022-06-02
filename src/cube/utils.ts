@@ -17,10 +17,10 @@ export function getDisplayedColumns(tableColumns: TableColumn[]): string[] {
   return columns
 }
 
-export function flattenColumns(columns: TableColumn[] = []): any {
-  return columns.reduce((memo, column: any) => {
+export function flattenColumns(columns: TableColumn[] = []) {
+  return columns.reduce((memo, column) => {
     const titles = flattenColumns(column.children)
-    return [...memo, ...(titles.length ? titles.map((title: any) => column.shortTitle) : [column.shortTitle])]
+    return [...memo, ...(titles.length ? titles.map((title) => column.shortTitle) : [column.shortTitle])]
   }, [])
 }
 
@@ -43,7 +43,7 @@ export function porcentaje(numero: number, porcentaje: number): number {
   return (numero / 100) * porcentaje
 }
 
-function isIterable(obj: any) {
+function isIterable(obj) {
   // checks for null and undefined
   if (obj == null) {
     return false

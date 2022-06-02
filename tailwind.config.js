@@ -5,9 +5,9 @@ module.exports = {
   darkMode: 'class',
   theme: {
     colors: {
-      primary: '#ed1c24',
+      primary: '#f7931e',
       secondary: '#00becb',
-      third: '#f7931e',
+      third: '#ed1c24',
       dark_base: '#1e1e2f',
       light_base: colors.gray,
       light_contrast: '#1e1e2f',
