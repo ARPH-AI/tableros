@@ -12,7 +12,7 @@
   >
     <slot name="icon"> </slot>
 
-    <span class="text-primary font-medium">{{ title }}</span>
+    <span class="font-medium text-primary">{{ title }}</span>
   </a>
   <router-link
     v-else-if="to"
@@ -50,14 +50,6 @@
 
 <script setup>
 const props = defineProps({
-  href: {
-    type: String,
-    required: false,
-  },
-  to: {
-    type: [String, Object],
-    required: false,
-  },
   active: {
     type: Boolean,
     default: false,
