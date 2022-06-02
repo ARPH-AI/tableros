@@ -11,12 +11,6 @@
       class="flex overflow-visible fixed inset-y-0 z-40 flex-col flex-shrink-0 px-2 w-60 max-h-screen border-r shadow-lg transition-all transform  lg:z-auto lg:static lg:shadow-none bg-light_base-200 dark:bg-dark_base"
       :class="{ '-translate-x-full lg:translate-x-0 lg:w-20': !sidebarState.isOpen }"
     >
-      <!-- sidebar header -->
-      <!-- <div class="flex justify-center items-center">
-        <a href="/" class="mt-3">
-          <img alt="ARPHAI logo" src="@/assets/logo.png" class="pb-4 w-40" :class="{ 'w-30': !sidebarState.isOpen }" />
-        </a>
-      </div> -->
       <!-- Navigation -->
       <nav v-show="sidebarState.isOpen" class="flex px-2 mt-5 font-mono">
         <!-- With sidebar open -->
@@ -174,6 +168,9 @@
               <SunIcon v-show="isDark" class="flex-shrink-0 w-6 h-6 hover:text-secondary" aria-hidden="true" />
             </button>
           </div>
+          <button class="flex transition">
+            <ProfileAvatar username="Florencia Otarola"></ProfileAvatar>
+          </button>
         </div>
       </header>
       <!-- Main Content -->
@@ -267,6 +264,7 @@ import SidebarCollapsibleItem from '@/components/SidebarCollapsibleItem.vue'
 import RouterViewTransition from '@/components/RouterViewTransition.vue'
 import Popper from 'vue3-popper'
 import { getThemeByDataSource } from '@/composables'
+import ProfileAvatar from 'vue-profile-avatar'
 
 const isCurrentRoute = (routeName) => {
   return useRouter().currentRoute.value.name == routeName
@@ -285,6 +283,7 @@ var currentTime = dd + '/' + mm + '/' + yyyy
 
 export default {
   components: {
+    ProfileAvatar,
     SidebarCollapsible,
     SidebarCollapsibleItem,
     MoonIcon,
