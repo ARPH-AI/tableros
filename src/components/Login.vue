@@ -6,6 +6,9 @@
       <div class="w-full max-w-lg">
         <div class="leading-loose">
           <form class="p-10 m-4 max-w-sm bg-white bg-opacity-25 rounded shadow-xl">
+            <div class="flex justify-center m-3">
+              <img alt="ARPHAI logo" src="@/assets/logo-BN.png" class="w-56" />
+            </div>
             <p class="mb-4 text-2xl font-bold text-center text-white">Iniciar sesión</p>
             <div class="">
               <label class="block text-base text-left text-white" for="email">Correo electrónico</label>
@@ -33,7 +36,7 @@
             <div class="flex mt-4">
               <button
                 @click="$auth.login"
-                class="tracking-wider text-white rounded hoverfont-light hover:text-secondary"
+                class="font-semibold tracking-wider text-white rounded hoverfont-light hover:text-secondary"
                 type="submit"
               >
                 Entrar
