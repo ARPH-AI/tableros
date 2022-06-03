@@ -186,11 +186,12 @@
               leave-to-class="opacity-0 transform scale-95"
             >
               <MenuItems
-                :class="`absolute right-0 mt-1 w-56 bg-white rounded-md divide-y divide-${getThemeByDataSource(
-                  state.fuente
-                )} ring-1 ring-black text-bold ring-opacity-5 shadow-lg origin-top-right focus:outline-none`"
+                :class="`absolute right-0 mt-1 w-56 bg-white rounded-md divide-y divide-black ring-1 ring-black text-bold ring-opacity-5 shadow-lg origin-top-right focus:outline-none`"
               >
                 <div class="px-1 py-1">
+                  <MenuItem class="flex items-center px-2 py-2 w-full text-sm rounded-md group">
+                    <span>{{ $auth.user.email }}</span>
+                  </MenuItem>
                   <MenuItem v-slot="{ active }">
                     <button
                       @click="$auth.logout"
