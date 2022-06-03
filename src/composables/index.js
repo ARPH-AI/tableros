@@ -1,5 +1,5 @@
 import { useDark, useToggle, createGlobalState, useStorage } from '@vueuse/core'
-import { reactive, ref } from 'vue'
+import { reactive, ref, readonly } from 'vue'
 
 export const useGlobalState = createGlobalState(() =>
   useStorage('vue-use-locale-storage', {
@@ -7,6 +7,15 @@ export const useGlobalState = createGlobalState(() =>
     fuente: 'hsi',
   })
 )
+
+export function useState(initialState) {
+  const state = ref(initialState);
+  const setState = (newState) => {
+    state.value = newState;
+  };
+  
+  return [readonly(state), setState];
+}
 
 export const scrollingDown = ref(false)
 
@@ -35,6 +44,7 @@ export const handleScroll = () => {
 
 export const isDark = useDark()
 export const toggleDarkMode = useToggle(isDark)
+
 export const sidebarState = reactive({
   //isOpen: window.innerWidth > 1024,
   isOpen: false,

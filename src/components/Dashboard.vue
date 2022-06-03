@@ -7,7 +7,8 @@
       x-transition:enter-end="translate-x-0 opacity-100 ease-out"
       x-transition:leave="transition transform duration-300"
       x-transition:leave-start="translate-x-0 opacity-100 ease-out"
-      x-transition:leave-end="-translate-x-full opacity-0 ease-in"
+      x-transition:leave-end="-translate-x
+      -full opacity-0 ease-in"
       class="flex overflow-visible fixed inset-y-0 z-40 flex-col flex-shrink-0 px-2 w-60 max-h-screen border-r shadow-lg transition-all transform  lg:z-auto lg:static lg:shadow-none bg-light_base-200 dark:bg-dark_base"
       :class="{ '-translate-x-full lg:translate-x-0 lg:w-20': !sidebarState.isOpen }"
     >
@@ -168,9 +169,46 @@
               <SunIcon v-show="isDark" class="flex-shrink-0 w-6 h-6 hover:text-secondary" aria-hidden="true" />
             </button>
           </div>
-          <button class="flex transition">
-            <ProfileAvatar username="Florencia Otarola"></ProfileAvatar>
-          </button>
+          <!-- User menu dropdown -->
+          <Menu as="div" class="inline-block relative z-50 font-mono text-right">
+            <div>
+              <MenuButton class="inline-flex justify-center px-4 w-full">
+                <ProfileAvatar :username="$auth.user.email"></ProfileAvatar>
+              </MenuButton>
+            </div>
+
+            <transition
+              enter-active-class="transition duration-100 ease-out"
+              enter-from-class="opacity-0 transform scale-95"
+              enter-to-class="opacity-100 transform scale-100"
+              leave-active-class="transition duration-75 ease-in"
+              leave-from-class="opacity-100 transform scale-100"
+              leave-to-class="opacity-0 transform scale-95"
+            >
+              <MenuItems
+                :class="`absolute right-0 mt-1 w-56 bg-white rounded-md divide-y divide-${getThemeByDataSource(
+                  state.fuente
+                )} ring-1 ring-black text-bold ring-opacity-5 shadow-lg origin-top-right focus:outline-none`"
+              >
+                <div class="px-1 py-1">
+                  <MenuItem v-slot="{ active }">
+                    <button
+                      @click="$auth.logout"
+                      :class="[
+                        active
+                          ? `bg-light_smooth text-${getThemeByDataSource(state.fuente)}`
+                          : 'bg-white text-dark_smooth',
+                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                      ]"
+                    >
+                      <LogoutIcon :active="active" class="mr-2 w-5 h-5 text-third" aria-hidden="true" />
+                      Cerrar sesión
+                    </button>
+                  </MenuItem>
+                </div>
+              </MenuItems>
+            </transition>
+          </Menu>
         </div>
       </header>
       <!-- Main Content -->
@@ -257,9 +295,10 @@ import {
   TemplateIcon,
   MapIcon,
   UserGroupIcon,
+  LogoutIcon,
 } from '@heroicons/vue/outline'
 import SidebarCollapsible from '@/components/SidebarCollapsible.vue'
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
+import { TabGroup, TabList, Tab, TabPanels, TabPanel, Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import SidebarCollapsibleItem from '@/components/SidebarCollapsibleItem.vue'
 import RouterViewTransition from '@/components/RouterViewTransition.vue'
 import Popper from 'vue3-popper'
@@ -300,6 +339,11 @@ export default {
     RouterViewTransition,
     Popper,
     QuestionMarkCircleIcon,
+    Menu,
+    MenuButton,
+    MenuItems,
+    MenuItem,
+    LogoutIcon,
   },
   setup() {
     const state = useGlobalState()
