@@ -24,7 +24,9 @@ const auth = createAuth({
 })
 
 if (process.env.NODE_ENV === 'development') {
-  const VueAxe = await import('vue-axe')
+  const VueAxe = (async function() {
+    await import('vue-axe')
+  })();
   app = createApp({
     render: () => h(Fragment, [h(App), h(VueAxe.VueAxePopup)]),
   })
