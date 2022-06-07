@@ -13,7 +13,7 @@ export function useState(initialState) {
   const setState = (newState) => {
     state.value = newState;
   };
-  
+
   return [readonly(state), setState];
 }
 

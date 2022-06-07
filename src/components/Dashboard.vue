@@ -233,7 +233,7 @@
               disable-click-away
               hover
               interactive
-              content="Los datos de esta sección corresponden 
+              content="Los datos de esta sección corresponden
               a los registros de la atención ambulatoria en historia clínica electrónica"
             >
               <Tab

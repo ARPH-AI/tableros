@@ -1,6 +1,6 @@
 import '@/assets/scss/app.scss'
 import './index.css'
-import { createApp } from 'vue'
+import { createApp, h, Fragment } from 'vue'
 import { createAuth } from './auth'
 import App from './App.vue'
 import router from './router'
@@ -9,6 +9,8 @@ import i18n from './plugins/i18n'
 import OpenLayersMap from 'vue3-openlayers'
 import 'vue3-openlayers/dist/vue3-openlayers.css'
 import { plugin, defaultConfig } from '@formkit/vue'
+
+let app = null
 
 const auth = createAuth({
   router,
@@ -21,7 +23,18 @@ const auth = createAuth({
   },
 })
 
-export const app = createApp(App)
+if (process.env.NODE_ENV === 'development') {
+  const VueAxe = await import('vue-axe')
+  app = createApp({
+    render: () => h(Fragment, [h(App), h(VueAxe.VueAxePopup)]),
+  })
+  app.use(VueAxe.default)
+} else {
+  app = createApp(App)
+}
+
+export default app
+
 app.use(router)
 app.use(auth)
 app.use(i18n)
