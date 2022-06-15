@@ -1,4 +1,29 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useAuth } from '@/auth';
+import { defineProps } from 'vue';
+import { useRouter } from 'vue-router'
+import { UserFormData } from '../auth/types';
+
+
+const auth = useAuth();
+const router = useRouter();
+
+const props = defineProps({
+  username: {type: String, default: ''},
+  password: {type: String, default: ''}
+})
+
+const handleInput = (prop: UserFormData, value: String) => props[prop]= value
+
+
+const handleLogin = async (event: Event) => {
+  event.preventDefault()
+  const response = await auth.login({username: props.username, password: props.password})
+  if (response.status !== 200) {
+    
+  }
+}
+</script>
 
 <template>
   <div class="h-screen font-mono bg-cover bg-gradient-to-r from-primary via-third to-secondary">
@@ -18,6 +43,8 @@
                 id="email"
                 placeholder="Correo electrónico"
                 aria-label="email"
+                v-model="username"
+                @input="handleInput('username', $event.target.value)"
                 required
               />
             </div>
@@ -29,13 +56,15 @@
                 id="password"
                 placeholder="Contraseña"
                 arial-label="password"
+                v-model="password"
+                @input="changeProp('password', $event.target.value)"
                 required
               />
             </div>
 
             <div class="flex mt-4">
               <button
-                @click="$auth.login"
+                @click="handleLogin"
                 class="font-semibold tracking-wider text-white rounded hoverfont-light hover:text-secondary"
                 type="submit"
               >

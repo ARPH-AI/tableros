@@ -194,7 +194,7 @@
                   </MenuItem>
                   <MenuItem v-slot="{ active }">
                     <button
-                      @click="$auth.logout"
+                      @click="() => $auth.logout"
                       :class="[
                         active
                           ? `bg-light_smooth text-${getThemeByDataSource(state.fuente)}`
