@@ -2,7 +2,8 @@ import { App, computed, reactive, readonly, ref } from 'vue'
 import { setupDevtools } from './devtools'
 import { configureAuthorizationHeaderInterceptor } from './interceptors'
 import { configureNavigationGuards } from './navigationGuards'
-import { ANONYMOUS_USER, AuthOptions, AuthPlugin, RequiredAuthOptions, User } from './types'
+import { ANONYMOUS_USER, AuthOptions, AuthPlugin, RequiredAuthOptions, User, UserFormData } from './types'
+import { authApi } from '@/api'
 
 export let authInstance: AuthPlugin | undefined = undefined
 
@@ -19,18 +20,17 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
     return fullname
   })
 
-  async function login() {
-    // TODO: Implement login logic using your Auth Provider, E.g. Auth0
-    const authenticatedUser = {
-      id: '0000',
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'johndoe@email.com',
+  async function login(formData: UserFormData) {
+    const authResponse = await authApi.loginUser({ body: formData })
+    const responseData = authResponse.data
+    if (authResponse.status === 200) {
+      user.value = responseData.user
+      isAuthenticated.value = true
+      accessToken.value = responseData.accessToken
+      router.push(router.currentRoute.value.query.redirectTo?.toString() || options.loginRedirectRoute)
+    } else {
+      console.log('mostrar credenciales inválidas')
     }
-    user.value = authenticatedUser
-    isAuthenticated.value = true
-    accessToken.value = '12345'
-    router.push(router.currentRoute.value.query.redirectTo?.toString() || options.loginRedirectRoute)
   }
 
   async function logout() {
