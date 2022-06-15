@@ -1,0 +1,53 @@
+openapi: 3.0.3
+info:
+  title: Auth API
+  description: 'Auth API description'
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+paths:
+  /auth:
+    post:
+      operationId: loginUser
+      tags:
+        - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: Object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      firstName:
+                        type: string
+                      lastName:
+                        type: string
+                      email:
+                        type: string
+                  accessToken:
+                    type: string
+        400:
+          description: Credenciales Inválidas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string

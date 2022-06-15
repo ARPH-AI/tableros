@@ -1,0 +1,13 @@
+.gitignore
+.npmignore
+api.ts
+api/auth-api.ts
+base.ts
+common.ts
+configuration.ts
+git_push.sh
+index.ts
+models/index.ts
+models/inline-response200-user.ts
+models/inline-response200.ts
+models/inline-response400.ts
