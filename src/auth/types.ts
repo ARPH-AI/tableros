@@ -15,12 +15,12 @@ export const ANONYMOUS_USER: Readonly<User> = Object.freeze({
 })
 
 export interface AuthPlugin {
-  readonly user: User
-  readonly isAuthenticated: boolean
-  readonly userFullName: string
-  readonly accessToken?: string
-  readonly login: () => Promise<void>
-  readonly logout: () => Promise<void>
+  user: User
+  isAuthenticated: boolean
+  userFullName: string
+  accessToken?: string
+  login: (formData: UserFormData) => Promise<Response>
+  logout: () => Promise<void>
 }
 
 export interface AuthAxiosConfig {
@@ -45,4 +45,9 @@ export interface RequiredAuthOptions {
  */
 export interface AuthOptions extends Omit<Partial<RequiredAuthOptions>, 'router'> {
   router: Router
+}
+
+export interface UserFormData {
+  readonly username: string,
+  readonly password: string
 }
