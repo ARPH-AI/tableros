@@ -1,9 +1,13 @@
 import { App, computed, reactive, readonly, ref } from 'vue'
 import { setupDevtools } from './devtools'
-import { configureAuthorizationHeaderInterceptor } from './interceptors'
+import { configureAuthorizationHeaderInterceptor, configureRefreshTokenResponseInterceptor } from './interceptors'
 import { configureNavigationGuards } from './navigationGuards'
 import { ANONYMOUS_USER, AuthOptions, AuthPlugin, RequiredAuthOptions, User, UserFormData } from './types'
 import { authApi } from '@/api'
+import { useNotify } from '@/notification'
+
+const TOKEN_KEY = 'arphai-token'
+const REFRESH_TOKEN_KEY = 'arphai-refreshToken'
 
 export let authInstance: AuthPlugin | undefined = undefined
 
@@ -11,6 +15,7 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
   const router = options.router
   const isAuthenticated = ref(false)
   const accessToken = ref<string>()
+  const refreshToken = ref<string>()
   const user = ref<User>({ ...ANONYMOUS_USER })
   const userFullName = computed(() => {
     let fullname = user.value.firstName
@@ -19,25 +24,87 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
     }
     return fullname
   })
+  
+
+  function storeTokens(tokens: any) {
+    localStorage.setItem(TOKEN_KEY, tokens.token)
+    localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refreshToken)
+  }
+
+  function removeTokens(): void {
+    localStorage.removeItem(TOKEN_KEY)
+    localStorage.removeItem(REFRESH_TOKEN_KEY)
+  }
 
   async function login(formData: UserFormData) {
-    const authResponse = await authApi.loginUser({ body: formData })
-    const responseData = authResponse.data
-    if (authResponse.status === 200) {
+    try {
+      const authResponse = await authApi.auth.loginUser({ body: formData })
+      const responseData = authResponse.data
       user.value = responseData.user
       isAuthenticated.value = true
       accessToken.value = responseData.accessToken
+      refreshToken.value = responseData.refreshToken
+      storeTokens({ token: responseData.accessToken, refreshToken: responseData.refreshToken })
       router.push(router.currentRoute.value.query.redirectTo?.toString() || options.loginRedirectRoute)
-    } else {
-      console.log('mostrar credenciales inválidas')
+      return authResponse
+    } catch (error) {
+      const notify = useNotify()
+      notify.showNotify({
+        type: 'error',
+        show: true,
+        data: {
+          text: error.data.error
+        }
+      })
+      return error
+    }
+  }
+
+  async function tokenRefresh(refreshToken: String) {
+    if (isAuthenticated.value) {
+      const body = { body: { refreshToken } }
+      accessToken.value = refreshToken
+      try {
+        const response = await authApi.refresh.refreshToken(body)
+        const responseData = response.data
+        storeTokens(response.data)
+        const { accessToken: token, refreshToken } = responseData
+        user.value = responseData.user
+        isAuthenticated.value = true
+        accessToken.value = token
+        storeTokens({ token: token, refreshToken: refreshToken })
+        router.push(router.currentRoute.value.query.redirectTo?.toString() || options.loginRedirectRoute)
+      } catch (error) {
+        console.log('catch tokenRefresh error: ', error)
+        logout()
+        const notify = useNotify()
+        notify.showNotify({
+          type: 'error',
+          show: true,
+          data: {
+            text: 'Sesión expirada'
+          }
+        })
+      }
     }
   }
 
   async function logout() {
+    console.log('plugin -> logout')
     user.value = { ...ANONYMOUS_USER }
     isAuthenticated.value = false
     accessToken.value = undefined
+    removeTokens()
     router.push(options.logoutRedirectRoute)
+  }
+
+  async function getFakeData() {
+    try {
+      const response = await authApi.fakeData.getFakeData()
+      return response.data
+    } catch (error) {
+      console.log('catch getFakeData error: ', error)
+    }
   }
 
   /*
@@ -51,10 +118,13 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
   const unWrappedRefs = reactive({
     isAuthenticated,
     accessToken,
+    refreshToken,
     user,
     userFullName,
     login,
     logout,
+    tokenRefresh,
+    getFakeData,
   })
 
   return readonly(unWrappedRefs)
@@ -65,6 +135,7 @@ const defaultOptions = {
   logoutRedirectRoute: '/',
   loginRouteName: 'login',
   autoConfigureNavigationGuards: true,
+  autoRefreshExpiredToken: true,
 }
 export function createAuth(appOptions: AuthOptions) {
   // Fill default values to options that were not received
@@ -81,6 +152,10 @@ export function createAuth(appOptions: AuthOptions) {
 
       if (options.axios?.autoAddAuthorizationHeader) {
         configureAuthorizationHeaderInterceptor(options.axios.instance, options.axios.authorizationHeaderPrefix)
+      }
+
+      if (options.axios?.autoRefreshExpiredToken) {
+        configureRefreshTokenResponseInterceptor(options.axios.instance)
       }
 
       if (import.meta.env.DEV) {

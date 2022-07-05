@@ -14,7 +14,23 @@
 
 
 
-export * from './api/auth-api';
-export * from './api/fake-data-api';
-export * from './api/refresh-api';
+/**
+ * 
+ * @export
+ * @interface InlineResponse401
+ */
+export interface InlineResponse401 {
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse401
+     */
+    'error'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse401
+     */
+    'code'?: string;
+}
 

@@ -14,7 +14,23 @@
 
 
 
-export * from './api/auth-api';
-export * from './api/fake-data-api';
-export * from './api/refresh-api';
+/**
+ * 
+ * @export
+ * @interface InlineObject1
+ */
+export interface InlineObject1 {
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject1
+     */
+    'token'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineObject1
+     */
+    'refresh'?: string;
+}
 

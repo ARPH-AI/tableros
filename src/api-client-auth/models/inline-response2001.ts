@@ -18,26 +18,32 @@ import { InlineResponse200User } from './inline-response200-user';
 /**
  * 
  * @export
- * @interface InlineResponse200
+ * @interface InlineResponse2001
  */
-export interface InlineResponse200 {
+export interface InlineResponse2001 {
     /**
      * 
      * @type {InlineResponse200User}
-     * @memberof InlineResponse200
+     * @memberof InlineResponse2001
      */
     'user'?: InlineResponse200User;
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse200
+     * @memberof InlineResponse2001
      */
     'accessToken'?: string;
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse200
+     * @memberof InlineResponse2001
      */
     'refreshToken'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse2001
+     */
+    'code'?: number;
 }
 

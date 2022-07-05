@@ -19,14 +19,17 @@ export interface AuthPlugin {
   isAuthenticated: boolean
   userFullName: string
   accessToken?: string
+  refreshToken?: string
   login: (formData: UserFormData) => Promise<Response>
   logout: () => Promise<void>
+  tokenRefresh: (refresh: string) => Promise<void>
 }
 
 export interface AuthAxiosConfig {
   instance: AxiosInstance
   autoAddAuthorizationHeader: boolean
   authorizationHeaderPrefix?: string
+  autoRefreshExpiredToken?: boolean
 }
 
 export interface RequiredAuthOptions {
@@ -50,4 +53,38 @@ export interface AuthOptions extends Omit<Partial<RequiredAuthOptions>, 'router'
 export interface UserFormData {
   readonly username: string,
   readonly password: string
+}
+
+export interface ApplicationVersionDto {
+  version: string
+}
+
+export interface JWTokenDto {
+  token: string,
+  refreshToken: string
+}
+
+export interface PasswordResetDto {
+  password: string,
+  token: string
+}
+
+export interface PermissionsDto {
+  roleAssingments: RoleAssingment[]
+}
+
+export interface PublicInfoDto {
+  flavor: string
+}
+
+export interface RefreshTokenDto {
+  refreshToken: string
+}
+
+export interface RoleAssingment {
+  projectId: number, role: ERole
+}
+
+export const enum ERole {
+  ADMIN='ADMIN', USER='USER '
 }

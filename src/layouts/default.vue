@@ -7,7 +7,9 @@
   >
     <Dashboard />
   </div>
-  <span v-else><Login /></span>
+  <div v-else>
+    <Login />
+  </div>
 </template>
 
 <style></style>

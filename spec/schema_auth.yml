@@ -42,6 +42,89 @@ paths:
                         type: string
                   accessToken:
                     type: string
+                  refreshToken:
+                    type: string
+        400:
+          description: Credenciales Inválidas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /auth/refresh:
+    post:
+      operationId: refreshToken
+      tags:
+        - refresh
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+      responses:
+        200:
+          description: succesful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      firstName:
+                        type: string
+                      lastName:
+                        type: string
+                      email:
+                        type: string
+                  accessToken:
+                    type: string
+                  refreshToken:
+                    type: string
+                  code:
+                    type: number
+        400:
+          description: Token inválido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  code:
+                    type: number
+  /dashboard-data:
+    get:
+      operationId: getFakeData
+      tags:
+        - fakeData
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  about:
+                    type: string
+                  address:
+                    type: string
+                  company:
+                    type: string
         400:
           description: Credenciales Inválidas
           content:
