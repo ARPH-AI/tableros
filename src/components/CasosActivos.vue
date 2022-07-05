@@ -4,12 +4,14 @@ import { QueryBuilder } from '@cubejs-client/vue3'
 import { obtenerCantidad } from '@/cube/utils'
 import { format } from 'date-fns'
 import { getThemeByDataSource } from '@/composables'
+import { useAuth } from '@/auth'
 
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
 })
 const date = format(new Date(), 'yyyy-MM-dd')
 const titulo = 'Casos Activos'
+const auth = useAuth()
 
 const totalCasosActivosHSI = {
   measures: ['casos.identificador'],
@@ -51,6 +53,14 @@ const getTotalCasosActivos = () => {
       return totalCasosActivosSNVS
   }
 }
+
+const fetchFakeData = async () => {
+  const response = await auth.getFakeData()
+  console.log('response de fakeData en dashboard: ', response)
+}
+
+fetchFakeData()
+
 </script>
 
 <template>

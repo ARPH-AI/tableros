@@ -1,26 +1,31 @@
-<script setup lang="ts">
+<script lang="ts">
 import { useAuth } from '@/auth';
-import { defineProps } from 'vue';
+import { defineProps, defineEmits, AppContext } from 'vue';
 import { useRouter } from 'vue-router'
 import { UserFormData } from '../auth/types';
 
+export default {
+  props : {
+    username: {type: String, default: ''},
+    password: {type: String, default: ''}
+  },
+  setup(props) {
 
-const auth = useAuth();
-const router = useRouter();
+    const auth = useAuth();
+    const router = useRouter();
 
-const props = defineProps({
-  username: {type: String, default: ''},
-  password: {type: String, default: ''}
-})
+    const handleInput = (prop: UserFormData, value: String) => props[prop]= value
 
-const handleInput = (prop: UserFormData, value: String) => props[prop]= value
+    const handleLogin = async (event: Event) => {
+      event.preventDefault()
+      const { username, password } = props
+      await auth.login({ username, password })
+    }
 
-
-const handleLogin = async (event: Event) => {
-  event.preventDefault()
-  const response = await auth.login({username: props.username, password: props.password})
-  if (response.status !== 200) {
-    
+    return {
+      handleInput,
+      handleLogin
+    }
   }
 }
 </script>
@@ -57,11 +62,10 @@ const handleLogin = async (event: Event) => {
                 placeholder="Contraseña"
                 arial-label="password"
                 v-model="password"
-                @input="changeProp('password', $event.target.value)"
+                @input="handleInput('password', $event.target.value)"
                 required
               />
             </div>
-
             <div class="flex mt-4">
               <button
                 @click="handleLogin"
