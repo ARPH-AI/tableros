@@ -17,22 +17,19 @@ export function configureAuthorizationHeaderInterceptor(axiosInstance: AxiosInst
 export function configureRefreshTokenResponseInterceptor(axiosInstance: AxiosInstance) {
   axiosInstance.interceptors.response.use(
     function (response) {
-      // Any status code that lie within the range of 2xx cause this function to trigger
-      // Do something with response data
+      // Handlear cualquier response en el rango de 2xx
       return response;
     },
     function (error) {
+      // Handlear cualquier response status distinto a 2xx
+      const { response } = error
+      console.log('interceptor error: ', response)
+      const { url } = response.config
       const auth = useAuth()
-
-      let response = error
-      if (auth.isAuthenticated) {
+      if (!url.includes('/auth/refresh') && auth.isAuthenticated && response.data.name === 'TokenExpiredError') {
         auth.tokenRefresh(auth.refreshToken || '')
-      }
-      if (error.response) {
-        response = error.response
-      }
-      
-      return Promise.reject(response)
+      }      
+      return Promise.resolve(response)
     }
   );
 }

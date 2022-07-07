@@ -3,11 +3,12 @@ import { setupDevtools } from './devtools'
 import { configureAuthorizationHeaderInterceptor, configureRefreshTokenResponseInterceptor } from './interceptors'
 import { configureNavigationGuards } from './navigationGuards'
 import { ANONYMOUS_USER, AuthOptions, AuthPlugin, RequiredAuthOptions, User, UserFormData } from './types'
-import { authApi } from '@/api'
-import { useNotify } from '@/notification'
+import { authApi, cubeApi } from '@/api'
+import { useNotify } from '@/notification' 
 
 const TOKEN_KEY = 'arphai-token'
 const REFRESH_TOKEN_KEY = 'arphai-refreshToken'
+const CUBE_TOKEN_KEY = 'cube-token'
 
 export let authInstance: AuthPlugin | undefined = undefined
 
@@ -16,6 +17,7 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
   const isAuthenticated = ref(false)
   const accessToken = ref<string>()
   const refreshToken = ref<string>()
+  const cubeAccessToken = ref<string>()
   const user = ref<User>({ ...ANONYMOUS_USER })
   const userFullName = computed(() => {
     let fullname = user.value.firstName
@@ -29,53 +31,68 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
   function storeTokens(tokens: any) {
     localStorage.setItem(TOKEN_KEY, tokens.token)
     localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refreshToken)
+    localStorage.setItem(CUBE_TOKEN_KEY, tokens.cubeToken)
   }
 
   function removeTokens(): void {
     localStorage.removeItem(TOKEN_KEY)
     localStorage.removeItem(REFRESH_TOKEN_KEY)
+    localStorage.removeItem(CUBE_TOKEN_KEY)
+  }
+
+  async function getCubeToken(user: any) {
+    // const response = await cubeApi.getToken(user)
+    const response = await authApi.cube.getCubeToken()
+    let token = ''
+    if (response.status === 200) {
+      token = response.data.token || ''
+    } else {
+      console.log('Error al quere obtener token de cube')
+    }
+    return token
   }
 
   async function login(formData: UserFormData) {
-    try {
-      const authResponse = await authApi.auth.loginUser({ body: formData })
-      const responseData = authResponse.data
-      user.value = responseData.user
-      isAuthenticated.value = true
-      accessToken.value = responseData.accessToken
-      refreshToken.value = responseData.refreshToken
-      storeTokens({ token: responseData.accessToken, refreshToken: responseData.refreshToken })
-      router.push(router.currentRoute.value.query.redirectTo?.toString() || options.loginRedirectRoute)
-      return authResponse
-    } catch (error) {
-      const notify = useNotify()
-      notify.showNotify({
-        type: 'error',
-        show: true,
-        data: {
-          text: error.data.error
-        }
-      })
-      return error
-    }
+      const response = await authApi.auth.loginUser({ body: formData })
+      const { data } = response
+      if (response.status == 200) {
+        user.value = data.user
+        isAuthenticated.value = true
+        accessToken.value = data.accessToken
+        refreshToken.value = data.refreshToken
+        const cubeToken = await getCubeToken(data.user)
+        cubeAccessToken.value = cubeToken
+        const finalData = Object.assign({cubeToken: cubeToken}, data)
+        storeTokens({ token: data.accessToken, refreshToken: data.refreshToken, cubeToken: cubeToken })
+        router.push(router.currentRoute.value.query.redirectTo?.toString() || options.loginRedirectRoute)
+        return finalData
+      } else {
+        const notify = useNotify()
+        notify.showNotify({
+          type: 'error',
+          show: true,
+          data: {
+            text: data.error
+          }
+        })
+      }
   }
 
   async function tokenRefresh(refreshToken: String) {
     if (isAuthenticated.value) {
       const body = { body: { refreshToken } }
       accessToken.value = refreshToken
-      try {
-        const response = await authApi.refresh.refreshToken(body)
-        const responseData = response.data
+      const response = await authApi.refresh.refreshToken(body)
+      const { data } = response
+      if (response.status === 200) {
         storeTokens(response.data)
-        const { accessToken: token, refreshToken } = responseData
-        user.value = responseData.user
+        const { accessToken: token, refreshToken, user } = data
+        user.value = user
         isAuthenticated.value = true
         accessToken.value = token
         storeTokens({ token: token, refreshToken: refreshToken })
         router.push(router.currentRoute.value.query.redirectTo?.toString() || options.loginRedirectRoute)
-      } catch (error) {
-        console.log('catch tokenRefresh error: ', error)
+      } else {
         logout()
         const notify = useNotify()
         notify.showNotify({
@@ -103,7 +120,7 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
       const response = await authApi.fakeData.getFakeData()
       return response.data
     } catch (error) {
-      console.log('catch getFakeData error: ', error)
+      console.log('getFakeData() error: ', error)
     }
   }
 
