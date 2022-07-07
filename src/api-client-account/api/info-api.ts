@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Auth API
- * Auth API description
+ * Account API
+ * Account API description
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -21,21 +21,20 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
-import { InlineObject1 } from '../models';
+import { InlineResponse2001 } from '../models';
 /**
- * VerityApi - axios parameter creator
+ * InfoApi - axios parameter creator
  * @export
  */
-export const VerityApiAxiosParamCreator = function (configuration?: Configuration) {
+export const InfoApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {InlineObject1} [inlineObject1] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        verifyToken: async (inlineObject1?: InlineObject1, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/auth/verify`;
+        getAccountInfo: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/account/info`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -43,18 +42,15 @@ export const VerityApiAxiosParamCreator = function (configuration?: Configuratio
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
 
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject1, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -65,73 +61,56 @@ export const VerityApiAxiosParamCreator = function (configuration?: Configuratio
 };
 
 /**
- * VerityApi - functional programming interface
+ * InfoApi - functional programming interface
  * @export
  */
-export const VerityApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = VerityApiAxiosParamCreator(configuration)
+export const InfoApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = InfoApiAxiosParamCreator(configuration)
     return {
         /**
          * 
-         * @param {InlineObject1} [inlineObject1] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async verifyToken(inlineObject1?: InlineObject1, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.verifyToken(inlineObject1, options);
+        async getAccountInfo(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2001>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountInfo(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
 
 /**
- * VerityApi - factory interface
+ * InfoApi - factory interface
  * @export
  */
-export const VerityApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = VerityApiFp(configuration)
+export const InfoApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = InfoApiFp(configuration)
     return {
         /**
          * 
-         * @param {InlineObject1} [inlineObject1] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        verifyToken(inlineObject1?: InlineObject1, options?: any): AxiosPromise<void> {
-            return localVarFp.verifyToken(inlineObject1, options).then((request) => request(axios, basePath));
+        getAccountInfo(options?: any): AxiosPromise<InlineResponse2001> {
+            return localVarFp.getAccountInfo(options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for verifyToken operation in VerityApi.
+ * InfoApi - object-oriented interface
  * @export
- * @interface VerityApiVerifyTokenRequest
- */
-export interface VerityApiVerifyTokenRequest {
-    /**
-     * 
-     * @type {InlineObject1}
-     * @memberof VerityApiVerifyToken
-     */
-    readonly inlineObject1?: InlineObject1
-}
-
-/**
- * VerityApi - object-oriented interface
- * @export
- * @class VerityApi
+ * @class InfoApi
  * @extends {BaseAPI}
  */
-export class VerityApi extends BaseAPI {
+export class InfoApi extends BaseAPI {
     /**
      * 
-     * @param {VerityApiVerifyTokenRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof VerityApi
+     * @memberof InfoApi
      */
-    public verifyToken(requestParameters: VerityApiVerifyTokenRequest = {}, options?: AxiosRequestConfig) {
-        return VerityApiFp(this.configuration).verifyToken(requestParameters.inlineObject1, options).then((request) => request(this.axios, this.basePath));
+    public getAccountInfo(options?: AxiosRequestConfig) {
+        return InfoApiFp(this.configuration).getAccountInfo(options).then((request) => request(this.axios, this.basePath));
     }
 }

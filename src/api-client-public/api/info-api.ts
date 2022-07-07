@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Auth API
- * Auth API description
+ * Public API
+ * Public API description
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -21,23 +21,20 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
-import { InlineObject } from '../models';
-// @ts-ignore
 import { InlineResponse2001 } from '../models';
 /**
- * RefreshApi - axios parameter creator
+ * InfoApi - axios parameter creator
  * @export
  */
-export const RefreshApiAxiosParamCreator = function (configuration?: Configuration) {
+export const InfoApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {InlineObject} [inlineObject] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        refreshToken: async (inlineObject?: InlineObject, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/auth/refresh`;
+        getPublicInfo: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/public/info`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -45,18 +42,15 @@ export const RefreshApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
 
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -67,73 +61,56 @@ export const RefreshApiAxiosParamCreator = function (configuration?: Configurati
 };
 
 /**
- * RefreshApi - functional programming interface
+ * InfoApi - functional programming interface
  * @export
  */
-export const RefreshApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = RefreshApiAxiosParamCreator(configuration)
+export const InfoApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = InfoApiAxiosParamCreator(configuration)
     return {
         /**
          * 
-         * @param {InlineObject} [inlineObject] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async refreshToken(inlineObject?: InlineObject, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2001>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.refreshToken(inlineObject, options);
+        async getPublicInfo(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2001>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPublicInfo(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
 
 /**
- * RefreshApi - factory interface
+ * InfoApi - factory interface
  * @export
  */
-export const RefreshApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = RefreshApiFp(configuration)
+export const InfoApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = InfoApiFp(configuration)
     return {
         /**
          * 
-         * @param {InlineObject} [inlineObject] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        refreshToken(inlineObject?: InlineObject, options?: any): AxiosPromise<InlineResponse2001> {
-            return localVarFp.refreshToken(inlineObject, options).then((request) => request(axios, basePath));
+        getPublicInfo(options?: any): AxiosPromise<InlineResponse2001> {
+            return localVarFp.getPublicInfo(options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for refreshToken operation in RefreshApi.
+ * InfoApi - object-oriented interface
  * @export
- * @interface RefreshApiRefreshTokenRequest
- */
-export interface RefreshApiRefreshTokenRequest {
-    /**
-     * 
-     * @type {InlineObject}
-     * @memberof RefreshApiRefreshToken
-     */
-    readonly inlineObject?: InlineObject
-}
-
-/**
- * RefreshApi - object-oriented interface
- * @export
- * @class RefreshApi
+ * @class InfoApi
  * @extends {BaseAPI}
  */
-export class RefreshApi extends BaseAPI {
+export class InfoApi extends BaseAPI {
     /**
      * 
-     * @param {RefreshApiRefreshTokenRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof RefreshApi
+     * @memberof InfoApi
      */
-    public refreshToken(requestParameters: RefreshApiRefreshTokenRequest = {}, options?: AxiosRequestConfig) {
-        return RefreshApiFp(this.configuration).refreshToken(requestParameters.inlineObject, options).then((request) => request(this.axios, this.basePath));
+    public getPublicInfo(options?: AxiosRequestConfig) {
+        return InfoApiFp(this.configuration).getPublicInfo(options).then((request) => request(this.axios, this.basePath));
     }
 }

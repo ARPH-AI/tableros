@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Auth API
- * Auth API description
+ * Account API
+ * Account API description
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -17,14 +17,20 @@
 /**
  * 
  * @export
- * @interface InlineResponse2002
+ * @interface InlineResponse200RoleAssignments
  */
-export interface InlineResponse2002 {
+export interface InlineResponse200RoleAssignments {
+    /**
+     * 
+     * @type {number}
+     * @memberof InlineResponse200RoleAssignments
+     */
+    'projectId'?: number;
     /**
      * 
      * @type {string}
-     * @memberof InlineResponse2002
+     * @memberof InlineResponse200RoleAssignments
      */
-    'token'?: string;
+    'role'?: string;
 }
 

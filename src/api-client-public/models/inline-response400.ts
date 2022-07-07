@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Auth API
- * Auth API description
+ * Public API
+ * Public API description
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -14,8 +14,17 @@
 
 
 
-export * from './api/auth-api';
-export * from './api/cube-api';
-export * from './api/fake-data-api';
-export * from './api/refresh-api';
+/**
+ * 
+ * @export
+ * @interface InlineResponse400
+ */
+export interface InlineResponse400 {
+    /**
+     * 
+     * @type {string}
+     * @memberof InlineResponse400
+     */
+    'error'?: string;
+}
 

@@ -21,23 +21,20 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
-import { InlineObject } from '../models';
-// @ts-ignore
-import { InlineResponse2001 } from '../models';
+import { InlineResponse2002 } from '../models';
 /**
- * RefreshApi - axios parameter creator
+ * CubeApi - axios parameter creator
  * @export
  */
-export const RefreshApiAxiosParamCreator = function (configuration?: Configuration) {
+export const CubeApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {InlineObject} [inlineObject] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        refreshToken: async (inlineObject?: InlineObject, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/auth/refresh`;
+        getCubeToken: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/auth/cubejs-token`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -45,18 +42,15 @@ export const RefreshApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
 
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(inlineObject, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -67,73 +61,56 @@ export const RefreshApiAxiosParamCreator = function (configuration?: Configurati
 };
 
 /**
- * RefreshApi - functional programming interface
+ * CubeApi - functional programming interface
  * @export
  */
-export const RefreshApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = RefreshApiAxiosParamCreator(configuration)
+export const CubeApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = CubeApiAxiosParamCreator(configuration)
     return {
         /**
          * 
-         * @param {InlineObject} [inlineObject] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async refreshToken(inlineObject?: InlineObject, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2001>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.refreshToken(inlineObject, options);
+        async getCubeToken(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2002>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCubeToken(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
 
 /**
- * RefreshApi - factory interface
+ * CubeApi - factory interface
  * @export
  */
-export const RefreshApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = RefreshApiFp(configuration)
+export const CubeApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = CubeApiFp(configuration)
     return {
         /**
          * 
-         * @param {InlineObject} [inlineObject] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        refreshToken(inlineObject?: InlineObject, options?: any): AxiosPromise<InlineResponse2001> {
-            return localVarFp.refreshToken(inlineObject, options).then((request) => request(axios, basePath));
+        getCubeToken(options?: any): AxiosPromise<InlineResponse2002> {
+            return localVarFp.getCubeToken(options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for refreshToken operation in RefreshApi.
+ * CubeApi - object-oriented interface
  * @export
- * @interface RefreshApiRefreshTokenRequest
- */
-export interface RefreshApiRefreshTokenRequest {
-    /**
-     * 
-     * @type {InlineObject}
-     * @memberof RefreshApiRefreshToken
-     */
-    readonly inlineObject?: InlineObject
-}
-
-/**
- * RefreshApi - object-oriented interface
- * @export
- * @class RefreshApi
+ * @class CubeApi
  * @extends {BaseAPI}
  */
-export class RefreshApi extends BaseAPI {
+export class CubeApi extends BaseAPI {
     /**
      * 
-     * @param {RefreshApiRefreshTokenRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof RefreshApi
+     * @memberof CubeApi
      */
-    public refreshToken(requestParameters: RefreshApiRefreshTokenRequest = {}, options?: AxiosRequestConfig) {
-        return RefreshApiFp(this.configuration).refreshToken(requestParameters.inlineObject, options).then((request) => request(this.axios, this.basePath));
+    public getCubeToken(options?: AxiosRequestConfig) {
+        return CubeApiFp(this.configuration).getCubeToken(options).then((request) => request(this.axios, this.basePath));
     }
 }

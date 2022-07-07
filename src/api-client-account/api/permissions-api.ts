@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Auth API
- * Auth API description
+ * Account API
+ * Account API description
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -21,20 +21,22 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
-import { InlineResponse2003 } from '../models';
+import { InlineResponse200 } from '../models';
+// @ts-ignore
+import { InlineResponse400 } from '../models';
 /**
- * FakeDataApi - axios parameter creator
+ * PermissionsApi - axios parameter creator
  * @export
  */
-export const FakeDataApiAxiosParamCreator = function (configuration?: Configuration) {
+export const PermissionsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFakeData: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/dashboard-data`;
+        getAccountPermissions: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/account/permissions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -61,56 +63,56 @@ export const FakeDataApiAxiosParamCreator = function (configuration?: Configurat
 };
 
 /**
- * FakeDataApi - functional programming interface
+ * PermissionsApi - functional programming interface
  * @export
  */
-export const FakeDataApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = FakeDataApiAxiosParamCreator(configuration)
+export const PermissionsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = PermissionsApiAxiosParamCreator(configuration)
     return {
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFakeData(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2003>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getFakeData(options);
+        async getAccountPermissions(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse200>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountPermissions(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
 
 /**
- * FakeDataApi - factory interface
+ * PermissionsApi - factory interface
  * @export
  */
-export const FakeDataApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = FakeDataApiFp(configuration)
+export const PermissionsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = PermissionsApiFp(configuration)
     return {
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFakeData(options?: any): AxiosPromise<InlineResponse2003> {
-            return localVarFp.getFakeData(options).then((request) => request(axios, basePath));
+        getAccountPermissions(options?: any): AxiosPromise<InlineResponse200> {
+            return localVarFp.getAccountPermissions(options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * FakeDataApi - object-oriented interface
+ * PermissionsApi - object-oriented interface
  * @export
- * @class FakeDataApi
+ * @class PermissionsApi
  * @extends {BaseAPI}
  */
-export class FakeDataApi extends BaseAPI {
+export class PermissionsApi extends BaseAPI {
     /**
      * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof FakeDataApi
+     * @memberof PermissionsApi
      */
-    public getFakeData(options?: AxiosRequestConfig) {
-        return FakeDataApiFp(this.configuration).getFakeData(options).then((request) => request(this.axios, this.basePath));
+    public getAccountPermissions(options?: AxiosRequestConfig) {
+        return PermissionsApiFp(this.configuration).getAccountPermissions(options).then((request) => request(this.axios, this.basePath));
     }
 }

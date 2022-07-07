@@ -2,6 +2,7 @@
 .npmignore
 api.ts
 api/auth-api.ts
+api/cube-api.ts
 api/fake-data-api.ts
 api/refresh-api.ts
 base.ts
@@ -15,5 +16,5 @@ models/inline-response200-user.ts
 models/inline-response200.ts
 models/inline-response2001.ts
 models/inline-response2002.ts
+models/inline-response2003.ts
 models/inline-response400.ts
-models/inline-response4001.ts
