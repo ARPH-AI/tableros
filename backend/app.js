@@ -4,6 +4,7 @@ const app = express()
 const port = 5000
 const jwt = require('jsonwebtoken');
 const { expressjwt } = require("express-jwt");
+const moment = require('moment')
 
 const CUBEJS_API_SECRET = 'cube-secret'
 const ACCESS_TOKEN_EXPIRE = '1m' // 1 minuto
@@ -24,9 +25,19 @@ const ERole = {
     DEVELOPER: "DEVELOPER",
 }
 
+const whitelist = [
+    'http://localhost:3000',
+    'localhost:3000'
+]
+
 const corsOptions = {
-    origin: '*',
-    allows: '*'
+    origin: (origin, callback) => {
+        if (whitelist.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
 }
 const jwtOptions = {
     secret: JWT_SECRET_KEY,
@@ -48,7 +59,6 @@ const handleTokenErrors = (err, req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin','*');
     res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
     res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
-    console.log('err.inn ', err.inner.name)
     if (err.inner) {
         let text = ''
         switch (err.inner.name) {
@@ -67,6 +77,13 @@ const handleTokenErrors = (err, req, res, next) => {
     }
 }
 
+const logger = (err, req, res, next) => {   
+    const method = req.method || ''
+    const url = req.url || ''
+    console.log(`${moment().format()} >> ${method} ${url}`)
+    next(err, req, res)
+}
+
 const generateToken = (options, refresh=false) => {
     const iatValue = Math.floor(Date.now() / 1000) - 30
     const expire = refresh? REFRESH_TOKEN_EXPIRE : ACCESS_TOKEN_EXPIRE
@@ -77,6 +94,7 @@ app.use(expressjwt(jwtOptions).unless({ path: ["/auth"] }))
 app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+app.use(logger)
 app.use(handleTokenErrors)
 
 
