@@ -67,7 +67,7 @@ paths:
                 refreshToken:
                   type: string
       responses:
-        200:
+        '200':
           description: succesful operation
           content:
             application/json:
@@ -91,24 +91,36 @@ paths:
                     type: string
                   code:
                     type: number
-        400:
-          description: Token inválido
+        '400':
+          description: Bad Request
+        '401':
+          description: Sesión expirada
+  /auth/cubejs-token:
+    get:
+      operationId: getCubeToken
+      tags:
+        - cube
+      responses:
+        '200':
+          description: Success
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  error:
+                  token:
                     type: string
-                  code:
-                    type: number
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
   /dashboard-data:
     get:
       operationId: getFakeData
       tags:
         - fakeData
       responses:
-        200:
+        '200':
           description: Success
           content:
             application/json:
@@ -125,12 +137,7 @@ paths:
                     type: string
                   company:
                     type: string
-        400:
-          description: Credenciales Inválidas
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Sesión expirada
