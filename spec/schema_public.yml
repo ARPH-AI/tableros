@@ -1,0 +1,51 @@
+openapi: 3.0.3
+info:
+  title: Public API
+  description: 'Public API description'
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+paths:
+  /public/version:
+    get:
+      operationId: getPublicVersion
+      tags:
+        - public
+        - version
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+        '400':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /public/info:
+    get:
+      operationId: getPublicInfo
+      tags:
+        - public
+        - info
+      responses:
+        '200':
+          description: succesful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  flavor:
+                    type: string
+        '401':
+          description: Unauthorized
