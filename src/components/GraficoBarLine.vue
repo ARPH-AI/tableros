@@ -30,7 +30,7 @@ const etiquetasFormateadas = props.etiquetas.map((item) => format(new Date(item)
 
 const light_theme_options = {
   grid: {
-    top: '2%',
+    top: '8%',
     left: '3%',
     right: '10%',
     bottom: '30%',
@@ -77,7 +77,7 @@ const light_theme_options = {
   xAxis: [
     {
       nameLocation: 'middle',
-      nameGap: 60,
+      nameGap: 50,
       name: 'Promedio Semanal',
       axisLabel: { verticalAlign: 'top', padding: 20 },
       type: 'category',
@@ -90,7 +90,7 @@ const light_theme_options = {
   yAxis: [
     {
       nameLocation: 'middle',
-      nameGap: 40,
+      nameGap: 30,
       nameTextStyle: { align: 'middle', padding: 10 },
       type: 'value',
       name: 'Casos',
@@ -131,7 +131,7 @@ const light_theme_options = {
 
 const dark_theme_options = {
   grid: {
-    top: '2%',
+    top: '8%',
     left: '3%',
     right: '10%',
     bottom: '30%',
@@ -177,7 +177,7 @@ const dark_theme_options = {
   xAxis: [
     {
       nameLocation: 'middle',
-      nameGap: 60,
+      nameGap: 50,
       name: 'Promedio Semanal',
       axisLabel: { verticalAlign: 'top', padding: 20 },
       type: 'category',
@@ -234,8 +234,8 @@ const dark_theme_options = {
   <div
     :class="`w-full relative rounded-lg border-r-4 shadow-lg  bg-light_smooth-50 md:shadow-xl bg-light_base dark:bg-dark_smooth border-${props.colorTheme}`"
   >
-    <div class="relative z-10 px-3 py-8">
-      <h5 class="p-3 mt-2 font-semibold uppercase text-light_contrast dark:text-dark_contrast">
+    <div class="relative z-10 px-3 py-4">
+      <h5 class="text-sm uppercase text-light_contrast dark:text-dark_contrast">
         {{ titulo }}
       </h5>
       <v-chart class="chart" autoresize :option="isDark ? dark_theme_options : light_theme_options" />
@@ -245,6 +245,6 @@ const dark_theme_options = {
 
 <style scoped>
 .chart {
-  height: 44vh;
+  height: 52vh;
 }
 </style>

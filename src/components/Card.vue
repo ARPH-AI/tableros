@@ -14,7 +14,7 @@ const props = defineProps({
       <h3 :class="`my-3 text-3xl font-semibold leading-tight text-${props.colorTheme}`">
         {{ Number(cantidad).toLocaleString() }}
       </h3>
-      <h4 class="text-sm font-extrabold leading-tight uppercase">
+      <h4 class="text-sm leading-tight uppercase">
         {{ titulo }}
       </h4>
     </div>

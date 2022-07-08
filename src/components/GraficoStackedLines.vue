@@ -13,26 +13,13 @@ const props = defineProps<{
   tituloY: string
 }>()
 
-// const emphasisStyle = {
-//   focus: 'series',
-//   lineStyle: {
-//     width: 3,
-//   },
-// }
+const emphasisStyle = {
+  focus: 'series',
+  lineStyle: {
+    width: 3,
+  },
+}
 
-<<<<<<< HEAD
-// const stackSeries = (series) => {
-//   return series.map((item) => {
-//     return {
-//       name: item.title,
-//       data: item.series.map(({ value }) => value),
-//       type: 'line',
-//       showSymbol: false,
-//       emphasis: emphasisStyle,
-//     }
-//   })
-// }
-=======
 const stackSeries = (series) => {
   return series.map((item) => {
     return {
@@ -44,7 +31,6 @@ const stackSeries = (series) => {
     }
   })
 }
->>>>>>> coropletico
 const light_theme_options = ref({
   textStyle: {
     fontFamily: 'monospace',
@@ -62,18 +48,18 @@ const light_theme_options = ref({
     type: 'value',
     name: props.tituloY || 'Y',
     nameLocation: 'middle',
-    nameGap: 50,
+    nameGap: 65,
   },
   grid: {
     top: '8%',
-    left: '8%',
+    left: '4%',
     right: '10%',
-    bottom: '28%',
+    bottom: '30%',
     containLabel: true,
   },
   legend: {
-    width: '80%',
-    bottom: 12,
+    width: '100%',
+    bottom: 1,
     type: 'plain',
     show: true,
     textStyle: {
@@ -105,12 +91,7 @@ const light_theme_options = ref({
       },
     },
   },
-<<<<<<< HEAD
-  //series: stackSeries(props.series),
-  series: props.series,
-=======
   series: stackSeries(props.series),
->>>>>>> coropletico
 })
 
 const dark_theme_options = ref({
@@ -131,22 +112,23 @@ const dark_theme_options = ref({
     type: 'value',
     name: props.tituloY || 'Y',
     nameLocation: 'middle',
-    nameGap: 50,
+    nameGap: 65,
   },
   grid: {
     top: '8%',
-    left: '8%',
+    left: '4%',
     right: '10%',
-    bottom: '28%',
+    bottom: '30%',
     containLabel: true,
   },
   legend: {
+    width: '100%',
+    bottom: 1,
+    type: 'plain',
     show: true,
-    bottom: 12,
     textStyle: {
       color: 'white',
     },
-    width: '80%',
   },
   toolbox: {
     itemSize: 18,
@@ -209,8 +191,7 @@ const dark_theme_options = ref({
       },
     },
   },
-  //series: stackSeries(props.series),
-  series: props.series,
+  series: stackSeries(props.series),
 })
 </script>
 
@@ -218,8 +199,8 @@ const dark_theme_options = ref({
   <div
     :class="`w-full relative rounded-lg border-r-4 shadow-lg  bg-light_smooth-50 md:shadow-xl bg-light_base dark:bg-dark_smooth border-${props.colorTheme}`"
   >
-    <div class="relative z-10 px-3 py-8">
-      <h5 class="p-3 mt-2 font-semibold uppercase text-light_contrast dark:text-dark_contrast">
+    <div class="relative z-10 px-3 py-4">
+      <h5 class="text-sm uppercase text-light_contrast dark:text-dark_contrast">
         {{ titulo }}
       </h5>
       <v-chart class="chart" autoresize :option="isDark ? dark_theme_options : light_theme_options" />

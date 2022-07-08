@@ -20,18 +20,11 @@ const props = defineProps<{
       text-light_contrast
       dark:text-dark_contrast`"
   >
-    <h4 class="mt-3 mb-4 text-sm font-extrabold leading-tight uppercase">
+    <h4 class="mt-3 mb-4 text-sm leading-tight uppercase">
       {{ titulo }}
     </h4>
     <div
-      class="
-        flex
-        overflow-y-auto overflow-x-hidden
-        flex-col
-        scrollbar-thin scrollbar-thumb-secondary
-        scrollbar-track-light_base
-        dark:scrollbar-thumb-secondary dark:scrollbar-track-dark_base
-      "
+      class="flex overflow-y-auto overflow-x-hidden flex-col  scrollbar-thin scrollbar-thumb-secondary scrollbar-track-light_base dark:scrollbar-thumb-secondary dark:scrollbar-track-dark_base"
     >
       <div class="sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full lg:px-8">
@@ -42,7 +35,7 @@ const props = defineProps<{
                   <th
                     v-for="(columna, index) in titulosColumnas"
                     :key="index"
-                    class="p-1 font-semibold whitespace-nowrap border-b-2 dark:border-dark_contrast"
+                    :class="`p-1 text-${props.colorTheme} whitespace-nowrap border-b-2 dark:border-dark_contrast`"
                     scope="col"
                   >
                     {{ columna }}

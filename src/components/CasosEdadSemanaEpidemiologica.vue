@@ -79,13 +79,6 @@ const getPivotConfig = () => {
         <Spinner />
       </div>
       <div v-if="!loading && resultSet !== undefined">
-        <!-- <GraficoStackedLines
-          :series="resultSet.series(pivotConfigHSI).slice(1)"
-          :titulo="titulo"
-          :titulo-y="tituloY"
-          :titulo-x="tituloX"
-          :etiquetas="resultSet.chartPivot(pivotConfigHSI).map((row) => row.x)"
-        /> -->
         <GraficoStackedLines
           :color-theme="getThemeByDataSource(props.dataSource)"
           :series="resultSet.series(getPivotConfig(props.dataSource)).slice(1)"

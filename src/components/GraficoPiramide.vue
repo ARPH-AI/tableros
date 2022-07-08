@@ -188,8 +188,8 @@ const dark_theme_options = ref({
   <div
     :class="`w-full relative rounded-lg border-r-4 shadow-lg  bg-light_smooth-50 md:shadow-xl bg-light_base dark:bg-dark_smooth border-${props.colorTheme}`"
   >
-    <div class="relative z-10 px-3 py-8">
-      <h5 class="p-3 mt-2 font-semibold uppercase text-light_contrast dark:text-dark_contrast">{{ titulo }}</h5>
+    <div class="relative z-10 px-3 py-4">
+      <h5 class="text-sm uppercase text-light_contrast dark:text-dark_contrast">{{ titulo }}</h5>
       <v-chart class="chart" :option="isDark ? dark_theme_options : light_theme_options" autoresize />
     </div>
   </div>
