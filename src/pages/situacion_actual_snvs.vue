@@ -15,7 +15,6 @@ meta:
           <CasosAcumulados data-source="snvs" />
         </div>
         <CasosActivosSemanaEpidemiologica data-source="snvs" />
-        <CasosActivosLugar data-source="snvs" />
       </div>
       <!-- Right column -->
       <div class="col-span-4">

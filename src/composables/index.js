@@ -9,12 +9,12 @@ export const useGlobalState = createGlobalState(() =>
 )
 
 export function useState(initialState) {
-  const state = ref(initialState);
+  const state = ref(initialState)
   const setState = (newState) => {
-    state.value = newState;
-  };
-  
-  return [readonly(state), setState];
+    state.value = newState
+  }
+
+  return [readonly(state), setState]
 }
 
 export const scrollingDown = ref(false)

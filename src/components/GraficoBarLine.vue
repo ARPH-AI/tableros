@@ -30,7 +30,7 @@ const etiquetasFormateadas = props.etiquetas.map((item) => format(new Date(item)
 
 const light_theme_options = {
   grid: {
-    top: '3%',
+    top: '2%',
     left: '3%',
     right: '10%',
     bottom: '30%',
@@ -69,7 +69,7 @@ const light_theme_options = {
   },
   legend: {
     data: ['Casos diarios', 'Promedio semanal'],
-    bottom: 20,
+    bottom: 0,
     textStyle: {
       color: 'black',
     },
@@ -131,7 +131,7 @@ const light_theme_options = {
 
 const dark_theme_options = {
   grid: {
-    top: '3%',
+    top: '2%',
     left: '3%',
     right: '10%',
     bottom: '30%',
@@ -169,7 +169,7 @@ const dark_theme_options = {
   },
   legend: {
     data: ['Casos diarios', 'Promedio semanal'],
-    bottom: 20,
+    bottom: 0,
     textStyle: {
       color: 'white',
     },
@@ -245,6 +245,6 @@ const dark_theme_options = {
 
 <style scoped>
 .chart {
-  height: 60vh;
+  height: 44vh;
 }
 </style>

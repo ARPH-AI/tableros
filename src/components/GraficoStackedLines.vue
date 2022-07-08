@@ -20,6 +20,7 @@ const props = defineProps<{
 //   },
 // }
 
+<<<<<<< HEAD
 // const stackSeries = (series) => {
 //   return series.map((item) => {
 //     return {
@@ -31,6 +32,19 @@ const props = defineProps<{
 //     }
 //   })
 // }
+=======
+const stackSeries = (series) => {
+  return series.map((item) => {
+    return {
+      name: item.title,
+      data: item.series.map(({ value }) => value),
+      type: 'line',
+      showSymbol: false,
+      emphasis: emphasisStyle,
+    }
+  })
+}
+>>>>>>> coropletico
 const light_theme_options = ref({
   textStyle: {
     fontFamily: 'monospace',
@@ -91,8 +105,12 @@ const light_theme_options = ref({
       },
     },
   },
+<<<<<<< HEAD
   //series: stackSeries(props.series),
   series: props.series,
+=======
+  series: stackSeries(props.series),
+>>>>>>> coropletico
 })
 
 const dark_theme_options = ref({

@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import cubeApi from '@/cube'
 import { mergeArrayByKey } from '@/cube/utils'
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { osmApi, datosgeoApi } from '@/api'
+import { format } from 'date-fns'
 
 const getCoords = async (resultSet) => {
   const centroide_lat = 'centroide.lat'
@@ -43,7 +44,7 @@ const getCoords = async (resultSet) => {
 }
 
 const submitHandler = async (resultSet) => {
-  //formas de evitar consulta a OSM (buscar ciudad argentinas geo)
+  // formas de evitar consulta a OSM (buscar ciudad argentinas geo)
   // Cambio center del mapa basado en form
   // Debe mostrar todas las opciones en el select
   const format = 'jsonv2'
@@ -61,29 +62,34 @@ const submitHandler = async (resultSet) => {
   }
 }
 
+let resultSet = {}
 const submitted = ref(false)
 const formData = ref({})
 let center = ref([-64.8, -36.45])
 let zoom = ref(5)
+let key = ref(0)
+let coords = ref([])
 
-const fecha = '2021-09-09'
-//const fecha = ref(format(new Date(), 'yyyy-MM-dd'))
+//let fecha = ref('2021-09-09')
+let fecha = ref(format(new Date(), 'yyyy-MM-dd'))
 
 const titulo = 'Total de casos activos por lugar de residencia'
 
-const totalCasos = {
-  measures: ['casos.identificador'],
-  order: {
-    'casos.identificador': 'desc',
-  },
-  filters: [
-    {
-      member: 'casos.fecha_covid',
-      operator: 'equals',
-      values: [`${fecha}`],
+const totalCasos = (fecha) => {
+  return {
+    measures: ['casos.identificador'],
+    order: {
+      'casos.identificador': 'desc',
     },
-  ],
-  dimensions: ['casos.ciudad'],
+    filters: [
+      {
+        member: 'casos.fecha_covid',
+        operator: 'equals',
+        values: [`${fecha}`],
+      },
+    ],
+    dimensions: ['casos.ciudad'],
+  }
 }
 
 const pivotConfig = {
@@ -93,8 +99,17 @@ const pivotConfig = {
   joinDateRange: false,
 }
 
-const resultSet = await cubeApi.load(totalCasos)
-const coords = await getCoords(resultSet.rawData())
+const changeDate = (event) => {
+  fecha.value = event.target.value
+}
+
+const forceUpdate = () => key.value++
+
+watchEffect(async () => {
+  resultSet = await cubeApi.load(totalCasos(fecha.value))
+  coords.value = await getCoords(resultSet.rawData())
+  forceUpdate()
+})
 </script>
 
 <template>
@@ -151,7 +166,8 @@ const coords = await getCoords(resultSet.rawData())
       </FormKit> -->
     <!-- </div> -->
     <div class="">
-      <MapaClustering :center="center" :zoom="zoom" :coords="coords" />
+      <input v-model="fecha" type="date" @change="changeDate" />
+      <MapaClustering :key="key" :center="center" :zoom="zoom" :coords="coords" />
     </div>
   </div>
 </template>

@@ -15,7 +15,6 @@ meta:
           <CasosAcumulados data-source="hsi" />
         </div>
         <CasosActivosSemanaEpidemiologica data-source="hsi" />
-        <CasosActivosLugar data-source="hsi" />
       </div>
       <!-- Right column -->
       <div class="col-span-4">

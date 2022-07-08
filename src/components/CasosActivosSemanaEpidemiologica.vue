@@ -21,7 +21,6 @@ const totalCasosSNVS = {
   },
   filters: [],
   dimensions: ['casosCovidPromSem.nombre_semana'],
-  limit: 2,
 }
 
 const totalCasosHSI = {
@@ -35,7 +34,6 @@ const totalCasosHSI = {
     'casos.semana': 'desc',
   },
   dimensions: ['casos.semana', 'casos.variable'],
-  limit: 2,
 }
 
 const pivotConfig = {

@@ -134,7 +134,7 @@
     </aside>
     <div class="flex overflow-y-auto flex-col flex-1 h-full dark:bg-dark_base">
       <!-- Navbar -->
-      <header class="flex-shrink-0 border-b dark:bg-dark_base">
+      <header class="flex-shrink-0 h-auto border-b dark:bg-dark_base">
         <div class="flex justify-between items-center p-2">
           <!-- Navbar left -->
           <div class="flex items-center space-x-3">
@@ -157,6 +157,9 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
               </svg>
             </button>
+            <span class="float-left font-mono font-semibold leading-relaxed align-middle">
+              Tablero de información epidemiológica
+            </span>
             <!-- Toggle darkmode button -->
             <button class="p-2 rounded-md focus:outline-none focus:ring" @click="toggleDarkMode">
               <!-- light icon -->
@@ -214,67 +217,70 @@
       </header>
       <!-- Main Content -->
       <div
-        class="font-mono  scrollbar-thin scrollbar-thumb-secondary scrollbar-track-light_base dark:scrollbar-thumb-secondary dark:scrollbar-track-dark_base"
+        class="h-full font-mono  flew-row scrollbar-thin scrollbar-thumb-secondary scrollbar-track-light_base dark:scrollbar-thumb-secondary dark:scrollbar-track-dark_base"
       >
-        <div v-show="!isCurrentRoute(`about`)" class="inline-flex grid grid-cols-1 pl-4 mt-4 ml-4 text-left">
-          <span class="float-left text-4xl align-middle">COVID-19</span>
-          <span class="float-left font-semibold leading-relaxed align-middle">
-            Tablero de información epidemiológica
-          </span>
-          <span class="float-left leading-relaxed align-middle"> Última actualización: {{ currentTime }}</span>
-        </div>
         <!-- Tabs -->
         <TabGroup>
-          <TabList v-show="!isCurrentRoute(`about`)" class="float-right pt-2 pr-20">
-            <Popper
-              :class="[isCurrentRoute(`${state.criterio}_hsi`) ? 'hsi' : 'snvs']"
-              placement="top"
-              arrow
-              disable-click-away
-              hover
-              interactive
-              content="Los datos de esta sección corresponden 
+          <div
+            v-show="!isCurrentRoute(`about`)"
+            class="inline-flex grid float-left grid-cols-1 pl-4 mt-4 ml-4 text-left h-fit"
+          >
+            <span class="float-left text-4xl align-middle">COVID-19</span>
+            <span class="float-left leading-relaxed align-middle"> Actualizado: {{ currentTime }}</span>
+          </div>
+          <div class="grid float-right grid-cols-1 mt-4 text-left h-fit">
+            <span class="inline-flex float-right pr-14 mb-3">Fuente de datos</span>
+            <TabList v-show="!isCurrentRoute(`about`)" class="inline-flex float-right pr-14 shadow-2xl">
+              <Popper
+                :class="[isCurrentRoute(`${state.criterio}_hsi`) ? 'hsi' : 'snvs']"
+                placement="top"
+                arrow
+                disable-click-away
+                hover
+                interactive
+                content="Los datos de esta sección corresponden
               a los registros de la atención ambulatoria en historia clínica electrónica"
-            >
-              <Tab
-                v-slot="{ selected }"
-                as="template"
-                class="px-4 py-2 -mb-px text-white border-3 border-primary bg-primary"
               >
-                <router-link
-                  :class="[selected ? 'shadow-inner opacity-100' : 'border-none opacity-50']"
-                  class="py-1 font-extrabold group"
-                  :to="{ name: `${state.criterio}_hsi` }"
-                  tag="button"
-                  @click="state.fuente = 'hsi'"
-                  >HSI</router-link
+                <Tab
+                  v-slot="{ selected }"
+                  as="template"
+                  class="px-4 py-2 -mb-px text-white shadow-2xl border-3 border-primary bg-primary"
                 >
-              </Tab>
-            </Popper>
-            <Popper
-              arrow
-              disable-click-away
-              hover
-              interactive
-              content="Los datos de esta sección corresponden a los registros de los eventos de notificación obligatoria en
+                  <router-link
+                    :class="[selected ? 'shadow-inner opacity-100' : 'border-none opacity-50']"
+                    class="py-1 font-extrabold group"
+                    :to="{ name: `${state.criterio}_hsi` }"
+                    tag="button"
+                    @click="state.fuente = 'hsi'"
+                    >HSI</router-link
+                  >
+                </Tab>
+              </Popper>
+              <Popper
+                arrow
+                disable-click-away
+                hover
+                interactive
+                content="Los datos de esta sección corresponden a los registros de los eventos de notificación obligatoria en
                   el Sistema Nacional de Vigilancia en Salud"
-            >
-              <Tab
-                v-slot="{ selected }"
-                class="px-4 py-2 -mb-px font-semibold text-white shadow-lg bg-secondary border-secondary"
-                as="template"
               >
-                <router-link
-                  :class="[selected ? 'shadow-inner border-3 border-secondary opacity-100' : 'opacity-50']"
-                  class="py-1 font-extrabold group dark:text-dark_contrast"
-                  :to="{ name: `${state.criterio}_snvs` }"
-                  tag="button"
-                  @click="state.fuente = 'snvs'"
-                  >SNVS</router-link
+                <Tab
+                  v-slot="{ selected }"
+                  class="px-4 py-2 -mb-px font-semibold text-white shadow-2xl bg-secondary border-secondary"
+                  as="template"
                 >
-              </Tab>
-            </Popper>
-          </TabList>
+                  <router-link
+                    :class="[selected ? 'shadow-inner border-3 border-secondary opacity-100' : 'opacity-50']"
+                    class="py-1 font-extrabold group dark:text-dark_contrast"
+                    :to="{ name: `${state.criterio}_snvs` }"
+                    tag="button"
+                    @click="state.fuente = 'snvs'"
+                    >SNVS</router-link
+                  >
+                </Tab>
+              </Popper>
+            </TabList>
+          </div>
           <TabPanels>
             <TabPanel><RouterViewTransition></RouterViewTransition></TabPanel>
             <TabPanel><RouterViewTransition></RouterViewTransition></TabPanel>
