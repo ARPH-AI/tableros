@@ -4,7 +4,7 @@ const props = defineProps<{
   titulo: string
   titulosColumnas: string[]
   titulosMostrados: string[]
-  colorTheme: { type: string }
+  colorTheme: string
 }>()
 </script>
 

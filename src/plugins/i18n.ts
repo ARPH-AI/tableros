@@ -26,7 +26,6 @@ function getMessages() {
       messages[locale] = localeFiles[path].default
     }
   }
-  console.log(messages)
   return messages
 }
 

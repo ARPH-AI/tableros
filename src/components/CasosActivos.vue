@@ -42,8 +42,6 @@ const totalCasosActivosSNVS = {
 }
 
 const getTotalCasosActivos = () => {
-  console.log('llega al get ccasos')
-  console.log(props.dataSource)
   switch (props.dataSource) {
     case 'hsi':
       return totalCasosActivosHSI

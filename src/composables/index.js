@@ -62,6 +62,8 @@ export const getThemeByDataSource = (dataSource) => {
       return 'secondary'
     case 'about':
       return 'secondary'
+    default:
+      return 'primary'
   }
 }
 
@@ -71,5 +73,7 @@ export const getColorByDataSource = (dataSource) => {
       return '#f7931e'
     case 'snvs':
       return '#00becb'
+    default:
+      return '#f7931'
   }
 }
