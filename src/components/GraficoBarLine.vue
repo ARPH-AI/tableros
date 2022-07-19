@@ -7,7 +7,7 @@ import { obtenerMinimo, obtenerMaximo, porcentaje } from '@/cube/utils'
 import { isDark } from '@/composables'
 
 const props = defineProps<{
-  colorTheme: { type: string; default: 'primary' }
+  colorTheme: string
   seriesLine: number[]
   seriesBar: number[]
   etiquetas: string[]
@@ -104,7 +104,7 @@ const light_theme_options = {
       type: 'bar',
       itemStyle: {
         color: '#00bfcc',
-        barBorderRadius: 3,
+        borderRadius: 3,
         opacity: 0.4,
       },
       emphasis: {
@@ -204,7 +204,7 @@ const dark_theme_options = {
       type: 'bar',
       itemStyle: {
         color: '#00bfcc',
-        barBorderRadius: 3,
+        borderRadius: 3,
         opacity: 0.4,
       },
       emphasis: {

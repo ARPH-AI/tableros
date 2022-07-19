@@ -5,7 +5,7 @@ import VChart from 'vue-echarts'
 import { isDark } from '@/composables'
 
 const props = defineProps<{
-  colorTheme: { type: string; default: 'primary' }
+  colorTheme: string
   series: object[]
   etiquetas: string[]
   titulo: string
@@ -22,7 +22,7 @@ const createSeries = (series) => {
       stack: 'Total',
       itemStyle: {
         color,
-        barBorderRadius: 5,
+        borderRadius: 5,
         opacity: 0.8,
       },
       label: {

@@ -27,7 +27,7 @@ const stackSeries = (series) => {
       itemStyle: {
         opacity: 0.7,
         color,
-        barBorderRadius: 3,
+        borderRadius: 3,
       },
     }
   })
