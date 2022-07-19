@@ -91,6 +91,18 @@ CREATE TABLE tableros.grupo_edad (
 ALTER TABLE tableros.grupo_edad OWNER TO dashboarduser;
 
 --
+-- Name: grupo_edad_nueva; Type: TABLE; Schema: tableros; Owner: dashboarduser
+--
+
+CREATE TABLE tableros.grupo_edad_nueva (
+    id smallint NOT NULL,
+    descripcion character(8) NOT NULL
+);
+
+
+ALTER TABLE tableros.grupo_edad_nueva OWNER TO dashboarduser;
+
+--
 -- Name: map_coordinates; Type: TABLE; Schema: tableros; Owner: dashboarduser
 --
 
@@ -157,6 +169,13 @@ ALTER TABLE ONLY tableros.cie_10
 
 ALTER TABLE ONLY tableros.grupo_edad
     ADD CONSTRAINT id_grupo_edad PRIMARY KEY (id);
+
+--
+-- Name: grupo_edad_nueva id_grupo_edad_nueva; Type: CONSTRAINT; Schema: tableros; Owner: dashboarduser
+--
+
+ALTER TABLE ONLY tableros.grupo_edad_nueva
+    ADD CONSTRAINT id_grupo_edad_nueva PRIMARY KEY (id);
 
 
 --
