@@ -30,15 +30,15 @@ const etiquetasFormateadas = props.etiquetas.map((item) => format(new Date(item)
 
 const light_theme_options = {
   grid: {
-    top: '8%',
-    left: '3%',
-    right: '10%',
-    bottom: '30%',
+    top: '12%',
+    left: '1%',
+    right: '5%',
+    bottom: '16%',
     containLabel: true,
   },
   textStyle: {
     fontFamily: 'monospace',
-    fontSize: 16,
+    fontSize: 14,
     color: 'black',
   },
   tooltip: {
@@ -46,25 +46,30 @@ const light_theme_options = {
     axisPointer: {
       type: 'cross',
       crossStyle: {
-        color: '#999',
+        color: '#000000',
       },
     },
   },
   toolbox: {
-    itemSize: 18,
-    top: 1,
-    right: 5,
+    top: 20,
+    itemSize: 14,
     showTitle: true,
     orient: 'vertical',
     feature: {
-      dataView: { iconStyle: { borderColor: 'black' }, show: true, readOnly: false },
-      magicType: { iconStyle: { borderColor: 'black' }, show: true, type: ['line', 'bar'] },
+      dataView: {
+        title: 'Ver datos',
+        style: 'black',
+        iconStyle: { borderColor: 'black' },
+        show: true,
+        readOnly: false,
+      },
+      magicType: { show: false },
       dataZoom: {
         iconStyle: { borderColor: 'black' },
         yAxisIndex: 'none',
       },
-      restore: { iconStyle: { borderColor: 'black' }, show: true },
-      saveAsImage: { iconStyle: { borderColor: 'black' }, show: true },
+      restore: { title: 'Estado inicial', iconStyle: { borderColor: 'black' }, show: true },
+      saveAsImage: { title: 'Descargar como imágen', iconStyle: { borderColor: 'black' }, show: true },
     },
   },
   legend: {
@@ -76,10 +81,9 @@ const light_theme_options = {
   },
   xAxis: [
     {
-      nameLocation: 'middle',
-      nameGap: 50,
-      name: 'Promedio Semanal',
-      axisLabel: { verticalAlign: 'top', padding: 20 },
+      // nameLocation: 'middle',
+      // nameGap: 50,
+      // axisLabel: { verticalAlign: 'top', padding: 20 },
       type: 'category',
       data: etiquetasFormateadas,
       axisPointer: {
@@ -89,11 +93,11 @@ const light_theme_options = {
   ],
   yAxis: [
     {
-      nameLocation: 'middle',
-      nameGap: 30,
-      nameTextStyle: { align: 'middle', padding: 10 },
+      // nameLocation: 'middle',
+      // nameGap: 30,
+      // nameTextStyle: { align: 'middle', padding: 10 },
       type: 'value',
-      name: 'Casos',
+      // name: 'Casos',
       min,
       max,
     },
@@ -131,15 +135,15 @@ const light_theme_options = {
 
 const dark_theme_options = {
   grid: {
-    top: '8%',
-    left: '3%',
-    right: '10%',
-    bottom: '30%',
+    top: '12%',
+    left: '1%',
+    right: '5%',
+    bottom: '16%',
     containLabel: true,
   },
   textStyle: {
     fontFamily: 'monospace',
-    fontSize: 16,
+    fontSize: 14,
     color: 'white',
   },
   tooltip: {
@@ -152,19 +156,20 @@ const dark_theme_options = {
     },
   },
   toolbox: {
-    itemSize: 18,
-    top: 1,
-    right: 5,
+    top: 20,
+    itemSize: 14,
+    right: 20,
+    showTitle: true,
     orient: 'vertical',
     feature: {
-      dataView: { iconStyle: { borderColor: 'white' }, show: true, readOnly: false },
-      magicType: { iconStyle: { borderColor: 'white' }, show: true, type: ['line', 'bar'] },
+      dataView: { title: 'Ver datos', iconStyle: { borderColor: 'white' }, show: true, readOnly: false },
+      magicType: { show: false },
       dataZoom: {
         iconStyle: { borderColor: 'white' },
         yAxisIndex: 'none',
       },
-      restore: { iconStyle: { borderColor: 'white' }, show: true },
-      saveAsImage: { iconStyle: { borderColor: 'white' }, show: true },
+      restore: { title: 'Estado inicial', iconStyle: { borderColor: 'white' }, show: true },
+      saveAsImage: { title: 'Descargar como imágen', iconStyle: { borderColor: 'white' }, show: true },
     },
   },
   legend: {
@@ -176,10 +181,9 @@ const dark_theme_options = {
   },
   xAxis: [
     {
-      nameLocation: 'middle',
-      nameGap: 50,
-      name: 'Promedio Semanal',
-      axisLabel: { verticalAlign: 'top', padding: 20 },
+      // nameLocation: 'middle',
+      // nameGap: 50,
+      // axisLabel: { verticalAlign: 'top', padding: 20 },
       type: 'category',
       data: etiquetasFormateadas,
       axisPointer: {
@@ -189,11 +193,11 @@ const dark_theme_options = {
   ],
   yAxis: [
     {
-      nameLocation: 'middle',
-      nameGap: 40,
-      nameTextStyle: { align: 'middle', padding: 10 },
+      // nameLocation: 'middle',
+      // nameGap: 40,
+      // nameTextStyle: { align: 'middle', padding: 10 },
       type: 'value',
-      name: 'Casos',
+      // name: 'Casos',
       min,
       max,
     },
@@ -232,19 +236,17 @@ const dark_theme_options = {
 
 <template>
   <div
-    :class="`w-full relative rounded-lg border-r-4 shadow-lg  bg-light_smooth-50 md:shadow-xl bg-light_base dark:bg-dark_smooth border-${props.colorTheme}`"
+    :class="`sm:p-2 xl:p-4 2xl:p-5 rounded-lg border-r-4 shadow-2xl bg-light_smooth-50 dark:bg-dark_smooth border-${props.colorTheme}`"
   >
-    <div class="relative z-10 px-3 py-4">
-      <h5 class="text-sm uppercase text-light_contrast dark:text-dark_contrast">
+    <div class="leading-tight text-left text-light_contrast dark:text-dark_contrast">
+      <h5 class="pl-2 text-sm uppercase border-l-4">
         {{ titulo }}
       </h5>
-      <v-chart class="chart" autoresize :option="isDark ? dark_theme_options : light_theme_options" />
+      <v-chart
+        class="sm:h-[38vh] xl:h-[41vh] 2xl:h-[52vh]"
+        autoresize
+        :option="isDark ? dark_theme_options : light_theme_options"
+      />
     </div>
   </div>
 </template>
-
-<style scoped>
-.chart {
-  height: 52vh;
-}
-</style>

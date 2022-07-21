@@ -87,3 +87,11 @@ export const getColorByDataSource = (dataSource) => {
       return '#f7931'
   }
 }
+
+// Breackpoints
+
+export const isLarge = () => window.innerWidth >= 1024 <= 1366
+
+export const isExtraLarge = () => {
+  window.innerWidth >= 1367
+}

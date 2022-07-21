@@ -8,13 +8,13 @@ const props = defineProps({
 
 <template>
   <div
-    :class="`rounded-lg border-r-4 shadow-lg bg-light_smooth-50 dark:bg-dark_smooth md:shadow-xl border-${props.colorTheme}`"
+    :class="`sm:p-2 xl:p-4 2xl:p-5 rounded-lg border-r-4 shadow-2xl bg-light_smooth-50 dark:bg-dark_smooth border-${props.colorTheme}`"
   >
-    <div class="relative z-10 pt-2 pb-4 text-center text-light_contrast dark:text-dark_contrast">
-      <h3 :class="`my-3 text-3xl font-semibold leading-tight text-${props.colorTheme}`">
+    <div class="leading-tight text-left text-light_contrast dark:text-dark_contrast">
+      <h3 :class="`text-3xl font-semibold text-${props.colorTheme}`">
         {{ Number(cantidad).toLocaleString() }}
       </h3>
-      <h4 class="text-sm leading-tight uppercase">
+      <h4 class="text-sm uppercase">
         {{ titulo }}
       </h4>
     </div>

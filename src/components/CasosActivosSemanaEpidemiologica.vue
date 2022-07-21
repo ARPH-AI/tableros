@@ -4,6 +4,7 @@ import { QueryBuilder } from '@cubejs-client/vue3'
 import TableCard from '@/components/TableCard.vue'
 import { flattenColumns, getDisplayedColumns } from '@/cube/utils'
 import { getThemeByDataSource } from '@/composables'
+import { isLarge, isExtraLarge } from '@/composables'
 
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
@@ -61,7 +62,7 @@ const getTotalCasosActivos = () => {
       </div>
       <div v-if="!loading && resultSet !== undefined">
         <TableCard
-          :color-theme="getThemeByDataSource(props.dataSource)"
+          :colorTheme="getThemeByDataSource(props.dataSource)"
           :datos="resultSet.tablePivot(pivotConfig)"
           :titulo="titulo"
           :titulos-columnas="flattenColumns(resultSet.tableColumns(pivotConfig))"

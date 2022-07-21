@@ -41,8 +41,8 @@
       </nav>
       <nav v-show="!sidebarState.isOpen" class="grid grid-cols-1 items-center px-2 mt-32 font-mono">
         <!-- Without sidebar open -->
-
         <router-link
+          aria-label="Navegar hacia la sección Situación actual"
           v-if="{ name: `situacion_actual_${state.fuente}` }"
           class="flex justify-self-center p-2 m-2 rounded group bg-light_base-200 dark:bg-dark_base"
           :class="[
@@ -64,6 +64,7 @@
         </router-link>
 
         <router-link
+          aria-label="Navegar hacia la sección Caracterización"
           v-if="{ name: `caracterizacion_${state.fuente}` }"
           class="flex justify-self-center p-2 m-2 rounded border-2  group bg-light_base-200 dark:bg-dark_base text-light_contrast dark:text-dark_contrast"
           :class="[
@@ -82,6 +83,7 @@
         ></router-link>
 
         <router-link
+          aria-label="Navegar hacia la sección Geolocalización"
           v-if="{ name: `distribucion_espacial_${state.fuente}` }"
           class="flex justify-self-center p-2 m-2 rounded  group bg-light_base-200 dark:bg-dark_base text-light_contrast dark:text-dark_contrast"
           :class="[
@@ -98,8 +100,8 @@
           ><Popper arrow disable-click-away hover interactive content="Geo"
             ><MapIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
         ></router-link>
-
         <router-link
+          aria-label="Navegar hacia la sección Sobre el proyecto"
           v-if="{ name: `about` }"
           class="flex justify-self-center p-2 m-2 rounded  group bg-light_base-200 dark:bg-dark_base text-light_contrast dark:text-dark_contrast"
           :class="[
@@ -116,21 +118,6 @@
             ><QuestionMarkCircleIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
         ></router-link>
       </nav>
-      <!-- To open sidebar -->
-      <button
-        class="p-2 rounded-md dark:text-dark_contrast lg:hidden"
-        @click="sidebarState.isOpen = !sidebarState.isOpen"
-      >
-        <svg
-          class="w-6 h-6 text-gray-600"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
     </aside>
     <div class="flex overflow-y-auto flex-col flex-1 h-full dark:bg-dark_base">
       <!-- Navbar -->
@@ -138,13 +125,11 @@
         <div class="flex justify-between items-center p-2">
           <!-- Navbar left -->
           <div class="flex items-center space-x-3">
-            <a href="/" class="p-1">
-              <img alt="ARPHAI logo" src="@/assets/logo.png" class="w-28" />
-            </a>
             <!-- Toggle sidebar button -->
             <button
               class="p-2 rounded-md dark:text-dark_contrast focus:outline-none focus:ring"
               @click="sidebarState.isOpen = !sidebarState.isOpen"
+              aria-label="Desplegar menú lalteral"
             >
               <svg
                 class="w-4 h-4 text-gray-600"
@@ -157,11 +142,21 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
               </svg>
             </button>
+            <a aria-label="Navegar al inicio del sitio" href="/" class="p-1">
+              <img alt="ARPHAI logo" src="@/assets/logo.png" class="w-20" />
+            </a>
+
             <span class="float-left font-mono font-semibold leading-relaxed align-middle">
               Tablero de información epidemiológica
             </span>
+          </div>
+          <div class="flex items-center space-x-1">
             <!-- Toggle darkmode button -->
-            <button class="p-2 rounded-md focus:outline-none focus:ring" @click="toggleDarkMode">
+            <button
+              aria-label="Cambiar tema"
+              class="p-2 rounded-md focus:outline-none focus:ring"
+              @click="toggleDarkMode"
+            >
               <!-- light icon -->
               <MoonIcon
                 v-show="!isDark"
@@ -171,48 +166,53 @@
               <!-- dark icon -->
               <SunIcon v-show="isDark" class="flex-shrink-0 w-6 h-6 hover:text-secondary" aria-hidden="true" />
             </button>
-          </div>
-          <!-- User menu dropdown -->
-          <Menu as="div" class="inline-block relative z-50 font-mono text-right">
-            <div>
-              <MenuButton class="inline-flex justify-center px-4 w-full">
-                <ProfileAvatar :username="$auth.user.email"></ProfileAvatar>
-              </MenuButton>
-            </div>
 
-            <transition
-              enter-active-class="transition duration-100 ease-out"
-              enter-from-class="opacity-0 transform scale-95"
-              enter-to-class="opacity-100 transform scale-100"
-              leave-active-class="transition duration-75 ease-in"
-              leave-from-class="opacity-100 transform scale-100"
-              leave-to-class="opacity-0 transform scale-95"
-            >
-              <MenuItems
-                :class="`absolute right-0 mt-1 w-56 bg-white rounded-md divide-y divide-black ring-1 ring-black text-bold ring-opacity-5 shadow-lg origin-top-right focus:outline-none`"
+            <!-- User menu dropdown -->
+            <Menu as="div" class="inline-block relative z-50 font-mono">
+              <MenuButton class="inline-flex justify-center w-full">
+                <ProfileAvatar
+                  bgColor="#000000"
+                  border
+                  borderColor="#FFFFFF"
+                  :username="$auth.user.email"
+                  textColor="#FFFFFF"
+                ></ProfileAvatar>
+              </MenuButton>
+              <transition
+                enter-active-class="transition duration-100 ease-out"
+                enter-from-class="opacity-0 transform scale-95"
+                enter-to-class="opacity-100 transform scale-100"
+                leave-active-class="transition duration-75 ease-in"
+                leave-from-class="opacity-100 transform scale-100"
+                leave-to-class="opacity-0 transform scale-95"
               >
-                <div class="px-1 py-1">
-                  <MenuItem class="flex items-center px-2 py-2 w-full text-sm rounded-md group">
-                    <span>{{ $auth.user.email }}</span>
-                  </MenuItem>
-                  <MenuItem v-slot="{ active }">
-                    <button
-                      @click="$auth.logout"
-                      :class="[
-                        active
-                          ? `bg-light_smooth text-${getThemeByDataSource(state.fuente)}`
-                          : 'bg-white text-dark_smooth',
-                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                      ]"
-                    >
-                      <LogoutIcon :active="active" class="mr-2 w-5 h-5 text-third" aria-hidden="true" />
-                      Cerrar sesión
-                    </button>
-                  </MenuItem>
-                </div>
-              </MenuItems>
-            </transition>
-          </Menu>
+                <MenuItems
+                  :class="`absolute right-0 mt-1 w-56 bg-white rounded-md divide-y divide-black ring-1 ring-black text-bold ring-opacity-5 shadow-lg origin-top-right focus:outline-none`"
+                >
+                  <div class="px-1 py-1">
+                    <MenuItem class="flex items-center px-2 py-2 w-full text-sm rounded-md group">
+                      <span>{{ $auth.user.email }}</span>
+                    </MenuItem>
+                    <MenuItem v-slot="{ active }">
+                      <button
+                        aria-label="Desplegar menú de usuarie"
+                        @click="$auth.logout"
+                        :class="[
+                          active
+                            ? `bg-light_smooth text-${getThemeByDataSource(state.fuente)}`
+                            : 'bg-white text-dark_smooth',
+                          'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                        ]"
+                      >
+                        <LogoutIcon :active="active" class="mr-2 w-5 h-5 text-third" aria-hidden="true" />
+                        Cerrar sesión
+                      </button>
+                    </MenuItem>
+                  </div>
+                </MenuItems>
+              </transition>
+            </Menu>
+          </div>
         </div>
       </header>
       <!-- Main Content -->
@@ -228,12 +228,11 @@
             <span class="float-left text-4xl align-middle">COVID-19</span>
             <span class="float-left leading-relaxed align-middle"> Actualizado: {{ currentTime }}</span>
           </div>
-          <div class="grid float-right grid-cols-1 mt-4 text-left h-fit">
+          <div class="grid float-right grid-cols-1 mt-3 text-left h-fit">
             <span class="inline-flex float-right pr-14 mb-3">Fuente de datos</span>
             <TabList v-show="!isCurrentRoute(`about`)" class="inline-flex float-right pr-14 shadow-2xl">
               <Popper
-                :class="[isCurrentRoute(`${state.criterio}_hsi`) ? 'hsi' : 'snvs']"
-                placement="top"
+                placement="left"
                 arrow
                 disable-click-away
                 hover
@@ -244,11 +243,12 @@
                 <Tab
                   v-slot="{ selected }"
                   as="template"
-                  class="px-4 py-2 -mb-px text-white shadow-2xl border-3 border-primary bg-primary"
+                  class="px-4 py-2 -mb-px shadow-2xl border-3 border-primary bg-primary"
                 >
                   <router-link
-                    :class="[selected ? 'shadow-inner opacity-100' : 'border-none opacity-50']"
-                    class="py-1 font-extrabold group"
+                    aria-label="Seleccionar HSI como fuente de datos"
+                    :class="[selected ? 'opacity-100' : 'border-none opacity-50']"
+                    class="py-1 font-extrabold text-white group"
                     :to="{ name: `${state.criterio}_hsi` }"
                     tag="button"
                     @click="state.fuente = 'hsi'"
@@ -266,12 +266,13 @@
               >
                 <Tab
                   v-slot="{ selected }"
-                  class="px-4 py-2 -mb-px font-semibold text-white shadow-2xl bg-secondary border-secondary"
+                  class="px-4 py-2 -mb-px font-semibold shadow-2xl bg-secondary border-secondary"
                   as="template"
                 >
                   <router-link
-                    :class="[selected ? 'shadow-inner border-3 border-secondary opacity-100' : 'opacity-50']"
-                    class="py-1 font-extrabold group dark:text-dark_contrast"
+                    aria-label="Seleccionar SNVS como fuente de datos"
+                    :class="[selected ? 'shadow-xl border-3 border-secondary opacity-100' : 'opacity-50']"
+                    class="py-1 font-extrabold text-black group dark:text-dark_contrast"
                     :to="{ name: `${state.criterio}_snvs` }"
                     tag="button"
                     @click="state.fuente = 'snvs'"
@@ -369,22 +370,23 @@ export default {
 </script>
 <style scoped>
 :deep(.popper) {
-  background: #f1e5e2;
-  padding: 10px;
+  background: #000000;
+  padding: 8px;
   border-radius: 3px;
-  color: #605e5d;
+  color: #ffffff;
   font-weight: bold;
-  max-width: 30rem;
+  max-width: 25rem;
   font-size: 14px;
   margin-right: 5rem;
+  z-index: 50;
 }
 
 :deep(.popper #arrow::before) {
-  background: #f1e5e2;
+  background: #000000;
 }
 
 :deep(.popper:hover),
 :deep(.popper:hover > #arrow::before) {
-  background: #f1e5e2;
+  background: #000000;
 }
 </style>
