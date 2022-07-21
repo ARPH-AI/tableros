@@ -46,23 +46,18 @@ const light_theme_options = {
     axisPointer: {
       type: 'cross',
       crossStyle: {
-        color: '#000000',
+        color: 'black',
       },
     },
   },
   toolbox: {
     top: 20,
     itemSize: 14,
+    right: 0,
     showTitle: true,
     orient: 'vertical',
     feature: {
-      dataView: {
-        title: 'Ver datos',
-        style: 'black',
-        iconStyle: { borderColor: 'black' },
-        show: true,
-        readOnly: false,
-      },
+      dataView: { title: 'Ver datos', iconStyle: { borderColor: 'black' }, show: true, readOnly: false },
       magicType: { show: false },
       dataZoom: {
         iconStyle: { borderColor: 'black' },
@@ -94,7 +89,7 @@ const light_theme_options = {
   yAxis: [
     {
       // nameLocation: 'middle',
-      // nameGap: 30,
+      // nameGap: 40,
       // nameTextStyle: { align: 'middle', padding: 10 },
       type: 'value',
       // name: 'Casos',
@@ -158,7 +153,7 @@ const dark_theme_options = {
   toolbox: {
     top: 20,
     itemSize: 14,
-    right: 20,
+    right: 0,
     showTitle: true,
     orient: 'vertical',
     feature: {
