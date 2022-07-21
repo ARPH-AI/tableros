@@ -5,7 +5,7 @@ import VChart from 'vue-echarts'
 import { isDark } from '@/composables'
 
 const props = defineProps<{
-  colorTheme: { type: string; default: 'primary' }
+  colorTheme: string
   series: object[]
   etiquetas: string[]
   titulo: string
