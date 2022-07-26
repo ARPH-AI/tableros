@@ -7,6 +7,8 @@ import { getThemeByDataSource } from '@/composables'
 
 const props = defineProps<{ url: string; provincia: string; center: number[]; zoom: number; datos: object[] }>()
 const emit = defineEmits(['zoomChanged'])
+const poblacionImport = await fetch('src/assets/poblacion_por_departamento.json')
+const poblacion = await poblacionImport.json()
 
 const depsFromProv = reactive({})
 const projection = ref('EPSG:4326')
@@ -17,13 +19,16 @@ const lineColor = 'rgba(0,0,0,0.4)'
 const lineColorSelected = '#FFFF'
 const fillColorSelected = 'rgba(0,0,0,0.3)'
 const fillColorDefault = '#F3F4F6'
-const gradiente = ['#F3F4F6', '#36CAD5', '#6CD6DE', '#A2E2E8', '#D8EEF1']
+const gradiente = ['#FFFFFF', '#FFFFCC', '#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C', '#B10026']
 const criteria = [
   (x) => x < 10,
-  (x) => x >= 10 && x < 20,
-  (x) => x >= 20 && x < 30,
-  (x) => x >= 30 && x < 40,
-  (x) => x >= 40,
+  (x) => x >= 10 && x < 50,
+  (x) => x >= 50 && x < 100,
+  (x) => x >= 100 && x < 200,
+  (x) => x >= 200 && x < 400,
+  (x) => x >= 400 && x < 800,
+  (x) => x >= 800 && x < 1600,
+  (x) => x >= 1600,
 ]
 
 const fnCompare = new Intl.Collator('es', {
@@ -36,12 +41,16 @@ const overrideStyleFunction = (feature, style) => {
   console.log(feature.get('departamento'), 'feature dep')
   let color = fillColorDefault
   let idx
-
+  let muestra = 100000
+  let casos
+  let poblacion_depto
   for (let i = 0; i < props.datos.length; i++) {
     console.log('ffff')
     if (fnCompare(props.datos[i].nombre, feature.get('departamento')) == 0) {
+      poblacion_depto = poblacion[feature.get('provincia')][feature.get('departamento')]['2021'] || 1
+      casos = (props.datos[i].valor * muestra) / poblacion_depto
       for (idx = 0; idx < criteria.length; idx++) {
-        if (criteria[idx](props.datos[i].valor) == true) {
+        if (criteria[idx](casos) == true) {
           color = gradiente[idx]
           break
         }
