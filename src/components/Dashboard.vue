@@ -9,7 +9,24 @@
       x-transition:leave-start="translate-x-0 opacity-100 ease-out"
       x-transition:leave-end="-translate-x
       -full opacity-0 ease-in"
-      class="flex overflow-visible fixed inset-y-0 z-40 flex-col flex-shrink-0 px-2 w-60 max-h-screen border-r shadow-lg transition-all transform  lg:z-auto lg:static lg:shadow-none bg-light_base-200 dark:bg-dark_base"
+      class="
+        flex
+        overflow-visible
+        fixed
+        inset-y-0
+        z-40
+        flex-col flex-shrink-0
+        px-2
+        w-60
+        max-h-screen
+        border-r
+        shadow-lg
+        transition-all
+        transform
+        lg:z-auto lg:static lg:shadow-none
+        bg-light_base-200
+        dark:bg-dark_base
+      "
       :class="{ '-translate-x-full lg:translate-x-0 lg:w-20': !sidebarState.isOpen }"
     >
       <!-- Navigation -->
@@ -251,7 +268,14 @@
       </header>
       <!-- Main Content -->
       <div
-        class="h-full font-mono  flew-row scrollbar-thin scrollbar-thumb-secondary scrollbar-track-light_base dark:scrollbar-thumb-secondary dark:scrollbar-track-dark_base"
+        class="
+          h-full
+          font-mono
+          flew-row
+          scrollbar-thin scrollbar-thumb-secondary
+          scrollbar-track-light_base
+          dark:scrollbar-thumb-secondary dark:scrollbar-track-dark_base
+        "
       >
         <!-- Tabs -->
         <TabGroup>

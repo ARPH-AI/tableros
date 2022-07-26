@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, inject } from 'vue'
 import { ScaleLine, defaults as defaultControls } from 'ol/control'
+import Popper from 'vue3-popper'
 
 const props = defineProps<{ url: string; provincia: string; center: number[]; zoom: number; datos: object[] }>()
 const emit = defineEmits(['zoomChanged'])
@@ -42,13 +43,9 @@ const overrideStyleFunction = (feature, style) => {
     }
   }
   style.getFill().setColor(color)
-  // style.getText().setText(` ${feature.get('departamento')}`)
-  // style.getText().setOverflow(true)
 }
 
 const overrideStyleFunctionSelected = (feature, style) => {
-  let color = fillColorDefault
-  style.getFill().setColor(color)
   style.getText().setText(` ${feature.get('departamento')}`)
   style.getText().setOverflow(true)
 }
@@ -57,9 +54,23 @@ const onZoomChanged = (currentZoom) => {
   emit('zoomChanged', currentZoom)
 }
 
+const departNombre = ref('')
+const casosCant = ref(0)
+
 const selectConditions = inject('ol-selectconditions')
 const selectCondition = selectConditions.pointerMove
-const featureSelected = (event) => {}
+
+const featureSelected = (event) => {
+  let cant = 0
+  const feature = event.target.features_.array_[0].values_
+  for (let i = 0; i < props.datos.length; i++) {
+    if (fnCompare(props.datos[i].nombre, feature.departamento) == 0) {
+      cant = props.datos[i].valor
+    }
+  }
+  departNombre.value = feature.departamento
+  casosCant.value = cant
+}
 const selectInteactionFilter = (feature) => {
   return feature.get('departamento') != undefined
 }
@@ -87,7 +98,7 @@ const selectInteactionFilter = (feature) => {
     <ol-scaleline-control text class="ol-scale-line" bar />
 
     <ol-interaction-select :condition="selectCondition" :filter="selectInteactionFilter" @select="featureSelected">
-      <ol-style :override-style-function="overrideStyleFunctionSelected">
+      <ol-style>
         <ol-style-stroke :color="lineColorSelected" :width="5"></ol-style-stroke>
         <ol-style-text></ol-style-text>
         <ol-style-fill :color="fillColorSelected"></ol-style-fill>
@@ -104,6 +115,9 @@ const selectInteactionFilter = (feature) => {
       </ol-source-vector>
     </ol-vector-layer>
   </ol-map>
+  <Popper arrow :show="true" interactive :content="departNombre">
+    <span>{{ casosCant }}</span>
+  </Popper>
 </template>
 
 <style scoped></style>
