@@ -100,7 +100,25 @@ const changeProvincia = (event) => {
       <Listbox v-model="provinciaSel">
         <div class="relative z-40 flex-1 justify-center mt-1 mr-2 basis-1/4">
           <ListboxButton
-            class="py-2 pr-10 pl-3 w-full text-left bg-white rounded-lg shadow-md cursor-default  focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+            class="
+              py-2
+              pr-10
+              pl-3
+              w-full
+              text-left
+              bg-white
+              rounded-lg
+              shadow-md
+              cursor-default
+              focus:outline-none
+              focus-visible:border-indigo-500
+              focus-visible:ring-2
+              focus-visible:ring-white
+              focus-visible:ring-opacity-75
+              focus-visible:ring-offset-2
+              focus-visible:ring-offset-orange-300
+              sm:text-sm
+            "
           >
             <span class="block truncate">{{ provinciaSel.iso_nombre }}</span>
             <span class="flex absolute inset-y-0 right-0 items-center pr-2 pointer-events-none">
@@ -114,15 +132,29 @@ const changeProvincia = (event) => {
             leave-to-class="opacity-0"
           >
             <ListboxOptions
-              class="overflow-auto absolute py-1 mt-1 w-full max-h-60 text-base bg-white rounded-lg ring-1 ring-black ring-opacity-5 shadow-lg  focus:outline-none sm:text-sm"
+              class="
+                overflow-auto
+                absolute
+                py-1
+                mt-1
+                w-full
+                max-h-60
+                text-base
+                bg-white
+                rounded-lg
+                ring-1 ring-black ring-opacity-5
+                shadow-lg
+                focus:outline-none
+                sm:text-sm
+              "
             >
               <ListboxOption
-                v-slot="{ active, selected }"
                 v-for="item in provincias"
+                v-slot="{ active, selected }"
                 :key="item.iso_nombre"
                 :value="item"
-                @click="changeProvincia"
                 as="template"
+                @click="changeProvincia"
               >
                 <li
                   :class="[
@@ -144,15 +176,33 @@ const changeProvincia = (event) => {
       </Listbox>
       <div class="flex flex-1 w-1/4">
         <input
-          class="z-40 flex-1 p-1 pl-3 mt-1 text-left bg-white rounded-lg shadow-xl cursor-default  focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300"
           v-model="fecha"
+          class="
+            z-40
+            flex-1
+            p-1
+            pl-3
+            mt-1
+            text-left
+            bg-white
+            rounded-lg
+            shadow-xl
+            cursor-default
+            focus:outline-none
+            focus-visible:border-indigo-500
+            focus-visible:ring-2
+            focus-visible:ring-white
+            focus-visible:ring-opacity-75
+            focus-visible:ring-offset-2
+            focus-visible:ring-offset-orange-300
+          "
           type="date"
           @change="changeDate"
         />
       </div>
     </div>
     <div class="relative flex-1 h-3/5">
-      <MapaCoropetico
+      <MapaCoropletico
         :key="key"
         :url="url"
         :provincia="provinciaSel.iso_nombre"
