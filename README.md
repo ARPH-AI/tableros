@@ -25,18 +25,8 @@ make start
 Auditamos con esta biblioteca [vue-a11y](https://github.com/vue-a11y/vue-axe-next) que utiliza [axe-core](https://github.com/dequelabs/axe-core/). Toma en cuenta las siguientes [reglas](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md).
 
 ## Datos geo
+> Ver [README](scripts/README.md)
 
-- Departamentos de Provincias Argentinas: [mgaitan/departamentos_argentina](https://github.com/mgaitan/departamentos_argentina/)
-- [Provincias geo Json](https://infra.datos.gob.ar/catalog/modernizacion/dataset/7/distribution/7.2/download/provincias.json)
-
-### Transformación al json de provincias
-
-> El zoom máximo hay que trasnsformarlo segun UI
-> Se modifico departamentos-ciudad_autonoma_de_buenos_aires.json para que los numeros de COMUNA X (reemplazar 1 por 01)
-
-```
-cat provincias-argentina.json | jq '[.[] | {iso_nombre: .iso_nombre, centroide: .centroide, zoom: 7 } ] | sort_by(.iso_nombre)'
-```
 
 # Vuelix Documentation
 

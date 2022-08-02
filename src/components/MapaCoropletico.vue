@@ -7,7 +7,8 @@ import { getThemeByDataSource } from '@/composables'
 
 const props = defineProps<{ url: string; provincia: string; center: number[]; zoom: number; datos: object[] }>()
 const emit = defineEmits(['zoomChanged'])
-const poblacionImport = await fetch('src/assets/poblacion_por_departamento.json')
+
+const poblacionImport = await fetch('poblacion_por_departamento.json')
 const poblacion = await poblacionImport.json()
 
 const depsFromProv = reactive({})

@@ -1,0 +1,194 @@
+[
+  {
+    "iso_nombre": "Buenos Aires",
+    "centroide": {
+      "lat": -36.6769415180527,
+      "lon": -60.5588319815719
+    },
+    "zoom": 7
+  },
+  {
+    "iso_nombre":"Ciudad Autónoma de Buenos Aires",
+    "centroide": {
+      "lat":-34.6144934119689,
+      "lon":-58.4458563545429
+    },
+    "zoom": 12
+  },
+  {
+    "iso_nombre": "Catamarca",
+    "centroide": {
+      "lat": -27.3358332810217,
+      "lon": -66.9476824299928
+    },
+    "zoom": 7
+  },
+  {
+    "iso_nombre": "Chaco",
+    "centroide": {
+      "lat": -26.3864309061226,
+      "lon": -60.7658307438603
+    },
+    "zoom": 8
+  },
+  {
+    "iso_nombre": "Chubut",
+    "centroide": {
+      "lat": -43.7886233529878,
+      "lon": -68.5267593943345
+    },
+    "zoom": 7
+  },
+  {
+    "iso_nombre": "Corrientes",
+    "centroide": {
+      "lat": -28.7743047046407,
+      "lon": -57.8012191977913
+    },
+    "zoom": 8
+  },
+  {
+    "iso_nombre": "Córdoba",
+    "centroide": {
+      "lat": -32.142932663607,
+      "lon": -63.8017532741662
+    },
+    "zoom": 7
+  },
+  {
+    "iso_nombre": "Entre Ríos",
+    "centroide": {
+      "lat": -32.0588735436448,
+      "lon": -59.2014475514635
+    },
+    "zoom": 8
+  },
+  {
+    "iso_nombre": "Formosa",
+    "centroide": {
+      "lat": -24.894972594871,
+      "lon": -59.9324405800872
+    },
+    "zoom": 7
+  },
+  {
+    "iso_nombre": "Jujuy",
+    "centroide": {
+      "lat": -23.3200784211351,
+      "lon": -65.7642522180337
+    },
+    "zoom": 8
+  },
+  {
+    "iso_nombre": "La Pampa",
+    "centroide": {
+      "lat": -37.1315537735949,
+      "lon": -65.4466546606951
+    },
+    "zoom": 7.5
+  },
+  {
+    "iso_nombre": "La Rioja",
+    "centroide": {
+      "lat": -29.685776298315,
+      "lon": -67.1817359694432
+    },
+    "zoom": 7.5
+  },
+  {
+    "iso_nombre": "Mendoza",
+    "centroide": {
+      "lat": -34.6298873058957,
+      "lon": -68.5831228183798
+    },
+    "zoom": 7
+  },
+  {
+    "iso_nombre": "Misiones",
+    "centroide": {
+      "lat": -26.8753965086829,
+      "lon": -54.6516966230371
+    },
+    "zoom": 8.5
+  },
+  {
+    "iso_nombre": "Neuquén",
+    "centroide": {
+      "lat": -38.6417575824599,
+      "lon": -70.1185705180601
+    },
+    "zoom": 7
+  },
+  {
+    "iso_nombre": "Río Negro",
+    "centroide": {
+      "lat": -40.4057957178801,
+      "lon": -67.229329893694
+    },
+    "zoom": 7
+  },
+  {
+    "iso_nombre": "Salta",
+    "centroide": {
+      "lat": -24.2991344492002,
+      "lon": -64.8144629600627
+    },
+    "zoom": 7.5
+  },
+  {
+    "iso_nombre": "San Juan",
+    "centroide": {
+      "lat": -30.8653679979618,
+      "lon": -68.8894908486844
+    },
+    "zoom": 7.5
+  },
+  {
+    "iso_nombre": "San Luis",
+    "centroide": {
+      "lat": -33.7577257449137,
+      "lon": -66.0281298195836
+    },
+    "zoom": 7.5
+  },
+  {
+    "iso_nombre": "Santa Cruz",
+    "centroide": {
+      "lat": -48.8154851827063,
+      "lon": -69.9557621671973
+    },
+    "zoom": 7
+  },
+  {
+    "iso_nombre": "Santa Fe",
+    "centroide": {
+      "lat": -30.7069271588117,
+      "lon": -60.9498369430241
+    },
+    "zoom": 7
+  },
+  {
+    "iso_nombre": "Santiago del Estero",
+    "centroide": {
+      "lat": -27.7824116550944,
+      "lon": -63.2523866568588
+    },
+    "zoom": 7
+  },
+  {
+    "iso_nombre": "Tierra del Fuego",
+    "centroide": {
+      "lat": -54.460946,
+      "lon": -67.272954
+    },
+    "zoom": 7
+  },
+  {
+    "iso_nombre": "Tucumán",
+    "centroide": {
+      "lat": -26.9478001830786,
+      "lon": -65.3647579441481
+    },
+    "zoom": 8.5
+  }
+]

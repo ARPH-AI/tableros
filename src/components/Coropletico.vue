@@ -10,7 +10,7 @@ import { CheckIcon, SelectorIcon } from '@heroicons/vue/solid'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import { QuestionMarkCircleIcon } from '@heroicons/vue/outline'
 
-const provinciasImport = await fetch('src/assets/provincias-argentina.json')
+const provinciasImport = await fetch('provincias-argentina.json')
 const provincias = await provinciasImport.json()
 
 const titulo = 'Casos activos por departamento'
@@ -26,8 +26,7 @@ let zoomChild = ref(null)
 let provinciaSel = ref(provincias[0])
 let zoom = ref(provincias[0].zoom)
 let center = ref([provinciaSel.value.centroide.lon, provinciaSel.value.centroide.lat])
-let url = ref('src/assets/departamentos-buenos_aires.json')
-//let url = ref("src/assets/departamentos-argentina.json")
+let url = ref('departamentos-buenos_aires.json')
 
 // El uppercase y trim, habria que hacerlo en otro lado
 const getData = async (resultSet) => {
@@ -95,7 +94,7 @@ const matchArchivo = (nombre) => {
 }
 const changeProvincia = (event) => {
   center.value = [provinciaSel.value.centroide.lon, provinciaSel.value.centroide.lat]
-  url.value = 'src/assets/departamentos-' + matchArchivo(provinciaSel.value.iso_nombre) + '.json'
+  url.value = 'departamentos-' + matchArchivo(provinciaSel.value.iso_nombre) + '.json'
   zoom.value = provinciaSel.value.zoom
 }
 </script>
