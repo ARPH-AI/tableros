@@ -8,7 +8,6 @@ import axiosInstance from './api/axios'
 import i18n from './plugins/i18n'
 import OpenLayersMap from 'vue3-openlayers'
 import 'vue3-openlayers/dist/vue3-openlayers.css'
-import { plugin, defaultConfig } from '@formkit/vue'
 import { createNotify } from './notification'
 
 let app = null
@@ -34,28 +33,29 @@ const notify = createNotify({
   },
 })
 
-async function loadAxe() {
-  const axe = await import('vue-axe')
-  return axe
-}
+const loadAxe = async () => await import('vue-axe')
 
 if (process.env.NODE_ENV === 'development') {
-  const VueAxe = loadAxe()
-  app = createApp({
-    render: () => h(Fragment, [h(App), h(VueAxe.VueAxePopup)]),
+  loadAxe().then( VueAxe => {
+    app = createApp({
+      render: () => h(Fragment, [h(App), h(VueAxe.VueAxePopup)]),
+    })
+    app.use(VueAxe.default)
+    app.use(router)
+    app.use(auth)
+    app.use(i18n)
+    app.use(OpenLayersMap)
+    app.provide('enable-route-transitions', true)
+    app.mount('#app')
   })
-  app.use(VueAxe.default)
 } else {
   app = createApp(App)
+  app.use(router)
+  app.use(auth)
+  app.use(i18n)
+  app.use(OpenLayersMap)
+  app.provide('enable-route-transitions', true)
+  app.mount('#app')
 }
 
 export default app
-
-app.use(router)
-app.use(auth)
-app.use(notify)
-app.use(i18n)
-app.use(OpenLayersMap)
-app.use(plugin, defaultConfig)
-app.provide('enable-route-transitions', true)
-app.mount('#app')
