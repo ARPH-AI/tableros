@@ -34,10 +34,13 @@ const notify = createNotify({
   },
 })
 
+async function loadAxe() {
+  const axe = await import('vue-axe')
+  return axe
+}
+
 if (process.env.NODE_ENV === 'development') {
-  const VueAxe = (async function () {
-    await import('vue-axe')
-  })()
+  const VueAxe = loadAxe()
   app = createApp({
     render: () => h(Fragment, [h(App), h(VueAxe.VueAxePopup)]),
   })
