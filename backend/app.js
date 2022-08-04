@@ -1,15 +1,17 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
-const port = 5000
 const jwt = require('jsonwebtoken');
 const { expressjwt } = require("express-jwt");
 const moment = require('moment')
+require('dotenv').config({ path: './.env' })
 
-const CUBEJS_API_SECRET = 'cube-secret'
-const ACCESS_TOKEN_EXPIRE = '1m' // 1 minuto
-const REFRESH_TOKEN_EXPIRE = '2m' // 2 minutos
-const JWT_SECRET_KEY = 'arphai-secret'
+const CUBEJS_API_SECRET = process.env.CUBEJS_API_SECRET
+const ACCESS_TOKEN_EXPIRE = process.env.ACCESS_TOKEN_EXPIRE
+const REFRESH_TOKEN_EXPIRE = process.env.REFRESH_TOKEN_EXPIRE
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY
+const DEV_TOKEN = process.env.DEV_TOKEN
+const WHITE_LIST = process.env.WHITE_LIST.split(',')
 const VALID_USER = {
     id: '0000',
     firstName: 'Usuario',
@@ -25,14 +27,9 @@ const ERole = {
     DEVELOPER: "DEVELOPER",
 }
 
-const whitelist = [
-    'http://localhost:3000',
-    'localhost:3000'
-]
-
 const corsOptions = {
     origin: (origin, callback) => {
-        if (whitelist.indexOf(origin) !== -1) {
+        if (WHITE_LIST.indexOf(origin) !== -1) {
             callback(null, true)
         } else {
             callback(new Error('Not allowed by CORS'))
@@ -130,9 +127,13 @@ app.post('/auth/refresh',
 app.get('/auth/cubejs-token', 
     (req, res) => {
         if (req.auth) {
-            const devToken = 'a36e649cedd441107c7531ec2da8415e592f19e9f93c250f001e9c40a660694892a3f78ccd8c027ae8504453ba25ebd0de47467a984bf98176c3197a9ffd685d'
-            // const realToken = jwt.sign(req.user, CUBEJS_API_SECRET, { expiresIn: '1d', })
-            res.status(200).send({token: devToken})
+            let cubeToken = ''
+            if (process.env.MODE == 'development') {
+                 cubeToken = DEV_TOKEN
+            } else {
+                cubeToken = jwt.sign(req.user, CUBEJS_API_SECRET, { expiresIn: '1d', })
+            }
+            res.status(200).send({token: cubeToken})
         } else {
             res.status(401).send({error: 'Unauthorized'})
         }
@@ -196,22 +197,6 @@ app.get('/public/version',
     }
 )
 
-app.get('/dashboard-data',
-    (req, res) => {
-        if (req.auth) {
-            res.status(200).send({
-                "id": "600dc3b5c4e60ba2ebf06569",
-                "name": "Howell Faulkner",
-                "about": "Mollit Lorem reprehenderit qui elit id aliqua. Deserunt ipsum ad cupidatat ullamco ut aliqua est do consectetur nostrud sit esse.",
-                "address": "77 Hemlock Street, Hasty, Florida",
-                "company": "Fleetmix"
-            })
-        } else {
-            res.status(401).send({error: 'Unauthorized'})
-        }
-    }
-)
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+app.listen(process.env.SERVER_PORT, () => {
+    console.log(`Example app listening on port ${process.env.SERVER_PORT}`)
 })
