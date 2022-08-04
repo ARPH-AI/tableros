@@ -52,5 +52,3 @@ const pivotConfig = {
     </template>
   </query-builder>
 </template>
-
-<style scoped></style>

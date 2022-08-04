@@ -59,8 +59,8 @@
       <nav v-show="!sidebarState.isOpen" class="grid grid-cols-1 items-center px-2 mt-32 font-mono">
         <!-- Without sidebar open -->
         <router-link
-          aria-label="Navegar hacia la sección Situación actual"
           v-if="{ name: `situacion_actual_${state.fuente}` }"
+          aria-label="Navegar hacia la sección Situación actual"
           class="flex justify-self-center p-2 m-2 rounded group bg-light_base-200 dark:bg-dark_base"
           :class="[
             isCurrentRoute(`situacion_actual_${state.fuente}`) || isCurrentRoute('index')
@@ -81,8 +81,8 @@
         </router-link>
 
         <router-link
-          aria-label="Navegar hacia la sección Caracterización"
           v-if="{ name: `caracterizacion_${state.fuente}` }"
+          aria-label="Navegar hacia la sección Caracterización"
           class="
             flex
             justify-self-center
@@ -112,8 +112,8 @@
         ></router-link>
 
         <router-link
-          aria-label="Navegar hacia la sección Geolocalización"
           v-if="{ name: `distribucion_espacial_${state.fuente}` }"
+          aria-label="Navegar hacia la sección Geolocalización"
           class="
             flex
             justify-self-center
@@ -141,8 +141,8 @@
             ><MapIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
         ></router-link>
         <router-link
-          aria-label="Navegar hacia la sección Sobre el proyecto"
           v-if="{ name: `about` }"
+          aria-label="Navegar hacia la sección Sobre el proyecto"
           class="
             flex
             justify-self-center
@@ -179,8 +179,8 @@
             <!-- Toggle sidebar button -->
             <button
               class="p-2 rounded-md dark:text-dark_contrast focus:outline-none focus:ring"
-              @click="sidebarState.isOpen = !sidebarState.isOpen"
               aria-label="Desplegar menú lalteral"
+              @click="sidebarState.isOpen = !sidebarState.isOpen"
             >
               <svg
                 class="w-4 h-4 text-gray-600"
@@ -222,11 +222,11 @@
             <Menu as="div" class="inline-block relative z-50 font-mono">
               <MenuButton class="inline-flex justify-center w-full">
                 <ProfileAvatar
-                  bgColor="#000000"
+                  bg-color="#000000"
                   border
-                  borderColor="#FFFFFF"
+                  border-color="#FFFFFF"
                   :username="$auth.user.email"
-                  textColor="#FFFFFF"
+                  text-color="#FFFFFF"
                 ></ProfileAvatar>
               </MenuButton>
               <transition
@@ -247,13 +247,13 @@
                     <MenuItem v-slot="{ active }">
                       <button
                         aria-label="Desplegar menú de usuarie"
-                        @click="$auth.logout"
                         :class="[
                           active
                             ? `bg-light_smooth text-${getThemeByDataSource(state.fuente)}`
                             : 'bg-white text-dark_smooth',
                           'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                         ]"
+                        @click="$auth.logout"
                       >
                         <LogoutIcon :active="active" class="mr-2 w-5 h-5 text-third" aria-hidden="true" />
                         Cerrar sesión
@@ -279,15 +279,12 @@
       >
         <!-- Tabs -->
         <TabGroup>
-          <div
-            v-show="!isCurrentRoute(`about`)"
-            class="inline-flex grid float-left grid-cols-1 pl-4 mt-4 ml-4 text-left h-fit"
-          >
+          <div v-show="!isCurrentRoute(`about`)" class="grid float-left grid-cols-1 pl-4 mt-4 ml-4 text-left h-fit">
             <span class="float-left text-4xl align-middle">COVID-19</span>
             <span class="float-left leading-relaxed align-middle"> Actualizado: {{ currentTime }}</span>
           </div>
           <div class="grid float-right grid-cols-1 mt-3 text-left h-fit">
-            <span class="inline-flex float-right pr-14 mb-3">Fuente de datos</span>
+            <span v-show="!isCurrentRoute(`about`)" class="inline-flex float-right pr-14 mb-3">Fuente de datos</span>
             <TabList v-show="!isCurrentRoute(`about`)" class="inline-flex float-right pr-14 shadow-2xl">
               <Popper
                 placement="left"

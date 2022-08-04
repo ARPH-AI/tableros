@@ -17,11 +17,19 @@ const props = defineProps<{
         {{ titulo }}
       </h5>
       <div
-        class="overflow-y-auto overflow-x-hidden flex-col  sm:mt-2 lg:mt-4 scrollbar-thin scrollbar-thumb-secondary scrollbar-track-light_base dark:scrollbar-thumb-secondary dark:scrollbar-track-dark_base"
+        class="
+          overflow-y-auto overflow-x-hidden
+          flex-col
+          sm:mt-2
+          lg:mt-4
+          scrollbar-thin scrollbar-thumb-secondary
+          scrollbar-track-light_base
+          dark:scrollbar-thumb-secondary dark:scrollbar-track-dark_base
+        "
       >
         <div class="sm:-mx-6 lg:-mx-7">
           <div class="inline-block min-w-full lg:px-8">
-            <div class="h-[30vh] lg:h-[37.5vh] 2xl:h-[60vh]">
+            <div class="sm:h-[38vh] xl:h-[38vh] 2xl:h-[52vh]">
               <table :v-if="datos" class="w-full">
                 <thead>
                   <tr>

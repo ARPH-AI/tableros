@@ -14,6 +14,7 @@ module.exports = {
       dark_contrast: '#F3F4F6',
       dark_smooth: '#27293d',
       light_smooth: colors.neutral,
+      ...colors,
     },
   },
   plugins: [require('tailwind-scrollbar')],

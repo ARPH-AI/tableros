@@ -95,7 +95,7 @@ const getPivotConfig = () => {
           :titulo="titulo"
           :titulo-y="tituloY"
           :titulo-x="tituloX"
-          :etiquetas="resultSet.chartPivot(getPivotConfig(props.dataSource)).map((row) => row.x)"
+          :etiquetas="resultSet.chartPivot(getPivotConfig()).map((row) => row.x)"
         />
       </div>
     </template>

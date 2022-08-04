@@ -7,11 +7,13 @@ import { format } from 'date-fns'
 import { osmApi, datosgeoApi } from '@/api'
 import { Listbox, ListboxLabel, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue'
 import { CheckIcon, SelectorIcon } from '@heroicons/vue/solid'
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
+import { QuestionMarkCircleIcon } from '@heroicons/vue/outline'
 
 const provinciasImport = await fetch('src/assets/provincias-argentina.json')
 const provincias = await provinciasImport.json()
 
-const titulo = 'Total de casos activos por lugar de residencia'
+const titulo = 'Casos activos por departamento'
 
 let resultSet = {}
 let datos = ref([])
@@ -29,6 +31,7 @@ let url = ref('src/assets/departamentos-buenos_aires.json')
 
 // El uppercase y trim, habria que hacerlo en otro lado
 const getData = async (resultSet) => {
+  console.log(resultSet, 'resultSettttttttttttt')
   return resultSet.map((item) => {
     return {
       nombre: item['CovidEdadSexoSNVS.Ciudad'].toUpperCase().trim(),
@@ -66,6 +69,9 @@ const forceUpdate = () => key.value++
 watchEffect(async () => {
   resultSet = await cubeApi.load(totalCasos(fecha.value))
   datos.value = await getData(resultSet.rawData())
+  console.log(resultSet.tablePivot(pivotConfig), 'resultset coropeltico')
+  console.log(datos.value, 'datos')
+
   zoom.value = zoomChild.value ? zoomChild.value : zoom.value
   forceUpdate()
 })
@@ -95,8 +101,24 @@ const changeProvincia = (event) => {
 </script>
 
 <template>
-  <div class="flex flex-col flex-1 w-full h-full">
-    <div class="flex flex-row flex-1 justify-center justify-items-center px-80 mb-2 shadow-b-xl">
+  <div class="relative flex flex-col flex-1 w-full h-full">
+    <div class="flex flex-row flex-1 mb-2 shadow-b-xl">
+      <div class="flex place-items-center shadow-b-xl">
+        <h5 class="pr-5 text-left text-sm uppercase text-light_contrast dark:text-dark_contrast">{{ titulo }}</h5>
+        <Popover class="pr-10 relative">
+          <PopoverButton> <QuestionMarkCircleIcon class="w-5" aria-hidden="true" /></PopoverButton>
+          <PopoverPanel
+            class="dark:bg-dark_base dark:text-dark_contrast bg-light_base-50 absolute z-50 rounded-lg p-3 w-80"
+          >
+            <p class="text-left text-sm">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+              ea commodo consequat.
+            </p>
+          </PopoverPanel>
+        </Popover>
+      </div>
+
       <Listbox v-model="provinciaSel">
         <div class="relative z-40 flex-1 justify-center mt-1 mr-2 basis-1/4">
           <ListboxButton
@@ -109,6 +131,7 @@ const changeProvincia = (event) => {
               bg-white
               rounded-lg
               shadow-md
+              dark:text-light_contrast
               cursor-default
               focus:outline-none
               focus-visible:border-indigo-500
@@ -181,6 +204,7 @@ const changeProvincia = (event) => {
             z-40
             flex-1
             p-1
+            dark:text-light_contrast
             pl-3
             mt-1
             text-left
@@ -201,7 +225,7 @@ const changeProvincia = (event) => {
         />
       </div>
     </div>
-    <div class="relative flex-1 h-3/5">
+    <div class="flex-1 flex flex-row h-3/5">
       <MapaCoropletico
         :key="key"
         :url="url"
@@ -210,9 +234,6 @@ const changeProvincia = (event) => {
         :zoom="zoom"
         :datos="datos"
       />
-      <div class="flex absolute right-4 top-10 z-10 rounded-lg shadow-lg dark:texto-light_contrast md:w-1/4">
-        <CasosActivosLugar data-source="snvs" />
-      </div>
     </div>
   </div>
 </template>

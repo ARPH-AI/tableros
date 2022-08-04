@@ -238,7 +238,7 @@ const dark_theme_options = {
         {{ titulo }}
       </h5>
       <v-chart
-        class="sm:h-[38vh] xl:h-[41vh] 2xl:h-[52vh]"
+        class="sm:h-[38vh] xl:h-[41vh] 2xl:h-[54vh]"
         autoresize
         :option="isDark ? dark_theme_options : light_theme_options"
       />

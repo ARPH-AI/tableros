@@ -36,7 +36,11 @@ const featureSelected = (event) => {
 </script>
 
 <template>
-  <ol-map :load-tiles-while-animating="true" :load-tiles-while-interacting="true" style="height: 60vh">
+  <ol-map
+    :load-tiles-while-animating="true"
+    :load-tiles-while-interacting="true"
+    class="flex overflow-hidden flex-1 h-[58vh] 2xl:h-[68vh] rounded-xl shadow-2xl"
+  >
     <ol-view ref="view" :center="center" :rotation="rotation" :zoom="zoom" :projection="projection" />
 
     <ol-tile-layer>

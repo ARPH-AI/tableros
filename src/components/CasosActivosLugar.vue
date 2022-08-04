@@ -11,7 +11,7 @@ const props = defineProps({
 
 //const date = format(new Date(), 'yyyy-MM-dd')
 const date = '2021-09-09' //Donde hay actualmente
-const titulo = 'Total de casos activos por lugar de residencia'
+const titulo = 'Total de casos por departamento'
 
 const totalCasosHSI = {
   measures: ['casos.identificador'],
@@ -52,6 +52,7 @@ const pivotConfig = {
 }
 
 const getTotalCasos = () => {
+  console.log(totalCasosSNVS, 'totalCasosSNVS')
   switch (props.dataSource) {
     case 'hsi':
       return totalCasosHSI

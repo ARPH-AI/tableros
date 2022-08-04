@@ -4,6 +4,8 @@ import { mergeArrayByKey } from '@/cube/utils'
 import { ref, watchEffect } from 'vue'
 import { osmApi, datosgeoApi } from '@/api'
 import { format } from 'date-fns'
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
+import { QuestionMarkCircleIcon } from '@heroicons/vue/outline'
 
 const getCoords = async (resultSet) => {
   const centroide_lat = 'centroide.lat'
@@ -114,59 +116,49 @@ watchEffect(async () => {
 
 <template>
   <div class="">
-    <!-- <div class="grid grid-cols-4 px-4 py-4 mt-8"> -->
-    <!-- Left column -->
-    <!-- <div class="flex justify-start w-full">
-      <FormKit
-        v-model="formData"
-        type="form"
-        incomplete-message=""
-        @submit="submitHandler(resultSet.tablePivot(pivotConfig))"
-      >
-        <FormKit
-          outer-class="w-full"
-          label-class="block mb-1 w-full font-bold"
-          inner-class="overflow-hidden mb-1 rounded border bg-light_base-100 text-light_contrast border-secondary"
-          input-class="px-2 h-10 bg-light_base-100"
-          help-class="text-primary"
-          type="date"
-          name="fecha"
-          label="Fecha"
-          help=""
-          :value="fecha"
-          :validation="[['required']]"
-        /> -->
-
-    <!-- <FormKit
-            outer-class="flex justify-start"
-            label-class="mb-1 font-bold"
-            inner-class="overflow-hidden mb-1 max-w-md rounded focus-within:border-secondary"
-            input-class="px-3 w-full h-10 text-base border-none"
-            help-class=""
-            type="radio"
-            name="casos"
-            label="Casos"
-            help=""
-            :options="[
-              { value: true, label: 'Casos Activos' },
-              { value: false, label: 'Casos Nuevos' },
-            ]"
-          /> -->
-    <!-- <FormKit
-          label-class="block mb-1 font-bold"
-          outer-class="flex justify-start mt-4"
-          inner-class="overflow-hidden mb-1 rounded-lg border border-secondary focus-within:border-secondary"
-          input-class="px-3 h-10 text-base border-none"
-          wrapper-class="mt-8"
-          type="text"
-          name="ubicacion"
-          label="Ubicación"
-          placeholder="Villa La Angostura"
-        />
-      </FormKit> -->
-    <!-- </div> -->
     <div class="">
-      <input v-model="fecha" type="date" @change="changeDate" />
+      <div class="flex flex-row flex-1 place-items-center mb-2 shadow-b-xl">
+        <div class="flex place-items-center shadow-b-xl">
+          <h5 class="pr-5 text-left text-sm uppercase text-light_contrast dark:text-dark_contrast">{{ titulo }}</h5>
+          <Popover class="pr-10 relative">
+            <PopoverButton> <QuestionMarkCircleIcon class="w-5" aria-hidden="true" /></PopoverButton>
+            <PopoverPanel
+              class="dark:bg-dark_base dark:text-dark_contrast bg-light_base-50 absolute z-50 rounded-lg p-3 w-80"
+            >
+              <p class="text-left text-sm">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat.
+              </p>
+            </PopoverPanel>
+          </Popover>
+          <input
+            v-model="fecha"
+            class="
+              z-40
+              flex-1
+              p-2
+              pl-3
+              right-0
+              text-left
+              bg-white
+              rounded-lg
+              shadow-xl
+              cursor-default
+              focus:outline-none
+              focus-visible:border-indigo-500
+              focus-visible:ring-2
+              focus-visible:ring-white
+              focus-visible:ring-opacity-75
+              dark:text-light_contrast
+              focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300
+            "
+            type="date"
+            @change="changeDate"
+          />
+        </div>
+      </div>
+
       <MapaClustering :key="key" :center="center" :zoom="zoom" :coords="coords" />
     </div>
   </div>

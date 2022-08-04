@@ -163,13 +163,11 @@ const dark_theme_options = ref({
       <h5 class="text-sm uppercase text-light_contrast dark:text-dark_contrast">
         {{ titulo }}
       </h5>
-      <v-chart class="chart" :option="isDark ? dark_theme_options : light_theme_options" autoresize />
+      <v-chart
+        class="sm:h-[38vh] xl:h-[41vh] 2xl:h-[52vh]"
+        :option="isDark ? dark_theme_options : light_theme_options"
+        autoresize
+      />
     </div>
   </div>
 </template>
-
-<style scoped>
-.chart {
-  height: 40vh;
-}
-</style>
