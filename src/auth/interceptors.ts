@@ -23,7 +23,6 @@ export function configureRefreshTokenResponseInterceptor(axiosInstance: AxiosIns
     function (error) {
       // Handlear cualquier response status distinto a 2xx
       const { response } = error
-      console.log('interceptor error: ', response)
       const { url } = response.config
       const auth = useAuth()
       if (!url.includes('/auth/refresh') && auth.isAuthenticated && response.data.name === 'TokenExpiredError') {

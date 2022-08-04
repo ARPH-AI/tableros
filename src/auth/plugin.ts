@@ -2,9 +2,14 @@ import { App, computed, reactive, readonly, ref } from 'vue'
 import { setupDevtools } from './devtools'
 import { configureAuthorizationHeaderInterceptor, configureRefreshTokenResponseInterceptor } from './interceptors'
 import { configureNavigationGuards } from './navigationGuards'
-import { ANONYMOUS_USER, AuthOptions, AuthPlugin, RequiredAuthOptions, User, UserFormData } from './types'
-import { authApi, cubeApi } from '@/api'
+import { ANONYMOUS_USER, AuthOptions, AuthPlugin, RequiredAuthOptions, User } from './types'
 import { useNotify } from '@/notification' 
+import {
+  authApi,
+  refreshApi,
+  authCubeApi,
+ } from '@/api'
+import { RefreshToken, AuthApiLoginUserRequest, LoginUser } from '@/api-client-backend'
 
 const TOKEN_KEY = 'arphai-token'
 const REFRESH_TOKEN_KEY = 'arphai-refreshToken'
@@ -29,7 +34,7 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
   
 
   function storeTokens(tokens: any) {
-    localStorage.setItem(TOKEN_KEY, tokens.token)
+    localStorage.setItem(TOKEN_KEY, tokens.accessToken)
     localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refreshToken)
     localStorage.setItem(CUBE_TOKEN_KEY, tokens.cubeToken)
   }
@@ -40,9 +45,8 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
     localStorage.removeItem(CUBE_TOKEN_KEY)
   }
 
-  async function getCubeToken(user: any) {
-    // const response = await cubeApi.getToken(user)
-    const response = await authApi.cube.getCubeToken()
+  async function getCubeToken() {
+    const response = await authCubeApi.getCubeToken()
     let token = ''
     if (response.status === 200) {
       token = response.data.token || ''
@@ -52,18 +56,21 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
     return token
   }
 
-  async function login(formData: UserFormData) {
-      const response = await authApi.auth.loginUser({ body: formData })
+  async function login(formData: LoginUser) {
+    const body: AuthApiLoginUserRequest = {
+        'loginUser': formData
+      }
+      const response = await authApi.loginUser(body)
       const { data } = response
       if (response.status == 200) {
         user.value = data.user
         isAuthenticated.value = true
         accessToken.value = data.accessToken
         refreshToken.value = data.refreshToken
-        const cubeToken = await getCubeToken(data.user)
+        const cubeToken = await getCubeToken()
         cubeAccessToken.value = cubeToken
         const finalData = Object.assign({cubeToken: cubeToken}, data)
-        storeTokens({ token: data.accessToken, refreshToken: data.refreshToken, cubeToken: cubeToken })
+        storeTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken, cubeToken: cubeToken })
         router.push(router.currentRoute.value.query.redirectTo?.toString() || options.loginRedirectRoute)
         return finalData
       } else {
@@ -78,16 +85,16 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
       }
   }
 
-  async function tokenRefresh(refreshToken: String) {
+  async function tokenRefresh(refreshToken: RefreshToken) {
     if (isAuthenticated.value) {
-      const body = { body: { refreshToken } }
+      const body = { 'refreshToken': refreshToken }
       accessToken.value = refreshToken
-      const response = await authApi.refresh.refreshToken(body)
+      const response = await refreshApi.refreshToken(body)
       const { data } = response
       if (response.status === 200) {
         storeTokens(response.data)
-        const { accessToken: token, refreshToken, user } = data
-        user.value = user
+        const { accessToken: token, refreshToken, user: userRes } = data
+        user.value = userRes
         isAuthenticated.value = true
         accessToken.value = token
         storeTokens({ token: token, refreshToken: refreshToken })
@@ -115,15 +122,6 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
     router.push(options.logoutRedirectRoute)
   }
 
-  async function getFakeData() {
-    try {
-      const response = await authApi.fakeData.getFakeData()
-      return response.data
-    } catch (error) {
-      console.log('getFakeData() error: ', error)
-    }
-  }
-
   /*
    * "reactive" unwraps 'ref's, therefore using the .value is not required.
    * E.g: from "auth.isAuthenticated.value" to "auth.isAuthenticated"
@@ -141,7 +139,6 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
     login,
     logout,
     tokenRefresh,
-    getFakeData,
   })
 
   return readonly(unWrappedRefs)

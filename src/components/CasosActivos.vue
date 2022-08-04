@@ -54,13 +54,6 @@ const getTotalCasosActivos = () => {
   }
 }
 
-const fetchFakeData = async () => {
-  const response = await auth.getFakeData()
-  console.log('response de fakeData en dashboard: ', response)
-}
-
-fetchFakeData()
-
 </script>
 
 <template>
