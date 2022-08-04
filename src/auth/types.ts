@@ -51,8 +51,8 @@ export interface AuthOptions extends Omit<Partial<RequiredAuthOptions>, 'router'
 }
 
 export interface UserFormData {
-  readonly username: string,
-  readonly password: string
+  username: string,
+  password: string
 }
 
 export interface ApplicationVersionDto {

@@ -13,12 +13,26 @@ export default {
 
     const auth = useAuth();
     const router = useRouter();
+    const userForm = {
+      username: '',
+      password: ''
+    }
 
-    const handleInput = (prop: UserFormData, value: String) => props[prop]= value
+    const handleInput = (field: string, value: string) => {
+      switch (field) {
+        case 'username':
+          userForm.username = value
+          break;
+        case 'password':
+          userForm.password = value
+        default:
+          break;
+      }
+    }
 
     const handleLogin = async (event: Event) => {
       event.preventDefault()
-      const { username, password } = props
+      const { username, password } = userForm
       await auth.login({ username, password })
     }
 
