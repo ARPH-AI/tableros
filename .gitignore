@@ -7,5 +7,10 @@ dist-ssr
 /src/api-client
 
 # Editors
+.history
 .vscode
 *.sw[a-p]
+
+# Backend files
+/backend/node_modules
+/backend/.env

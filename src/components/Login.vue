@@ -1,4 +1,44 @@
-<script setup lang="ts"></script>
+<script lang="ts">
+import { useAuth } from '@/auth'
+
+export default {
+  props: {
+    username: { type: String, default: '' },
+    password: { type: String, default: '' },
+  },
+  setup() {
+    const auth = useAuth()
+    const userForm = {
+      username: '',
+      password: '',
+    }
+
+    const handleInput = (field: string, value: string) => {
+      switch (field) {
+        case 'username':
+          userForm.username = value
+          break
+        case 'password':
+          userForm.password = value
+          break
+        default:
+          break
+      }
+    }
+
+    const handleLogin = async (event: Event) => {
+      event.preventDefault()
+      const { username, password } = userForm
+      await auth.login({ username, password })
+    }
+
+    return {
+      handleInput,
+      handleLogin,
+    }
+  },
+}
+</script>
 
 <template>
   <div class="h-screen font-mono bg-cover bg-gradient-to-r from-primary via-third to-secondary">
@@ -13,12 +53,21 @@
             <div class="">
               <label class="block text-base text-left text-white" for="email">Correo electrónico</label>
               <input
-                class="px-3 py-1 w-full text-left bg-white rounded  focus:secondary focus:ring-secondary focus:ring focus:ring-opacity-80 focus:outline-none"
-                type="email"
                 id="email"
+                class="
+                  px-3
+                  py-1
+                  w-full
+                  text-left
+                  bg-white
+                  rounded
+                  focus:secondary focus:ring-secondary focus:ring focus:ring-opacity-80 focus:outline-none
+                "
+                type="email"
                 placeholder="Correo electrónico"
                 aria-label="email"
                 required
+                @input="handleInput('username', $event.target.value)"
               />
             </div>
             <div class="mt-4">
@@ -35,9 +84,9 @@
 
             <div class="flex mt-4">
               <button
-                @click="$auth.login"
                 class="font-semibold tracking-wider text-white rounded hoverfont-light hover:text-secondary"
                 type="submit"
+                @click="handleLogin"
               >
                 Entrar
               </button>

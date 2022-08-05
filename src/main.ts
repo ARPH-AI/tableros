@@ -9,6 +9,7 @@ import i18n from './plugins/i18n'
 import OpenLayersMap from 'vue3-openlayers'
 import 'vue3-openlayers/dist/vue3-openlayers.css'
 import { plugin, defaultConfig } from '@formkit/vue'
+import { createNotify } from './notification'
 
 let app = null
 
@@ -20,11 +21,23 @@ const auth = createAuth({
   axios: {
     instance: axiosInstance,
     autoAddAuthorizationHeader: true,
+    autoRefreshExpiredToken: true,
+  },
+})
+
+const notify = createNotify({
+  show: false,
+  type: 'success',
+  data: {
+    text: 'Default Notification',
+    time: 3000,
   },
 })
 
 if (process.env.NODE_ENV === 'development') {
-  const VueAxe = await import('vue-axe')
+  const VueAxe = (async function () {
+    await import('vue-axe')
+  })()
   app = createApp({
     render: () => h(Fragment, [h(App), h(VueAxe.VueAxePopup)]),
   })
@@ -37,6 +50,7 @@ export default app
 
 app.use(router)
 app.use(auth)
+app.use(notify)
 app.use(i18n)
 app.use(OpenLayersMap)
 app.use(plugin, defaultConfig)

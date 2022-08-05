@@ -12,7 +12,7 @@
     "prettier-check": "npx prettier --check .",
     "vue-i18n-extract": "npx vue-i18n-extract",
     "vue-i18n-extract-remove": "npx vue-i18n-extract --remove",
-    "gen-api": "rm -rf src/api-client && npx @openapitools/openapi-generator-cli generate -i ./spec/schema_osm.yml -g typescript-axios -o src/api-client-osm --additional-properties withSeparateModelsAndApi=true,supportsES6=true,useSingleRequestParameter=true,apiPackage=api,modelPackage=models && npx @openapitools/openapi-generator-cli generate -i ./spec/schema_datosgeo.yml -g typescript-axios -o src/api-client-datosgeo --additional-properties withSeparateModelsAndApi=true,supportsES6=true,useSingleRequestParameter=true,apiPackage=api,modelPackage=models"
+    "gen-api": "rm -rf src/api-client && npx @openapitools/openapi-generator-cli generate -i ./spec/schema_osm.yml -g typescript-axios -o src/api-client-osm --additional-properties withSeparateModelsAndApi=true,supportsES6=true,useSingleRequestParameter=true,apiPackage=api,modelPackage=models && npx @openapitools/openapi-generator-cli generate -i ./spec/schema_datosgeo.yml -g typescript-axios -o src/api-client-datosgeo --additional-properties withSeparateModelsAndApi=true,supportsES6=true,useSingleRequestParameter=true,apiPackage=api,modelPackage=models && npx @openapitools/openapi-generator-cli generate -i ./spec/schema_backend.yml -g typescript-axios -o src/api-client-backend --additional-properties withSeparateModelsAndApi=true,supportsES6=true,useSingleRequestParameter=true,apiPackage=api,modelPackage=models"
   },
   "dependencies": {
     "@cubejs-client/core": "^0.29.23",

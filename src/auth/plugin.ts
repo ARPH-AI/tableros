@@ -1,8 +1,15 @@
 import { App, computed, reactive, readonly, ref } from 'vue'
 import { setupDevtools } from './devtools'
-import { configureAuthorizationHeaderInterceptor } from './interceptors'
+import { configureAuthorizationHeaderInterceptor, configureRefreshTokenResponseInterceptor } from './interceptors'
 import { configureNavigationGuards } from './navigationGuards'
-import { ANONYMOUS_USER, AuthOptions, AuthPlugin, RequiredAuthOptions, User } from './types'
+import { ANONYMOUS_USER, AuthOptions, AuthPlugin, RequiredAuthOptions, User, UserTokens } from './types'
+import { useNotify } from '@/notification'
+import { authApi, refreshApi, authCubeApi } from '@/api'
+import { RefreshToken, AuthApiLoginUserRequest, LoginUser } from '@/api-client-backend'
+
+const TOKEN_STORAGE_KEY = 'arphai-token'
+const REFRESH_TOKEN_STORAGE_KEY = 'arphai-refreshToken'
+const CUBE_TOKEN_STORAGE_KEY = 'cube-token'
 
 export let authInstance: AuthPlugin | undefined = undefined
 
@@ -10,6 +17,8 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
   const router = options.router
   const isAuthenticated = ref(false)
   const accessToken = ref<string>()
+  const refreshToken = ref<string>()
+  const cubeAccessToken = ref<string>()
   const user = ref<User>({ ...ANONYMOUS_USER })
   const userFullName = computed(() => {
     let fullname = user.value.firstName
@@ -19,24 +28,92 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
     return fullname
   })
 
-  async function login() {
-    // TODO: Implement login logic using your Auth Provider, E.g. Auth0
-    const authenticatedUser = {
-      id: '0000',
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'johndoe@email.com',
+  function storeTokens(tokens: UserTokens) {
+    localStorage.setItem(TOKEN_STORAGE_KEY, tokens.accessToken)
+    localStorage.setItem(REFRESH_TOKEN_STORAGE_KEY, tokens.refreshToken)
+    localStorage.setItem(CUBE_TOKEN_STORAGE_KEY, tokens.cubeToken)
+  }
+
+  function removeTokens(): void {
+    localStorage.removeItem(TOKEN_STORAGE_KEY)
+    localStorage.removeItem(REFRESH_TOKEN_STORAGE_KEY)
+    localStorage.removeItem(CUBE_TOKEN_STORAGE_KEY)
+  }
+
+  async function getCubeToken() {
+    const response = await authCubeApi.getCubeToken()
+    let token = ''
+    if (response.status === 200) {
+      token = response.data.token || ''
+    } else {
+      console.log('Error al quere obtener token de cube')
     }
-    user.value = authenticatedUser
-    isAuthenticated.value = true
-    accessToken.value = '12345'
-    router.push(router.currentRoute.value.query.redirectTo?.toString() || options.loginRedirectRoute)
+    return token
+  }
+
+  async function login(formData: LoginUser) {
+    const body: AuthApiLoginUserRequest = {
+      loginUser: formData,
+    }
+    const response = await authApi.loginUser(body)
+    const { data } = response
+    if (response.status == 200) {
+      user.value = data.user
+      isAuthenticated.value = true
+      accessToken.value = data.accessToken
+      refreshToken.value = data.refreshToken
+      const cubeToken = await getCubeToken()
+      cubeAccessToken.value = cubeToken
+      const finalData = Object.assign({ cubeToken: cubeToken }, data)
+      storeTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken, cubeToken: cubeToken })
+      router.push(router.currentRoute.value.query.redirectTo?.toString() || options.loginRedirectRoute)
+      return finalData
+    } else {
+      const notify = useNotify()
+      notify.showNotify({
+        type: 'error',
+        show: true,
+        data: {
+          text: data.error,
+        },
+      })
+    }
+  }
+
+  async function tokenRefresh(refreshToken: RefreshToken) {
+    if (isAuthenticated.value) {
+      const body = { refreshToken: refreshToken }
+      accessToken.value = refreshToken
+      const response = await refreshApi.refreshToken(body)
+      const { data } = response
+      if (response.status === 200) {
+        storeTokens(response.data)
+        const { accessToken: token, refreshToken, user: userRes } = data
+        user.value = userRes
+        isAuthenticated.value = true
+        accessToken.value = token
+        storeTokens({ token: token, refreshToken: refreshToken })
+        router.push(router.currentRoute.value.query.redirectTo?.toString() || options.loginRedirectRoute)
+      } else {
+        logout()
+        const notify = useNotify()
+        notify.showNotify({
+          type: 'error',
+          show: true,
+          data: {
+            text: 'Sesión expirada',
+          },
+        })
+      }
+    }
   }
 
   async function logout() {
+    console.log('plugin -> logout')
     user.value = { ...ANONYMOUS_USER }
     isAuthenticated.value = false
     accessToken.value = undefined
+    removeTokens()
     router.push(options.logoutRedirectRoute)
   }
 
@@ -51,10 +128,12 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
   const unWrappedRefs = reactive({
     isAuthenticated,
     accessToken,
+    refreshToken,
     user,
     userFullName,
     login,
     logout,
+    tokenRefresh,
   })
 
   return readonly(unWrappedRefs)
@@ -65,6 +144,7 @@ const defaultOptions = {
   logoutRedirectRoute: '/',
   loginRouteName: 'login',
   autoConfigureNavigationGuards: true,
+  autoRefreshExpiredToken: true,
 }
 export function createAuth(appOptions: AuthOptions) {
   // Fill default values to options that were not received
@@ -81,6 +161,10 @@ export function createAuth(appOptions: AuthOptions) {
 
       if (options.axios?.autoAddAuthorizationHeader) {
         configureAuthorizationHeaderInterceptor(options.axios.instance, options.axios.authorizationHeaderPrefix)
+      }
+
+      if (options.axios?.autoRefreshExpiredToken) {
+        configureRefreshTokenResponseInterceptor(options.axios.instance)
       }
 
       if (import.meta.env.DEV) {
