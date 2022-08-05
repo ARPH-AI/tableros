@@ -73,9 +73,17 @@ export default {
             <div class="mt-4">
               <label class="block text-base text-left text-white">Contraseña</label>
               <input
-                class="px-3 py-1 w-full text-left bg-white rounded  focus:secondary focus:ring-secondary focus:ring focus:ring-opacity-80 focus:outline-none"
-                type="password"
                 id="password"
+                class="
+                  px-3
+                  py-1
+                  w-full
+                  text-left
+                  bg-white
+                  rounded
+                  focus:secondary focus:ring-secondary focus:ring focus:ring-opacity-80 focus:outline-none
+                "
+                type="password"
                 placeholder="Contraseña"
                 arial-label="password"
                 required

@@ -1,7 +1,7 @@
-<script setup lang="ts">
+<script setup>
 const props = defineProps({
-  cantidad: { type: String, default: '0' },
-  titulo: { type: String, default: 'Tablero ARPHAI' },
+  cantidad: { type: String, default: 'third' },
+  titulo: { type: String, default: 'third' },
   colorTheme: { type: String, default: 'third' },
 })
 </script>

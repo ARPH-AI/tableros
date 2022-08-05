@@ -66,7 +66,10 @@ const getTotalCasos = () => {
   <query-builder :cubejs-api="cubeApi" :query="getTotalCasos()">
     <template #default="{ loading, resultSet }">
       <div v-if="loading" class="flex justify-center items-center">
-        <Spinner />
+        <BaseTableSkeleton
+          styles="sm:h-[38vh] xl:h-[49vh] 2xl:h-[60vh]"
+          :color-theme="getThemeByDataSource(props.dataSource)"
+        ></BaseTableSkeleton>
       </div>
       <div v-if="!loading && resultSet !== undefined">
         <TableCard

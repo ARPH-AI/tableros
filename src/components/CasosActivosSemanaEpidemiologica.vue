@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import cubeApi from '@/cube'
 import { QueryBuilder } from '@cubejs-client/vue3'
-import TableCard from '@/components/TableCard.vue'
 import { flattenColumns, getDisplayedColumns } from '@/cube/utils'
 import { getThemeByDataSource } from '@/composables'
-import { isLarge, isExtraLarge } from '@/composables'
 
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
@@ -58,11 +56,14 @@ const getTotalCasosActivos = () => {
   <query-builder :cubejs-api="cubeApi" :query="getTotalCasosActivos()">
     <template #default="{ loading, resultSet }">
       <div v-if="loading" class="flex justify-center items-center">
-        <Spinner />
+        <BaseTableSkeleton
+          styles="sm:h-[38vh] xl:h-[49vh] 2xl:h-[60vh]"
+          :color-theme="getThemeByDataSource(props.dataSource)"
+        ></BaseTableSkeleton>
       </div>
       <div v-if="!loading && resultSet !== undefined">
         <TableCard
-          :colorTheme="getThemeByDataSource(props.dataSource)"
+          :color-theme="getThemeByDataSource(props.dataSource)"
           :datos="resultSet.tablePivot(pivotConfig)"
           :titulo="titulo"
           :titulos-columnas="flattenColumns(resultSet.tableColumns(pivotConfig))"

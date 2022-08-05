@@ -47,7 +47,7 @@ const getTotalCasosAcumulados = () => {
   <query-builder :cubejs-api="cubeApi" :query="getTotalCasosAcumulados()">
     <template #default="{ loading, resultSet }">
       <div v-if="loading" class="flex justify-center items-center">
-        <Spinner />
+        <BaseCardSkeleton :color-theme="getThemeByDataSource(props.dataSource)"></BaseCardSkeleton>
       </div>
       <div v-if="!loading && resultSet !== undefined">
         <Card
