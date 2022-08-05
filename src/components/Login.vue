@@ -79,6 +79,8 @@ export default {
                 placeholder="Contraseña"
                 arial-label="password"
                 required
+                autocomplete="on"
+                @input="handleInput('password', $event.target.value)"
               />
             </div>
 

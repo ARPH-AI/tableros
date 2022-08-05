@@ -247,47 +247,6 @@
               </transition>
             </Menu>
           </div>
-          <!-- User menu dropdown -->
-          <Menu as="div" class="inline-block relative z-50 font-mono text-right">
-            <div>
-              <MenuButton class="inline-flex justify-center px-4 w-full">
-                <ProfileAvatar :username="$auth.user.email"></ProfileAvatar>
-              </MenuButton>
-            </div>
-
-            <transition
-              enter-active-class="transition duration-100 ease-out"
-              enter-from-class="opacity-0 transform scale-95"
-              enter-to-class="opacity-100 transform scale-100"
-              leave-active-class="transition duration-75 ease-in"
-              leave-from-class="opacity-100 transform scale-100"
-              leave-to-class="opacity-0 transform scale-95"
-            >
-              <MenuItems
-                :class="`absolute right-0 mt-1 w-56 bg-white rounded-md divide-y divide-black ring-1 ring-black text-bold ring-opacity-5 shadow-lg origin-top-right focus:outline-none`"
-              >
-                <div class="px-1 py-1">
-                  <MenuItem class="flex items-center px-2 py-2 w-full text-sm rounded-md group">
-                    <span>{{ $auth.user.email }}</span>
-                  </MenuItem>
-                  <MenuItem v-slot="{ active }">
-                    <button
-                      :class="[
-                        active
-                          ? `bg-light_smooth text-${getThemeByDataSource(state.fuente)}`
-                          : 'bg-white text-dark_smooth',
-                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                      ]"
-                      @click="$auth.logout"
-                    >
-                      <LogoutIcon :active="active" class="mr-2 w-5 h-5 text-third" aria-hidden="true" />
-                      Cerrar sesión
-                    </button>
-                  </MenuItem>
-                </div>
-              </MenuItems>
-            </transition>
-          </Menu>
         </div>
       </header>
       <!-- Main Content -->

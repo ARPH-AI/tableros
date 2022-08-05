@@ -183,5 +183,5 @@ app.get('/public/version', (req, res) => {
 })
 
 app.listen(process.env.SERVER_PORT, () => {
-  console.log(`Example app listening on port ${process.env.SERVER_PORT}`)
+  console.log(`Arphai Auth backend listening on port ${process.env.SERVER_PORT}`)
 })
