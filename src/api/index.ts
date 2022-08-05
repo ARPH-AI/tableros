@@ -9,9 +9,8 @@ import {
   InfoApi,
   PermissionsApi,
   PublicApi,
-  VersionApi
+  VersionApi,
 } from '@/api-client-backend'
-
 
 export const fetchClient = axiosInstance
 export const osmApi = new OsmApi(undefined, undefined, fetchClient)

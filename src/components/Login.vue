@@ -1,32 +1,28 @@
 <script lang="ts">
-import { useAuth } from '@/auth';
-import { defineProps, defineEmits, AppContext } from 'vue';
-import { useRouter } from 'vue-router'
-import { UserFormData } from '../auth/types';
+import { useAuth } from '@/auth'
 
 export default {
-  props : {
-    username: {type: String, default: ''},
-    password: {type: String, default: ''}
+  props: {
+    username: { type: String, default: '' },
+    password: { type: String, default: '' },
   },
-  setup(props) {
-
-    const auth = useAuth();
-    const router = useRouter();
+  setup() {
+    const auth = useAuth()
     const userForm = {
       username: '',
-      password: ''
+      password: '',
     }
 
     const handleInput = (field: string, value: string) => {
       switch (field) {
         case 'username':
           userForm.username = value
-          break;
+          break
         case 'password':
           userForm.password = value
+          break
         default:
-          break;
+          break
       }
     }
 
@@ -38,9 +34,9 @@ export default {
 
     return {
       handleInput,
-      handleLogin
+      handleLogin,
     }
-  }
+  },
 }
 </script>
 
@@ -57,34 +53,49 @@ export default {
             <div class="">
               <label class="block text-base text-left text-white" for="email">Correo electrónico</label>
               <input
-                class="px-3 py-1 w-full text-left bg-white rounded  focus:secondary focus:ring-secondary focus:ring focus:ring-opacity-80 focus:outline-none"
-                type="email"
                 id="email"
+                class="
+                  px-3
+                  py-1
+                  w-full
+                  text-left
+                  bg-white
+                  rounded
+                  focus:secondary focus:ring-secondary focus:ring focus:ring-opacity-80 focus:outline-none
+                "
+                type="email"
                 placeholder="Correo electrónico"
                 aria-label="email"
-                v-model="username"
-                @input="handleInput('username', $event.target.value)"
                 required
+                @input="handleInput('username', $event.target.value)"
               />
             </div>
             <div class="mt-4">
               <label class="block text-base text-left text-white">Contraseña</label>
               <input
-                class="px-3 py-1 w-full text-left bg-white rounded  focus:secondary focus:ring-secondary focus:ring focus:ring-opacity-80 focus:outline-none"
-                type="password"
                 id="password"
+                class="
+                  px-3
+                  py-1
+                  w-full
+                  text-left
+                  bg-white
+                  rounded
+                  focus:secondary focus:ring-secondary focus:ring focus:ring-opacity-80 focus:outline-none
+                "
+                type="password"
                 placeholder="Contraseña"
                 arial-label="password"
-                v-model="password"
-                @input="handleInput('password', $event.target.value)"
                 required
+                autocomplete="on"
+                @input="handleInput('password', $event.target.value)"
               />
             </div>
             <div class="flex mt-4">
               <button
-                @click="handleLogin"
                 class="font-semibold tracking-wider text-white rounded hoverfont-light hover:text-secondary"
                 type="submit"
+                @click="handleLogin"
               >
                 Entrar
               </button>

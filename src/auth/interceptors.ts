@@ -1,7 +1,6 @@
 import { AxiosInstance } from 'axios'
 import { useAuth } from './useAuth'
 
-
 export function configureAuthorizationHeaderInterceptor(axiosInstance: AxiosInstance, prefix = 'Bearer') {
   axiosInstance.interceptors.request.use((config) => {
     const auth = useAuth()
@@ -13,12 +12,11 @@ export function configureAuthorizationHeaderInterceptor(axiosInstance: AxiosInst
   })
 }
 
-
 export function configureRefreshTokenResponseInterceptor(axiosInstance: AxiosInstance) {
   axiosInstance.interceptors.response.use(
     function (response) {
       // Handlear cualquier response en el rango de 2xx
-      return response;
+      return response
     },
     function (error) {
       // Handlear cualquier response status distinto a 2xx
@@ -27,8 +25,8 @@ export function configureRefreshTokenResponseInterceptor(axiosInstance: AxiosIns
       const auth = useAuth()
       if (!url.includes('/auth/refresh') && auth.isAuthenticated && response.data.name === 'TokenExpiredError') {
         auth.tokenRefresh(auth.refreshToken || '')
-      }      
+      }
       return Promise.resolve(response)
     }
-  );
+  )
 }

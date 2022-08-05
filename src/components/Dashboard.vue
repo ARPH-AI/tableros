@@ -9,7 +9,24 @@
       x-transition:leave-start="translate-x-0 opacity-100 ease-out"
       x-transition:leave-end="-translate-x
       -full opacity-0 ease-in"
-      class="flex overflow-visible fixed inset-y-0 z-40 flex-col flex-shrink-0 px-2 w-60 max-h-screen border-r shadow-lg transition-all transform  lg:z-auto lg:static lg:shadow-none bg-light_base-200 dark:bg-dark_base"
+      class="
+        flex
+        overflow-visible
+        fixed
+        inset-y-0
+        z-40
+        flex-col flex-shrink-0
+        px-2
+        w-60
+        max-h-screen
+        border-r
+        shadow-lg
+        transition-all
+        transform
+        lg:z-auto lg:static lg:shadow-none
+        bg-light_base-200
+        dark:bg-dark_base
+      "
       :class="{ '-translate-x-full lg:translate-x-0 lg:w-20': !sidebarState.isOpen }"
     >
       <!-- Navigation -->
@@ -65,7 +82,19 @@
 
         <router-link
           v-if="{ name: `caracterizacion_${state.fuente}` }"
-          class="flex justify-self-center p-2 m-2 rounded border-2  group bg-light_base-200 dark:bg-dark_base text-light_contrast dark:text-dark_contrast"
+          class="
+            flex
+            justify-self-center
+            p-2
+            m-2
+            rounded
+            border-2
+            group
+            bg-light_base-200
+            dark:bg-dark_base
+            text-light_contrast
+            dark:text-dark_contrast
+          "
           :class="[
             isCurrentRoute(`caracterizacion_${state.fuente}`)
               ? `text-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
@@ -83,7 +112,18 @@
 
         <router-link
           v-if="{ name: `distribucion_espacial_${state.fuente}` }"
-          class="flex justify-self-center p-2 m-2 rounded  group bg-light_base-200 dark:bg-dark_base text-light_contrast dark:text-dark_contrast"
+          class="
+            flex
+            justify-self-center
+            p-2
+            m-2
+            rounded
+            group
+            bg-light_base-200
+            dark:bg-dark_base
+            text-light_contrast
+            dark:text-dark_contrast
+          "
           :class="[
             isCurrentRoute(`distribucion_espacial_${state.fuente}`)
               ? `text-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
@@ -101,7 +141,18 @@
 
         <router-link
           v-if="{ name: `about` }"
-          class="flex justify-self-center p-2 m-2 rounded  group bg-light_base-200 dark:bg-dark_base text-light_contrast dark:text-dark_contrast"
+          class="
+            flex
+            justify-self-center
+            p-2
+            m-2
+            rounded
+            group
+            bg-light_base-200
+            dark:bg-dark_base
+            text-light_contrast
+            dark:text-dark_contrast
+          "
           :class="[
             isCurrentRoute(`about`)
               ? `text-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
@@ -194,13 +245,13 @@
                   </MenuItem>
                   <MenuItem v-slot="{ active }">
                     <button
-                      @click="$auth.logout"
                       :class="[
                         active
                           ? `bg-light_smooth text-${getThemeByDataSource(state.fuente)}`
                           : 'bg-white text-dark_smooth',
                         'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                       ]"
+                      @click="$auth.logout"
                     >
                       <LogoutIcon :active="active" class="mr-2 w-5 h-5 text-third" aria-hidden="true" />
                       Cerrar sesión
@@ -214,7 +265,12 @@
       </header>
       <!-- Main Content -->
       <div
-        class="font-mono  scrollbar-thin scrollbar-thumb-secondary scrollbar-track-light_base dark:scrollbar-thumb-secondary dark:scrollbar-track-dark_base"
+        class="
+          font-mono
+          scrollbar-thin scrollbar-thumb-secondary
+          scrollbar-track-light_base
+          dark:scrollbar-thumb-secondary dark:scrollbar-track-dark_base
+        "
       >
         <div v-show="!isCurrentRoute(`about`)" class="inline-flex grid grid-cols-1 pl-4 mt-4 ml-4 text-left">
           <span class="float-left text-4xl align-middle">COVID-19</span>

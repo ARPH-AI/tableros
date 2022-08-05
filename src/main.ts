@@ -30,14 +30,14 @@ const notify = createNotify({
   type: 'success',
   data: {
     text: 'Default Notification',
-    time: 3000
-  }
+    time: 3000,
+  },
 })
 
 if (process.env.NODE_ENV === 'development') {
-  const VueAxe = (async function() {
+  const VueAxe = (async function () {
     await import('vue-axe')
-  })();
+  })()
   app = createApp({
     render: () => h(Fragment, [h(App), h(VueAxe.VueAxePopup)]),
   })

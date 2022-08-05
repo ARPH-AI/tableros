@@ -4,7 +4,7 @@ import 'vue-router'
 
 declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
-    $auth: AuthPlugin,
+    $auth: AuthPlugin
     $notify: NotifyPlugin
   }
 }

@@ -41,6 +41,12 @@ export interface RequiredAuthOptions {
   axios?: AuthAxiosConfig
 }
 
+export interface UserTokens {
+  accessToken: string
+  refreshToken: string
+  cubeToken?: string
+}
+
 /*
  * Make all optional but router
  * See: https://www.typescriptlang.org/docs/handbook/utility-types.html#partialtype
@@ -51,7 +57,7 @@ export interface AuthOptions extends Omit<Partial<RequiredAuthOptions>, 'router'
 }
 
 export interface UserFormData {
-  username: string,
+  username: string
   password: string
 }
 
@@ -60,12 +66,12 @@ export interface ApplicationVersionDto {
 }
 
 export interface JWTokenDto {
-  token: string,
+  token: string
   refreshToken: string
 }
 
 export interface PasswordResetDto {
-  password: string,
+  password: string
   token: string
 }
 
@@ -82,9 +88,11 @@ export interface RefreshTokenDto {
 }
 
 export interface RoleAssingment {
-  projectId: number, role: ERole
+  projectId: number
+  role: ERole
 }
 
 export const enum ERole {
-  ADMIN='ADMIN', USER='USER '
+  ADMIN = 'ADMIN',
+  USER = 'USER ',
 }

@@ -2,13 +2,9 @@ import { App, computed, reactive, readonly, ref } from 'vue'
 import { setupDevtools } from './devtools'
 import { configureAuthorizationHeaderInterceptor, configureRefreshTokenResponseInterceptor } from './interceptors'
 import { configureNavigationGuards } from './navigationGuards'
-import { ANONYMOUS_USER, AuthOptions, AuthPlugin, RequiredAuthOptions, User } from './types'
-import { useNotify } from '@/notification' 
-import {
-  authApi,
-  refreshApi,
-  authCubeApi,
- } from '@/api'
+import { ANONYMOUS_USER, AuthOptions, AuthPlugin, RequiredAuthOptions, User, UserTokens } from './types'
+import { useNotify } from '@/notification'
+import { authApi, refreshApi, authCubeApi } from '@/api'
 import { RefreshToken, AuthApiLoginUserRequest, LoginUser } from '@/api-client-backend'
 
 const TOKEN_KEY = 'arphai-token'
@@ -31,9 +27,8 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
     }
     return fullname
   })
-  
 
-  function storeTokens(tokens: any) {
+  function storeTokens(tokens: UserTokens) {
     localStorage.setItem(TOKEN_KEY, tokens.accessToken)
     localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refreshToken)
     localStorage.setItem(CUBE_TOKEN_KEY, tokens.cubeToken)
@@ -58,36 +53,36 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
 
   async function login(formData: LoginUser) {
     const body: AuthApiLoginUserRequest = {
-        'loginUser': formData
-      }
-      const response = await authApi.loginUser(body)
-      const { data } = response
-      if (response.status == 200) {
-        user.value = data.user
-        isAuthenticated.value = true
-        accessToken.value = data.accessToken
-        refreshToken.value = data.refreshToken
-        const cubeToken = await getCubeToken()
-        cubeAccessToken.value = cubeToken
-        const finalData = Object.assign({cubeToken: cubeToken}, data)
-        storeTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken, cubeToken: cubeToken })
-        router.push(router.currentRoute.value.query.redirectTo?.toString() || options.loginRedirectRoute)
-        return finalData
-      } else {
-        const notify = useNotify()
-        notify.showNotify({
-          type: 'error',
-          show: true,
-          data: {
-            text: data.error
-          }
-        })
-      }
+      loginUser: formData,
+    }
+    const response = await authApi.loginUser(body)
+    const { data } = response
+    if (response.status == 200) {
+      user.value = data.user
+      isAuthenticated.value = true
+      accessToken.value = data.accessToken
+      refreshToken.value = data.refreshToken
+      const cubeToken = await getCubeToken()
+      cubeAccessToken.value = cubeToken
+      const finalData = Object.assign({ cubeToken: cubeToken }, data)
+      storeTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken, cubeToken: cubeToken })
+      router.push(router.currentRoute.value.query.redirectTo?.toString() || options.loginRedirectRoute)
+      return finalData
+    } else {
+      const notify = useNotify()
+      notify.showNotify({
+        type: 'error',
+        show: true,
+        data: {
+          text: data.error,
+        },
+      })
+    }
   }
 
   async function tokenRefresh(refreshToken: RefreshToken) {
     if (isAuthenticated.value) {
-      const body = { 'refreshToken': refreshToken }
+      const body = { refreshToken: refreshToken }
       accessToken.value = refreshToken
       const response = await refreshApi.refreshToken(body)
       const { data } = response
@@ -106,8 +101,8 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
           type: 'error',
           show: true,
           data: {
-            text: 'Sesión expirada'
-          }
+            text: 'Sesión expirada',
+          },
         })
       }
     }

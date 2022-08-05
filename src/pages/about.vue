@@ -8,10 +8,25 @@ meta:
 <template>
   <div class="grid grid-cols-1 h-screen md:grid-cols-5">
     <div
-      class="grid grid-cols-1 px-10 pt-10 border-t-2 border-l-2  dark:border-dark_contrast border-light_contrast md:col-span-3"
+      class="
+        grid grid-cols-1
+        px-10
+        pt-10
+        border-t-2 border-l-2
+        dark:border-dark_contrast
+        border-light_contrast
+        md:col-span-3
+      "
     >
       <div
-        class="pt-12 pr-10 border-r-2 border-b-2 border-dashed  full-width dark:border-dark_contrast border-light_contrast"
+        class="
+          pt-12
+          pr-10
+          border-r-2 border-b-2 border-dashed
+          full-width
+          dark:border-dark_contrast
+          border-light_contrast
+        "
       >
         <h1 class="text-3xl font-bold text-left uppercase">Proyecto ARPHAI</h1>
         <p class="mt-2 font-semibold text-left">Visualización de datos para la epidemiología</p>

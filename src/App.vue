@@ -4,8 +4,8 @@ import Notification from '@/components/Notification.vue'
 </script>
 
 <template>
-<div>
-  <RouterViewTransition is-root></RouterViewTransition>
-  <Notification />
-</div>
+  <div>
+    <RouterViewTransition is-root></RouterViewTransition>
+    <Notification />
+  </div>
 </template>

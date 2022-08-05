@@ -20,7 +20,9 @@ function setupNotifyPlugin(options: NotifyOptions): NotifyPlugin {
     setTimeout(hideNotify, time.value)
   }
 
-  function hideNotify() { show.value = false }
+  function hideNotify() {
+    show.value = false
+  }
 
   const unWrappedRefs = reactive({
     show,
@@ -31,7 +33,6 @@ function setupNotifyPlugin(options: NotifyOptions): NotifyPlugin {
   })
 
   return readonly(unWrappedRefs)
-
 }
 
 const defaultOptions = {
@@ -39,10 +40,9 @@ const defaultOptions = {
   type: 'success',
   data: {
     time: 3000,
-    text: 'Test'
-  }
+    text: 'Test',
+  },
 }
-
 
 export function createNotify(appOptions: NotifyOptions) {
   // Fill default values to options that were not received
@@ -60,4 +60,3 @@ export function createNotify(appOptions: NotifyOptions) {
     },
   }
 }
-
