@@ -7,9 +7,9 @@ import { useNotify } from '@/notification'
 import { authApi, refreshApi, authCubeApi } from '@/api'
 import { RefreshToken, AuthApiLoginUserRequest, LoginUser } from '@/api-client-backend'
 
-const TOKEN_KEY = process.env.TOKEN_KEY || ''
-const REFRESH_TOKEN_KEY = process.env.REFRESH_TOKEN_KEY || ''
-const CUBE_TOKEN_KEY = process.env.CUBE_TOKEN_KEY || ''
+const TOKEN_STORAGE_KEY = 'arphai-token'
+const REFRESH_TOKEN_STORAGE_KEY = 'arphai-refreshToken'
+const CUBE_TOKEN_STORAGE_KEY = 'cube-token'
 
 export let authInstance: AuthPlugin | undefined = undefined
 
@@ -29,15 +29,15 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
   })
 
   function storeTokens(tokens: UserTokens) {
-    localStorage.setItem(TOKEN_KEY, tokens.accessToken)
-    localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refreshToken)
-    localStorage.setItem(CUBE_TOKEN_KEY, tokens.cubeToken)
+    localStorage.setItem(TOKEN_STORAGE_KEY, tokens.accessToken)
+    localStorage.setItem(REFRESH_TOKEN_STORAGE_KEY, tokens.refreshToken)
+    localStorage.setItem(CUBE_TOKEN_STORAGE_KEY, tokens.cubeToken)
   }
 
   function removeTokens(): void {
-    localStorage.removeItem(TOKEN_KEY)
-    localStorage.removeItem(REFRESH_TOKEN_KEY)
-    localStorage.removeItem(CUBE_TOKEN_KEY)
+    localStorage.removeItem(TOKEN_STORAGE_KEY)
+    localStorage.removeItem(REFRESH_TOKEN_STORAGE_KEY)
+    localStorage.removeItem(CUBE_TOKEN_STORAGE_KEY)
   }
 
   async function getCubeToken() {
