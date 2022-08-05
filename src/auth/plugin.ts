@@ -7,9 +7,9 @@ import { useNotify } from '@/notification'
 import { authApi, refreshApi, authCubeApi } from '@/api'
 import { RefreshToken, AuthApiLoginUserRequest, LoginUser } from '@/api-client-backend'
 
-const TOKEN_KEY = 'arphai-token'
-const REFRESH_TOKEN_KEY = 'arphai-refreshToken'
-const CUBE_TOKEN_KEY = 'cube-token'
+const TOKEN_KEY = process.env.TOKEN_KEY || ''
+const REFRESH_TOKEN_KEY = process.env.REFRESH_TOKEN_KEY || ''
+const CUBE_TOKEN_KEY = process.env.CUBE_TOKEN_KEY || ''
 
 export let authInstance: AuthPlugin | undefined = undefined
 
