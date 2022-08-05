@@ -278,7 +278,7 @@
         "
       >
         <!-- Tabs -->
-        <TabGroup>
+        <TabGroup :default-index="state.fuente == 'hsi' ? 0 : 1">
           <div v-show="!isCurrentRoute(`about`)" class="grid float-left grid-cols-1 pl-4 mt-4 ml-4 text-left h-fit">
             <span class="float-left text-4xl align-middle">COVID-19</span>
             <span class="float-left leading-relaxed align-middle"> Actualizado: {{ currentTime }}</span>

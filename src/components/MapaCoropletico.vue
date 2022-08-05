@@ -130,6 +130,7 @@ const selectInteactionFilter = (feature) => {
     :cantidad="Number(casosCant).toLocaleString()"
   ></GeoInfoCard>
   <TableCard
+    class="w-80 ml-3"
     :datos="depsFromProv[props.provincia]"
     titulo="Casos por departamento"
     :titulos-columnas="['Departamento', 'Cantidad']"
