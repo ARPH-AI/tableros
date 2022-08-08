@@ -15,7 +15,7 @@ export const sections = {
     title: 'Mapas',
   },
   INFORMACION: {
-    key: 'seccion-sobre-el-proyecto',
+    key: 'seccion-sobre-el-tablero',
     value: 4,
     title: 'Tablero epidemiologico',
   },
