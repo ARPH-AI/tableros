@@ -44,7 +44,7 @@ export const enos = {
     value: 1,
     title: 'COVID-19',
   },
-  ENOS: {
+  DENGUE: {
     key: 'dengue',
     value: 2,
     title: 'Dengue',

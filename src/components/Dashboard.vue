@@ -29,242 +29,14 @@
       "
       :class="{ '-translate-x-full lg:translate-x-0 lg:w-20': !sidebarState.isOpen }"
     >
-      <!-- Navigation -->
-      <nav v-show="sidebarState.isOpen" class="flex px-2 mt-5 font-mono">
-        <!-- With sidebar open -->
-        <SidebarCollapsible
-          title="TABLERO"
-          :active="isCurrentPath(`/${sections.SITUACION_ACTUAL.key}`) || isCurrentPath('/')"
-        >
-          <template #icon>
-            <TemplateIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
-          </template>
-          <SidebarCollapsibleItem
-            :to="sections.SITUACION_ACTUAL.key"
-            :title="sections.SITUACION_ACTUAL.title"
-            :active="isCurrentRoute(sections.SITUACION_ACTUAL.key) || isCurrentRoute('index')"
-            @click="state.criterio = 'situacion_actual'"
-          />
-          <SidebarCollapsibleItem
-            :to="sections.CARACTERIZACION.key"
-            :title="sections.CARACTERIZACION.title"
-            :active="isCurrentRoute(sections.CARACTERIZACION.key)"
-            @click="state.criterio = 'caracterizacion'"
-          />
-          <SidebarCollapsibleItem
-            :to="sections.GEO.key"
-            :title="sections.CARACTERIZACION.title"
-            :active="isCurrentRoute(sections.GEO.key)"
-            @click="state.criterio = 'distribucion_espacial'"
-          />
-        </SidebarCollapsible>
-      </nav>
-      <nav v-show="!sidebarState.isOpen" class="grid grid-cols-1 items-center px-2 mt-32 font-mono">
-        <!-- Without sidebar open -->
-        <router-link
-          :aria-label="`Navegar hacia la sección ${sections.SITUACION_ACTUAL.key}`"
-          class="flex justify-self-center p-2 m-2 rounded group bg-light_base-200 dark:bg-dark_base"
-          :class="[
-            isCurrentRoute('seccion-situacion-actual') || isCurrentRoute('index')
-              ? `text-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
-                  state.fuente
-                )} border-3 border-${getThemeByDataSource(state.fuente)}`
-              : `border-3 border-${getThemeByDataSource(
-                  state.fuente
-                )} text-light_contrast hover:text-${getThemeByDataSource(
-                  state.fuente
-                )} dark:hover:text-${getThemeByDataSource(state.fuente)}  dark:text-dark_contrast`,
-          ]"
-          to="seccion-situacion-actual"
-          @click="state.criterio = 'situacion_actual'"
-          ><Popper arrow disable-click-away hover interactive content="Situación actual"
-            ><TrendingUpIcon class="flex-shrink-0 w-6 h-6 group" aria-hidden="true"></TrendingUpIcon>
-          </Popper>
-        </router-link>
-
-        <router-link
-          :aria-label="`Navegar hacia la sección ${sections.CARACTERIZACION.title}`"
-          class="
-            flex
-            justify-self-center
-            p-2
-            m-2
-            rounded
-            border-2
-            group
-            bg-light_base-200
-            dark:bg-dark_base
-            text-light_contrast
-            dark:text-dark_contrast
-          "
-          :class="[
-            isCurrentRoute(`caracterizacion_${state.fuente}`)
-              ? `text-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
-                  state.fuente
-                )} border-3 border-${getThemeByDataSource(state.fuente)}`
-              : `border-3 border-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
-                  state.fuente
-                )} text-light_contrast dark:hover:text-${getThemeByDataSource(state.fuente)}  dark:text-dark_contrast`,
-          ]"
-          :to="sections.CARACTERIZACION.key"
-          @click="state.criterio = 'caracterizacion'"
-          ><Popper arrow disable-click-away hover interactive :content="sections.CARACTERIZACION.title"
-            ><UserGroupIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
-        ></router-link>
-
-        <router-link
-          :aria-label="`Navegar hacia la sección ${sections.GEO.title}`"
-          class="
-            flex
-            justify-self-center
-            p-2
-            m-2
-            rounded
-            group
-            bg-light_base-200
-            dark:bg-dark_base
-            text-light_contrast
-            dark:text-dark_contrast
-          "
-          :class="[
-            isCurrentRoute(sections.GEO.key)
-              ? `text-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
-                  state.fuente
-                )} border-3 border-${getThemeByDataSource(state.fuente)}`
-              : `border-3 border-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
-                  state.fuente
-                )} text-light_contrast dark:hover:text-${getThemeByDataSource(state.fuente)}  dark:text-dark_contrast`,
-          ]"
-          :to="sections.GEO.key"
-          @click="state.criterio = 'distribucion_espacial'"
-          ><Popper arrow disable-click-away hover interactive content="Geo"
-            ><MapIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
-        ></router-link>
-        <router-link
-          :aria-label="`Navegar hacia la sección ${sections.INFORMACION.title}`"
-          class="
-            flex
-            justify-self-center
-            p-2
-            m-2
-            rounded
-            group
-            bg-light_base-200
-            dark:bg-dark_base
-            text-light_contrast
-            dark:text-dark_contrast
-          "
-          :class="[
-            isCurrentRoute(sections.INFORMACION.key)
-              ? `text-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
-                  state.fuente
-                )} border-3 border-${getThemeByDataSource(state.fuente)}`
-              : `border-3 border-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
-                  state.fuente
-                )} text-light_contrast dark:hover:text-${getThemeByDataSource(state.fuente)}  dark:text-dark_contrast`,
-          ]"
-          :to="sections.INFORMACION.key"
-          ><Popper arrow disable-click-away hover interactive :content="sections.INFORMACION.title"
-            ><QuestionMarkCircleIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
-        ></router-link>
-      </nav>
+      <!-- Expanded Sidebar Navigation -->
+      <Sidebar v-show="sidebarState.isOpen" />
+      <!-- Minimal Sidebar Navigation -->
+      <MinimalSidebar v-show="!sidebarState.isOpen" />
     </aside>
     <div class="flex overflow-y-auto flex-col flex-1 h-full dark:bg-dark_base">
-      <!-- Navbar -->
-      <header class="flex-shrink-0 h-auto border-b dark:bg-dark_base">
-        <div class="flex justify-between items-center p-2">
-          <!-- Navbar left -->
-          <div class="flex items-center space-x-3">
-            <!-- Toggle sidebar button -->
-            <button
-              class="p-2 rounded-md dark:text-dark_contrast focus:outline-none focus:ring"
-              aria-label="Desplegar menú lalteral"
-              @click="sidebarState.isOpen = !sidebarState.isOpen"
-            >
-              <svg
-                class="w-4 h-4 text-gray-600"
-                :class="{ 'transform transition-transform -rotate-180': sidebarState.isOpen }"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
-              </svg>
-            </button>
-            <a aria-label="Navegar al inicio del sitio" href="/" class="p-1">
-              <img alt="ARPHAI logo" src="@/assets/logo.png" class="w-20" />
-            </a>
-
-            <span class="float-left font-mono font-semibold leading-relaxed align-middle">
-              Tablero de información epidemiológica
-            </span>
-          </div>
-          <div class="flex items-center space-x-1">
-            <!-- Toggle darkmode button -->
-            <button
-              aria-label="Cambiar tema"
-              class="p-2 rounded-md focus:outline-none focus:ring"
-              @click="toggleDarkMode"
-            >
-              <!-- light icon -->
-              <MoonIcon
-                v-show="!isDark"
-                class="flex-shrink-0 w-6 h-6 dark:hover:text-secondary dark:text-dark_contrast"
-                aria-hidden="true"
-              />
-              <!-- dark icon -->
-              <SunIcon v-show="isDark" class="flex-shrink-0 w-6 h-6 hover:text-secondary" aria-hidden="true" />
-            </button>
-
-            <!-- User menu dropdown -->
-            <Menu as="div" class="inline-block relative z-50 font-mono">
-              <MenuButton class="inline-flex justify-center w-full">
-                <ProfileAvatar
-                  bg-color="#000000"
-                  border
-                  border-color="#FFFFFF"
-                  :username="$auth.user.email"
-                  text-color="#FFFFFF"
-                ></ProfileAvatar>
-              </MenuButton>
-              <transition
-                enter-active-class="transition duration-100 ease-out"
-                enter-from-class="opacity-0 transform scale-95"
-                enter-to-class="opacity-100 transform scale-100"
-                leave-active-class="transition duration-75 ease-in"
-                leave-from-class="opacity-100 transform scale-100"
-                leave-to-class="opacity-0 transform scale-95"
-              >
-                <MenuItems
-                  :class="`absolute right-0 mt-1 w-56 bg-white rounded-md divide-y divide-black ring-1 ring-black text-bold ring-opacity-5 shadow-lg origin-top-right focus:outline-none`"
-                >
-                  <div class="px-1 py-1">
-                    <MenuItem class="flex items-center px-2 py-2 w-full text-sm rounded-md group">
-                      <span>{{ $auth.user.email }}</span>
-                    </MenuItem>
-                    <MenuItem v-slot="{ active }">
-                      <button
-                        aria-label="Desplegar menú de usuarie"
-                        :class="[
-                          active
-                            ? `bg-light_smooth text-${getThemeByDataSource(state.fuente)}`
-                            : 'bg-white text-dark_smooth',
-                          'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                        ]"
-                        @click="$auth.logout"
-                      >
-                        <LogoutIcon :active="active" class="mr-2 w-5 h-5 text-third" aria-hidden="true" />
-                        Cerrar sesión
-                      </button>
-                    </MenuItem>
-                  </div>
-                </MenuItems>
-              </transition>
-            </Menu>
-          </div>
-        </div>
-      </header>
+      <!-- Header -->
+      <TheHeader />
       <!-- Main Content -->
       <div
         class="
@@ -276,13 +48,13 @@
           dark:scrollbar-thumb-secondary dark:scrollbar-track-dark_base
         "
       >
-        <!-- Tabs -->
-        <TabGroup :default-index="state.fuente == 'hsi' ? 0 : 1">
+        <!-- Data Sources Tabs -->
+        <TabGroup :default-index="dataSource == 'hsi' ? 0 : 1">
           <div
             v-show="!isCurrentRoute(sections.INFORMACION.key)"
             class="grid float-left grid-cols-1 pl-4 mt-4 ml-4 text-left h-fit"
           >
-            <span class="float-left text-4xl align-middle">COVID-19</span>
+            <span class="float-left text-4xl align-middle">{{ enos.COVID.title }}</span>
             <span class="float-left leading-relaxed align-middle"> Actualizado: {{ currentTime }}</span>
           </div>
           <div class="grid float-right grid-cols-1 mt-3 text-left h-fit">
@@ -312,8 +84,7 @@
                     :class="[selected ? 'opacity-100' : 'border-none opacity-50']"
                     class="py-1 font-extrabold text-white group"
                     :to="{ name: `${state.criterio}_hsi` }"
-                    tag="button"
-                    @click="state.fuente = 'hsi'"
+                    @click="dataSource = 'hsi'"
                     >HSI</router-link
                   >
                 </Tab>
@@ -336,8 +107,7 @@
                     :class="[selected ? 'shadow-xl border-3 border-secondary opacity-100' : 'opacity-50']"
                     class="py-1 font-extrabold text-black group dark:text-dark_contrast"
                     :to="{ name: `${state.criterio}_snvs` }"
-                    tag="button"
-                    @click="state.fuente = 'snvs'"
+                    @click="dataSource = 'snvs'"
                     >SNVS</router-link
                   >
                 </Tab>
@@ -354,89 +124,28 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { useRouter } from 'vue-router'
-import { sidebarState, isDark, toggleDarkMode, useGlobalState } from '@/composables'
-import {
-  MoonIcon,
-  QuestionMarkCircleIcon,
-  SunIcon,
-  TrendingUpIcon,
-  TemplateIcon,
-  MapIcon,
-  UserGroupIcon,
-  LogoutIcon,
-} from '@heroicons/vue/outline'
-import SidebarCollapsible from '@/components/SidebarCollapsible.vue'
-import { TabGroup, TabList, Tab, TabPanels, TabPanel, Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
-import SidebarCollapsibleItem from '@/components/SidebarCollapsibleItem.vue'
+import { sidebarState, useGlobalState } from '@/composables'
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import RouterViewTransition from '@/components/RouterViewTransition.vue'
 import Popper from 'vue3-popper'
-import { getThemeByDataSource } from '@/composables'
-import ProfileAvatar from 'vue-profile-avatar'
-import { useDataSourceStore } from '@/stores/data-source-store.js'
 import { sections, data_sources, enos } from '@/constants'
+import { storeToRefs } from 'pinia'
+import { useDataSourceStore } from '@/stores/data-source-store.js'
 
+const { dataSource } = storeToRefs(useDataSourceStore())
 const isCurrentRoute = (routeName) => {
   return useRouter().currentRoute.value.name == routeName
 }
-
-const isCurrentPath = (path) => {
-  return useRouter().currentRoute.value.path.startsWith(path)
-}
-
 var today = new Date()
 var dd = String(today.getDate()).padStart(2, '0')
 var mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
 var yyyy = today.getFullYear()
-
 var currentTime = dd + '/' + mm + '/' + yyyy
-
-export default {
-  components: {
-    ProfileAvatar,
-    SidebarCollapsible,
-    SidebarCollapsibleItem,
-    MoonIcon,
-    SunIcon,
-    TemplateIcon,
-    MapIcon,
-    UserGroupIcon,
-    TrendingUpIcon,
-    TabGroup,
-    TabList,
-    Tab,
-    TabPanels,
-    TabPanel,
-    RouterViewTransition,
-    Popper,
-    QuestionMarkCircleIcon,
-    Menu,
-    MenuButton,
-    MenuItems,
-    MenuItem,
-    LogoutIcon,
-  },
-  setup() {
-    const state = useGlobalState()
-    const store = useDataSourceStore()
-    return {
-      isCurrentPath,
-      isCurrentRoute,
-      sidebarState,
-      isDark,
-      toggleDarkMode,
-      state,
-      getThemeByDataSource,
-      currentTime,
-      store,
-      sections,
-      data_sources,
-      enos,
-    }
-  },
-}
+const state = useGlobalState()
 </script>
+
 <style scoped>
 :deep(.popper) {
   background: #000000;
