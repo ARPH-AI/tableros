@@ -25,9 +25,9 @@
 
 <script setup>
 const props = defineProps({
-  href: String,
-  to: [String, Object],
-  title: String,
+  href: { default: 'seccion-situacion-actual', type: [String, Object] },
+  to: { default: 'seccion-situacion-actual', type: [String, Object] },
+  title: { type: String, default: '' },
   active: {
     type: Boolean,
     default: false,

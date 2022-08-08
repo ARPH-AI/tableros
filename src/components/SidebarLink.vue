@@ -58,5 +58,7 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  href: { default: 'seccion-situacion-actual', type: [String, Object] },
+  to: { default: 'seccion-situacion-actual', type: [String, Object] },
 })
 </script>

@@ -70,8 +70,6 @@ export const getThemeByDataSource = (dataSource) => {
       return 'primary'
     case 'snvs':
       return 'secondary'
-    case 'about':
-      return 'secondary'
     default:
       return 'primary'
   }

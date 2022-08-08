@@ -9,13 +9,14 @@ import i18n from './plugins/i18n'
 import OpenLayersMap from 'vue3-openlayers'
 import 'vue3-openlayers/dist/vue3-openlayers.css'
 import { createNotify } from './notification'
+import { createPinia } from 'pinia'
 
 let app = null
 
 const auth = createAuth({
   router,
-  loginRedirectRoute: { name: 'situacion_actual_hsi' },
-  logoutRedirectRoute: { name: 'situacion_actual_hsi' },
+  loginRedirectRoute: 'seccion-situacion-actual',
+  logoutRedirectRoute: 'login',
   autoConfigureNavigationGuards: true,
   axios: {
     instance: axiosInstance,
@@ -36,7 +37,7 @@ const notify = createNotify({
 const loadAxe = async () => await import('vue-axe')
 
 if (process.env.NODE_ENV === 'development') {
-  loadAxe().then( VueAxe => {
+  loadAxe().then((VueAxe) => {
     app = createApp({
       render: () => h(Fragment, [h(App), h(VueAxe.VueAxePopup)]),
     })
@@ -46,6 +47,7 @@ if (process.env.NODE_ENV === 'development') {
     app.use(i18n)
     app.use(OpenLayersMap)
     app.provide('enable-route-transitions', true)
+    app.use(createPinia())
     app.mount('#app')
   })
 } else {
@@ -55,6 +57,7 @@ if (process.env.NODE_ENV === 'development') {
   app.use(i18n)
   app.use(OpenLayersMap)
   app.provide('enable-route-transitions', true)
+  app.use(createPinia())
   app.mount('#app')
 }
 

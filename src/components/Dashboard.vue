@@ -32,26 +32,29 @@
       <!-- Navigation -->
       <nav v-show="sidebarState.isOpen" class="flex px-2 mt-5 font-mono">
         <!-- With sidebar open -->
-        <SidebarCollapsible title="TABLERO" :active="isCurrentPath('/situacion_actual_hsi') || isCurrentPath('/')">
+        <SidebarCollapsible
+          title="TABLERO"
+          :active="isCurrentPath(`/${sections.SITUACION_ACTUAL.key}`) || isCurrentPath('/')"
+        >
           <template #icon>
             <TemplateIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
           </template>
           <SidebarCollapsibleItem
-            :to="{ name: `situacion_actual_${state.fuente}` }"
-            title="Situacion actual"
-            :active="isCurrentRoute(`situacion_actual_${state.fuente}`) || isCurrentRoute('index')"
+            :to="sections.SITUACION_ACTUAL.key"
+            :title="sections.SITUACION_ACTUAL.title"
+            :active="isCurrentRoute(sections.SITUACION_ACTUAL.key) || isCurrentRoute('index')"
             @click="state.criterio = 'situacion_actual'"
           />
           <SidebarCollapsibleItem
-            :to="{ name: `caracterizacion_${state.fuente}` }"
-            title="Caracterización"
-            :active="isCurrentRoute(`caracterizacion_${state.fuente}`)"
+            :to="sections.CARACTERIZACION.key"
+            :title="sections.CARACTERIZACION.title"
+            :active="isCurrentRoute(sections.CARACTERIZACION.key)"
             @click="state.criterio = 'caracterizacion'"
           />
           <SidebarCollapsibleItem
-            :to="{ name: `distribucion_espacial_${state.fuente}` }"
-            title="Distribución espacial"
-            :active="isCurrentRoute(`distribucion_espacial_${state.fuente}`)"
+            :to="sections.GEO.key"
+            :title="sections.CARACTERIZACION.title"
+            :active="isCurrentRoute(sections.GEO.key)"
             @click="state.criterio = 'distribucion_espacial'"
           />
         </SidebarCollapsible>
@@ -59,11 +62,10 @@
       <nav v-show="!sidebarState.isOpen" class="grid grid-cols-1 items-center px-2 mt-32 font-mono">
         <!-- Without sidebar open -->
         <router-link
-          v-if="{ name: `situacion_actual_${state.fuente}` }"
-          aria-label="Navegar hacia la sección Situación actual"
+          :aria-label="`Navegar hacia la sección ${sections.SITUACION_ACTUAL.key}`"
           class="flex justify-self-center p-2 m-2 rounded group bg-light_base-200 dark:bg-dark_base"
           :class="[
-            isCurrentRoute(`situacion_actual_${state.fuente}`) || isCurrentRoute('index')
+            isCurrentRoute('seccion-situacion-actual') || isCurrentRoute('index')
               ? `text-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
                   state.fuente
                 )} border-3 border-${getThemeByDataSource(state.fuente)}`
@@ -73,7 +75,7 @@
                   state.fuente
                 )} dark:hover:text-${getThemeByDataSource(state.fuente)}  dark:text-dark_contrast`,
           ]"
-          :to="{ name: `situacion_actual_${state.fuente}` }"
+          to="seccion-situacion-actual"
           @click="state.criterio = 'situacion_actual'"
           ><Popper arrow disable-click-away hover interactive content="Situación actual"
             ><TrendingUpIcon class="flex-shrink-0 w-6 h-6 group" aria-hidden="true"></TrendingUpIcon>
@@ -81,8 +83,7 @@
         </router-link>
 
         <router-link
-          v-if="{ name: `caracterizacion_${state.fuente}` }"
-          aria-label="Navegar hacia la sección Caracterización"
+          :aria-label="`Navegar hacia la sección ${sections.CARACTERIZACION.title}`"
           class="
             flex
             justify-self-center
@@ -105,15 +106,14 @@
                   state.fuente
                 )} text-light_contrast dark:hover:text-${getThemeByDataSource(state.fuente)}  dark:text-dark_contrast`,
           ]"
-          :to="{ name: `caracterizacion_${state.fuente}` }"
+          :to="sections.CARACTERIZACION.key"
           @click="state.criterio = 'caracterizacion'"
-          ><Popper arrow disable-click-away hover interactive content="Caracterización"
+          ><Popper arrow disable-click-away hover interactive :content="sections.CARACTERIZACION.title"
             ><UserGroupIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
         ></router-link>
 
         <router-link
-          v-if="{ name: `distribucion_espacial_${state.fuente}` }"
-          aria-label="Navegar hacia la sección Geolocalización"
+          :aria-label="`Navegar hacia la sección ${sections.GEO.title}`"
           class="
             flex
             justify-self-center
@@ -127,7 +127,7 @@
             dark:text-dark_contrast
           "
           :class="[
-            isCurrentRoute(`distribucion_espacial_${state.fuente}`)
+            isCurrentRoute(sections.GEO.key)
               ? `text-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
                   state.fuente
                 )} border-3 border-${getThemeByDataSource(state.fuente)}`
@@ -135,14 +135,13 @@
                   state.fuente
                 )} text-light_contrast dark:hover:text-${getThemeByDataSource(state.fuente)}  dark:text-dark_contrast`,
           ]"
-          :to="{ name: `distribucion_espacial_${state.fuente}` }"
+          :to="sections.GEO.key"
           @click="state.criterio = 'distribucion_espacial'"
           ><Popper arrow disable-click-away hover interactive content="Geo"
             ><MapIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
         ></router-link>
         <router-link
-          v-if="{ name: `about` }"
-          aria-label="Navegar hacia la sección Sobre el proyecto"
+          :aria-label="`Navegar hacia la sección ${sections.INFORMACION.title}`"
           class="
             flex
             justify-self-center
@@ -156,7 +155,7 @@
             dark:text-dark_contrast
           "
           :class="[
-            isCurrentRoute(`about`)
+            isCurrentRoute(sections.INFORMACION.key)
               ? `text-${getThemeByDataSource(state.fuente)} hover:text-${getThemeByDataSource(
                   state.fuente
                 )} border-3 border-${getThemeByDataSource(state.fuente)}`
@@ -164,8 +163,8 @@
                   state.fuente
                 )} text-light_contrast dark:hover:text-${getThemeByDataSource(state.fuente)}  dark:text-dark_contrast`,
           ]"
-          :to="{ name: `about` }"
-          ><Popper arrow disable-click-away hover interactive content="ARPHAI"
+          :to="sections.INFORMACION.key"
+          ><Popper arrow disable-click-away hover interactive :content="sections.INFORMACION.title"
             ><QuestionMarkCircleIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
         ></router-link>
       </nav>
@@ -279,21 +278,29 @@
       >
         <!-- Tabs -->
         <TabGroup :default-index="state.fuente == 'hsi' ? 0 : 1">
-          <div v-show="!isCurrentRoute(`about`)" class="grid float-left grid-cols-1 pl-4 mt-4 ml-4 text-left h-fit">
+          <div
+            v-show="!isCurrentRoute(sections.INFORMACION.key)"
+            class="grid float-left grid-cols-1 pl-4 mt-4 ml-4 text-left h-fit"
+          >
             <span class="float-left text-4xl align-middle">COVID-19</span>
             <span class="float-left leading-relaxed align-middle"> Actualizado: {{ currentTime }}</span>
           </div>
           <div class="grid float-right grid-cols-1 mt-3 text-left h-fit">
-            <span v-show="!isCurrentRoute(`about`)" class="inline-flex float-right pr-14 mb-3">Fuente de datos</span>
-            <TabList v-show="!isCurrentRoute(`about`)" class="inline-flex float-right pr-14 shadow-2xl">
+            <span v-show="!isCurrentRoute(sections.INFORMACION.key)" class="inline-flex float-right pr-14 mb-3"
+              >Fuente de datos</span
+            >
+            <TabList
+              v-show="!isCurrentRoute(sections.INFORMACION.key)"
+              class="inline-flex float-right pr-14 shadow-2xl"
+            >
               <Popper
                 placement="left"
                 arrow
                 disable-click-away
                 hover
                 interactive
-                content="Los datos de esta sección corresponden
-              a los registros de la atención ambulatoria en historia clínica electrónica"
+                :content="`Los datos de esta sección corresponden
+              a los registros de la atención ambulatoria en ${data_sources.HSI.title}`"
               >
                 <Tab
                   v-slot="{ selected }"
@@ -301,7 +308,7 @@
                   class="px-4 py-2 -mb-px shadow-2xl border-3 border-primary bg-primary"
                 >
                   <router-link
-                    aria-label="Seleccionar HSI como fuente de datos"
+                    :aria-label="`Seleccionar ${data_sources.HSI.key} como fuente de datos`"
                     :class="[selected ? 'opacity-100' : 'border-none opacity-50']"
                     class="py-1 font-extrabold text-white group"
                     :to="{ name: `${state.criterio}_hsi` }"
@@ -325,7 +332,7 @@
                   as="template"
                 >
                   <router-link
-                    aria-label="Seleccionar SNVS como fuente de datos"
+                    :aria-label="`Seleccionar ${data_sources.SNVS.key} como fuente de datos`"
                     :class="[selected ? 'shadow-xl border-3 border-secondary opacity-100' : 'opacity-50']"
                     class="py-1 font-extrabold text-black group dark:text-dark_contrast"
                     :to="{ name: `${state.criterio}_snvs` }"
@@ -367,6 +374,8 @@ import RouterViewTransition from '@/components/RouterViewTransition.vue'
 import Popper from 'vue3-popper'
 import { getThemeByDataSource } from '@/composables'
 import ProfileAvatar from 'vue-profile-avatar'
+import { useDataSourceStore } from '@/stores/data-source-store.js'
+import { sections, data_sources, enos } from '@/constants'
 
 const isCurrentRoute = (routeName) => {
   return useRouter().currentRoute.value.name == routeName
@@ -410,6 +419,7 @@ export default {
   },
   setup() {
     const state = useGlobalState()
+    const store = useDataSourceStore()
     return {
       isCurrentPath,
       isCurrentRoute,
@@ -419,6 +429,10 @@ export default {
       state,
       getThemeByDataSource,
       currentTime,
+      store,
+      sections,
+      data_sources,
+      enos,
     }
   },
 }
