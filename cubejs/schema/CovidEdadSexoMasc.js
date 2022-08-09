@@ -12,7 +12,7 @@ cube(`CovidEdadSexoMasc`, {
     cantidad_masc_snvs: {
       sql: `cantidad_snvs`,
       type: `sum`,
-      title: `Varones SNVS`,
+      title: `Varones `,
   }
   },
 

@@ -14,7 +14,7 @@ from tableros.grupo_edad ge
     cantidad_fem_snvs: {
       sql: `cantidad_snvs`,
       type: `sum`,
-      title: `Mujeres SNVS`,
+      title: `Mujeres `,
   }
   },
 

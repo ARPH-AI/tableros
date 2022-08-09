@@ -12,6 +12,11 @@ const titulo = 'Frecuencia de comorbilidades'
 const tituloX = '% de casos confirmados'
 const tituloY = ''
 
+const itemSplit = (item) => {
+  item.title = item.title.split(',')[0];
+  return item;
+}
+
 const totalComorbilidades = {
   measures: ['casosComorbilidad.id_comorbilidad'],
   timeDimensions: [],
@@ -37,7 +42,7 @@ const pivotConfig = {
       <div v-if="!loading && resultSet !== undefined">
         <GraficoBar
           :color-theme="getThemeByDataSource(props.dataSource)"
-          :series="resultSet.series(pivotConfig)"
+          :series="resultSet.series(pivotConfig).map(itemSplit)"
           :titulo="titulo"
           :titulo-x="tituloX"
           :titulo-y="tituloY"

@@ -21,7 +21,7 @@ const totalCasosMascSNVS = {
   measures: ['CovidEdadSexoMasc.cantidad_masc_snvs'],
   timeDimensions: [],
   order: {
-    'CovidEdadSexoMasc.grupo_edad_masc': 'desc',
+    'CovidEdadSexoMasc.grupo_edad_masc': 'asc',
   },
   dimensions: ['CovidEdadSexoMasc.grupo_edad_masc'],
 }
@@ -39,7 +39,7 @@ const totalCasosFemSNVS = {
   measures: ['CovidEdadSexoFem.cantidad_fem_snvs'],
   timeDimensions: [],
   order: {
-    'CovidEdadSexoFem.grupo_edad_fem': 'desc',
+    'CovidEdadSexoFem.grupo_edad_fem': 'asc',
   },
   dimensions: ['CovidEdadSexoFem.grupo_edad_fem'],
 }
@@ -78,8 +78,6 @@ const getTotalCasosFem = () => {
 
 const resultSetMasc = await cubeApi.load(getTotalCasosMasc())
 const resultSetFem = await cubeApi.load(getTotalCasosFem())
-
-const getHardcodedTags = ['0-10', '10-20', '20-30', '30-40', '40-50', ...'90-100']
 </script>
 
 <template>

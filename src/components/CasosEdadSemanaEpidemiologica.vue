@@ -10,6 +10,16 @@ const props = defineProps({
 const titulo = 'Nuevos casos por grupo de edad'
 const tituloX = 'Semana Epidemiológica'
 const tituloY = 'Casos'
+
+const itemSplit = (item) => {
+ item.title = item.title.split(',')[0];
+ return item;
+}
+
+const filterV = (item) => {
+ return (item.title.split(',')[0] != 'v')
+}
+
 const totalCasosHSI = {
   measures: ['CovidEdadSexo.identificador'],
   timeDimensions: [
@@ -81,7 +91,7 @@ const getPivotConfig = () => {
       <div v-if="!loading && resultSet !== undefined">
         <GraficoStackedLines
           :color-theme="getThemeByDataSource(props.dataSource)"
-          :series="resultSet.series(getPivotConfig(props.dataSource)).slice(1)"
+          :series="resultSet.series(getPivotConfig(props.dataSource)).filter(filterV).map(itemSplit)"
           :titulo="titulo"
           :titulo-y="tituloY"
           :titulo-x="tituloX"

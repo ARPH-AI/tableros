@@ -7,7 +7,6 @@ cube(`CovidEdadSexoSNVS`, {
     id_evento_caso: {
         sql: `id_evento_caso`,
         type: `count`,
-        title: ` `,
     }
   },
 
@@ -37,6 +36,5 @@ cube(`CovidEdadSexoSNVS`, {
       type: `number`,
   }
   },
-  title:` `,
   dataSource: `default`
 });
