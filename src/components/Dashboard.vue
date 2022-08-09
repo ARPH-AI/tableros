@@ -79,14 +79,14 @@
                   as="template"
                   class="px-4 py-2 -mb-px shadow-2xl border-3 border-primary bg-primary"
                 >
-                  <router-link
+                  <button
                     :aria-label="`Seleccionar ${data_sources.HSI.key} como fuente de datos`"
                     :class="[selected ? 'opacity-100' : 'border-none opacity-50']"
                     class="py-1 font-extrabold text-white group"
-                    :to="{ name: `${state.criterio}_hsi` }"
                     @click="dataSource = 'hsi'"
-                    >HSI</router-link
                   >
+                    HSI
+                  </button>
                 </Tab>
               </Popper>
               <Popper
@@ -102,14 +102,14 @@
                   class="px-4 py-2 -mb-px font-semibold shadow-2xl bg-secondary border-secondary"
                   as="template"
                 >
-                  <router-link
+                  <button
                     :aria-label="`Seleccionar ${data_sources.SNVS.key} como fuente de datos`"
                     :class="[selected ? 'shadow-xl border-3 border-secondary opacity-100' : 'opacity-50']"
                     class="py-1 font-extrabold text-black group dark:text-dark_contrast"
-                    :to="{ name: `${state.criterio}_snvs` }"
                     @click="dataSource = 'snvs'"
-                    >SNVS</router-link
                   >
+                    SNVS
+                  </button>
                 </Tab>
               </Popper>
             </TabList>
@@ -126,7 +126,7 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
-import { sidebarState, useGlobalState } from '@/composables'
+import { sidebarState } from '@/composables'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import RouterViewTransition from '@/components/RouterViewTransition.vue'
 import Popper from 'vue3-popper'
@@ -143,7 +143,6 @@ var dd = String(today.getDate()).padStart(2, '0')
 var mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
 var yyyy = today.getFullYear()
 var currentTime = dd + '/' + mm + '/' + yyyy
-const state = useGlobalState()
 </script>
 
 <style scoped>

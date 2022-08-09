@@ -27,19 +27,16 @@ const isCurrentPath = (path) => {
         :to="sections.SITUACION_ACTUAL.key"
         :title="sections.SITUACION_ACTUAL.title"
         :active="isCurrentRoute(sections.SITUACION_ACTUAL.key) || isCurrentRoute('index')"
-        @click="state.criterio = 'situacion_actual'"
       />
       <SidebarCollapsibleItem
         :to="sections.CARACTERIZACION.key"
         :title="sections.CARACTERIZACION.title"
         :active="isCurrentRoute(sections.CARACTERIZACION.key)"
-        @click="state.criterio = 'caracterizacion'"
       />
       <SidebarCollapsibleItem
         :to="sections.GEO.key"
         :title="sections.CARACTERIZACION.title"
         :active="isCurrentRoute(sections.GEO.key)"
-        @click="state.criterio = 'distribucion_espacial'"
       />
     </SidebarCollapsible>
   </nav>

@@ -27,7 +27,6 @@ const isCurrentRoute = (routeName) => {
             )} dark:hover:text-${getThemeByDataSource(dataSource)}  dark:text-dark_contrast`,
       ]"
       to="seccion-situacion-actual"
-      @click="state.criterio = 'situacion_actual'"
       ><Popper arrow disable-click-away hover interactive content="Situación actual"
         ><TrendingUpIcon class="flex-shrink-0 w-6 h-6 group" aria-hidden="true"></TrendingUpIcon>
       </Popper>
@@ -49,7 +48,7 @@ const isCurrentRoute = (routeName) => {
         dark:text-dark_contrast
       "
       :class="[
-        isCurrentRoute(`caracterizacion_${dataSource}`)
+        isCurrentRoute(sections.CARACTERIZACION.key)
           ? `text-${getThemeByDataSource(dataSource)} hover:text-${getThemeByDataSource(
               dataSource
             )} border-3 border-${getThemeByDataSource(dataSource)}`
@@ -58,7 +57,6 @@ const isCurrentRoute = (routeName) => {
             )} text-light_contrast dark:hover:text-${getThemeByDataSource(dataSource)}  dark:text-dark_contrast`,
       ]"
       :to="sections.CARACTERIZACION.key"
-      @click="state.criterio = 'caracterizacion'"
       ><Popper arrow disable-click-away hover interactive :content="sections.CARACTERIZACION.title"
         ><UserGroupIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
     ></router-link>
@@ -87,7 +85,6 @@ const isCurrentRoute = (routeName) => {
             )} text-light_contrast dark:hover:text-${getThemeByDataSource(dataSource)}  dark:text-dark_contrast`,
       ]"
       :to="sections.GEO.key"
-      @click="state.criterio = 'distribucion_espacial'"
       ><Popper arrow disable-click-away hover interactive content="Geo"
         ><MapIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
     ></router-link>

@@ -1,21 +1,5 @@
-import { useDark, useToggle, createGlobalState, useStorage } from '@vueuse/core'
-import { reactive, ref, readonly } from 'vue'
-
-export const useGlobalState = createGlobalState(() =>
-  useStorage('vue-use-locale-storage', {
-    criterio: 'situacion_actual',
-    fuente: 'hsi',
-  })
-)
-
-export function useState(initialState) {
-  const state = ref(initialState)
-  const setState = (newState) => {
-    state.value = newState
-  }
-
-  return [readonly(state), setState]
-}
+import { useDark, useToggle } from '@vueuse/core'
+import { reactive, ref } from 'vue'
 
 export const scrollingDown = ref(false)
 
@@ -84,12 +68,4 @@ export const getColorByDataSource = (dataSource) => {
     default:
       return '#f7931'
   }
-}
-
-// Breackpoints
-
-export const isLarge = () => window.innerWidth >= 1024 <= 1366
-
-export const isExtraLarge = () => {
-  window.innerWidth >= 1367
 }
