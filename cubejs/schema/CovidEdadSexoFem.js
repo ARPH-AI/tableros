@@ -4,7 +4,7 @@ cube(`CovidEdadSexoFem`, {
 (select count(1) from tableros.snvs  where snvs.edad=ge.id and snvs.sexo='F') as cantidad_snvs
 from tableros.grupo_edad ge
   `,
-  
+
   measures: {
     cantidad_fem: {
         sql: `cantidad_edad`,
@@ -17,7 +17,7 @@ from tableros.grupo_edad ge
       title: `Mujeres SNVS`,
   }
   },
-  
+
   dimensions: {
     id_fem: {
       sql: `id`,
