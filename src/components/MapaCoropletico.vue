@@ -5,20 +5,30 @@ import Popper from 'vue3-popper'
 import { getThemeByDataSource } from '@/composables'
 
 const props = defineProps<{ url: string; provincia: string; center: number[]; zoom: number; datos: object[] }>()
+
+// Eventos  de cambio
 const emit = defineEmits(['zoomChanged'])
 
+// Data sobre poblacion en departamentos
 const poblacionImport = await fetch('poblacion_por_departamento.json')
 const poblacion = await poblacionImport.json()
 
+// Estados locales
 const depsFromProv = reactive({})
+
+// Configuracion del mapa
 const projection = ref('EPSG:4326')
 const rotation = ref(0)
 const format = inject('ol-format')
 const geoJson = new format.GeoJSON()
+
+// Estilos del mapa
 const lineColor = 'rgba(0,0,0,0.4)'
 const lineColorSelected = '#FFFF'
 const fillColorSelected = 'rgba(0,0,0,0.3)'
 const fillColorDefault = '#F3F4F6'
+
+// Escala
 const gradiente = ['#FFFFFF', '#FFFFCC', '#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C', '#B10026']
 const criteria = [
   (x) => x < 10,
@@ -38,6 +48,11 @@ const fnCompare = new Intl.Collator('es', {
 
 const overrideStyleFunction = (feature, style) => {
   // Se ejecuta cada vez que se selecciona otro departamento haciendo hover sobre el mapa!
+  // feature es un objeto que hace referencia al departamento seleccionado
+  // chequear si se puede comprar por provincia, por si dos departamentos tienen el mismo nombre
+  // si no hay datos en datos.
+  // sumar id al.
+  console.log(feature, 'FEATUREeeee')
   console.log(feature.get('departamento'), 'feature dep')
   let color = fillColorDefault
   let idx
@@ -55,9 +70,15 @@ const overrideStyleFunction = (feature, style) => {
         }
       }
       if (!(props.provincia in depsFromProv)) {
+        console.log('QUEEEEEEEE')
         depsFromProv[props.provincia] = []
       } else {
-        depsFromProv[props.provincia].push({ dep: feature.get('departamento'), cant: props.datos[i].valor })
+        console.log(props.datos[i], 'DATOSSS')
+        depsFromProv[props.provincia].push({
+          dep: feature.get('departamento'),
+          cant: props.datos[i].valor,
+          id: props.datos[i].id,
+        })
       }
       break
     }
@@ -77,7 +98,6 @@ const selectCondition = selectConditions.pointerMove
 
 const featureSelected = (event) => {
   let cant = 0
-  console.log(event, 'EVENT')
   if (event.selected.length >= 1) {
     const feature = event.target.features_.array_[0].values_
     for (let i = 0; i < props.datos.length; i++) {
@@ -142,8 +162,10 @@ const selectInteactionFilter = (feature) => {
     :cantidad="Number(casosCant).toLocaleString()"
   ></GeoInfoCard>
   <TableCard
+    :titulos-mostrados="['Departamento', 'Cantidad']"
+    :color-theme="getThemeByDataSource('snvs')"
     class="w-80 ml-3"
-    :datos="depsFromProv[props.provincia]"
+    :datos="depsFromProv[props.provincia] ? depsFromProv[props.provincia] : []"
     titulo="Casos por departamento"
     :titulos-columnas="['Departamento', 'Cantidad']"
   />

@@ -5,11 +5,13 @@ import { flattenColumns, getDisplayedColumns, mergeArrayByKey } from '@/cube/uti
 import { ref, watchEffect } from 'vue'
 import { format } from 'date-fns'
 import { osmApi, datosgeoApi } from '@/api'
-import { Listbox, ListboxLabel, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue'
+import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue'
 import { CheckIcon, SelectorIcon } from '@heroicons/vue/solid'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import { QuestionMarkCircleIcon } from '@heroicons/vue/outline'
 
+// abrir isse por hardcodded
+// variabs casos para tasa.
 const provinciasImport = await fetch('provincias-argentina.json')
 const provincias = await provinciasImport.json()
 
@@ -30,7 +32,6 @@ let url = ref('departamentos-buenos_aires.json')
 
 // El uppercase y trim, habria que hacerlo en otro lado
 const getData = async (resultSet) => {
-  console.log(resultSet, 'resultSettttttttttttt')
   return resultSet.map((item) => {
     return {
       nombre: item['CovidEdadSexoSNVS.Ciudad'].toUpperCase().trim(),
@@ -43,7 +44,7 @@ const totalCasos = (fecha) => {
   return {
     measures: ['CovidEdadSexoSNVS.id_evento_caso'],
     order: {
-      'CovidEdadSexoSNVS.id_evento_caso': 'desc',
+      'CovidEdadSexoSNVS.id_evento_caso': 'asc',
     },
     filters: [
       {
@@ -68,8 +69,7 @@ const forceUpdate = () => key.value++
 watchEffect(async () => {
   resultSet = await cubeApi.load(totalCasos(fecha.value))
   datos.value = await getData(resultSet.rawData())
-  console.log(resultSet.tablePivot(pivotConfig), 'resultset coropeltico')
-  console.log(datos.value, 'datos')
+  // If there is no registers on that date.
 
   zoom.value = zoomChild.value ? zoomChild.value : zoom.value
   forceUpdate()
