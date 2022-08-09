@@ -15,7 +15,6 @@ const isCurrentPath = (path) => {
 </script>
 <template>
   <nav class="flex px-2 mt-5 font-mono">
-    <!-- With sidebar open -->
     <SidebarCollapsible
       title="TABLERO"
       :active="isCurrentPath(`/${sections.SITUACION_ACTUAL.key}`) || isCurrentPath('/')"

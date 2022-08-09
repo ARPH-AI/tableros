@@ -2,7 +2,6 @@
 import { ref, reactive, inject } from 'vue'
 import { ScaleLine, defaults as defaultControls } from 'ol/control'
 import Popper from 'vue3-popper'
-import GeoInfoCard from './GeoInfoCard.vue'
 import { getThemeByDataSource } from '@/composables'
 
 const props = defineProps<{ url: string; provincia: string; center: number[]; zoom: number; datos: object[] }>()
@@ -46,7 +45,6 @@ const overrideStyleFunction = (feature, style) => {
   let casos
   let poblacion_depto
   for (let i = 0; i < props.datos.length; i++) {
-    console.log('ffff')
     if (fnCompare(props.datos[i].nombre, feature.get('departamento')) == 0) {
       poblacion_depto = poblacion[feature.get('provincia')][feature.get('departamento')]['2021'] || 1
       casos = (props.datos[i].valor * muestra) / poblacion_depto
@@ -71,7 +69,7 @@ const onZoomChanged = (currentZoom) => {
   emit('zoomChanged', currentZoom)
 }
 
-const departNombre = ref('')
+const departNombre = ref('departamento')
 const casosCant = ref(0)
 
 const selectConditions = inject('ol-selectconditions')
@@ -79,15 +77,19 @@ const selectCondition = selectConditions.pointerMove
 
 const featureSelected = (event) => {
   let cant = 0
-  const feature = event.target.features_.array_[0].values_
-  for (let i = 0; i < props.datos.length; i++) {
-    if (fnCompare(props.datos[i].nombre, feature.departamento) == 0) {
-      cant = props.datos[i].valor
+  console.log(event, 'EVENT')
+  if (event.selected.length >= 1) {
+    const feature = event.target.features_.array_[0].values_
+    for (let i = 0; i < props.datos.length; i++) {
+      if (fnCompare(props.datos[i].nombre, feature.departamento) == 0) {
+        cant = props.datos[i].valor
+      }
     }
+    departNombre.value = feature.departamento
+    casosCant.value = cant
   }
-  departNombre.value = feature.departamento
-  casosCant.value = cant
 }
+
 const selectInteactionFilter = (feature) => {
   console.log(feature, 'feature')
   return feature.get('departamento') != undefined
@@ -98,7 +100,7 @@ const selectInteactionFilter = (feature) => {
   <ol-map
     :load-tiles-while-animating="true"
     :load-tiles-while-interacting="true"
-    class="flex overflow-hidden flex-1 h-[58vh] 2xl:h-[68vh] rounded-xl shadow-2xl"
+    class="flex w-full overflow-hidden flex-1 h-[58vh] 2xl:h-[68vh] rounded-xl shadow-2xl"
   >
     <ol-view
       ref="view"
