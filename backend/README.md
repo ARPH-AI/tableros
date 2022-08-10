@@ -1,14 +1,16 @@
 # Arphai-auth-backend
 
 ### Requisitos
+
 - **node**: <= 12
 
-
 ### Instalación
+
 - `npm install`
 - `npm start` o `nodemon app.js` (en caso de tener instalado nodemon)
 
 ### Configuraciones
+
 ```javascript=
 
 // Usuario válido para loguearse
@@ -19,7 +21,9 @@ const VALID_USER = {
 ```
 
 ### ENV VARS
-En un archivo `.env` configurar las siguientes variables
+
+En un archivo `.env` configurar las siguientes variables, sin olvidar borrar los comentarios que hacen de guia.
+
 ```
 CUBEJS_API_SECRET=''  // secret key de cube-js
 ACCESS_TOKEN_EXPIRE='1m'  // tiempo de duración del token del backend express
