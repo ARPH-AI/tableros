@@ -1,7 +1,7 @@
 <template>
   <div class="w-full mt-4">
     <div class="w-full max-w-md rounded-2xlp-2">
-      <Disclosure v-for="section in content" :key="section.order" v-slot="{ open }">
+      <Disclosure v-for="section in props.content" :key="section.order" v-slot="{ open }">
         <DisclosureButton
           class="
             flex
