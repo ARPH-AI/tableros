@@ -24,30 +24,14 @@ cat provincias-argentina.json | jq '[.[] | {iso_nombre: .iso_nombre, centroide: 
 
 ### Modificaciones directas para obtener consistencia con el geojson
 
-```
-45c45
-<         "JUAN BAUTISTA ALBERDI": {
----
->         "JUAN B. ALBERDI": {
-766c766
-<         "GENERAL GUEMES": {
----
->         "GENERAL G\u00dcEMES": {
-2635c2635
-<         "JOSE C PAZ": {
----
->         "JOSE C. PAZ": {
-3139c3139
-<         "LEANDRO N ALEM": {
----
->         "LEANDRO N. ALEM": {
-3732c3732
-< }
----
-> }
-```
+- "JUAN B. ALBERDI" por "JUAN BAUTISTA ALBERDI"
+- "GENERAL GUEMES" por "GENERAL G\u00dcEMES"
+- "JOSE C. PAZ" por "JOSE C PAZ"
+- "LEANDRO N ALEM" por "LEANDRO N. ALEM"
+- "ANTARTIDA ARGENTINA" por "ISLAS DEL ATLANTINACO SUR"
+- "1º de MAYO" por "1° DE MAYO"
+- "JUAN F. IBARRA" por "JUAN F IBARRA"
 
 ## Minificación
 
 `jq -c . archivo.json > archivo.minificado.json`
-

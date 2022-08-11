@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const props = defineProps({
   cantidad: { type: String, default: '0' },
+  tasa: { type: String, default: '0' },
   titulo: { type: String, default: 'Tablero ARPHAI' },
   colorTheme: { type: String, default: 'third' },
 })
@@ -12,7 +13,7 @@ const props = defineProps({
   >
     <div class="leading-tight text-left text-light_contrast dark:text-dark_contrast">
       <h3 :class="`text-3xl font-semibold text-${props.colorTheme}`">
-        {{ Number(cantidad).toLocaleString() }}
+        {{ Number(tasa).toLocaleString() }}
       </h3>
       <h4 class="text-xs uppercase">TASA</h4>
 

@@ -10,8 +10,6 @@ import { CheckIcon, SelectorIcon } from '@heroicons/vue/solid'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import { QuestionMarkCircleIcon } from '@heroicons/vue/outline'
 
-// abrir isse por hardcodded
-// variabs casos para tasa.
 const provinciasImport = await fetch('provincias-argentina.json')
 const provincias = await provinciasImport.json()
 
@@ -44,7 +42,7 @@ const totalCasos = (fecha) => {
   return {
     measures: ['CovidEdadSexoSNVS.id_evento_caso'],
     order: {
-      'CovidEdadSexoSNVS.id_evento_caso': 'asc',
+      'CovidEdadSexoSNVS.id_evento_caso': 'desc',
     },
     filters: [
       {
@@ -69,8 +67,6 @@ const forceUpdate = () => key.value++
 watchEffect(async () => {
   resultSet = await cubeApi.load(totalCasos(fecha.value))
   datos.value = await getData(resultSet.rawData())
-  // If there is no registers on that date.
-
   zoom.value = zoomChild.value ? zoomChild.value : zoom.value
   forceUpdate()
 })
@@ -96,6 +92,7 @@ const changeProvincia = (event) => {
   center.value = [provinciaSel.value.centroide.lon, provinciaSel.value.centroide.lat]
   url.value = 'departamentos-' + matchArchivo(provinciaSel.value.iso_nombre) + '.json'
   zoom.value = provinciaSel.value.zoom
+  forceUpdate()
 }
 </script>
 
