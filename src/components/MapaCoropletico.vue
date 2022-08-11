@@ -59,7 +59,7 @@ for (let i = 0; i < departamentos.length; i++) {
   encontro = 0
   for (let j = 0; j < props.datos.length; j++) {
     if (fnCompare(props.datos[j].nombre, departamentos[i]) == 0) {
-      poblacion_depto = poblacion[provinciaAsKey][departamentos[i]]['2021'] || 1
+      poblacion_depto = poblacion[provinciaAsKey][departamentos[i]]['2021'] || muestra
       casos = (props.datos[j].valor * muestra) / poblacion_depto
       casos_obj = { dep: departamentos[i] , cant: props.datos[j].valor, tasa: casos }
       depsFromProv.push(casos_obj)

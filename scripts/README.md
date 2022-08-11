@@ -31,6 +31,8 @@ cat provincias-argentina.json | jq '[.[] | {iso_nombre: .iso_nombre, centroide: 
 - "ANTARTIDA ARGENTINA" por "ISLAS DEL ATLANTINACO SUR"
 - "1º de MAYO" por "1° DE MAYO"
 - "JUAN F. IBARRA" por "JUAN F IBARRA"
+- "DR. MANUEL BELGRANO" por "DOCTOR MANUEL BELGRANO"
+-  Agregue ", JUAN MARTIN DE PUEYRREDON":{ "provincia": "San Luis" }
 
 ## Minificación
 
