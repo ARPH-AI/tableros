@@ -15,10 +15,11 @@
             hover:bg-purple-200
             border-b-2 border-color-gray-200
             focus:outline-none
+            group
             focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75
           "
         >
-          <span>{{ section.title }}</span>
+          <span class="group-hover:text-color_2">{{ section.title }}</span>
           <ChevronUpIcon :class="open ? 'rotate-180 transform' : ''" class="h-5 w-5 text-purple-500" />
           <transition
             enter-active-class="transition duration-100 ease-out"

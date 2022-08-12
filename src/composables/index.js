@@ -51,11 +51,11 @@ export const sidebarState = reactive({
 export const getThemeByDataSource = (dataSource) => {
   switch (dataSource) {
     case 'hsi':
-      return 'primary'
+      return 'color_0'
     case 'snvs':
-      return 'secondary'
+      return 'color_1'
     default:
-      return 'primary'
+      return 'color_0'
   }
 }
 

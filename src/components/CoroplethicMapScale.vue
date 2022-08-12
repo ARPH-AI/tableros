@@ -6,12 +6,14 @@
       <table class="min-w-full text-left">
         <thead class="border-b">
           <tr>
-            <th scope="col" class="text-left text-sm font-medium text-gray-900 p-2">Color</th>
-            <th scope="col" class="text-sm font-medium text-gray-900 p-2">Referencia</th>
+            <th scope="col" class="text-left text-sm font-medium text-light_contrast dark:text-dark_contrast p-2">
+              Color
+            </th>
+            <th scope="col" class="text-sm font-medium text-light_contrast dark:text-dark_contrast p-2">Referencia</th>
           </tr>
         </thead>
 
-        <tbody class="bg-white">
+        <tbody class="">
           <!-- <tr v-for="(obj, index) in props.references" :key="index">
             <td class="p-1 border-b-2 dark:border-dark_contrast">
               <div class="w-full">
@@ -31,7 +33,7 @@
               </div>
             </td>
             <td class="p-1 border-b-2 dark:border-dark_contrast">
-              <div class="w-full">10</div>
+              <div class="w-full">x &lt; 10</div>
             </td>
           </tr>
           <tr>
@@ -41,7 +43,7 @@
               </div>
             </td>
             <td class="p-1 border-b-2 dark:border-dark_contrast">
-              <div class="w-full">50</div>
+              <div class="w-full">x &lt; 50</div>
             </td>
           </tr>
           <tr>
@@ -51,7 +53,7 @@
               </div>
             </td>
             <td class="p-1 border-b-2 dark:border-dark_contrast">
-              <div class="w-full">100</div>
+              <div class="w-full">x &lt; 100</div>
             </td>
           </tr>
           <tr>
@@ -61,7 +63,7 @@
               </div>
             </td>
             <td class="p-1 border-b-2 dark:border-dark_contrast">
-              <div class="w-full">200</div>
+              <div class="w-full">x &lt; 200</div>
             </td>
           </tr>
           <tr>
@@ -71,7 +73,7 @@
               </div>
             </td>
             <td class="p-1 border-b-2 dark:border-dark_contrast">
-              <div class="w-full">400</div>
+              <div class="w-full">x &lt; 400</div>
             </td>
           </tr>
           <tr>
@@ -81,7 +83,7 @@
               </div>
             </td>
             <td class="p-1 border-b-2 dark:border-dark_contrast">
-              <div class="w-full">800</div>
+              <div class="w-full">x &lt; 800</div>
             </td>
           </tr>
           <tr>
@@ -91,7 +93,7 @@
               </div>
             </td>
             <td class="p-1 border-b-2 dark:border-dark_contrast">
-              <div class="w-full">1600</div>
+              <div class="w-full">x &lt; 1600</div>
             </td>
           </tr>
           <tr>
@@ -101,7 +103,7 @@
               </div>
             </td>
             <td class="p-1 border-b-2 dark:border-dark_contrast">
-              <div class="w-full">mayor a 1600</div>
+              <div class="w-full">x > 1600</div>
             </td>
           </tr>
         </tbody>

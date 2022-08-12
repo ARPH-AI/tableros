@@ -75,7 +75,19 @@ const dataSourcesDisclosureContent = [
           Se visualizan los datos del registro de casos o signos y síntomas relacionados con diversas enfermedades de
           notificación obligatoria (ENOs) provenientes de dos fuentes principales:
         </p>
-        <BaseDisclosure :content="dataSourcesDisclosureContent"></BaseDisclosure>
+        <BaseDisclosure :content="dataSourcesDisclosureContent" />
+        <p class="mt-6">
+          Este tablero, elaborado en el marco del proyecto <a href="http://www.ciecti.org.ar/arphai/">ARPHAI</a>, se
+          llevó a cabo con la ayuda de una subvención del Programa COVID-19 Sur Global de Inteligencia Artificial e
+          Innovación de Datos, un programa financiado por el Centro Internacional de Investigaciones para el Desarrollo
+          (IDRC) de Canadá y la Agencia Sueca de Cooperación para el Desarrollo Internacional (SIDA). Las informaciones
+          y opiniones aquí expresadas no representan necesariamente las del IDRC o su Junta de Gobernadores.
+        </p>
+        <div class="flex flex-row mt-5 space-x-6">
+          <div class="animate-pulse mb-2 w-24 h-24 text-base bg-slate-200 rounded-full dark:bg-slate-400"></div>
+          <div class="animate-pulse mb-2 w-24 h-24 text-base bg-slate-200 rounded-full dark:bg-slate-400"></div>
+          <div class="animate-pulse mb-2 w-24 h-24 text-base bg-slate-200 rounded-full dark:bg-slate-400"></div>
+        </div>
       </div>
     </div>
   </div>

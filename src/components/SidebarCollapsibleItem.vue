@@ -12,9 +12,9 @@
       :to="to"
       v-bind="$attrs"
       :class="[
-        'transition-colors hover:text-secondary dark:hover:text-secondary',
+        'transition-colors hover:text-color_1 dark:hover:text-color_1',
         {
-          'text-secondary font-semibold': active,
+          'text-color_1 font-semibold': active,
           'text-light_contrast dark:text-dark_contrast': !active,
         },
       ]"

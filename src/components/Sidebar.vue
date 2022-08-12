@@ -34,7 +34,7 @@ const isCurrentPath = (path) => {
       />
       <SidebarCollapsibleItem
         :to="sections.GEO.key"
-        :title="sections.CARACTERIZACION.title"
+        :title="sections.GEO.title"
         :active="isCurrentRoute(sections.GEO.key)"
       />
     </SidebarCollapsible>

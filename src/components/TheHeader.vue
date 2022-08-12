@@ -14,7 +14,7 @@ const { dataSource } = storeToRefs(useDataSourceStore())
 </script>
 
 <template>
-  <header class="flex-shrink-0 h-auto border-b dark:bg-dark_base">
+  <header class="flex-shrink-0 h-auto border-b border-light_contrast dark:border-dark_contrast dark:bg-dark_base">
     <div class="flex justify-between items-center p-2">
       <!-- Navbar left -->
       <div class="flex items-center space-x-3">
@@ -49,11 +49,11 @@ const { dataSource } = storeToRefs(useDataSourceStore())
           <!-- light icon -->
           <MoonIcon
             v-show="!isDark"
-            class="flex-shrink-0 w-6 h-6 dark:hover:text-secondary dark:text-dark_contrast"
+            class="flex-shrink-0 w-6 h-6 dark:hover:text-color_1 dark:text-dark_contrast"
             aria-hidden="true"
           />
           <!-- dark icon -->
-          <SunIcon v-show="isDark" class="flex-shrink-0 w-6 h-6 hover:text-secondary" aria-hidden="true" />
+          <SunIcon v-show="isDark" class="flex-shrink-0 w-6 h-6 hover:text-color_1" aria-hidden="true" />
         </button>
 
         <!-- User menu dropdown -->
@@ -79,8 +79,8 @@ const { dataSource } = storeToRefs(useDataSourceStore())
               :class="`absolute right-0 mt-1 w-56 bg-white rounded-md divide-y divide-black ring-1 ring-black text-bold ring-opacity-5 shadow-lg origin-top-right focus:outline-none`"
             >
               <div class="px-1 py-1">
-                <MenuItem class="flex items-center px-2 py-2 w-full text-sm rounded-md group">
-                  <span>{{ $auth.user.email }}</span>
+                <MenuItem class="flex items-center px-2 py-2 w-full text-sm first-line:rounded-md group">
+                  <span class="dark:text-light_contrast">{{ $auth.user.email }}</span>
                 </MenuItem>
                 <MenuItem v-slot="{ active }">
                   <button

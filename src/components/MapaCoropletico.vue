@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, reactive, inject } from 'vue'
-import { ScaleLine, defaults as defaultControls } from 'ol/control'
 import { getThemeByDataSource } from '@/composables'
 
 const props = defineProps<{ url: string; provincia: string; center: number[]; zoom: number; datos: object[] }>()
@@ -43,7 +42,7 @@ const criteria = [
 ]
 
 const scaleCriteria = [
-  { color: 'primary', reference: '10', id: 0 },
+  { color: 'coroplethic_0', reference: '10', id: 0 },
   { color: 'coroplethic_1', reference: '50', id: 1 },
   { color: 'coroplethic_2', reference: '100', id: 2 },
   { color: 'coroplethic_3', reference: '200', id: 3 },
@@ -137,63 +136,63 @@ const selectInteactionFilter = (feature) => {
 </script>
 
 <template>
-  <ol-map
-    :load-tiles-while-animating="true"
-    :load-tiles-while-interacting="true"
-    class="flex w-full overflow-hidden flex-1 h-[58vh] 2xl:h-[68vh] rounded-xl shadow-2xl"
-  >
-    <ol-view
-      ref="view"
-      :center="center"
-      :rotation="rotation"
-      :zoom="zoom"
-      :projection="projection"
-      @zoomChanged="onZoomChanged"
-    />
-    <ol-tile-layer class="z-50 shadow-2xl">
-      <ol-source-osm />
-    </ol-tile-layer>
+  <div class="flex w-full h-full">
+    <ol-map
+      :load-tiles-while-animating="true"
+      :load-tiles-while-interacting="true"
+      class="flex w-full overflow-hidden flex-1 h-[64vh] 2xl:h-[68vh] rounded-xl shadow-2xl"
+    >
+      <ol-view
+        ref="view"
+        :center="center"
+        :rotation="rotation"
+        :zoom="zoom"
+        :projection="projection"
+        @zoomChanged="onZoomChanged"
+      />
+      <ol-tile-layer class="z-50 shadow-2xl">
+        <ol-source-osm />
+      </ol-tile-layer>
 
-    <ol-scaleline-control text class="ol-scale-line" bar />
-
-    <ol-interaction-select :condition="selectCondition" :filter="selectInteactionFilter" @select="featureSelected">
-      <ol-style>
-        <ol-style-stroke :color="lineColorSelected" :width="5"></ol-style-stroke>
-        <ol-style-text></ol-style-text>
-        <ol-style-fill :color="fillColorSelected"></ol-style-fill>
-      </ol-style>
-    </ol-interaction-select>
-
-    <ol-vector-layer>
-      <ol-source-vector class="z-50 shadow-2xl" :url="url" :format="geoJson">
-        <ol-style :override-style-function="overrideStyleFunction">
-          <ol-style-stroke :color="lineColor" :width="1"></ol-style-stroke>
-          <ol-style-fill></ol-style-fill>
+      <ol-interaction-select :condition="selectCondition" :filter="selectInteactionFilter" @select="featureSelected">
+        <ol-style>
+          <ol-style-stroke :color="lineColorSelected" :width="5"></ol-style-stroke>
           <ol-style-text></ol-style-text>
+          <ol-style-fill :color="fillColorSelected"></ol-style-fill>
         </ol-style>
-      </ol-source-vector>
-    </ol-vector-layer>
-    <ol-zoom-control />
-  </ol-map>
-  <GeoInfoCard
-    class="w-60 z-80 h-30 bottom-[8%] right-[60%] xl:bottom-[8%] xl:right-[28%] 2xl:right-[18%] absolute shadow-2xl"
-    :titulo="departNombre"
-    :color-theme="getThemeByDataSource('snvs')"
-    :cantidad="casosCant"
-    :tasa="casosTasa"
-  ></GeoInfoCard>
-  <TableCard
-    :titulos-mostrados="['Departamento', 'Cantidad', 'Tasa']"
-    :color-theme="getThemeByDataSource('snvs')"
-    class="w-80 ml-3"
-    :datos="depsFromProv"
-    :titulos-columnas="['Departamento', 'Cantidad', 'Tasa']"
-  />
-  <CoroplethicMapScale
-    class="z-80 top-[25%] right-[28%] 2xl:right-[18%] absolute"
-    :references="scaleCriteria"
-    :color-theme="getThemeByDataSource('snvs')"
-  ></CoroplethicMapScale>
+      </ol-interaction-select>
+
+      <ol-vector-layer>
+        <ol-source-vector class="z-50 shadow-2xl" :url="url" :format="geoJson">
+          <ol-style :override-style-function="overrideStyleFunction">
+            <ol-style-stroke :color="lineColor" :width="1"></ol-style-stroke>
+            <ol-style-fill></ol-style-fill>
+            <ol-style-text></ol-style-text>
+          </ol-style>
+        </ol-source-vector>
+      </ol-vector-layer>
+      <ol-zoom-control />
+    </ol-map>
+    <GeoInfoCard
+      class="w-60 z-80 h-48 bottom-[8%] right-[60%] xl:bottom-[4%] xl:right-[30%] 2xl:right-[21%] absolute shadow-2xl"
+      :titulo="departNombre"
+      :color-theme="getThemeByDataSource('snvs')"
+      :cantidad="casosCant"
+      :tasa="casosTasa"
+    ></GeoInfoCard>
+    <TableCard
+      :titulos-mostrados="['Departamento', 'Cantidad', 'Tasa']"
+      :color-theme="getThemeByDataSource('snvs')"
+      class="w-96 ml-3"
+      :datos="depsFromProv"
+      :titulos-columnas="['Departamento', 'Cantidad', 'Tasa']"
+    />
+    <CoroplethicMapScale
+      class="z-80 w-38 top-[31%] 2xl:top-[18%] left-[1%] absolute"
+      :references="scaleCriteria"
+      :color-theme="getThemeByDataSource('snvs')"
+    ></CoroplethicMapScale>
+  </div>
 </template>
 
 <style scoped></style>

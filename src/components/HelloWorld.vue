@@ -23,7 +23,7 @@ watchEffect(() => {
   </p>
 
   <p>
-    <button class="btn btn-primary" @click="count++">
+    <button class="btn btn-color_0" @click="count++">
       <i-mdi-thumb-up />
       {{
         $tc('This template has no likes | This template has one like | This template has {likes} likes', count, {

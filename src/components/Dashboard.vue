@@ -20,6 +20,8 @@
         w-60
         max-h-screen
         border-r
+        border-light_contrast
+        dark:border-dark_contrast
         shadow-lg
         transition-all
         transform
@@ -43,9 +45,10 @@
           h-full
           font-mono
           flew-row
-          scrollbar-thin scrollbar-thumb-secondary
+          scrollbar-thin
+          scrollbar-thumb-color_1
           scrollbar-track-light_base
-          dark:scrollbar-thumb-secondary dark:scrollbar-track-dark_base
+          dark:scrollbar-thumb-color_1 dark:scrollbar-track-dark_base
         "
       >
         <!-- Data Sources Tabs -->
@@ -58,13 +61,10 @@
             <span class="float-left leading-relaxed align-middle"> Actualizado: {{ currentTime }}</span>
           </div>
           <div class="grid float-right grid-cols-1 mt-3 text-left h-fit">
-            <span v-show="!isCurrentRoute(sections.INFORMACION.key)" class="inline-flex float-right pr-14 mb-3"
+            <span v-show="!isCurrentRoute(sections.INFORMACION.key)" class="inline-flex float-right pr-14 mb-2"
               >Fuente de datos</span
             >
-            <TabList
-              v-show="!isCurrentRoute(sections.INFORMACION.key)"
-              class="inline-flex float-right pr-14 shadow-2xl"
-            >
+            <TabList v-show="!isCurrentRoute(sections.INFORMACION.key)" class="inline-flex float-right pr-14">
               <Popper
                 placement="left"
                 arrow
@@ -74,15 +74,11 @@
                 :content="`Los datos de esta sección corresponden
               a los registros de la atención ambulatoria en ${data_sources.HSI.title}`"
               >
-                <Tab
-                  v-slot="{ selected }"
-                  as="template"
-                  class="px-4 py-2 -mb-px shadow-2xl border-3 border-primary bg-primary"
-                >
+                <Tab v-slot="{ selected }" as="template" class="px-4 py-2 -mb-px border-3 border-color_0 bg-color_0">
                   <button
                     :aria-label="`Seleccionar ${data_sources.HSI.key} como fuente de datos`"
                     :class="[selected ? 'opacity-100' : 'border-none opacity-50']"
-                    class="py-1 font-extrabold text-white group"
+                    class="shadow-inner py-1 font-extrabold text-white group"
                     @click="dataSource = 'hsi'"
                   >
                     HSI
@@ -99,13 +95,13 @@
               >
                 <Tab
                   v-slot="{ selected }"
-                  class="px-4 py-2 -mb-px font-semibold shadow-2xl bg-secondary border-secondary"
+                  class="px-4 py-2 -mb-px font-semibold shadow-2xl bg-color_1 border-color_1"
                   as="template"
                 >
                   <button
                     :aria-label="`Seleccionar ${data_sources.SNVS.key} como fuente de datos`"
-                    :class="[selected ? 'shadow-xl border-3 border-secondary opacity-100' : 'opacity-50']"
-                    class="py-1 font-extrabold text-black group dark:text-dark_contrast"
+                    :class="[selected ? 'shadow-xl border-3 border-color_1 opacity-100' : 'opacity-50']"
+                    class="shadow-inner py-1 font-extrabold text-black group dark:text-dark_contrast"
                     @click="dataSource = 'snvs'"
                   >
                     SNVS

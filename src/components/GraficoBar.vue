@@ -13,7 +13,7 @@ interface Props {
   colorTheme?: string
 }
 
-const props = withDefaults(defineProps<Props>(), { colorTheme: 'primary', stacked: false, tituloY: 'Y', tituloX: 'X' })
+const props = withDefaults(defineProps<Props>(), { colorTheme: 'color_0', stacked: false, tituloY: 'Y', tituloX: 'X' })
 
 const stackSeries = (series) => {
   return series.map((item, index) => {

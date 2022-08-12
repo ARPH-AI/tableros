@@ -7,7 +7,7 @@ import RouterViewTransition from '@/components/RouterViewTransition.vue'
     <strong>PROJECT NAME</strong>
     <div class="user">
       <i-mdi-account /> Hello {{ $auth.userFullName }}!&nbsp;
-      <button class="btn btn-secondary btn-sm ms-2" @click="$auth.logout">Logout</button>
+      <button class="btn btn-color_1 btn-sm ms-2" @click="$auth.logout">Logout</button>
     </div>
   </nav>
 

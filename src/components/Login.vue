@@ -41,7 +41,7 @@ export default {
 </script>
 
 <template>
-  <div class="h-screen font-mono bg-cover bg-gradient-to-r from-primary via-third to-secondary">
+  <div class="h-screen font-mono bg-cover bg-gradient-to-r from-color_0 via-third to-color_1">
     <div class="container flex flex-1 justify-center items-center mx-auto h-full">
       <div class="w-full max-w-lg">
         <div class="leading-loose">
@@ -61,7 +61,7 @@ export default {
                   text-left
                   bg-white
                   rounded
-                  focus:secondary focus:ring-secondary focus:ring focus:ring-opacity-80 focus:outline-none
+                  focus:color_1 focus:ring-color_1 focus:ring focus:ring-opacity-80 focus:outline-none
                 "
                 type="email"
                 placeholder="Correo electrónico"
@@ -81,7 +81,7 @@ export default {
                   text-left
                   bg-white
                   rounded
-                  focus:secondary focus:ring-secondary focus:ring focus:ring-opacity-80 focus:outline-none
+                  focus:color_1 focus:ring-color_1 focus:ring focus:ring-opacity-80 focus:outline-none
                 "
                 type="password"
                 placeholder="Contraseña"
@@ -94,7 +94,7 @@ export default {
 
             <div class="flex mt-4">
               <button
-                class="font-semibold tracking-wider text-white rounded hoverfont-light hover:text-secondary"
+                class="font-semibold tracking-wider text-white rounded hoverfont-light hover:text-color_1"
                 type="submit"
                 @click="handleLogin"
               >

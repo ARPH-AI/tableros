@@ -16,7 +16,7 @@ const isCurrentRoute = (routeName) => {
   <nav class="grid grid-cols-1 items-center px-2 mt-32 font-mono">
     <router-link
       :aria-label="`Navegar hacia la sección ${sections.SITUACION_ACTUAL.key}`"
-      class="flex justify-self-center p-2 m-2 rounded group bg-light_base-200 dark:bg-dark_base"
+      class="flex justify-self-center p-2 m-2 rounded-lg group bg-light_base-200 dark:bg-dark_base"
       :class="[
         isCurrentRoute('seccion-situacion-actual') || isCurrentRoute('index')
           ? `text-${getThemeByDataSource(dataSource)} hover:text-${getThemeByDataSource(
@@ -39,7 +39,7 @@ const isCurrentRoute = (routeName) => {
         justify-self-center
         p-2
         m-2
-        rounded
+        rounded-lg
         border-2
         group
         bg-light_base-200
@@ -68,7 +68,7 @@ const isCurrentRoute = (routeName) => {
         justify-self-center
         p-2
         m-2
-        rounded
+        rounded-lg
         group
         bg-light_base-200
         dark:bg-dark_base
@@ -95,7 +95,7 @@ const isCurrentRoute = (routeName) => {
         justify-self-center
         p-2
         m-2
-        rounded
+        rounded-lg
         group
         bg-light_base-200
         dark:bg-dark_base
