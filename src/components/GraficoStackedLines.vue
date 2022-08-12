@@ -197,10 +197,10 @@ const dark_theme_options = ref({
 
 <template>
   <div
-    :class="`w-full relative rounded-lg border-r-4 shadow-lg  bg-light_smooth-50 md:shadow-xl bg-light_base dark:bg-dark_smooth border-${props.colorTheme}`"
+    :class="`sm:p-2 xl:p-4 2xl:p-5 rounded-lg border-r-4 shadow-2xl bg-light_smooth-50 dark:bg-dark_smooth border-${props.colorTheme}`"
   >
-    <div class="relative z-10 px-3 py-4">
-      <h5 class="text-sm uppercase text-light_contrast dark:text-dark_contrast">
+    <div class="leading-tight text-left text-light_contrast dark:text-dark_contrast">
+      <h5 class="pl-2 text-sm uppercase border-l-4 border-light_contrast dark:border-dark_contrast">
         {{ titulo }}
       </h5>
       <v-chart

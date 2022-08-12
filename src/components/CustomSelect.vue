@@ -3,7 +3,26 @@
     <Listbox v-model="selectedItem" @change="props.onChange">
       <div class="relative mt-1">
         <ListboxButton
-          class="relative py-2 pr-10 pl-3 w-full text-left bg-white rounded-lg shadow-md cursor-default  focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+          class="
+            relative
+            py-2
+            pr-10
+            pl-3
+            w-full
+            text-left
+            bg-white
+            rounded-lg
+            shadow-md
+            cursor-default
+            focus:outline-none
+            focus-visible:border-indigo-500
+            focus-visible:ring-2
+            focus-visible:ring-white
+            focus-visible:ring-opacity-75
+            focus-visible:ring-offset-2
+            focus-visible:ring-offset-orange-300
+            sm:text-sm
+          "
         >
           <span class="block truncate">{{ selectedItem.iso_nombre }}</span>
           <span class="flex absolute inset-y-0 right-0 items-center pr-2 pointer-events-none">
@@ -17,11 +36,25 @@
           leave-to-class="opacity-0"
         >
           <ListboxOptions
-            class="overflow-auto absolute py-1 mt-1 w-full max-h-60 text-base bg-white rounded-md ring-1 ring-black ring-opacity-5 shadow-lg  focus:outline-none sm:text-sm"
+            class="
+              overflow-auto
+              absolute
+              py-1
+              mt-1
+              w-full
+              max-h-60
+              text-base
+              bg-white
+              rounded-md
+              ring-1 ring-black ring-opacity-5
+              shadow-lg
+              focus:outline-none
+              sm:text-sm
+            "
           >
             <ListboxOption
-              v-slot="{ active, selected }"
               v-for="item in props.data"
+              v-slot="{ active, selected }"
               :key="item.iso_nombre"
               :value="item"
               as="template"

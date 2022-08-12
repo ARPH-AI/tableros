@@ -1,24 +1,33 @@
 <script setup lang="ts">
 import { ref, reactive, inject } from 'vue'
 import { ScaleLine, defaults as defaultControls } from 'ol/control'
-import Popper from 'vue3-popper'
 import { getThemeByDataSource } from '@/composables'
 
 const props = defineProps<{ url: string; provincia: string; center: number[]; zoom: number; datos: object[] }>()
+
+// Eventos  de cambio
 const emit = defineEmits(['zoomChanged'])
 
+// Data sobre poblacion en departamentos
 const poblacionImport = await fetch('poblacion_por_departamento.json')
 const poblacion = await poblacionImport.json()
 
+// Estados locales
 const depsFromProv = reactive({})
+
+// Configuracion del mapa
 const projection = ref('EPSG:4326')
 const rotation = ref(0)
 const format = inject('ol-format')
 const geoJson = new format.GeoJSON()
+
+// Estilos del mapa
 const lineColor = 'rgba(0,0,0,0.4)'
 const lineColorSelected = '#FFFF'
 const fillColorSelected = 'rgba(0,0,0,0.3)'
 const fillColorDefault = '#F3F4F6'
+
+// Escala
 const gradiente = ['#FFFFFF', '#FFFFCC', '#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C', '#B10026']
 const criteria = [
   (x) => x < 10,
@@ -31,14 +40,23 @@ const criteria = [
   (x) => x >= 1600,
 ]
 
+const scaleCriteria = [
+  { color: 'primary', reference: '10', id: 0 },
+  { color: 'coroplethic_1', reference: '50', id: 1 },
+  { color: 'coroplethic_2', reference: '100', id: 2 },
+  { color: 'coroplethic_3', reference: '200', id: 3 },
+  { color: 'coroplethic_4', reference: '400', id: 4 },
+  { color: 'coroplethic_5', reference: '800', id: 5 },
+  { color: 'coroplethic_6', reference: '1600', id: 6 },
+  { color: 'coroplethic_7', reference: 'x > 1600', id: 7 },
+]
+
 const fnCompare = new Intl.Collator('es', {
   sensitivity: 'base',
   ignorePunctuation: true,
 }).compare
 
 const overrideStyleFunction = (feature, style) => {
-  // Se ejecuta cada vez que se selecciona otro departamento haciendo hover sobre el mapa!
-  console.log(feature.get('departamento'), 'feature dep')
   let color = fillColorDefault
   let idx
   let muestra = 100000
@@ -57,7 +75,11 @@ const overrideStyleFunction = (feature, style) => {
       if (!(props.provincia in depsFromProv)) {
         depsFromProv[props.provincia] = []
       } else {
-        depsFromProv[props.provincia].push({ dep: feature.get('departamento'), cant: props.datos[i].valor })
+        depsFromProv[props.provincia].push({
+          dep: feature.get('departamento'),
+          cant: props.datos[i].valor,
+          id: props.datos[i].id,
+        })
       }
       break
     }
@@ -77,7 +99,6 @@ const selectCondition = selectConditions.pointerMove
 
 const featureSelected = (event) => {
   let cant = 0
-  console.log(event, 'EVENT')
   if (event.selected.length >= 1) {
     const feature = event.target.features_.array_[0].values_
     for (let i = 0; i < props.datos.length; i++) {
@@ -91,7 +112,6 @@ const featureSelected = (event) => {
 }
 
 const selectInteactionFilter = (feature) => {
-  console.log(feature, 'feature')
   return feature.get('departamento') != undefined
 }
 </script>
@@ -136,17 +156,24 @@ const selectInteactionFilter = (feature) => {
     <ol-zoom-control />
   </ol-map>
   <GeoInfoCard
-    class="w-60 z-80 h-30 bottom-[8%] right-[28%] absolute shadow-2xl"
+    class="w-60 z-80 h-30 bottom-[8%] right-[60%] xl:bottom-[8%] xl:right-[28%] 2xl:right-[18%] absolute shadow-2xl"
     :titulo="departNombre"
     :color-theme="getThemeByDataSource('snvs')"
     :cantidad="Number(casosCant).toLocaleString()"
   ></GeoInfoCard>
   <TableCard
+    :titulos-mostrados="['Departamento', 'Cantidad']"
+    :color-theme="getThemeByDataSource('snvs')"
     class="w-80 ml-3"
-    :datos="depsFromProv[props.provincia]"
+    :datos="depsFromProv[props.provincia] ? depsFromProv[props.provincia] : []"
     titulo="Casos por departamento"
     :titulos-columnas="['Departamento', 'Cantidad']"
   />
+  <CoroplethicMapScale
+    class="z-80 top-[25%] right-[28%] 2xl:right-[18%] absolute"
+    :references="scaleCriteria"
+    :color-theme="getThemeByDataSource('snvs')"
+  ></CoroplethicMapScale>
 </template>
 
 <style scoped></style>
