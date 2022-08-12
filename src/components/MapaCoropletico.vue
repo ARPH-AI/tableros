@@ -13,7 +13,9 @@ const poblacionImport = await fetch('poblacion_por_departamento.json')
 const poblacion = await poblacionImport.json()
 
 // Estados locales
-const depsFromProv = reactive({})
+
+let depsFromProv = []
+let depsFromProvObj = {}
 
 // Configuracion del mapa
 const projection = ref('EPSG:4326')
@@ -56,33 +58,54 @@ const fnCompare = new Intl.Collator('es', {
   ignorePunctuation: true,
 }).compare
 
-const overrideStyleFunction = (feature, style) => {
-  let color = fillColorDefault
-  let idx
-  let muestra = 100000
-  let casos
-  let poblacion_depto
-  for (let i = 0; i < props.datos.length; i++) {
-    if (fnCompare(props.datos[i].nombre, feature.get('departamento')) == 0) {
-      poblacion_depto = poblacion[feature.get('provincia')][feature.get('departamento')]['2021'] || 1
-      casos = (props.datos[i].valor * muestra) / poblacion_depto
-      for (idx = 0; idx < criteria.length; idx++) {
-        if (criteria[idx](casos) == true) {
-          color = gradiente[idx]
-          break
-        }
-      }
-      if (!(props.provincia in depsFromProv)) {
-        depsFromProv[props.provincia] = []
-      } else {
-        depsFromProv[props.provincia].push({
-          dep: feature.get('departamento'),
-          cant: props.datos[i].valor,
-          id: props.datos[i].id,
-        })
-      }
+const provinciaAsKey = props.provincia
+  .toUpperCase()
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '')
+const departamentos = Object.keys(poblacion[provinciaAsKey]) || []
+let muestra = 100000
+let casos
+let casos_obj
+let poblacion_depto
+let encontro
+
+for (let i = 0; i < departamentos.length; i++) {
+  encontro = 0
+  for (let j = 0; j < props.datos.length; j++) {
+    if (fnCompare(props.datos[j].nombre, departamentos[i]) == 0) {
+      poblacion_depto = poblacion[provinciaAsKey][departamentos[i]]['2021'] || muestra
+      casos = (props.datos[j].valor * muestra) / poblacion_depto
+      casos_obj = { dep: departamentos[i], cant: props.datos[j].valor, tasa: casos }
+      depsFromProv.push(casos_obj)
+      depsFromProvObj[departamentos[i]] = casos_obj
+      encontro = 1
       break
     }
+  }
+  if (encontro == 0) {
+    casos_obj = { dep: departamentos[i], cant: 0, tasa: 0 }
+    depsFromProv.push(casos_obj)
+    depsFromProvObj[departamentos[i]] = casos_obj
+  }
+}
+
+// Ordenando lista de cosas por tasa
+const orderDesc = (a, b) => b.tasa - a.tasa
+depsFromProv = depsFromProv.sort(orderDesc)
+
+const overrideStyleFunction = (feature, style) => {
+  let color = fillColorDefault
+
+  let casos = depsFromProvObj[feature.get('departamento')]
+  if (casos !== undefined) {
+    for (let idx = 0; idx < criteria.length; idx++) {
+      if (criteria[idx](casos.tasa) == true) {
+        color = gradiente[idx]
+        break
+      }
+    }
+  } else {
+    console.log('Departamento no encontrado: ' + feature.get('departamento'))
   }
   style.getFill().setColor(color)
 }
@@ -92,22 +115,19 @@ const onZoomChanged = (currentZoom) => {
 }
 
 const departNombre = ref('departamento')
-const casosCant = ref(0)
+const casosCant = ref('0')
+const casosTasa = ref('0')
 
 const selectConditions = inject('ol-selectconditions')
 const selectCondition = selectConditions.pointerMove
 
 const featureSelected = (event) => {
-  let cant = 0
   if (event.selected.length >= 1) {
-    const feature = event.target.features_.array_[0].values_
-    for (let i = 0; i < props.datos.length; i++) {
-      if (fnCompare(props.datos[i].nombre, feature.departamento) == 0) {
-        cant = props.datos[i].valor
-      }
-    }
+    let feature = event.target.features_.array_[0].values_
+    let { cant, tasa } = depsFromProvObj[feature.departamento]
+    casosTasa.value = tasa.toString()
+    casosCant.value = cant.toString()
     departNombre.value = feature.departamento
-    casosCant.value = cant
   }
 }
 
@@ -159,15 +179,15 @@ const selectInteactionFilter = (feature) => {
     class="w-60 z-80 h-30 bottom-[8%] right-[60%] xl:bottom-[8%] xl:right-[28%] 2xl:right-[18%] absolute shadow-2xl"
     :titulo="departNombre"
     :color-theme="getThemeByDataSource('snvs')"
-    :cantidad="Number(casosCant).toLocaleString()"
+    :cantidad="casosCant"
+    :tasa="casosTasa"
   ></GeoInfoCard>
   <TableCard
-    :titulos-mostrados="['Departamento', 'Cantidad']"
+    :titulos-mostrados="['Departamento', 'Cantidad', 'Tasa']"
     :color-theme="getThemeByDataSource('snvs')"
     class="w-80 ml-3"
-    :datos="depsFromProv[props.provincia] ? depsFromProv[props.provincia] : []"
-    titulo="Casos por departamento"
-    :titulos-columnas="['Departamento', 'Cantidad']"
+    :datos="depsFromProv"
+    :titulos-columnas="['Departamento', 'Cantidad', 'Tasa']"
   />
   <CoroplethicMapScale
     class="z-80 top-[25%] right-[28%] 2xl:right-[18%] absolute"
