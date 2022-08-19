@@ -15,13 +15,14 @@ cube(`CovidEdadSexo`, {
       then 'v' else grupo_edad.grupo_etario
       end
     ) as grupo_edad,
-    se.numero_semana
+    se.numero_semana,
+    se.anio
   from
     tableros.problema_con_covid pcc
       join person p on (p.id=pcc.person_id)
       join gender g on (g.id=p.gender_id)
-      right outer join tableros.grupo_edad on (date_part('year',age(pcc.start_date,p.birth_date)) = grupo_edad.id)
       right outer join tableros.semana_epidemiologica se  on (pcc.start_date=se.fecha)
+      right outer join tableros.grupo_edad on (date_part('year',age(pcc.start_date,p.birth_date)) = grupo_edad.id)
   `,
 
   measures: {
@@ -51,6 +52,10 @@ cube(`CovidEdadSexo`, {
     },
     Numero_semana: {
       sql: `numero_semana`,
+      type: `number`,
+    },
+    Anio: {
+      sql: `anio`,
       type: `number`,
     },
   },

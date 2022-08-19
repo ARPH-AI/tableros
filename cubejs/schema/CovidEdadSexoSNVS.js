@@ -11,10 +11,12 @@ cube(`CovidEdadSexoSNVS`, {
         end
       ) as grupo_edad,
       snvs.residencia_departamento_nombre as ciudad,
-      se.numero_semana
+      se.numero_semana,
+      se.anio
   from tableros.snvs
     right outer join tableros.grupo_edad on (snvs.edad = grupo_edad.id)
-    right outer join tableros.semana_epidemiologica se on (se.fecha=snvs.fecha_apertura) `,
+    right outer join tableros.semana_epidemiologica se on (se.fecha=snvs.fecha_apertura)
+  `,
 
   measures: {
     id_evento_caso: {
@@ -47,7 +49,11 @@ cube(`CovidEdadSexoSNVS`, {
     Numero_semana_snvs: {
       sql: `numero_semana`,
       type: `number`,
-  }
+    },
+    Anio_snvs: {
+      sql: `anio`,
+      type: `number`,
+    },
   },
   dataSource: `default`
 });

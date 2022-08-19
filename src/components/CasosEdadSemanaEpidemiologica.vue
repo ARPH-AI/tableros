@@ -2,10 +2,16 @@
 import cubeApi from '@/cube'
 import { QueryBuilder } from '@cubejs-client/vue3'
 import { getThemeByDataSource } from '@/composables'
+import { format, subYears } from 'date-fns'
 
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
 })
+
+const dateFormat = 'yyyy-MM-dd'
+const todayDate = new Date()
+const today = format(todayDate, dateFormat)
+const yearAgo = format(subYears(todayDate, 1), dateFormat)
 
 const titulo = 'Nuevos casos por grupo de edad'
 const tituloX = 'Semana Epidemiológica'
@@ -22,35 +28,67 @@ const filterV = (item) => {
 
 const totalCasosHSI = {
   measures: ['CovidEdadSexo.identificador'],
-  timeDimensions: [
+  filters: [
     {
-      dimension: 'CovidEdadSexo.Fecha_inicio',
-      //      dateRange: 'last 360 days',
-    },
+      or: [
+        {
+          member: 'CovidEdadSexo.Fecha_inicio',
+          operator: 'inDateRange',
+          values: [yearAgo, today],
+        },
+/*
+        {
+          member: 'CovidEdadSexo.Numero_semana',
+          operator: 'notSet'
+        }
+*/
+      ]
+    }
   ],
   order: {
+    'CovidEdadSexo.Anio': 'asc',
     'CovidEdadSexo.Numero_semana': 'asc',
     'CovidEdadSexo.Grupo_edad': 'asc',
   },
-  dimensions: ['CovidEdadSexo.Numero_semana', 'CovidEdadSexo.Grupo_edad'],
+  dimensions: [
+    'CovidEdadSexo.Anio',
+    'CovidEdadSexo.Numero_semana',
+    'CovidEdadSexo.Grupo_edad'
+  ],
 }
 const totalCasosSNVS = {
   measures: ['CovidEdadSexoSNVS.id_evento_caso'],
-  timeDimensions: [
+  filters: [
     {
-      dimension: 'CovidEdadSexoSNVS.Fecha_apertura',
-      //      dateRange: 'last 360 days',
-    },
+      or: [
+        {
+          member: 'CovidEdadSexoSNVS.Fecha_apertura',
+          operator: 'inDateRange',
+          values: [yearAgo, today],
+        },
+/*
+        {
+          member: 'CovidEdadSexoSNVS.Numero_semana_snvs',
+          operator: 'notSet'
+        }
+*/
+      ]
+    }
   ],
   order: {
+    'CovidEdadSexoSNVS.Anio_snvs': 'asc',
     'CovidEdadSexoSNVS.Numero_semana_snvs': 'asc',
     'CovidEdadSexoSNVS.Grupo_edad': 'asc',
   },
-  dimensions: ['CovidEdadSexoSNVS.Numero_semana_snvs', 'CovidEdadSexoSNVS.Grupo_edad'],
+  dimensions: [
+    'CovidEdadSexoSNVS.Anio_snvs',
+    'CovidEdadSexoSNVS.Numero_semana_snvs',
+    'CovidEdadSexoSNVS.Grupo_edad'
+  ],
 }
 
 const pivotConfigHSI = {
-  x: ['CovidEdadSexo.Fecha_inicio.day'],
+  x: ['CovidEdadSexo.Fecha_inicio'],
   y: ['CovidEdadSexo.Grupo_edad', 'measures'],
   fillMissingDates: true,
   joinDateRange: false,
@@ -94,7 +132,7 @@ const getPivotConfig = () => {
       <div v-if="!loading && resultSet !== undefined">
         <GraficoStackedLines
           :color-theme="getThemeByDataSource(props.dataSource)"
-          :series="resultSet.series(getPivotConfig(props.dataSource)).filter(filterV).map(itemSplit)"
+          :series="resultSet.series(getPivotConfig()).filter(filterV).map(itemSplit)"
           :titulo="titulo"
           :titulo-y="tituloY"
           :titulo-x="tituloX"
