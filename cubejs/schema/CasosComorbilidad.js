@@ -48,7 +48,7 @@ cube(`casosComorbilidad`, {
      )
    `,
 
-  measures: Object.assign(
+  measures:	Object.assign(
     {
       total: {
         sql: `identificador`,
@@ -61,12 +61,14 @@ cube(`casosComorbilidad`, {
         filters: [{ sql: `${CUBE}.comorbilidad is not null` }],
       },
     },
-
-    statuses.reduce((all, status) => ({
-      ...all,
-      ...createTotalByStatusMeasure(status),
+    statuses.reduce(
+			(all, status) => ({
+				...all,
+				...createTotalByStatusMeasure(status),
       //        ...createPercentageMeasure(status),
-    }))
+			}),
+			{}
+	  )
   ),
   dimensions: {
     Estado: {
