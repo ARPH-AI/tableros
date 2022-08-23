@@ -5,10 +5,10 @@ cube(`casos`, {
 
   measures: {
     identificador: {
-        sql: `identificador`,
-        type: `count`,
-        title: ` `,
-    }
+      sql: `identificador`,
+      type: `count`,
+      title: ` `,
+    },
   },
 
   dimensions: {
@@ -35,8 +35,8 @@ cube(`casos`, {
     ciudad: {
       sql: `ciudad`,
       type: `string`,
-    }
+    },
   },
-  title:` `,
-  dataSource: `default`
-});
+  title: ` `,
+  dataSource: `default`,
+})
