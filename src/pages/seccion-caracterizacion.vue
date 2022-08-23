@@ -24,8 +24,16 @@ const { dataSource } = storeToRefs(useDataSourceStore())
       <!-- Right column -->
       <div class="grid gap-3 lg:grid-cols-1">
         <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
-          <CasosAcumuladosMujeres data-source="hsi" />
-          <CasosAcumuladosVarones data-source="hsi" />
+          <CasosNuevosPorcentaje
+            data-source="hsi"
+            title="Casos Nuevos Mayores 60"
+            measure="CovidEdadSexo.frecuenciaCasosMay"
+          />
+          <CasosNuevosPorcentaje
+            data-source="hsi"
+            title="Casos Nuevos Menores 20"
+            measure="CovidEdadSexo.frecuenciaCasosMen"
+          />
         </div>
         <Suspense><CasosAcumuladosSexo data-source="hsi" /></Suspense>
         <Suspense><ComorbilidadesFrecuencia data-source="hsi" /></Suspense>
