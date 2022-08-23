@@ -18,12 +18,12 @@ const tituloX = 'Semana Epidemiológica'
 const tituloY = 'Casos'
 
 const itemSplit = (item) => {
- item.title = item.title.split(',')[0];
- return item;
+  item.title = item.title.split(',')[0]
+  return item
 }
 
 const filterV = (item) => {
- return (item.title.split(',')[0] != 'v')
+  return item.title.split(',')[0] != 'v'
 }
 
 const totalCasosHSI = {
@@ -36,25 +36,21 @@ const totalCasosHSI = {
           operator: 'inDateRange',
           values: [yearAgo, today],
         },
-/*
+        /*
         {
           member: 'CovidEdadSexo.Numero_semana',
           operator: 'notSet'
         }
 */
-      ]
-    }
+      ],
+    },
   ],
   order: {
     'CovidEdadSexo.Anio': 'asc',
     'CovidEdadSexo.Numero_semana': 'asc',
     'CovidEdadSexo.Grupo_edad': 'asc',
   },
-  dimensions: [
-    'CovidEdadSexo.Anio',
-    'CovidEdadSexo.Numero_semana',
-    'CovidEdadSexo.Grupo_edad'
-  ],
+  dimensions: ['CovidEdadSexo.Anio', 'CovidEdadSexo.Numero_semana', 'CovidEdadSexo.Grupo_edad'],
 }
 const totalCasosSNVS = {
   measures: ['CovidEdadSexoSNVS.id_evento_caso'],
@@ -66,25 +62,21 @@ const totalCasosSNVS = {
           operator: 'inDateRange',
           values: [yearAgo, today],
         },
-/*
+        /*
         {
           member: 'CovidEdadSexoSNVS.Numero_semana_snvs',
           operator: 'notSet'
         }
 */
-      ]
-    }
+      ],
+    },
   ],
   order: {
     'CovidEdadSexoSNVS.Anio_snvs': 'asc',
     'CovidEdadSexoSNVS.Numero_semana_snvs': 'asc',
     'CovidEdadSexoSNVS.Grupo_edad': 'asc',
   },
-  dimensions: [
-    'CovidEdadSexoSNVS.Anio_snvs',
-    'CovidEdadSexoSNVS.Numero_semana_snvs',
-    'CovidEdadSexoSNVS.Grupo_edad'
-  ],
+  dimensions: ['CovidEdadSexoSNVS.Anio_snvs', 'CovidEdadSexoSNVS.Numero_semana_snvs', 'CovidEdadSexoSNVS.Grupo_edad'],
 }
 
 const pivotConfigHSI = {

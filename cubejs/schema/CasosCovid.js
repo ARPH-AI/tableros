@@ -5,10 +5,10 @@ cube(`casosCovid`, {
 
   measures: {
     identificador: {
-        sql: `identificador`,
-        type: `sum`,
-        title: `Cantidad`,
-        description: `  `,
+      sql: `identificador`,
+      type: `sum`,
+      title: `Cantidad`,
+      description: `  `,
     },
     promedioSemanal: {
       sql: `${identificador}`,
@@ -18,8 +18,7 @@ cube(`casosCovid`, {
       },
       title: `Promedio`,
       description: `  `,
-  }
-
+    },
   },
 
   dimensions: {
@@ -38,8 +37,8 @@ cube(`casosCovid`, {
     ciudad: {
       sql: `ciudad`,
       type: `string`,
-    }
+    },
   },
-  title:` `,
-  dataSource: `default`
-});
+  title: ` `,
+  dataSource: `default`,
+})

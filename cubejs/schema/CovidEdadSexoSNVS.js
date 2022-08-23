@@ -20,9 +20,9 @@ cube(`CovidEdadSexoSNVS`, {
 
   measures: {
     id_evento_caso: {
-        sql: `id_evento_caso`,
-        type: `count`,
-    }
+      sql: `id_evento_caso`,
+      type: `count`,
+    },
   },
 
   dimensions: {
@@ -43,8 +43,8 @@ cube(`CovidEdadSexoSNVS`, {
       type: `string`,
     },
     Ciudad: {
-        sql: `ciudad`,
-        type: `string`,
+      sql: `ciudad`,
+      type: `string`,
     },
     Numero_semana_snvs: {
       sql: `numero_semana`,
@@ -55,5 +55,5 @@ cube(`CovidEdadSexoSNVS`, {
       type: `number`,
     },
   },
-  dataSource: `default`
-});
+  dataSource: `default`,
+})

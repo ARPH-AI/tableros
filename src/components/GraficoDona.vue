@@ -7,7 +7,6 @@ import { isDark } from '@/composables'
 const props = defineProps<{
   colorTheme: string
   series: object[]
-  etiquetas: string[]
   titulo: string
 }>()
 
@@ -72,13 +71,7 @@ const light_theme_options = ref({
           },
         },
       },
-      data: [
-        { value: 20, name: 'Ninguna' },
-        { value: 30, name: '1' },
-        { value: 24, name: '2' },
-        { value: 15, name: '3' },
-        { value: 11, name: '4 o más' },
-      ],
+      data: props.series,
     },
   ],
   color: colorPalette,
@@ -142,13 +135,7 @@ const dark_theme_options = ref({
           },
         },
       },
-      data: [
-        { value: 20, name: 'Ninguna' },
-        { value: 30, name: '1' },
-        { value: 24, name: '2' },
-        { value: 15, name: '3' },
-        { value: 11, name: '4 o más' },
-      ],
+      data: props.series,
     },
   ],
   color: colorPalette,

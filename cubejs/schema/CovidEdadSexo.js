@@ -27,10 +27,10 @@ cube(`CovidEdadSexo`, {
 
   measures: {
     identificador: {
-        sql: `identificador`,
-        type: `sum`,
-        title: ` `,
-    }
+      sql: `identificador`,
+      type: `sum`,
+      title: ` `,
+    },
   },
 
   dimensions: {
@@ -59,6 +59,6 @@ cube(`CovidEdadSexo`, {
       type: `number`,
     },
   },
-  title:` `,
-  dataSource: `default`
-});
+  title: ` `,
+  dataSource: `default`,
+})

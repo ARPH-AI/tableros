@@ -24,15 +24,15 @@ cube(`CovidEdadSexoFem`, {
 
   measures: {
     cantidad_fem: {
-        sql: `cantidad_edad`,
-        type: `sum`,
-        title: `Mujeres`,
+      sql: `cantidad_edad`,
+      type: `sum`,
+      title: `Mujeres`,
     },
     cantidad_fem_snvs: {
       sql: `cantidad_snvs`,
       type: `sum`,
       title: `Mujeres `,
-  }
+    },
   },
 
   dimensions: {
@@ -45,13 +45,12 @@ cube(`CovidEdadSexoFem`, {
       sql: `grupo_edad`,
       type: `number`,
     },
-
   },
   preAggregations: {
     main: {
-      type: `originalSql`
+      type: `originalSql`,
     },
   },
-  title:` `,
-  dataSource: `default`
-});
+  title: ` `,
+  dataSource: `default`,
+})
