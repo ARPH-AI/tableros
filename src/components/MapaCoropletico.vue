@@ -31,14 +31,14 @@ const fillColorDefault = '#F3F4F6'
 // Escala
 const gradiente = ['#FFFFFF', '#FFFFCC', '#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C', '#B10026']
 const criteria = [
-  (x) => x < 10,
-  (x) => x >= 10 && x < 50,
-  (x) => x >= 50 && x < 100,
-  (x) => x >= 100 && x < 200,
-  (x) => x >= 200 && x < 400,
-  (x) => x >= 400 && x < 800,
-  (x) => x >= 800 && x < 1600,
-  (x) => x >= 1600,
+  (x) => (x < 10),
+  (x) => (x >= 10 && x < 50),
+  (x) => (x >= 50 && x < 100),
+  (x) => (x >= 100 && x < 200),
+  (x) => (x >= 200 && x < 400),
+  (x) => (x >= 400 && x < 800),
+  (x) => (x >= 800 && x < 1600),
+  (x) => (x >= 1600),
 ]
 
 const scaleCriteria = [
