@@ -19,7 +19,13 @@ const totalCasosHSI = {
   dimensions: [],
 }
 
-const totalCasosSNVS = {}
+const totalCasosSNVS = {
+  measures: ['CovidEdadSexoSNVS.promCasosNuevosCovidSNVS'],
+  timeDimensions: [],
+  order: {},
+  filters: [],
+  dimensions: [],
+}
 
 const getTotalCasos = () => {
   switch (props.dataSource) {

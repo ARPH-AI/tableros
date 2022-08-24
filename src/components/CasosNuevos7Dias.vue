@@ -24,7 +24,16 @@ const totalCasosHSI = {
   dimensions: [],
 }
 
-const totalCasosSNVS = {}
+const totalCasosSNVS = {
+  measures: ['CovidEdadSexoSNVS.id_evento_caso'],
+  timeDimensions: [
+    {
+      dimension: 'CovidEdadSexoSNVS.Fecha_apertura',
+      dateRange: 'Last 7 days',
+    },
+  ],
+  order: {},
+}
 
 const getTotalCasos = () => {
   switch (props.dataSource) {
