@@ -18,7 +18,7 @@ const { dataSource } = storeToRefs(useDataSourceStore())
           <CasosAcumuladosMujeres data-source="hsi" />
           <CasosAcumuladosVarones data-source="hsi" />
         </div>
-        <CasosEdadSemanaEpidemiologica data-source="hsi" />
+        <Suspense><CasosEdadSemanaEpidemiologica data-source="hsi" /></Suspense>
         <Suspense><ComorbilidadesCantidad data-source="hsi" /></Suspense>
       </div>
       <!-- Right column -->
@@ -48,7 +48,7 @@ const { dataSource } = storeToRefs(useDataSourceStore())
           <CasosAcumuladosMujeres data-source="snvs" />
           <CasosAcumuladosVarones data-source="snvs" />
         </div>
-        <CasosEdadSemanaEpidemiologica data-source="snvs" />
+        <Suspense><CasosEdadSemanaEpidemiologica data-source="snvs" /></Suspense>
       </div>
       <!-- Right column -->
       <div class="grid gap-3 lg:grid-cols-1">
