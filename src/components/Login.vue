@@ -41,7 +41,7 @@ export default {
 </script>
 
 <template>
-  <div class="h-screen font-mono bg-cover bg-gradient-to-r from-color_0 via-third to-color_1">
+  <div class="h-screen font-mono bg-cover bg-gradient-to-r from-color_0_dark via-color_2 to-color_1_dark">
     <div class="container flex flex-1 justify-center items-center mx-auto h-full">
       <div class="w-full max-w-lg">
         <div class="leading-loose">

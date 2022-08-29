@@ -183,12 +183,12 @@ const selectInteactionFilter = (feature) => {
     <TableCard
       :titulos-mostrados="['Departamento', 'Cantidad', 'Tasa']"
       :color-theme="getThemeByDataSource('snvs')"
-      class="w-96 ml-3"
+      class="w-1/4 2xl:w-96 ml-3"
       :datos="depsFromProv"
       :titulos-columnas="['Departamento', 'Cantidad', 'Tasa']"
     />
     <CoroplethicMapScale
-      class="z-80 w-38 top-[31%] 2xl:top-[18%] left-[1%] absolute"
+      class="z-80 w-38 top-[26%] 2xl:top-[18%] left-[0.5%] absolute"
       :references="scaleCriteria"
       :color-theme="getThemeByDataSource('snvs')"
     ></CoroplethicMapScale>

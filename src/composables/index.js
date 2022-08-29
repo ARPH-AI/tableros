@@ -1,36 +1,11 @@
 import { useDark, useToggle } from '@vueuse/core'
-import { reactive, ref } from 'vue'
-
-export const scrollingDown = ref(false)
-
-export const scrollingUp = ref(false)
-
-let lastScrollTop = 0
-
-export const handleScroll = () => {
-  let st = window.pageYOffset || document.documentElement.scrollTop
-  if (st > lastScrollTop) {
-    // downscroll
-    scrollingDown.value = true
-    scrollingUp.value = false
-  } else {
-    // upscroll
-    scrollingDown.value = false
-    scrollingUp.value = true
-    if (st == 0) {
-      //  reset
-      scrollingDown.value = false
-      scrollingUp.value = false
-    }
-  }
-  lastScrollTop = st <= 0 ? 0 : st // For Mobile or negative scrolling
-}
+import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
 
 export const isDark = useDark()
 export const toggleDarkMode = useToggle(isDark)
 
 export const sidebarState = reactive({
-  //isOpen: window.innerWidth > 1024,
   isOpen: false,
   isHovered: false,
   handleHover(value) {
@@ -59,13 +34,6 @@ export const getThemeByDataSource = (dataSource) => {
   }
 }
 
-export const getColorByDataSource = (dataSource) => {
-  switch (dataSource) {
-    case 'hsi':
-      return '#f7931e'
-    case 'snvs':
-      return '#00becb'
-    default:
-      return '#f7931'
-  }
+export const isCurrentRoute = (routeName) => {
+  return useRouter().currentRoute.value.name == routeName
 }

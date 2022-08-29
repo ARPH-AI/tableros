@@ -14,13 +14,15 @@ export const sections = {
     value: 3,
     title: 'Mapas',
   },
+}
+
+export const general_sections = {
   INFORMACION: {
     key: 'seccion-sobre-el-tablero',
-    value: 4,
+    value: 1,
     title: 'Tablero epidemiologico',
   },
 }
-
 export const data_sources = {
   HSI: {
     key: 'HSI',

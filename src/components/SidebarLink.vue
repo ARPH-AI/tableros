@@ -5,14 +5,16 @@
     :class="[
       'p-2 flex items-center gap-2 rounded-md transition-colors',
       {
-        'dark:text-dark_contrast text-light_contrast hover:text-color_0 dark:hover:text-color_0': !active,
-        'dark:text-color_1 text-color_0 shadow-lg hover:bg-color_1': active,
+        'text-color-light_contrast dark:text-color-dark_contrast hover:bg-color-light_contrast dark:hover:text-color-dark_contrast':
+          !active,
+        'text-color-light_contrast dark:text-color-dark_contrast hover:bg-color-light_contrast dark:hover:bg-color-dark_contrast dark:hover:text-color-dark_contrast':
+          active,
       },
     ]"
   >
     <slot name="icon"> </slot>
 
-    <span class="font-medium text-color_0">{{ title }}</span>
+    <span class="font-medium text-color-light_contrast dark:text-color-dark_contrast">{{ title }}</span>
   </a>
   <router-link
     v-else-if="to"

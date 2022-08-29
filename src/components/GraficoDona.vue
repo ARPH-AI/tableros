@@ -157,7 +157,7 @@ const dark_theme_options = ref({
 
 <template>
   <div
-    :class="`sm:p-2 xl:p-4 2xl:p-5 rounded-lg border-r-4 shadow-2xl bg-light_smooth-50 dark:bg-dark_smooth border-${props.colorTheme}`"
+    :class="`sm:p-2 xl:p-4 2xl:p-5 rounded-lg border-r-4 shadow-2xl bg-light_smooth-50 dark:bg-dark_smooth dark:border-${props.colorTheme}_dark border-${props.colorTheme}`"
   >
     <div class="leading-tight text-left text-light_contrast dark:text-dark_contrast">
       <h5 class="pl-2 text-sm uppercase border-l-4 border-light_contrast dark:border-dark_contrast">

@@ -141,7 +141,7 @@ const changeProvincia = (event) => {
           >
             <span class="block truncate">{{ provinciaSel.iso_nombre }}</span>
             <span class="flex absolute inset-y-0 right-0 items-center pr-2 pointer-events-none">
-              <SelectorIcon class="w-5 h-5 text-color_0'" aria-hidden="true" />
+              <SelectorIcon class="w-5 h-5 dark:text-color_0_dark text-color_0'" aria-hidden="true" />
             </span>
           </ListboxButton>
 
@@ -177,14 +177,17 @@ const changeProvincia = (event) => {
               >
                 <li
                   :class="[
-                    active ? 'bg-light_smooth text-color_0' : 'text-dark_base',
+                    active ? 'bg-light_smooth dark:text-color_0_dark text-color_0' : 'text-dark_base',
                     'relative cursor-default text-left select-none py-2 pl-10 pr-4',
                   ]"
                 >
                   <span :class="[selected ? 'font-medium' : 'font-normal', 'block truncate']">{{
                     item.iso_nombre
                   }}</span>
-                  <span v-if="selected" class="flex absolute inset-y-0 left-0 items-center pl-3 text-color_0'">
+                  <span
+                    v-if="selected"
+                    class="flex absolute inset-y-0 left-0 items-center pl-3 dark:text-color_0_dark text-color_0'"
+                  >
                     <CheckIcon class="w-5 h-5" aria-hidden="true" />
                   </span>
                 </li>

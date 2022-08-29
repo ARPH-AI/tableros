@@ -12,14 +12,17 @@
             px-3
             text-left text-sm
             font-medium
-            hover:bg-purple-200
-            border-b-2 border-color-gray-200
+            hover:bg-light_contrast
+            dark:hover:bg-dark_contrast
+            border-b-2
+            border-color-light_contrast
+            dark:border-color-gray-200
             focus:outline-none
             group
             focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75
           "
         >
-          <span class="group-hover:text-color_2">{{ section.title }}</span>
+          <span class="group-hover:text-dark_contrast">{{ section.title }}</span>
           <ChevronUpIcon :class="open ? 'rotate-180 transform' : ''" class="h-5 w-5 text-purple-500" />
           <transition
             enter-active-class="transition duration-100 ease-out"
@@ -30,7 +33,7 @@
             leave-to-class="transform scale-95 opacity-0"
           ></transition>
         </DisclosureButton>
-        <DisclosurePanel class="px-4 pt-4 pb-2 text-sm text-gray-500">
+        <DisclosurePanel class="px-4 pt-4 pb-2 text-sm text-dark_smooth dark:text-dark_contrast">
           {{ section.content }}
         </DisclosurePanel>
       </Disclosure>

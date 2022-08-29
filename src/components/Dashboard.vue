@@ -48,23 +48,23 @@
           scrollbar-thin
           scrollbar-thumb-color_1
           scrollbar-track-light_base
-          dark:scrollbar-thumb-color_1 dark:scrollbar-track-dark_base
+          dark:scrollbar-thumb-color_1_dark dark:scrollbar-track-dark_base
         "
       >
         <!-- Data Sources Tabs -->
         <TabGroup :default-index="dataSource == 'hsi' ? 0 : 1">
           <div
-            v-show="!isCurrentRoute(sections.INFORMACION.key)"
+            v-show="!isCurrentRoute(general_sections.INFORMACION.key)"
             class="grid float-left grid-cols-1 pl-4 mt-4 ml-4 text-left h-fit"
           >
             <span class="float-left text-4xl align-middle">{{ enos.COVID.title }}</span>
             <span class="float-left leading-relaxed align-middle"> Actualizado: {{ currentTime }}</span>
           </div>
           <div class="grid float-right grid-cols-1 mt-3 text-left h-fit">
-            <span v-show="!isCurrentRoute(sections.INFORMACION.key)" class="inline-flex float-right pr-14 mb-2"
+            <span v-show="!isCurrentRoute(general_sections.INFORMACION.key)" class="inline-flex float-right pr-14 mb-2"
               >Fuente de datos</span
             >
-            <TabList v-show="!isCurrentRoute(sections.INFORMACION.key)" class="inline-flex float-right pr-14">
+            <TabList v-show="!isCurrentRoute(general_sections.INFORMACION.key)" class="inline-flex float-right pr-14">
               <Popper
                 placement="left"
                 arrow
@@ -74,7 +74,20 @@
                 :content="`Los datos de esta sección corresponden
               a los registros de la atención ambulatoria en ${data_sources.HSI.title}`"
               >
-                <Tab v-slot="{ selected }" as="template" class="px-4 py-2 -mb-px border-3 border-color_0 bg-color_0">
+                <Tab
+                  v-slot="{ selected }"
+                  as="template"
+                  class="
+                    px-4
+                    py-2
+                    -mb-px
+                    border-3
+                    dark:border-color_0_dark
+                    border-color_0
+                    dark:bg-color_0_dark
+                    bg-color_0
+                  "
+                >
                   <button
                     :aria-label="`Seleccionar ${data_sources.HSI.key} como fuente de datos`"
                     :class="[selected ? 'opacity-100' : 'border-none opacity-50']"
@@ -95,12 +108,25 @@
               >
                 <Tab
                   v-slot="{ selected }"
-                  class="px-4 py-2 -mb-px font-semibold shadow-2xl bg-color_1 border-color_1"
+                  class="
+                    px-4
+                    py-2
+                    -mb-px
+                    font-semibold
+                    shadow-2xl
+                    dark:bg-color_1_dark dark:border-color_1_dark
+                    bg-color_1
+                    border-color_1
+                  "
                   as="template"
                 >
                   <button
                     :aria-label="`Seleccionar ${data_sources.SNVS.key} como fuente de datos`"
-                    :class="[selected ? 'shadow-xl border-3 border-color_1 opacity-100' : 'opacity-50']"
+                    :class="[
+                      selected
+                        ? 'shadow-xl border-3 border-color_1 dark:border-color_1_dark opacity-100'
+                        : 'opacity-50',
+                    ]"
                     class="shadow-inner py-1 font-extrabold text-black group dark:text-dark_contrast"
                     @click="dataSource = 'snvs'"
                   >
@@ -121,19 +147,17 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
 import { sidebarState } from '@/composables'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import RouterViewTransition from '@/components/RouterViewTransition.vue'
 import Popper from 'vue3-popper'
-import { sections, data_sources, enos } from '@/constants'
+import { sections, general_sections, data_sources, enos } from '@/constants'
 import { storeToRefs } from 'pinia'
 import { useDataSourceStore } from '@/stores/data-source-store.js'
+import { isCurrentRoute } from '@/composables'
 
 const { dataSource } = storeToRefs(useDataSourceStore())
-const isCurrentRoute = (routeName) => {
-  return useRouter().currentRoute.value.name == routeName
-}
+
 var today = new Date()
 var dd = String(today.getDate()).padStart(2, '0')
 var mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!

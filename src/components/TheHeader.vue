@@ -3,6 +3,7 @@ meta:
   public: true
 </route>
 <script setup>
+import Popper from 'vue3-popper'
 import { MoonIcon, SunIcon, LogoutIcon } from '@heroicons/vue/outline'
 import ProfileAvatar from 'vue-profile-avatar'
 import { sidebarState, isDark, toggleDarkMode } from '@/composables'
@@ -10,6 +11,10 @@ import { getThemeByDataSource } from '@/composables'
 import { storeToRefs } from 'pinia'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import { useDataSourceStore } from '@/stores/data-source-store.js'
+import { isCurrentRoute } from '@/composables'
+import { general_sections } from '@/constants'
+import { QuestionMarkCircleIcon } from '@heroicons/vue/outline'
+
 const { dataSource } = storeToRefs(useDataSourceStore())
 </script>
 
@@ -43,17 +48,27 @@ const { dataSource } = storeToRefs(useDataSourceStore())
           Tablero de información epidemiológica
         </span>
       </div>
-      <div class="flex items-center space-x-1">
+      <div class="flex items-center space-x-3">
+        <router-link
+          :aria-label="`Navegar hacia la sección ${general_sections.INFORMACION.title}`"
+          class="flex justify-self-center p-2 group text-light_contrast dark:text-dark_contrast"
+          :class="[
+            isCurrentRoute(general_sections.INFORMACION.key)
+              ? `text-${getThemeByDataSource(dataSource)} border-3 border-${getThemeByDataSource(dataSource)}`
+              : `border-3 border-${getThemeByDataSource(dataSource)} hover:text-${getThemeByDataSource(
+                  dataSource
+                )} text-light_contrast dark:hover:text-${getThemeByDataSource(dataSource)}  dark:text-dark_contrast`,
+          ]"
+          :to="general_sections.INFORMACION.key"
+          ><Popper arrow disable-click-away hover interactive :content="general_sections.INFORMACION.title"
+            ><QuestionMarkCircleIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
+        ></router-link>
         <!-- Toggle darkmode button -->
-        <button aria-label="Cambiar tema" class="p-2 rounded-md focus:outline-none focus:ring" @click="toggleDarkMode">
+        <button aria-label="Cambiar tema" class="p-2 focus:outline-none" @click="toggleDarkMode">
           <!-- light icon -->
-          <MoonIcon
-            v-show="!isDark"
-            class="flex-shrink-0 w-6 h-6 dark:hover:text-color_1 dark:text-dark_contrast"
-            aria-hidden="true"
-          />
+          <MoonIcon v-show="!isDark" class="flex-shrink-0 w-6 h-6 text-light_contrast" aria-hidden="true" />
           <!-- dark icon -->
-          <SunIcon v-show="isDark" class="flex-shrink-0 w-6 h-6 hover:text-color_1" aria-hidden="true" />
+          <SunIcon v-show="isDark" class="flex-shrink-0 w-6 h-6" aria-hidden="true" />
         </button>
 
         <!-- User menu dropdown -->

@@ -1,32 +1,32 @@
 <script setup>
-import Popper from 'vue3-popper'
-import { useRouter } from 'vue-router'
 import { sections } from '@/constants'
-import { QuestionMarkCircleIcon, TrendingUpIcon, MapIcon, UserGroupIcon } from '@heroicons/vue/outline'
 import { getThemeByDataSource } from '@/composables'
 import { storeToRefs } from 'pinia'
 import { useDataSourceStore } from '@/stores/data-source-store.js'
 
 const { dataSource } = storeToRefs(useDataSourceStore())
-const isCurrentRoute = (routeName) => {
-  return useRouter().currentRoute.value.name == routeName
-}
 </script>
 <template>
   <nav class="grid grid-cols-1 items-center px-2 mt-32 font-mono">
-    <router-link
+    <BaseMinimalSideBarButton
+      v-for="(section, index) in sections"
+      :key="index"
+      :section="section"
+      :color-theme="getThemeByDataSource(dataSource)"
+    ></BaseMinimalSideBarButton>
+    <!-- <router-link
       :aria-label="`Navegar hacia la sección ${sections.SITUACION_ACTUAL.key}`"
-      class="flex justify-self-center p-2 m-2 rounded-lg group bg-light_base-200 dark:bg-dark_base"
+      class="flex justify-self-center p-2 m-2 group"
       :class="[
-        isCurrentRoute('seccion-situacion-actual') || isCurrentRoute('index')
-          ? `text-${getThemeByDataSource(dataSource)} hover:text-${getThemeByDataSource(
+        isCurrentRoute(sections.SITUACION_ACTUAL.key) || isCurrentRoute('index')
+          ? `dark:bg-${getThemeByDataSource(dataSource)}_dark bg-${getThemeByDataSource(
               dataSource
-            )} border-3 border-${getThemeByDataSource(dataSource)}`
-          : `border-3 border-${getThemeByDataSource(dataSource)} text-light_contrast hover:text-${getThemeByDataSource(
-              dataSource
-            )} dark:hover:text-${getThemeByDataSource(dataSource)}  dark:text-dark_contrast`,
+            )} rounded-xl text-dark_contrast hover:text-dark_contrast`
+          : ` hover:text-${getThemeByDataSource(
+              dataSources
+            )} text-light_contrast dark:hover:text-${theme}  dark:text-dark_contrast`,
       ]"
-      to="seccion-situacion-actual"
+      :to="sections.SITUACION_ACTUAL.key"
       ><Popper arrow disable-click-away hover interactive content="Situación actual"
         ><TrendingUpIcon class="flex-shrink-0 w-6 h-6 group" aria-hidden="true"></TrendingUpIcon>
       </Popper>
@@ -49,12 +49,14 @@ const isCurrentRoute = (routeName) => {
       "
       :class="[
         isCurrentRoute(sections.CARACTERIZACION.key)
-          ? `text-${getThemeByDataSource(dataSource)} hover:text-${getThemeByDataSource(
+          ? `text-${theme} dark:text-${getThemeByDataSource(
               dataSource
-            )} border-3 border-${getThemeByDataSource(dataSource)}`
-          : `border-3 border-${getThemeByDataSource(dataSource)} hover:text-${getThemeByDataSource(
+            )}_dark dark:hover:text-${theme}_dark hover:text-${getThemeByDataSource(
               dataSource
-            )} text-light_contrast dark:hover:text-${getThemeByDataSource(dataSource)}  dark:text-dark_contrast`,
+            )} border-3 dark:border-${theme}_dark border-${theme}`
+          : `border-3 border-${theme} hover:text-${getThemeByDataSource(
+              dataSource
+            )} text-light_contrast dark:hover:text-${theme}  dark:text-dark_contrast`,
       ]"
       :to="sections.CARACTERIZACION.key"
       ><Popper arrow disable-click-away hover interactive :content="sections.CARACTERIZACION.title"
@@ -77,43 +79,14 @@ const isCurrentRoute = (routeName) => {
       "
       :class="[
         isCurrentRoute(sections.GEO.key)
-          ? `text-${getThemeByDataSource(dataSource)} hover:text-${getThemeByDataSource(
+          ? `text-${theme} hover:text-${getThemeByDataSource(dataSource)} border-3 border-${theme}`
+          : `border-3 border-${theme} hover:text-${getThemeByDataSource(
               dataSource
-            )} border-3 border-${getThemeByDataSource(dataSource)}`
-          : `border-3 border-${getThemeByDataSource(dataSource)} hover:text-${getThemeByDataSource(
-              dataSource
-            )} text-light_contrast dark:hover:text-${getThemeByDataSource(dataSource)}  dark:text-dark_contrast`,
+            )} text-light_contrast dark:hover:text-${theme}  dark:text-dark_contrast`,
       ]"
       :to="sections.GEO.key"
       ><Popper arrow disable-click-away hover interactive content="Geo"
         ><MapIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
-    ></router-link>
-    <router-link
-      :aria-label="`Navegar hacia la sección ${sections.INFORMACION.title}`"
-      class="
-        flex
-        justify-self-center
-        p-2
-        m-2
-        rounded-lg
-        group
-        bg-light_base-200
-        dark:bg-dark_base
-        text-light_contrast
-        dark:text-dark_contrast
-      "
-      :class="[
-        isCurrentRoute(sections.INFORMACION.key)
-          ? `text-${getThemeByDataSource(dataSource)} hover:text-${getThemeByDataSource(
-              dataSource
-            )} border-3 border-${getThemeByDataSource(dataSource)}`
-          : `border-3 border-${getThemeByDataSource(dataSource)} hover:text-${getThemeByDataSource(
-              dataSource
-            )} text-light_contrast dark:hover:text-${getThemeByDataSource(dataSource)}  dark:text-dark_contrast`,
-      ]"
-      :to="sections.INFORMACION.key"
-      ><Popper arrow disable-click-away hover interactive :content="sections.INFORMACION.title"
-        ><QuestionMarkCircleIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
-    ></router-link>
+    ></router-link> -->
   </nav>
 </template>

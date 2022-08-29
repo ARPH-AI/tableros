@@ -10,7 +10,7 @@ const props = defineProps<{
 
 <template>
   <div
-    :class="`sm:p-2 xl:p-4 2xl:p-5 rounded-lg border-r-4 2xl:border-r-4 shadow-2xl bg-light_smooth-50 dark:bg-dark_smooth border-${props.colorTheme}`"
+    :class="`sm:p-2 xl:p-4 2xl:p-5 rounded-lg border-r-4 2xl:border-r-4 shadow-2xl bg-light_smooth-50 dark:bg-dark_smooth dark:border-${props.colorTheme}_dark border-${props.colorTheme}`"
   >
     <div class="leading-tight text-left text-light_contrast dark:text-dark_contrast">
       <h5 class="pl-2 text-sm uppercase border-l-4 border-light_contrast dark:border-dark_contrast">
@@ -24,8 +24,9 @@ const props = defineProps<{
           lg:mt-4
           scrollbar-thin
           scrollbar-thumb-color_1
+          dark:scrollbar-thumb-color_1_dark
           scrollbar-track-light_base
-          dark:scrollbar-thumb-color_1 dark:scrollbar-track-dark_base
+          dark:scrollbar-track-dark_base
         "
       >
         <div class="sm:-mx-6 lg:-mx-7">
@@ -37,7 +38,7 @@ const props = defineProps<{
                     <th
                       v-for="(columna, index) in titulosColumnas"
                       :key="index"
-                      :class="`p-1 text-${props.colorTheme} whitespace-nowrap border-b-2 dark:border-dark_contrast`"
+                      :class="`p-1 dark:text-${props.colorTheme}_dark text-${props.colorTheme} whitespace-nowrap border-b-2 dark:border-dark_contrast`"
                       scope="col"
                     >
                       {{ columna }}
