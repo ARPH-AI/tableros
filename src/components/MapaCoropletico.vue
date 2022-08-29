@@ -67,6 +67,7 @@ let casos
 let casos_obj
 let poblacion_depto
 let encontro
+let noData = []
 
 for (let i = 0; i < departamentos.length; i++) {
   encontro = 0
@@ -75,26 +76,30 @@ for (let i = 0; i < departamentos.length; i++) {
       poblacion_depto = poblacion[provinciaAsKey][departamentos[i]]['2021'] || muestra
       casos = (props.datos[j].valor * muestra) / poblacion_depto
       casos_obj = { dep: departamentos[i], cant: props.datos[j].valor, tasa: casos }
-      depsFromProv.push(casos_obj)
+      depsFromProv.push(Object.assign({}, casos_obj))
       depsFromProvObj[departamentos[i]] = casos_obj
       encontro = 1
       break
     }
   }
   if (encontro == 0) {
-    casos_obj = { dep: departamentos[i], cant: 0, tasa: 0 }
-    depsFromProv.push(casos_obj)
+    casos_obj = { dep: departamentos[i], cant: '-', tasa: '-' }
     depsFromProvObj[departamentos[i]] = casos_obj
+    noData.push(casos_obj)
   }
 }
 
 // Ordenando lista de cosas por tasa
 const orderDesc = (a, b) => b.tasa - a.tasa
-depsFromProv = depsFromProv.sort(orderDesc)
+const options = { maximumFractionDigits: 2 }
+const localeString = (item) => {
+  item.tasa = item.tasa.toLocaleString(undefined, options)
+  return item
+}
+depsFromProv = depsFromProv.sort(orderDesc).map(localeString).concat(noData)
 
 const overrideStyleFunction = (feature, style) => {
   let color = fillColorDefault
-
   let casos = depsFromProvObj[feature.get('departamento')]
   if (casos !== undefined) {
     for (let idx = 0; idx < criteria.length; idx++) {
