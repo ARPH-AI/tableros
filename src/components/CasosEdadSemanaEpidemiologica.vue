@@ -12,12 +12,34 @@ const tituloX = 'Semana Epidemiológica'
 const tituloY = 'Casos'
 
 const itemSplit = (item) => {
- item.title = item.title.split(',')[0];
- return item;
+  item.title = item.title.split(',')[0]
+  return item
 }
 
 const filterV = (item) => {
- return (item.title.split(',')[0] != 'v')
+  return item.title.split(',')[0] != 'v'
+}
+
+const procesaDatos = (datos, semanas) => {
+  for (let i = 0; i < datos.length; i++) {
+    let nuevaSerie = []
+    let o = {}
+    for (let j = 0; j < datos[i].series.length; j++) {
+      let val = datos[i].series[j].value
+      let x = semanas[datos[i].series[j].x]
+      let idx = x.semana + ' ' + x.anio
+      if (typeof o[idx] !== 'undefined') {
+        o[idx] += val
+      } else {
+        o[idx] = val
+      }
+    }
+    for (const [key, value] of Object.entries(o)) {
+      nuevaSerie.push({ x: key, value })
+    }
+    datos[i].series = nuevaSerie
+  }
+  return datos
 }
 
 const totalCasosHSI = {
@@ -25,32 +47,35 @@ const totalCasosHSI = {
   timeDimensions: [
     {
       dimension: 'CovidEdadSexo.Fecha_inicio',
-      //      dateRange: 'last 360 days',
+      granularity: 'day',
+      dateRange: 'last 360 days',
     },
   ],
   order: {
-    'CovidEdadSexo.Numero_semana': 'asc',
-    'CovidEdadSexo.Grupo_edad': 'asc',
+    'CovidEdadSexo.identificador': 'desc',
   },
-  dimensions: ['CovidEdadSexo.Numero_semana', 'CovidEdadSexo.Grupo_edad'],
+  dimensions: ['CovidEdadSexo.Grupo_edad'],
+  filters: [],
 }
+
 const totalCasosSNVS = {
   measures: ['CovidEdadSexoSNVS.id_evento_caso'],
   timeDimensions: [
     {
       dimension: 'CovidEdadSexoSNVS.Fecha_apertura',
-      //      dateRange: 'last 360 days',
+      granularity: 'day',
+      dateRange: 'last 360 days',
     },
   ],
   order: {
-    'CovidEdadSexoSNVS.Numero_semana_snvs': 'asc',
-    'CovidEdadSexoSNVS.Grupo_edad': 'asc',
+    'CovidEdadSexoSNVS.id_evento_caso': 'desc',
   },
-  dimensions: ['CovidEdadSexoSNVS.Numero_semana_snvs', 'CovidEdadSexoSNVS.Grupo_edad'],
+  dimensions: ['CovidEdadSexoSNVS.Grupo_edad'],
+  filters: [],
 }
 
 const pivotConfigHSI = {
-  x: ['CovidEdadSexo.Fecha_inicio.day'],
+  x: ['CovidEdadSexo.Fecha_inicio'],
   y: ['CovidEdadSexo.Grupo_edad', 'measures'],
   fillMissingDates: true,
   joinDateRange: false,
@@ -72,6 +97,27 @@ const getTotalCasos = () => {
   }
 }
 
+const SemanaQuery = {
+  measures: ['SemanaEpidemiologica.count'],
+  dimensions: ['SemanaEpidemiologica.fecha', 'SemanaEpidemiologica.numero_semana', 'SemanaEpidemiologica.anio'],
+  timeDimensions: [
+    {
+      dimension: 'SemanaEpidemiologica.fecha',
+      granularity: 'day',
+      dateRange: 'last 360 days',
+    },
+  ],
+  order: {},
+  filters: [],
+}
+
+const pivotConfigSemana = {
+  x: ['SemanaEpidemiologica.fecha', 'SemanaEpidemiologica.numero_semana', 'SemanaEpidemiologica.anio'],
+  y: [],
+  fillMissingDates: true,
+  joinDateRange: false,
+}
+
 const getPivotConfig = () => {
   switch (props.dataSource) {
     case 'hsi':
@@ -80,29 +126,43 @@ const getPivotConfig = () => {
       return pivotConfigSNVS
   }
 }
+
+const resultSet = await cubeApi.load(getTotalCasos())
+
+const semanaSet = await cubeApi.load(SemanaQuery)
+const semanaSetPivot = semanaSet.pivot(pivotConfigSemana)
+const semanas = semanaSetPivot.reduce((todasSemanas, semana) => {
+  todasSemanas[semana.xValues[0]] = {
+    semana: semana.xValues[1],
+    anio: semana.xValues[2],
+  }
+  return todasSemanas
+}, {})
+
+const semanasUnicas = [...new Set(semanaSetPivot.map((semana) => semana.xValues[1] + ' ' + semana.xValues[2]))]
 </script>
 
 <template>
-  <query-builder :cubejs-api="cubeApi" :query="getTotalCasos()">
-    <template #default="{ loading, resultSet }">
-      <div v-if="loading" class="flex justify-center items-center">
-        <BaseGraphSkeleton
-          styles="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
-          :color-theme="getThemeByDataSource(props.dataSource)"
-        ></BaseGraphSkeleton>
-      </div>
-      <div v-if="!loading && resultSet !== undefined">
+  <Suspense>
+    <template #fallback>
+      <BaseGraphSkeleton
+        styles="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
+        :color-theme="getThemeByDataSource(props.dataSource)"
+      ></BaseGraphSkeleton>
+    </template>
+    <template #default>
+      <div>
         <GraficoStackedLines
           :color-theme="getThemeByDataSource(props.dataSource)"
-          :series="resultSet.series(getPivotConfig(props.dataSource)).filter(filterV).map(itemSplit)"
+          :series="procesaDatos(resultSet.series(getPivotConfig()).filter(filterV).map(itemSplit), semanas)"
           :titulo="titulo"
           :titulo-y="tituloY"
           :titulo-x="tituloX"
-          :etiquetas="resultSet.chartPivot(getPivotConfig()).map((row) => row.x)"
+          :etiquetas="semanasUnicas"
         />
       </div>
     </template>
-  </query-builder>
+  </Suspense>
 </template>
 
 <style scoped></style>

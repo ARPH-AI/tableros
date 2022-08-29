@@ -29,5 +29,5 @@ module.exports = {
     'prettier/prettier': ['warn'],
     'vue/multi-word-component-names': ['off'],
   },
-  ignorePatterns: ['src/api-client-datosgeo/', 'src/api-client-osm/'],
+  ignorePatterns: ['src/api-client-datosgeo/', 'src/api-client-osm/', 'cubejs/schema/'],
 }

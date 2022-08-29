@@ -3,6 +3,7 @@ const props = defineProps({
   cantidad: { type: String, default: 'third' },
   titulo: { type: String, default: 'third' },
   colorTheme: { type: String, default: 'third' },
+  percent: { type: Boolean, default: false },
 })
 </script>
 
@@ -12,7 +13,10 @@ const props = defineProps({
   >
     <div class="leading-tight text-left text-light_contrast dark:text-dark_contrast">
       <h3 :class="`text-3xl font-semibold dark:text-${props.colorTheme}_dark text-${props.colorTheme}`">
-        {{ Number(cantidad).toLocaleString() }}
+        <template v-if="percent">{{
+          Number(cantidad / 100).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 })
+        }}</template>
+        <template v-else>{{ Number(cantidad).toLocaleString() }}</template>
       </h3>
       <h4 class="text-sm uppercase">
         {{ titulo }}

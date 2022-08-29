@@ -7,9 +7,9 @@ cube(`casosCovidPromSem`, {
 
   measures: {
     cantidadXDia: {
-        sql: `cantidad`,
-        type: `sum`,
-        title: `Casos Diarios`,
+      sql: `cantidad`,
+      type: `sum`,
+      title: `Casos Diarios`,
     },
     cantidadXDiaSNVS: {
       sql: `cantidad_snvs`,
@@ -38,24 +38,21 @@ cube(`casosCovidPromSem`, {
     Fecha_inicio_Conf: {
       sql: `fecha`,
       type: `time`,
-
     },
     nombre_semana: {
-        sql: `nombre_semana`,
-        type: `string`,
-
-      },
+      sql: `nombre_semana`,
+      type: `string`,
+    },
     numero_semana: {
-        sql: `numero_semana`,
-        type: `number`,
-
-      },
+      sql: `numero_semana`,
+      type: `number`,
+    },
   },
   preAggregations: {
     main: {
-      type: `originalSql`
+      type: `originalSql`,
     },
   },
-  title:` `,
-  dataSource: `default`
-});
+  title: ` `,
+  dataSource: `default`,
+})

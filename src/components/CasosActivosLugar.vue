@@ -52,7 +52,6 @@ const pivotConfig = {
 }
 
 const getTotalCasos = () => {
-  console.log(totalCasosSNVS, 'totalCasosSNVS')
   switch (props.dataSource) {
     case 'hsi':
       return totalCasosHSI

@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@cubejs-client/core": "^0.29.23",
-    "@cubejs-client/vue3": "^0.29.23",
+    "@cubejs-client/vue3": "^0.30.54",
     "@headlessui/vue": "^1.5.0",
     "@heroicons/vue": "^1.0.6",
     "@popperjs/core": "^2.11.5",
