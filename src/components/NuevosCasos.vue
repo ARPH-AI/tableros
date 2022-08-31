@@ -83,14 +83,15 @@ const getSeries = (result: ResultSet, filterStr: string, pivot: PivotConfig) => 
     <template #default="{ loading, resultSet }">
       <div v-if="loading" class="flex justify-center items-center">
         <BaseGraphSkeleton
-          styles="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
+          styles="sm:h-[38vh] xl:h-[49vh] 2xl:h-[60vh]"
           :color-theme="getThemeByDataSource(props.dataSource)"
-        ></BaseGraphSkeleton>
+        />
       </div>
       <div v-if="!loading && resultSet !== undefined">
         <GraficoBarLine
-          :series-line="getSeries(resultSet, getSeriesLineName(), pivotConfig)[0]"
-          :series-bar="getSeries(resultSet, getSeriesBarName(), pivotConfig)[0]"
+          chart-height="sm:h-[38vh] xl:h-[42vh] 2xl:h-[54vh]"
+          :series-line="getSeries(resultSet, getSeriesLineName() || 'Promedio Sem.', pivotConfig)[0]"
+          :series-bar="getSeries(resultSet, getSeriesBarName() || 'Promedio Sem.', pivotConfig)[0]"
           :etiquetas="resultSet.chartPivot(pivotConfig).map((row) => row.x)"
           :titulo="titulo"
           :color-theme="getThemeByDataSource(props.dataSource)"

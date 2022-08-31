@@ -25,12 +25,12 @@ const { dataSource } = storeToRefs(useDataSourceStore())
       <div class="flex items-center space-x-3">
         <!-- Toggle sidebar button -->
         <button
-          class="p-2 rounded-md dark:text-dark_contrast focus:outline-none focus:ring"
+          class="p-2 dark:text-dark_contrast"
           aria-label="Desplegar menú lalteral"
           @click="sidebarState.isOpen = !sidebarState.isOpen"
         >
           <svg
-            class="w-4 h-4 text-gray-600"
+            class="w-4 h-4 dark:text-dark_contrast text-light_contrast"
             :class="{ 'transform transition-transform -rotate-180': sidebarState.isOpen }"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -54,8 +54,8 @@ const { dataSource } = storeToRefs(useDataSourceStore())
           class="flex justify-self-center p-2 group text-light_contrast dark:text-dark_contrast"
           :class="[
             isCurrentRoute(general_sections.INFORMACION.key)
-              ? `text-${getThemeByDataSource(dataSource)} border-3 border-${getThemeByDataSource(dataSource)}`
-              : `border-3 border-${getThemeByDataSource(dataSource)} hover:text-${getThemeByDataSource(
+              ? `text-${getThemeByDataSource(dataSource)}`
+              : `hover:text-${getThemeByDataSource(
                   dataSource
                 )} text-light_contrast dark:hover:text-${getThemeByDataSource(dataSource)}  dark:text-dark_contrast`,
           ]"
@@ -64,7 +64,7 @@ const { dataSource } = storeToRefs(useDataSourceStore())
             ><QuestionMarkCircleIcon class="flex-shrink-0 w-6 h-6" aria-hidden="true" /></Popper
         ></router-link>
         <!-- Toggle darkmode button -->
-        <button aria-label="Cambiar tema" class="p-2 focus:outline-none" @click="toggleDarkMode">
+        <button aria-label="Cambiar tema" class="p-2" @click="toggleDarkMode">
           <!-- light icon -->
           <MoonIcon v-show="!isDark" class="flex-shrink-0 w-6 h-6 text-light_contrast" aria-hidden="true" />
           <!-- dark icon -->

@@ -72,6 +72,9 @@ const total = await cubeApi.load(totalConfirmados)
     </template>
     <template #default>
       <GraficoBar
+        :chart-height="
+          dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[42vh] 2xl:h-[26vh]' : 'sm:h-[38vh] xl:h-[42vh] 2xl:h-[54vh]'
+        "
         :color-theme="getThemeByDataSource(props.dataSource)"
         :series="procesaDatos(resultSet.series(pivotConfig), obtenerCantidad(total))"
         :titulo="titulo"

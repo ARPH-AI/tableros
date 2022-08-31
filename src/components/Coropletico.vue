@@ -104,7 +104,7 @@ const changeProvincia = (event) => {
         <Popover class="pr-10 relative">
           <PopoverButton> <QuestionMarkCircleIcon class="w-5" aria-hidden="true" /></PopoverButton>
           <PopoverPanel
-            class="dark:bg-dark_base dark:text-dark_contrast bg-light_base-50 absolute z-50 rounded-lg p-3 w-80"
+            class="dark:bg-dark_base dark:text-dark_contrast bg-light_base absolute z-50 rounded-lg p-3 w-80"
           >
             <p class="text-left text-sm">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
@@ -224,7 +224,7 @@ const changeProvincia = (event) => {
         />
       </div>
     </div>
-    <div class="flex-1 flex flex-row h-[70vh]">
+    <div class="flex-1 flex flex-row">
       <MapaCoropletico
         :key="key"
         :url="url"

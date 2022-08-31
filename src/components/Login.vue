@@ -47,9 +47,10 @@ export default {
         <div class="leading-loose">
           <form class="p-10 m-4 max-w-sm bg-white bg-opacity-25 rounded shadow-xl">
             <div class="flex justify-center m-3">
-              <img alt="ARPHAI logo" src="@/assets/logo-BN.png" class="w-56" />
+              <img alt="ARPHAI logo" src="@/assets/logo-BN.png" class="w-20" />
             </div>
-            <p class="mb-4 text-2xl font-bold text-center text-white">Iniciar sesión</p>
+            <p class="mb-4 text-2xl font-bold text-center text-light_contrast">Tablero epidemiológico</p>
+            <p class="mb-4 text-lg text-center text-white">Iniciar sesión</p>
             <div class="">
               <label class="block text-base text-left text-white" for="email">Correo electrónico</label>
               <input

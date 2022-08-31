@@ -57,7 +57,7 @@
             before:inset-y-0
             before:left-0
             before:border-l-2
-            before:border-l-gray-200
+            before:border-l-light_contrast
             dark:before:border-l-dark_contrast
           "
         >

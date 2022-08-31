@@ -1,7 +1,7 @@
 <template>
   <div class="w-full mt-4">
     <div class="w-full max-w-md rounded-2xlp-2">
-      <Disclosure v-for="section in props.content" :key="section.order" v-slot="{ open }">
+      <Disclosure v-for="(section, index) in props.content" :key="index" v-slot="{ open }">
         <DisclosureButton
           class="
             flex
@@ -10,20 +10,30 @@
             rounded-lg
             py-3
             px-3
-            text-left text-sm
             font-medium
             hover:bg-light_contrast
             dark:hover:bg-dark_contrast
             border-b-2
-            border-color-light_contrast
-            dark:border-color-gray-200
+            border-light_contrast
+            dark:border-dark_contrast
             focus:outline-none
             group
-            focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75
           "
         >
-          <span class="group-hover:text-dark_contrast">{{ section.title }}</span>
-          <ChevronUpIcon :class="open ? 'rotate-180 transform' : ''" class="h-5 w-5 text-purple-500" />
+          <span class="text-left text-sm group-hover:text-dark_contrast dark:group-hover:text-light_contrast">{{
+            section.title
+          }}</span>
+          <ChevronUpIcon
+            :class="open ? 'rotate-180 transform' : ''"
+            class="
+              h-5
+              w-5
+              text-light_contrast
+              dark:text-dark_contrast
+              group-hover:text-dark_contrast
+              dark:group-hover:text-light_contrast
+            "
+          />
           <transition
             enter-active-class="transition duration-100 ease-out"
             enter-from-class="transform scale-95 opacity-0"

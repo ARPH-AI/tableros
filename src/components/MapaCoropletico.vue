@@ -42,14 +42,14 @@ const criteria = [
 ]
 
 const scaleCriteria = [
-  { color: 'coroplethic_0', reference: '10', id: 0 },
-  { color: 'coroplethic_1', reference: '50', id: 1 },
-  { color: 'coroplethic_2', reference: '100', id: 2 },
-  { color: 'coroplethic_3', reference: '200', id: 3 },
-  { color: 'coroplethic_4', reference: '400', id: 4 },
-  { color: 'coroplethic_5', reference: '800', id: 5 },
-  { color: 'coroplethic_6', reference: '1600', id: 6 },
-  { color: 'coroplethic_7', reference: 'x > 1600', id: 7 },
+  { color: 'coroplethic_0', reference: '0 - 10', id: 0 },
+  { color: 'coroplethic_1', reference: '10 - 50', id: 1 },
+  { color: 'coroplethic_2', reference: '50 - 100', id: 2 },
+  { color: 'coroplethic_3', reference: '100 - 200', id: 3 },
+  { color: 'coroplethic_4', reference: '200 - 400', id: 4 },
+  { color: 'coroplethic_5', reference: '400 - 800', id: 5 },
+  { color: 'coroplethic_6', reference: '800 - 1600', id: 6 },
+  { color: 'coroplethic_7', reference: '+ 1600', id: 7 },
 ]
 
 const fnCompare = new Intl.Collator('es', {
@@ -140,7 +140,7 @@ const selectInteactionFilter = (feature) => {
     <ol-map
       :load-tiles-while-animating="true"
       :load-tiles-while-interacting="true"
-      class="flex w-full overflow-hidden flex-1 h-[64vh] 2xl:h-[68vh] rounded-xl shadow-2xl"
+      class="flex w-full overflow-hidden flex-1 h-[58vh] xl:h-[58vh] 2xl:h-[68vh] rounded-xl shadow-2xl"
     >
       <ol-view
         ref="view"
@@ -174,7 +174,7 @@ const selectInteactionFilter = (feature) => {
       <ol-zoom-control />
     </ol-map>
     <GeoInfoCard
-      class="w-60 z-80 h-48 bottom-[8%] right-[60%] xl:bottom-[4%] xl:right-[30%] 2xl:right-[21%] absolute shadow-2xl"
+      class="w-60 z-80 h-48 bottom-[8%] right-[60%] xl:bottom-[3%] xl:right-[27%] 2xl:right-[22.6%] absolute shadow-2xl"
       :titulo="departNombre"
       :color-theme="getThemeByDataSource('snvs')"
       :cantidad="casosCant"
@@ -188,7 +188,7 @@ const selectInteactionFilter = (feature) => {
       :titulos-columnas="['Departamento', 'Cantidad', 'Tasa']"
     />
     <CoroplethicMapScale
-      class="z-80 w-38 top-[26%] 2xl:top-[18%] left-[0.5%] absolute"
+      class="z-80 w-33 bottom-[8%] xl:bottom-[3%] 2xl:top-[18%] left-[0.8%] absolute"
       :references="scaleCriteria"
       :color-theme="getThemeByDataSource('snvs')"
     ></CoroplethicMapScale>

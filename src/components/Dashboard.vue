@@ -64,7 +64,58 @@
             <span v-show="!isCurrentRoute(general_sections.INFORMACION.key)" class="inline-flex float-right pr-14 mb-2"
               >Fuente de datos</span
             >
-            <TabList v-show="!isCurrentRoute(general_sections.INFORMACION.key)" class="inline-flex float-right pr-14">
+            <!-- <TabList v-show="!isCurrentRoute(general_sections.INFORMACION.key)" class="inline-flex float-right pr-14">
+              <Popper
+                placement="left"
+                arrow
+                disable-click-away
+                hover
+                interactive
+                :content="`Los datos de esta sección corresponden
+              a los registros de la atención ambulatoria en ${data_sources.HSI.title}`"
+              >
+                <Tab
+                  v-slot="{ selected }"
+                  as="template"
+                  class="px-4 py-1 -mb-px border-3 dark:border-color_0_dark border-color_0"
+                >
+                  <button
+                    :aria-label="`Seleccionar ${data_sources.HSI.key} como fuente de datos`"
+                    :class="[
+                      selected
+                        ? 'text-dark_contrast dark:text-light_contrast dark:bg-color_0_dark bg-color_0 opacity-100'
+                        : 'opacity-50',
+                    ]"
+                    class="shadow-inner py-1 font-extrabold group"
+                    @click="dataSource = 'hsi'"
+                  >
+                    HSI
+                  </button>
+                </Tab>
+              </Popper>
+              <Popper
+                arrow
+                disable-click-away
+                hover
+                interactive
+                content="Los datos de esta sección corresponden a los registros de los eventos de notificación obligatoria en
+                  el Sistema Nacional de Vigilancia en Salud"
+              >
+                <Tab
+                  v-slot="{ selected }"
+                  class="border-color_1 dark:border-color_1_dark px-4 py-1 -mb-px font-semibold shadow-2xl"
+                  as="template"
+                >
+                  <button
+                    :aria-label="`Seleccionar ${data_sources.SNVS.key} como fuente de datos`"
+                    :class="[selected ? 'bg-color_1 dark:bg-color_1_dark opacity-100' : 'opacity-50 ']"
+                    class="border-3 shadow-inner py-1 font-extrabold text-black group dark:text-dark_contrast"
+                    @click="dataSource = 'snvs'"
+                  >
+                    SNVS
+                  </button>
+                </Tab>
+              </Popper>
               <Popper
                 placement="left"
                 arrow
@@ -134,6 +185,62 @@
                   </button>
                 </Tab>
               </Popper>
+            </TabList> -->
+            <TabList
+              v-show="!isCurrentRoute(general_sections.INFORMACION.key)"
+              class="dark:bg-dark_smooth bg-light_smooth rounded-xl p-2 inline-flex float-right mr-6"
+            >
+              <Popper
+                placement="left"
+                arrow
+                disable-click-away
+                hover
+                interactive
+                :content="`Los datos de esta sección corresponden
+              a los registros de la atención ambulatoria en ${data_sources.HSI.title}`"
+              >
+                <Tab v-slot="{ selected }" as="template" class="rounded-xl px-4 py-2 -mb-px">
+                  <button
+                    :aria-label="`Seleccionar ${data_sources.HSI.key} como fuente de datos`"
+                    :class="[
+                      selected
+                        ? 'border-3 border-color_0 dark:bg-color_0_dark bg-color_0 opacity-100 dark:text-light_contrast text-dark_contrast'
+                        : 'border-none opacity-50 dark:text-color_0_dark text-color_0',
+                    ]"
+                    class="shadow-inner py-1 font-extrabold group"
+                    @click="dataSource = 'hsi'"
+                  >
+                    HSI
+                  </button>
+                </Tab>
+              </Popper>
+              <Popper
+                arrow
+                disable-click-away
+                hover
+                interactive
+                content="Los datos de esta sección corresponden a los registros de los eventos de notificación obligatoria en
+                  el Sistema Nacional de Vigilancia en Salud"
+              >
+                <Tab
+                  v-slot="{ selected }"
+                  class="rounded-xl px-4 py-2 -mb-px font-semibold shadow-2xl border-3"
+                  as="template"
+                >
+                  <button
+                    :aria-label="`Seleccionar ${data_sources.SNVS.key} como fuente de datos`"
+                    :class="[
+                      selected
+                        ? 'bg-color_1 dark:bg-color_1_dark border-color_1 shadow-xl opacity-100 dark:text-light_contrast text-dark_contrast'
+                        : 'border-none opacity-50 dark:text-color_1_dark text-color_1',
+                    ]"
+                    class="shadow-inner py-1 font-extrabol"
+                    @click="dataSource = 'snvs'"
+                  >
+                    SNVS
+                  </button>
+                </Tab>
+              </Popper>
             </TabList>
           </div>
           <TabPanels>
@@ -151,7 +258,7 @@ import { sidebarState } from '@/composables'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import RouterViewTransition from '@/components/RouterViewTransition.vue'
 import Popper from 'vue3-popper'
-import { sections, general_sections, data_sources, enos } from '@/constants'
+import { general_sections, data_sources, enos } from '@/constants'
 import { storeToRefs } from 'pinia'
 import { useDataSourceStore } from '@/stores/data-source-store.js'
 import { isCurrentRoute } from '@/composables'

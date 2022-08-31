@@ -5,16 +5,16 @@
     :class="[
       'p-2 flex items-center gap-2 rounded-md transition-colors',
       {
-        'text-color-light_contrast dark:text-color-dark_contrast hover:bg-color-light_contrast dark:hover:text-color-dark_contrast':
+        'text-light_contrast dark:text-dark_contrast hover:bg-color-light_contrast dark:hover:text-dark_contrast':
           !active,
-        'text-color-light_contrast dark:text-color-dark_contrast hover:bg-color-light_contrast dark:hover:bg-color-dark_contrast dark:hover:text-color-dark_contrast':
+        'text-light_contrast dark:text-dark_contrast hover:bg-color-light_contrast dark:hover:bg-color-dark_contrast dark:hover:text-dark_contrast':
           active,
       },
     ]"
   >
     <slot name="icon"> </slot>
 
-    <span class="font-medium text-color-light_contrast dark:text-color-dark_contrast">{{ title }}</span>
+    <span class="font-medium text-light_contrast dark:text-dark_contrast">{{ title }}</span>
   </a>
   <router-link
     v-else-if="to"
@@ -37,8 +37,7 @@
     :class="[
       'p-2 flex items-center gap-2 rounded-md transition-colors',
       {
-        'p-2 dark:text-dark_contrast text-light_contrast hover:bg-color_1 dark:hover:text-gray-300 dark:hover:bg-slate-900':
-          !active,
+        'p-2 dark:text-dark_contrast text-light_contrast  dark:hover:text-gray-300 dark:hover:bg-slate-900': !active,
         'dark:text-dark_contrast shadow-lg': active,
       },
     ]"

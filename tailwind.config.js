@@ -15,7 +15,7 @@ module.exports = {
       light_contrast: '#1e1e2f',
       dark_contrast: '#F3F4F6',
       dark_smooth: '#27293d',
-      light_smooth: colors.neutral,
+      light_smooth: '#FFFBEB',
       coroplethic_0: '#FFFFCC',
       coroplethic_1: '#FFEDA0',
       coroplethic_2: '#FED976',
@@ -31,4 +31,18 @@ module.exports = {
   variants: {
     scrollbar: ['dark'],
   },
+  safelist: [
+    'bg-coroplethic_0',
+    'bg-coroplethic_1',
+    'bg-coroplethic_2',
+    'bg-coroplethic_3',
+    'bg-coroplethic_4',
+    'bg-coroplethic_5',
+    'bg-coroplethic_6',
+    'bg-coroplethic_7',
+    'text-color_0_dark',
+    'text-color_1_dark',
+    'dark:hover:text-color_0_dark',
+    'dark:hover:text-color_1_dark',
+  ],
 }
