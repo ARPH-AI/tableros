@@ -1,43 +1,72 @@
 <script setup lang="ts">
 import cubeApi from '@/cube'
 import { QueryBuilder } from '@cubejs-client/vue3'
-import { flattenColumns, getDisplayedColumns } from '@/cube/utils'
+import { flattenColumns, getDisplayedColumns, keepProps, filterIncludes } from '@/cube/utils'
 import { getThemeByDataSource } from '@/composables'
+import { format, addYears } from 'date-fns'
 
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
 })
 
-// const fechaInicio = '2021-01-01' //fecha fija
-// const fechaFin = '2022-06-06' //hoy
+const dateFormat = 'yyyy-MM-dd'
+const todayDate = new Date()
+const today = format(todayDate, dateFormat)
+const oneYear = format(addYears(todayDate, -1), dateFormat)
+
 const titulo = 'Casos activos por Semana Epidemiológica'
 
 const totalCasosSNVS = {
   measures: ['casosCovidPromSem.cantidadXDiaSNVS'],
   timeDimensions: [],
   order: {
+//    'casosCovidPromSem.cantidadXDiaSNVS': 'desc',
+    'casosCovidPromSem.anio': 'desc',
     'casosCovidPromSem.numero_semana': 'desc',
   },
-  filters: [],
-  dimensions: ['casosCovidPromSem.nombre_semana'],
+  filters: [{
+      member: 'casosCovidPromSem.Fecha_inicio_Conf',
+      operator: 'inDateRange',
+      values: [oneYear, today]
+  }],
+  dimensions: [
+    'casosCovidPromSem.nombre_semana',
+    'casosCovidPromSem.anio',
+    'casosCovidPromSem.numero_semana'
+  ],
 }
 
 const totalCasosHSI = {
   measures: ['casos.identificador'],
-  timeDimensions: [
+  filters: [
     {
-      dimension: 'casos.inicio_covid',
+      member: 'casos.inicio_covid',
+      operator: "inDateRange",
+      values: [oneYear, today]
     },
   ],
   order: {
-    'casos.semana': 'desc',
+    'casos.anio': 'desc',
+    'casos.numero_semana': 'desc',
   },
-  dimensions: ['casos.semana', 'casos.variable'],
+  dimensions: [
+    'casos.semana',
+    'casos.variable',
+    'casos.anio',
+    'casos.numero_semana'
+  ],
 }
 
-const pivotConfig = {
+const pivotConfigHSI = {
   x: ['casos.semana'],
   y: ['casos.variable', 'measures'],
+  fillMissingDates: true,
+  joinDateRange: false,
+}
+
+const pivotConfigSNVS = {
+  x: ['casosCovidPromSem.nombre_semana'],
+  y: ['casosCovidPromSem.cantidadXDiaSNVS'],
   fillMissingDates: true,
   joinDateRange: false,
 }
@@ -50,28 +79,74 @@ const getTotalCasosActivos = () => {
       return totalCasosSNVS
   }
 }
+
+const getPivotConfig = () => {
+  switch (props.dataSource) {
+    case 'hsi':
+      return pivotConfigHSI
+    case 'snvs':
+      return pivotConfigSNVS
+  }
+}
+
+const getKeys = {
+    'hsi' : [
+        "casos.semana",
+//        "casos.anio",
+        "Confirmado,casos.identificador",
+        "Sospecha,casos.identificador"
+    ],
+    'snvs': [
+        "casosCovidPromSem.nombre_semana",
+//        "casosCovidPromSem.anio",
+        "casosCovidPromSem.cantidadXDiaSNVS",
+    ]
+}
+
+const getKeysColumnas = {
+    'hsi': [
+        'Semana',
+//        'Anio',
+        'Confirmado',
+        'Sospecha'
+    ],
+    'snvs': [
+        'Nombre Semana',
+//        'Anio',
+        'Casos Diarios SNVS'
+    ]
+}
+
+const resultSet = await cubeApi.load(getTotalCasosActivos())
+const tablePivot = await resultSet.tablePivot(getPivotConfig())
+
+const datos = keepProps(tablePivot, getKeys[props.dataSource])
+
+const tableColumns = await resultSet.tableColumns(getPivotConfig())
+
+const titulosColumnas = filterIncludes(flattenColumns(tableColumns), getKeysColumnas[props.dataSource])
+const titulosMostrados = filterIncludes(getDisplayedColumns(tableColumns), getKeys[props.dataSource])
+
 </script>
 
 <template>
-  <query-builder :cubejs-api="cubeApi" :query="getTotalCasosActivos()">
-    <template #default="{ loading, resultSet }">
-      <div v-if="loading" class="flex justify-center items-center">
+    <Suspense>
+    <template #fallback>
         <BaseTableSkeleton
           styles="sm:h-[38vh] xl:h-[49vh] 2xl:h-[60vh]"
           :color-theme="getThemeByDataSource(props.dataSource)"
         ></BaseTableSkeleton>
-      </div>
-      <div v-if="!loading && resultSet !== undefined">
+    </template>
+    <template #default>
         <TableCard
           :color-theme="getThemeByDataSource(props.dataSource)"
-          :datos="resultSet.tablePivot(pivotConfig)"
+          :datos="datos"
           :titulo="titulo"
-          :titulos-columnas="flattenColumns(resultSet.tableColumns(pivotConfig))"
-          :titulos-mostrados="getDisplayedColumns(resultSet.tableColumns(pivotConfig))"
+          :titulos-columnas="titulosColumnas"
+          :titulos-mostrados="titulosMostrados"
         />
-      </div>
     </template>
-  </query-builder>
+    </Suspense>
 </template>
 
 <style scoped></style>

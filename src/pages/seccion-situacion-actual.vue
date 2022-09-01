@@ -26,7 +26,7 @@ const { dataSource } = storeToRefs(useDataSourceStore())
           <CasosNuevos7Dias data-source="hsi" />
           <CasosPromedioSemanal data-source="hsi" />
         </div>
-        <CasosActivosSemanaEpidemiologica data-source="hsi" />
+        <Suspense><CasosActivosSemanaEpidemiologica data-source="hsi" /></Suspense>
       </div>
     </div>
   </div>
@@ -46,7 +46,7 @@ const { dataSource } = storeToRefs(useDataSourceStore())
           <CasosNuevos7Dias data-source="snvs" />
           <CasosPromedioSemanal data-source="snvs" />
         </div>
-        <CasosActivosSemanaEpidemiologica data-source="snvs" />
+        <Suspense><CasosActivosSemanaEpidemiologica data-source="snvs" /></Suspense>
       </div>
     </div>
   </div>
