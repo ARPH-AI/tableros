@@ -20,20 +20,18 @@ const totalCasosSNVS = {
   measures: ['casosCovidPromSem.cantidadXDiaSNVS'],
   timeDimensions: [],
   order: {
-//    'casosCovidPromSem.cantidadXDiaSNVS': 'desc',
+    //    'casosCovidPromSem.cantidadXDiaSNVS': 'desc',
     'casosCovidPromSem.anio': 'desc',
     'casosCovidPromSem.numero_semana': 'desc',
   },
-  filters: [{
+  filters: [
+    {
       member: 'casosCovidPromSem.Fecha_inicio_Conf',
       operator: 'inDateRange',
-      values: [oneYear, today]
-  }],
-  dimensions: [
-    'casosCovidPromSem.nombre_semana',
-    'casosCovidPromSem.anio',
-    'casosCovidPromSem.numero_semana'
+      values: [oneYear, today],
+    },
   ],
+  dimensions: ['casosCovidPromSem.nombre_semana', 'casosCovidPromSem.anio', 'casosCovidPromSem.numero_semana'],
 }
 
 const totalCasosHSI = {
@@ -41,20 +39,15 @@ const totalCasosHSI = {
   filters: [
     {
       member: 'casos.inicio_covid',
-      operator: "inDateRange",
-      values: [oneYear, today]
+      operator: 'inDateRange',
+      values: [oneYear, today],
     },
   ],
   order: {
     'casos.anio': 'desc',
     'casos.numero_semana': 'desc',
   },
-  dimensions: [
-    'casos.semana',
-    'casos.variable',
-    'casos.anio',
-    'casos.numero_semana'
-  ],
+  dimensions: ['casos.semana', 'casos.variable', 'casos.anio', 'casos.numero_semana'],
 }
 
 const pivotConfigHSI = {
@@ -90,31 +83,31 @@ const getPivotConfig = () => {
 }
 
 const getKeys = {
-    'hsi' : [
-        "casos.semana",
-//        "casos.anio",
-        "Confirmado,casos.identificador",
-        "Sospecha,casos.identificador"
-    ],
-    'snvs': [
-        "casosCovidPromSem.nombre_semana",
-//        "casosCovidPromSem.anio",
-        "casosCovidPromSem.cantidadXDiaSNVS",
-    ]
+  hsi: [
+    'casos.semana',
+    //        "casos.anio",
+    'Confirmado,casos.identificador',
+    'Sospecha,casos.identificador',
+  ],
+  snvs: [
+    'casosCovidPromSem.nombre_semana',
+    //        "casosCovidPromSem.anio",
+    'casosCovidPromSem.cantidadXDiaSNVS',
+  ],
 }
 
 const getKeysColumnas = {
-    'hsi': [
-        'Semana',
-//        'Anio',
-        'Confirmado',
-        'Sospecha'
-    ],
-    'snvs': [
-        'Nombre Semana',
-//        'Anio',
-        'Casos Diarios SNVS'
-    ]
+  hsi: [
+    'Semana',
+    //        'Anio',
+    'Confirmado',
+    'Sospecha',
+  ],
+  snvs: [
+    'Nombre Semana',
+    //        'Anio',
+    'Casos Diarios SNVS',
+  ],
 }
 
 const resultSet = await cubeApi.load(getTotalCasosActivos())
@@ -126,27 +119,26 @@ const tableColumns = await resultSet.tableColumns(getPivotConfig())
 
 const titulosColumnas = filterIncludes(flattenColumns(tableColumns), getKeysColumnas[props.dataSource])
 const titulosMostrados = filterIncludes(getDisplayedColumns(tableColumns), getKeys[props.dataSource])
-
 </script>
 
 <template>
-    <Suspense>
+  <Suspense>
     <template #fallback>
-        <BaseTableSkeleton
-          styles="sm:h-[38vh] xl:h-[49vh] 2xl:h-[60vh]"
-          :color-theme="getThemeByDataSource(props.dataSource)"
-        ></BaseTableSkeleton>
+      <BaseTableSkeleton
+        styles="sm:h-[38vh] xl:h-[49vh] 2xl:h-[60vh]"
+        :color-theme="getThemeByDataSource(props.dataSource)"
+      ></BaseTableSkeleton>
     </template>
     <template #default>
-        <TableCard
-          :color-theme="getThemeByDataSource(props.dataSource)"
-          :datos="datos"
-          :titulo="titulo"
-          :titulos-columnas="titulosColumnas"
-          :titulos-mostrados="titulosMostrados"
-        />
+      <TableCard
+        :color-theme="getThemeByDataSource(props.dataSource)"
+        :datos="datos"
+        :titulo="titulo"
+        :titulos-columnas="titulosColumnas"
+        :titulos-mostrados="titulosMostrados"
+      />
     </template>
-    </Suspense>
+  </Suspense>
 </template>
 
 <style scoped></style>
