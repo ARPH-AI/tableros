@@ -25,6 +25,11 @@ const getCoords = async (resultSet) => {
     },
   }
 
+  if(ciudades.length === 0) {
+    console.error('No encontro ciudades para consultar')
+    return []
+  }
+
   try {
     const {
       data: { resultados: localidades },
