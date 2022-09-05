@@ -10,6 +10,7 @@ paths:
     post:
       operationId: loginUser
       tags:
+        - backend
         - auth
       requestBody:
         content:
@@ -52,6 +53,7 @@ paths:
     post:
       operationId: refreshToken
       tags:
+        - backend
         - refresh
       requestBody:
         content:
@@ -91,6 +93,7 @@ paths:
     get:
       operationId: getCubeToken
       tags:
+        - backend
         - cube
       responses:
         '200':
@@ -110,6 +113,7 @@ paths:
     get:
       operationId: getAccountPermissions
       tags:
+        - backend
         - account
         - permissions
       responses:
@@ -142,6 +146,7 @@ paths:
     get:
       operationId: getAccountInfo
       tags:
+        - backend
         - account
         - info
       responses:
@@ -160,6 +165,7 @@ paths:
     get:
       operationId: getPublicVersion
       tags:
+        - backend
         - public
         - version
       responses:
@@ -185,6 +191,7 @@ paths:
     get:
       operationId: getPublicInfo
       tags:
+        - backend
         - public
         - info
       responses:

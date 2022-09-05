@@ -92,9 +92,10 @@ make load-dashboard-changes
 
 Auditamos con esta biblioteca [vue-a11y](https://github.com/vue-a11y/vue-axe-next) que utiliza [axe-core](https://github.com/dequelabs/axe-core/). Toma en cuenta las siguientes [reglas](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md).
 
-## Configuración Desarrollo
+## Configuración
 
-Poner credenciales de Cube en .env.development
+- Desarrollo: Poner credenciales de Cube en .env.development
+- Producción: Poner credenciales de Cube en .env.production
 
 ## Dockerizacion
 

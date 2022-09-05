@@ -3,6 +3,7 @@
 api.ts
 api/account-api.ts
 api/auth-api.ts
+api/backend-api.ts
 api/cube-api.ts
 api/info-api.ts
 api/permissions-api.ts

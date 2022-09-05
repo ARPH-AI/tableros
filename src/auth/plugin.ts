@@ -4,7 +4,7 @@ import { configureAuthorizationHeaderInterceptor, configureRefreshTokenResponseI
 import { configureNavigationGuards } from './navigationGuards'
 import { ANONYMOUS_USER, AuthOptions, AuthPlugin, RequiredAuthOptions, User, UserTokens } from './types'
 import { useNotify } from '@/notification'
-import { authApi, refreshApi, authCubeApi } from '@/api'
+import { backendApi } from '@/api'
 import { RefreshToken, AuthApiLoginUserRequest, LoginUser } from '@/api-client-backend'
 
 const TOKEN_STORAGE_KEY = 'arphai-token'
@@ -41,7 +41,7 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
   }
 
   async function getCubeToken() {
-    const response = await authCubeApi.getCubeToken()
+    const response = await backendApi.getCubeToken()
     let token = ''
     if (response.status === 200) {
       token = response.data.token || ''
@@ -55,7 +55,7 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
     const body: AuthApiLoginUserRequest = {
       loginUser: formData,
     }
-    const response = await authApi.loginUser(body)
+    const response = await backendApi.loginUser(body)
     const { data } = response
     if (response.status == 200) {
       user.value = data.user
@@ -84,7 +84,7 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
     if (isAuthenticated.value) {
       const body = { refreshToken: refreshToken }
       accessToken.value = refreshToken
-      const response = await refreshApi.refreshToken(body)
+      const response = await backendApi.refreshToken(body)
       const { data } = response
       if (response.status === 200) {
         storeTokens(response.data)
