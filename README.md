@@ -1,5 +1,16 @@
 # Entorno de desarrollo para Arphai Dashboard
 
+## Antes de empezar
+> Es necesario tener instalado en tu sistema operativo los siguiente programas
+
+- git
+- docker
+- docker-compose
+- make
+- node/npm (preferentemente con nvm)
+
+Es habitual al instalar docker, no tener tu usuario en el grupo docker. Solución `usermod -aG docker $TU_USUARIO`
+
 ## Aplicacion de dashboard
 
 > Ver [Documentación de VUELIX](README.vuelix.md) - Vuelix is a Vue 3 + Vite starter template to scaffold new projects really fast and with a great developer experience.
