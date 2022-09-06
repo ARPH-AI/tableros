@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const express = require('express')
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
 const { expressjwt } = require('express-jwt')
 const moment = require('moment')
+const morgan = require('morgan')
 require('dotenv').config({ path: './.env' })
 
 const app = express()
@@ -34,7 +34,8 @@ const corsOptions = {
     if (WHITE_LIST.indexOf(origin) !== -1) {
       callback(null, true)
     } else {
-      callback(new Error('Not allowed by CORS'))
+      //Not allowed by CORS
+      callback(null, false)
     }
   },
 }
@@ -74,29 +75,19 @@ const handleTokenErrors = (err, req, res, next) => {
   }
 }
 
-const logger = (err, req, res, next) => {
-  const method = req.method || ''
-  const url = req.url || ''
-  console.log(`${moment().format()} >> ${method} ${url}`)
-  next(err, req, res)
-}
-
 const generateToken = (options, refresh = false) => {
   const iatValue = Math.floor(Date.now() / 1000) - 30
   const expire = refresh ? REFRESH_TOKEN_EXPIRE : ACCESS_TOKEN_EXPIRE
   return jwt.sign({ data: options, iat: iatValue }, jwtOptions.secret, { algorithm: 'HS256', expiresIn: expire })
 }
 
+app.use(morgan('combined'));
+app.get('/', (req, res) => res.send('Tablero Backend v1.0')) //Sin cors por orden
 app.use(expressjwt(jwtOptions).unless({ path: ['/auth'] }))
 app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(logger)
 app.use(handleTokenErrors)
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
 
 app.post('/auth', (req, res) => {
   const { username, password } = req.body
