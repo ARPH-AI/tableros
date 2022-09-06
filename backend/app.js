@@ -125,7 +125,7 @@ app.get('/auth/cubejs-token', (req, res) => {
     if (process.env.MODE == 'development') {
       cubeToken = DEV_TOKEN
     } else {
-      cubeToken = jwt.sign(req.user, CUBEJS_API_SECRET, { expiresIn: '1d' })
+      cubeToken = jwt.sign(req.user, CUBEJS_API_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRE })
     }
     res.status(200).send({ token: cubeToken })
   } else {
