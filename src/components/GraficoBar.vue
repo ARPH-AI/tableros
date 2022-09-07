@@ -51,7 +51,7 @@ const light_theme_options = {
   },
   grid: {
     top: '8%',
-    bottom: '20%',
+    bottom: '35%',
     left: '40%',
   },
   legend: {
@@ -115,7 +115,7 @@ const dark_theme_options = {
   },
   grid: {
     top: '8%',
-    bottom: '20%',
+    bottom: '35%',
     //containLabel: true,
     left: '40%',
   },
