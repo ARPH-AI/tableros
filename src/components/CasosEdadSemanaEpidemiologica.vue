@@ -154,8 +154,8 @@ const semanasUnicas = [...new Set(semanaSetPivot.map((semana) => semana.xValues[
       <div>
         <GraficoStackedLines
           :chart-height="
-            dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[42vh] 2xl:h-[26vh]' : 'sm:h-[38vh] xl:h-[42vh] 2xl:h-[54vh]'
-          "
+            props.dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[26vh]' : 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]'"
+
           :color-theme="getThemeByDataSource(props.dataSource)"
           :series="procesaDatos(resultSet.series(getPivotConfig()).filter(filterV).map(itemSplit), semanas)"
           :titulo="titulo"
@@ -167,5 +167,3 @@ const semanasUnicas = [...new Set(semanaSetPivot.map((semana) => semana.xValues[
     </template>
   </Suspense>
 </template>
-
-<style scoped></style>

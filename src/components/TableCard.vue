@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
+  tableDimensions: string
   datos: object[]
   titulo: string
   titulosColumnas: string[]
@@ -14,7 +15,7 @@ const props = defineProps<{
   >
     <div class="leading-tight text-left text-light_contrast dark:text-dark_contrast">
       <h5 class="pl-2 text-sm uppercase border-l-4 border-light_contrast dark:border-dark_contrast">
-        {{ titulo }}
+        {{ props.titulo }}
       </h5>
       <div
         class="
@@ -31,7 +32,7 @@ const props = defineProps<{
       >
         <div class="sm:-mx-6 lg:-mx-7">
           <div class="inline-block min-w-full lg:px-8">
-            <div class="sm:h-[38vh] xl:h-[38vh] 2xl:h-[52vh]">
+            <div :class="`${props.tableDimensions}`">
               <table :v-if="datos" class="w-full">
                 <thead>
                   <tr>

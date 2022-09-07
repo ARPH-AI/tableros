@@ -58,134 +58,20 @@
             class="grid float-left grid-cols-1 pl-4 mt-4 ml-4 text-left h-fit"
           >
             <span class="float-left text-4xl align-middle">{{ enos.COVID.title }}</span>
-            <span class="float-left leading-relaxed align-middle"> Actualizado: {{ currentTime }}</span>
           </div>
-          <div class="grid float-right grid-cols-1 mt-3 text-left h-fit">
-            <span v-show="!isCurrentRoute(general_sections.INFORMACION.key)" class="inline-flex float-right pr-14 mb-2"
-              >Fuente de datos</span
-            >
-            <!-- <TabList v-show="!isCurrentRoute(general_sections.INFORMACION.key)" class="inline-flex float-right pr-14">
-              <Popper
-                placement="left"
-                arrow
-                disable-click-away
-                hover
-                interactive
-                :content="`Los datos de esta sección corresponden
-              a los registros de la atención ambulatoria en ${data_sources.HSI.title}`"
+
+          <div
+            v-show="!isCurrentRoute(general_sections.INFORMACION.key)"
+            class="grid float-right grid-cols-2 mt-3 text-left h-fit"
+          >
+            <!-- Data Sources information -->
+            <div class="grid grid-cols-1 mt-3 text-xs">
+              <span class="float-left leading-relaxed align-middle">
+                Fuente de datos: <span class="uppercase text-">{{ dataSource }}</span></span
               >
-                <Tab
-                  v-slot="{ selected }"
-                  as="template"
-                  class="px-4 py-1 -mb-px border-3 dark:border-color_0_dark border-color_0"
-                >
-                  <button
-                    :aria-label="`Seleccionar ${data_sources.HSI.key} como fuente de datos`"
-                    :class="[
-                      selected
-                        ? 'text-dark_contrast dark:text-light_contrast dark:bg-color_0_dark bg-color_0 opacity-100'
-                        : 'opacity-50',
-                    ]"
-                    class="shadow-inner py-1 font-extrabold group"
-                    @click="dataSource = 'hsi'"
-                  >
-                    HSI
-                  </button>
-                </Tab>
-              </Popper>
-              <Popper
-                arrow
-                disable-click-away
-                hover
-                interactive
-                content="Los datos de esta sección corresponden a los registros de los eventos de notificación obligatoria en
-                  el Sistema Nacional de Vigilancia en Salud"
-              >
-                <Tab
-                  v-slot="{ selected }"
-                  class="border-color_1 dark:border-color_1_dark px-4 py-1 -mb-px font-semibold shadow-2xl"
-                  as="template"
-                >
-                  <button
-                    :aria-label="`Seleccionar ${data_sources.SNVS.key} como fuente de datos`"
-                    :class="[selected ? 'bg-color_1 dark:bg-color_1_dark opacity-100' : 'opacity-50 ']"
-                    class="border-3 shadow-inner py-1 font-extrabold text-black group dark:text-dark_contrast"
-                    @click="dataSource = 'snvs'"
-                  >
-                    SNVS
-                  </button>
-                </Tab>
-              </Popper>
-              <Popper
-                placement="left"
-                arrow
-                disable-click-away
-                hover
-                interactive
-                :content="`Los datos de esta sección corresponden
-              a los registros de la atención ambulatoria en ${data_sources.HSI.title}`"
-              >
-                <Tab
-                  v-slot="{ selected }"
-                  as="template"
-                  class="
-                    px-4
-                    py-2
-                    -mb-px
-                    border-3
-                    dark:border-color_0_dark
-                    border-color_0
-                    dark:bg-color_0_dark
-                    bg-color_0
-                  "
-                >
-                  <button
-                    :aria-label="`Seleccionar ${data_sources.HSI.key} como fuente de datos`"
-                    :class="[selected ? 'opacity-100' : 'border-none opacity-50']"
-                    class="shadow-inner py-1 font-extrabold text-white group"
-                    @click="dataSource = 'hsi'"
-                  >
-                    HSI
-                  </button>
-                </Tab>
-              </Popper>
-              <Popper
-                arrow
-                disable-click-away
-                hover
-                interactive
-                content="Los datos de esta sección corresponden a los registros de los eventos de notificación obligatoria en
-                  el Sistema Nacional de Vigilancia en Salud"
-              >
-                <Tab
-                  v-slot="{ selected }"
-                  class="
-                    px-4
-                    py-2
-                    -mb-px
-                    font-semibold
-                    shadow-2xl
-                    dark:bg-color_1_dark dark:border-color_1_dark
-                    bg-color_1
-                    border-color_1
-                  "
-                  as="template"
-                >
-                  <button
-                    :aria-label="`Seleccionar ${data_sources.SNVS.key} como fuente de datos`"
-                    :class="[
-                      selected
-                        ? 'shadow-xl border-3 border-color_1 dark:border-color_1_dark opacity-100'
-                        : 'opacity-50',
-                    ]"
-                    class="shadow-inner py-1 font-extrabold text-black group dark:text-dark_contrast"
-                    @click="dataSource = 'snvs'"
-                  >
-                    SNVS
-                  </button>
-                </Tab>
-              </Popper>
-            </TabList> -->
+              <span class="float-left leading-relaxed align-middle"> Actualizacion: {{ currentTime }}</span>
+            </div>
+
             <TabList
               v-show="!isCurrentRoute(general_sections.INFORMACION.key)"
               class="dark:bg-dark_smooth bg-light_smooth rounded-xl p-2 inline-flex float-right mr-6"
@@ -272,8 +158,8 @@ var yyyy = today.getFullYear()
 var currentTime = dd + '/' + mm + '/' + yyyy
 </script>
 
-<style scoped>
-:deep(.popper) {
+<style>
+/* :deep(.popper) {
   background: #000000;
   padding: 8px;
   border-radius: 3px;
@@ -292,5 +178,20 @@ var currentTime = dd + '/' + mm + '/' + yyyy
 :deep(.popper:hover),
 :deep(.popper:hover > #arrow::before) {
   background: #000000;
+} */
+
+.popper {
+  max-width: 25rem;
+}
+:root {
+  --popper-theme-background-color: #000000;
+  --popper-theme-background-color-hover: #000000;
+  --popper-theme-text-color: #ffffff;
+  --popper-theme-text-weight: #ffffff;
+  --popper-theme-border-width: 0px;
+  --popper-theme-border-style: solid;
+  --popper-theme-border-radius: 3px;
+  --popper-theme-padding: 8px;
+  --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
 }
 </style>

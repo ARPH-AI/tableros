@@ -125,12 +125,13 @@ const titulosMostrados = filterIncludes(getDisplayedColumns(tableColumns), getKe
   <Suspense>
     <template #fallback>
       <BaseTableSkeleton
-        styles="sm:h-[38vh] xl:h-[49vh] 2xl:h-[60vh]"
+        styles="sm:h-[38vh] xl:h-[55vh] 2xl:h-[60vh]"
         :color-theme="getThemeByDataSource(props.dataSource)"
       ></BaseTableSkeleton>
     </template>
     <template #default>
       <TableCard
+        tableDimensions="sm:h-[38vh] xl:h-[43.2vh] 2xl:h-[52vh]"
         :color-theme="getThemeByDataSource(props.dataSource)"
         :datos="datos"
         :titulo="titulo"

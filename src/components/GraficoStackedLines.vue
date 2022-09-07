@@ -35,7 +35,7 @@ const stackSeries = (series) => {
 const light_theme_options = ref({
   textStyle: {
     fontFamily: 'monospace',
-    fontSize: 16,
+    fontSize: 14,
     color: 'black',
   },
   xAxis: {
@@ -52,10 +52,10 @@ const light_theme_options = ref({
     nameGap: 65,
   },
   grid: {
-    top: '8%',
-    left: '4%',
-    right: '10%',
-    bottom: '30%',
+    top: '12%',
+    left: '1%',
+    right: '5%',
+    bottom: '22%',
     containLabel: true,
   },
   legend: {
@@ -68,19 +68,19 @@ const light_theme_options = ref({
     },
   },
   toolbox: {
-    itemSize: 18,
-    top: 1,
+    itemSize: 14,
+    top: 20,
     right: 5,
     orient: 'vertical',
     feature: {
-      dataView: { iconStyle: { borderColor: 'black' }, show: true, readOnly: false },
-      magicType: { iconStyle: { borderColor: 'black' }, show: true, type: ['line', 'bar'] },
+      dataView: { title: 'Ver datos', iconStyle: { borderColor: 'black' }, show: true, readOnly: false },
+      magicType: { show: false },
       dataZoom: {
         iconStyle: { borderColor: 'black' },
         yAxisIndex: 'none',
       },
-      restore: { iconStyle: { borderColor: 'black' }, show: true },
-      saveAsImage: { iconStyle: { borderColor: 'black' }, show: true },
+      restore: { title: 'Estado inicial', iconStyle: { borderColor: 'black' }, show: true },
+      saveAsImage: { title: 'Descargar como imágen', iconStyle: { borderColor: 'black' }, show: true },
     },
   },
   tooltip: {
@@ -98,8 +98,7 @@ const light_theme_options = ref({
 const dark_theme_options = ref({
   textStyle: {
     fontFamily: 'monospace',
-    fontWeight: 500,
-    fontSize: 16,
+    fontSize: 14,
     color: 'white',
   },
   xAxis: {
@@ -116,10 +115,10 @@ const dark_theme_options = ref({
     nameGap: 65,
   },
   grid: {
-    top: '8%',
-    left: '4%',
-    right: '10%',
-    bottom: '30%',
+    top: '12%',
+    left: '1%',
+    right: '5%',
+    bottom: '22%',
     containLabel: true,
   },
   legend: {
@@ -132,10 +131,9 @@ const dark_theme_options = ref({
     },
   },
   toolbox: {
-    itemSize: 18,
-    top: 1,
+    itemSize: 14,
+    top: 20,
     right: 5,
-    showTitle: true,
     orient: 'vertical',
     feature: {
       dataView: {
@@ -147,7 +145,7 @@ const dark_theme_options = ref({
           var axisData = opt.xAxis[0].data
           var series = opt.series
           var table =
-            '<table style="width:100%;text-align:center; color:black"><tbody><tr>' +
+            '<table style="width:100%;text-align:center; color:white"><tbody><tr>' +
             '<td>Time:</td>' +
             '<td>' +
             series[0].name +
@@ -174,13 +172,17 @@ const dark_theme_options = ref({
           return table
         },
       },
-      magicType: { iconStyle: { borderColor: 'white' }, show: true, type: ['line', 'bar'] },
+      magicType: { show: false },
       dataZoom: {
         iconStyle: { borderColor: 'white' },
         yAxisIndex: 'none',
       },
-      restore: { iconStyle: { borderColor: 'white' }, show: true },
-      saveAsImage: { iconStyle: { borderColor: 'white' }, show: true, title: 'Descargar' },
+      restore: { title: 'Estado inicial', iconStyle: { borderColor: 'white' }, show: true },
+      saveAsImage: {
+        title: 'Descargar como imágen',
+        iconStyle: { borderColor: 'white' },
+        show: true,
+      },
     },
   },
   tooltip: {
@@ -198,7 +200,7 @@ const dark_theme_options = ref({
 
 <template>
   <div
-    :class="`sm:p-2 xl:p-4 2xl:p-5 rounded-lg border-r-4 shadow-2xl bg-light_smooth dark:bg-dark_smooth dark:border-${props.colorTheme}_dark `"
+    :class="`sm:p-2 xl:p-4 2xl:p-5 rounded-lg border-r-4 shadow-2xl bg-light_smooth dark:bg-dark_smooth border-${props.colorTheme} dark:border-${props.colorTheme}_dark `"
   >
     <div class="leading-tight text-left text-light_contrast dark:text-dark_contrast">
       <h5 class="pl-2 text-sm uppercase border-l-4 border-light_contrast dark:border-dark_contrast">

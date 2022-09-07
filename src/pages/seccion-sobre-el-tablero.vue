@@ -27,7 +27,7 @@ import { sections, data_sources } from '@/constants'
             denotan distintas dimensiones posibles de su analisis.
           </p>
           <BaseDisclosure :content="sections"></BaseDisclosure>
-          <p class="mt-6 font-semibold">Consultas febriles</p>
+          <p class="mt-5 font-semibold">Consultas febriles</p>
           <p class="mt-3">
             Aqui se visualizan las consultas totales, las consultas febriles y dentro de estas las febriles con y sin
             sintomatología respiratoria. Esta sección busca realizar un aporte a la vigilancia sindrómica de las
@@ -43,7 +43,7 @@ import { sections, data_sources } from '@/constants'
             notificación obligatoria (ENOs) provenientes de dos fuentes principales:
           </p>
           <BaseDisclosure :content="data_sources" />
-          <h1 class="mt-6 text-xl font-bold">Contexto</h1>
+          <h1 class="mt-5 text-xl font-bold">Contexto y apoyo</h1>
           <p class="mt-3">
             Este tablero, elaborado en el marco del proyecto <a href="http://www.ciecti.org.ar/arphai/">ARPHAI</a>, se
             llevó a cabo con la ayuda de una subvención del Programa COVID-19 Sur Global de Inteligencia Artificial e
@@ -52,11 +52,6 @@ import { sections, data_sources } from '@/constants'
             informaciones y opiniones aquí expresadas no representan necesariamente las del IDRC o su Junta de
             Gobernadores.
           </p>
-          <div class="flex flex-row mt-5 space-x-6">
-            <div class="animate-pulse mb-2 w-24 h-24 text-base bg-slate-200 rounded-full dark:bg-slate-400"></div>
-            <div class="animate-pulse mb-2 w-24 h-24 text-base bg-slate-200 rounded-full dark:bg-slate-400"></div>
-            <div class="animate-pulse mb-2 w-24 h-24 text-base bg-slate-200 rounded-full dark:bg-slate-400"></div>
-          </div>
         </div>
       </div>
     </main>

@@ -16,8 +16,7 @@ const colorPalette = ['#b3ecf0', '#80dfe6', '#33ccd6', '#00acb8', '#00868f']
 const light_theme_options = ref({
   textStyle: {
     fontFamily: 'monospace',
-    fontWeight: 500,
-    fontSize: 16,
+    fontSize: 14,
     textBorderColor: '#fe161f',
     textBorderType: 'solid',
   },
@@ -25,22 +24,21 @@ const light_theme_options = ref({
     trigger: 'item',
     formatter: '{b}<br /><b>{c}%',
   },
-  darkMode: true,
   toolbox: {
-    itemSize: 18,
-    top: 1,
+    itemSize: 14,
+    top: 20,
     right: 5,
     showTitle: true,
     orient: 'vertical',
     feature: {
-      dataView: { iconStyle: { borderColor: 'black' }, show: true, readOnly: false },
-      magicType: { iconStyle: { borderColor: 'black' }, show: true, type: ['line', 'bar'] },
+      dataView: { title: 'Ver datos', iconStyle: { borderColor: 'black' }, show: true, readOnly: false },
+      magicType: { show: false },
       dataZoom: {
         iconStyle: { borderColor: 'black' },
         yAxisIndex: 'none',
       },
-      restore: { iconStyle: { borderColor: 'black' }, show: true },
-      saveAsImage: { iconStyle: { borderColor: 'black' }, show: true },
+      restore: { title: 'Estado inicial', iconStyle: { borderColor: 'black' }, show: true },
+      saveAsImage: { title: 'Descargar como imágen', iconStyle: { borderColor: 'black' }, show: true },
     },
   },
   series: [
@@ -81,8 +79,7 @@ const light_theme_options = ref({
 const dark_theme_options = ref({
   textStyle: {
     fontFamily: 'monospace',
-    fontWeight: 500,
-    fontSize: 16,
+    fontSize: 14,
     textBorderColor: '#fe161f',
     textBorderType: 'solid',
   },
@@ -91,20 +88,20 @@ const dark_theme_options = ref({
     formatter: '{b}<br /><b>{c}%',
   },
   toolbox: {
-    itemSize: 18,
-    top: 1,
+    itemSize: 14,
+    top: 20,
     right: 5,
     showTitle: true,
     orient: 'vertical',
     feature: {
-      dataView: { iconStyle: { borderColor: 'white' }, show: true, readOnly: false },
-      magicType: { iconStyle: { borderColor: 'white' }, show: true, type: ['line', 'bar'] },
+      dataView: { title: 'Ver datos', iconStyle: { borderColor: 'white' }, show: true, readOnly: false },
+      magicType: { show: false },
       dataZoom: {
         iconStyle: { borderColor: 'white' },
         yAxisIndex: 'none',
       },
-      restore: { iconStyle: { borderColor: 'white' }, show: true },
-      saveAsImage: { iconStyle: { borderColor: 'white' }, show: true },
+      restore: { title: 'Estado inicial', iconStyle: { borderColor: 'white' }, show: true },
+      saveAsImage: { title: 'Descargar como imágen', iconStyle: { borderColor: 'white' }, show: true },
     },
   },
   series: [

@@ -120,52 +120,56 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <div class="">
-    <div class="">
-      <div class="flex flex-row flex-1 place-items-center mb-2 shadow-b-xl">
-        <div class="flex place-items-center shadow-b-xl">
-          <h5 class="pr-5 text-left text-sm uppercase text-light_contrast dark:text-dark_contrast">{{ titulo }}</h5>
-          <Popover class="pr-10 relative">
-            <PopoverButton> <QuestionMarkCircleIcon class="w-5" aria-hidden="true" /></PopoverButton>
-            <PopoverPanel
-              class="dark:bg-dark_base dark:text-dark_contrast bg-light_base-50 absolute z-50 rounded-lg p-3 w-80"
-            >
-              <p class="text-left text-sm">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat.
-              </p>
-            </PopoverPanel>
-          </Popover>
-          <input
-            v-model="fecha"
-            class="
-              z-40
-              flex-1
-              p-2
-              pl-3
-              right-0
-              text-left
-              bg-white
-              rounded-lg
-              shadow-xl
-              cursor-default
-              focus:outline-none
-              focus-visible:border-indigo-500
-              focus-visible:ring-2
-              focus-visible:ring-white
-              focus-visible:ring-opacity-75
-              dark:text-light_contrast
-              focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300
-            "
-            type="date"
-            @change="changeDate"
-          />
-        </div>
+  <div class="grid space-y-3">
+    <div class="flex flex-row mt-3">
+      <div class="place-items-center shadow-b-xl text-xs flex flex-row basis-3/4 float-left">
+        <h5
+          class="
+            pl-2
+            border-l-4
+            border-light_contrast
+            dark:border-dark_contrast
+            text-left text-sm
+            uppercase
+            text-light_contrast
+            dark:text-dark_contrast
+          "
+        >
+          {{ titulo }}
+        </h5>
+        <Popover class="ml-4 float-left relative">
+          <PopoverButton> <QuestionMarkCircleIcon class="w-5" aria-hidden="true" /></PopoverButton>
+          <PopoverPanel class="text-dark_contrast bg-[#000] absolute z-50 rounded-lg p-3 w-80">
+            <p class="text-left text-sm">
+              Este mapa se ha elaborado tomando en cuenta la residencia de las personas, permitiendo la identificación
+              de clusters de casos activos registrados en la HSI.
+            </p>
+          </PopoverPanel>
+        </Popover>
       </div>
-
-      <MapaClustering :key="key" :center="center" :zoom="zoom" :coords="coords" />
+      <input
+        v-model="fecha"
+        aria-label="Seleccion de fecha"
+        class="
+          z-40
+          flex-1
+          p-2
+          float-right
+          text-left
+          bg-light_smooth
+          rounded-lg
+          shadow-xl
+          cursor-default
+          focus:outline-none
+          text-dark_co
+          dark:text-light_contrast
+        "
+        type="date"
+        @change="changeDate"
+      />
     </div>
+
+    <MapaClustering :key="key" :center="center" :zoom="zoom" :coords="coords" />
   </div>
 </template>
 

@@ -39,8 +39,7 @@ const createSeries = (series) => {
 const light_theme_options = ref({
   textStyle: {
     fontFamily: 'monospace',
-    fontWeight: 500,
-    fontSize: 16,
+    fontSize: 14,
     color: 'black',
   },
   tooltip: {
@@ -53,24 +52,24 @@ const light_theme_options = ref({
     },
   },
   toolbox: {
-    itemSize: 18,
-    top: 1,
+    itemSize: 14,
+    top: 20,
     right: 5,
     showTitle: true,
     orient: 'vertical',
     feature: {
-      dataView: { iconStyle: { borderColor: 'black' }, show: true, readOnly: false },
-      magicType: { iconStyle: { borderColor: 'black' }, show: true, type: ['line', 'bar'] },
+      dataView: { title: 'Ver datos', iconStyle: { borderColor: 'black' }, show: true, readOnly: false },
+      magicType: { show: false },
       dataZoom: {
         iconStyle: { borderColor: 'black' },
         yAxisIndex: 'none',
       },
-      restore: { iconStyle: { borderColor: 'black' }, show: true },
-      saveAsImage: { iconStyle: { borderColor: 'black' }, show: true },
+      restore: { title: 'Estado inicial', iconStyle: { borderColor: 'black' }, show: true },
+      saveAsImage: { title: 'Descargar como imágen', iconStyle: { borderColor: 'black' }, show: true },
     },
   },
   legend: {
-    width: '80%',
+    width: '100%',
     bottom: 12,
     type: 'plain',
     show: true,
@@ -79,6 +78,7 @@ const light_theme_options = ref({
     },
   },
   grid: {
+    top: '2%',
     left: '3%',
     right: '10%',
     bottom: '20%',
@@ -113,8 +113,7 @@ const light_theme_options = ref({
 const dark_theme_options = ref({
   textStyle: {
     fontFamily: 'monospace',
-    fontWeight: 500,
-    fontSize: 16,
+    fontSize: 14,
     color: 'white',
   },
   tooltip: {
@@ -127,23 +126,23 @@ const dark_theme_options = ref({
     },
   },
   toolbox: {
-    itemSize: 18,
-    top: 1,
+    itemSize: 14,
+    top: 20,
     right: 5,
     orient: 'vertical',
     feature: {
-      dataView: { iconStyle: { borderColor: 'white' }, show: true, readOnly: false },
-      magicType: { iconStyle: { borderColor: 'white' }, show: true, type: ['line', 'bar'] },
+      dataView: { title: 'Ver datos', iconStyle: { borderColor: 'white' }, show: true, readOnly: false },
+      magicType: { show: false },
       dataZoom: {
         iconStyle: { borderColor: 'white' },
         yAxisIndex: 'none',
       },
-      restore: { iconStyle: { borderColor: 'white' }, show: true },
-      saveAsImage: { iconStyle: { borderColor: 'white' }, show: true },
+      restore: { title: 'Estado inicial', iconStyle: { borderColor: 'white' }, show: true },
+      saveAsImage: { title: 'Descargar como imágen', iconStyle: { borderColor: 'white' }, show: true },
     },
   },
   legend: {
-    width: '80%',
+    width: '100%',
     bottom: 12,
     type: 'plain',
     show: true,

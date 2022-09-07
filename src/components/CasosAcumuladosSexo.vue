@@ -85,7 +85,7 @@ const resultSetFem = await cubeApi.load(getTotalCasosFem())
     <template #default>
       <GraficoPiramide
         :chart-height="
-          dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[42vh] 2xl:h-[26vh]' : 'sm:h-[38vh] xl:h-[42vh] 2xl:h-[54vh]'
+          dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[26vh]' : 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]'
         "
         :color-theme="getThemeByDataSource(props.dataSource)"
         :series="[...resultSetMasc.series(pivotConfigMasc), ...resultSetFem.series(pivotConfigFem)]"

@@ -97,19 +97,25 @@ const changeProvincia = (event) => {
 </script>
 
 <template>
-  <div class="relative flex flex-col flex-1 w-full h-full">
+  <div class="relative flex flex-col">
     <div class="flex flex-row flex-1 mb-2 shadow-b-xl">
       <div class="flex place-items-center shadow-b-xl">
-        <h5 class="pr-5 text-left text-sm uppercase text-light_contrast dark:text-dark_contrast">{{ titulo }}</h5>
+        <h5 class="pl-2
+            border-l-4
+            border-light_contrast
+            dark:border-dark_contrast
+            text-left text-sm
+            uppercase
+            text-light_contrast
+            dark:text-dark_contrast mr-2">{{ titulo }}</h5>
         <Popover class="pr-10 relative">
-          <PopoverButton> <QuestionMarkCircleIcon class="w-5" aria-hidden="true" /></PopoverButton>
-          <PopoverPanel
-            class="dark:bg-dark_base dark:text-dark_contrast bg-light_base absolute z-50 rounded-lg p-3 w-80"
-          >
+          <PopoverButton aria-label="Informacion sobre el mapa">
+            <QuestionMarkCircleIcon class="w-5" aria-hidden="true"
+          /></PopoverButton>
+          <PopoverPanel class="text-dark_contrast bg-[#000] absolute z-50 rounded-lg p-3 w-80">
             <p class="text-left text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat.
+              Mapa coropletico interactivo de casos que permite identificar la distribucion de los casos activos en cada
+              provincia cada 100.000 habitantes en una fecha determinada.
             </p>
           </PopoverPanel>
         </Popover>
@@ -124,18 +130,12 @@ const changeProvincia = (event) => {
               pl-3
               w-full
               text-left
-              bg-white
+              bg-light_smooth
               rounded-lg
               shadow-md
               dark:text-light_contrast
               cursor-default
               focus:outline-none
-              focus-visible:border-indigo-500
-              focus-visible:ring-2
-              focus-visible:ring-white
-              focus-visible:ring-opacity-75
-              focus-visible:ring-offset-2
-              focus-visible:ring-offset-orange-300
               sm:text-sm
             "
           >
@@ -159,7 +159,7 @@ const changeProvincia = (event) => {
                 w-full
                 max-h-60
                 text-base
-                bg-white
+                bg-light_smooth
                 rounded-lg
                 ring-1 ring-black ring-opacity-5
                 shadow-lg
@@ -198,6 +198,7 @@ const changeProvincia = (event) => {
       </Listbox>
       <div class="flex flex-1 w-1/4">
         <input
+          aria-label="Seleccion de fecha"
           v-model="fecha"
           class="
             z-40
@@ -207,17 +208,11 @@ const changeProvincia = (event) => {
             pl-3
             mt-1
             text-left
-            bg-white
+            bg-light_smooth
             rounded-lg
             shadow-xl
             cursor-default
             focus:outline-none
-            focus-visible:border-indigo-500
-            focus-visible:ring-2
-            focus-visible:ring-white
-            focus-visible:ring-opacity-75
-            focus-visible:ring-offset-2
-            focus-visible:ring-offset-orange-300
           "
           type="date"
           @change="changeDate"

@@ -4,7 +4,7 @@
       'relative leading-8 m-0 pl-6',
       'before:block before:w-4 before:h-0 before:absolute before:left-0 before:top-4 before:border-t-2 before:border-t-light_base before:-mt-0.5',
       'last:before:bg-light_base last:before:h-auto last:before:top-4 last:before:bottom-0',
-      'dark:last:before:bg-dark_base dark:before:border-t-dark_contrast',
+      'dark:last:before:bg-dark_base dark:before:border-t-dark_contrast before:border-t-light_contrast',
     ]"
   >
     <router-link
@@ -12,7 +12,7 @@
       :to="to"
       v-bind="$attrs"
       :class="[
-        'transition-colors hover:text-color_1 dark:hover:text-color_1',
+        'text-left transition-colors hover:text-color_1 dark:hover:text-color_1',
         {
           'text-color_1 font-semibold': active,
           'text-light_contrast dark:text-dark_contrast': !active,

@@ -10,7 +10,7 @@ const { dataSource } = storeToRefs(useDataSourceStore())
 </script>
 
 <template>
-  <div v-if="dataSource == 'hsi'" class="grid px-4 pt-3 w-full md:px-10">
+  <div v-if="dataSource == 'hsi'" class="grid px-4 py-3 w-full md:px-10">
     <div class="grid grid-cols-1 gap-3 w-full lg:grid-cols-2">
       <!-- Left column -->
       <div class="grid grid-cols-1 col-span-1 gap-3">
@@ -40,7 +40,7 @@ const { dataSource } = storeToRefs(useDataSourceStore())
       </div>
     </div>
   </div>
-  <div v-if="dataSource == 'snvs'" class="grid px-4 py-4 mt-8 w-full md:px-10">
+  <div v-if="dataSource == 'snvs'" class="grid px-4 pt-3 w-full md:px-10">
     <div class="grid grid-cols-1 gap-3 w-full lg:grid-cols-2">
       <!-- Left column -->
       <div class="grid grid-cols-1 col-span-1 gap-3">

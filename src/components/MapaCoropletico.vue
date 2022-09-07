@@ -42,14 +42,15 @@ const criteria = [
 ]
 
 const scaleCriteria = [
-  { color: 'coroplethic_0', reference: '0 - 10', id: 0 },
-  { color: 'coroplethic_1', reference: '10 - 50', id: 1 },
-  { color: 'coroplethic_2', reference: '50 - 100', id: 2 },
-  { color: 'coroplethic_3', reference: '100 - 200', id: 3 },
-  { color: 'coroplethic_4', reference: '200 - 400', id: 4 },
-  { color: 'coroplethic_5', reference: '400 - 800', id: 5 },
-  { color: 'coroplethic_6', reference: '800 - 1600', id: 6 },
-  { color: 'coroplethic_7', reference: '+ 1600', id: 7 },
+  { color: 'coroplethic_0', reference: 'sin datos', id: 0 },
+  { color: 'coroplethic_1', reference: '1 - 10', id: 1 },
+  { color: 'coroplethic_2', reference: '10 - 50', id: 2 },
+  { color: 'coroplethic_3', reference: '50 - 100', id: 3 },
+  { color: 'coroplethic_4', reference: '100 - 200', id: 4 },
+  { color: 'coroplethic_5', reference: '200 - 400', id: 5 },
+  { color: 'coroplethic_6', reference: '400 - 800', id: 6 },
+  { color: 'coroplethic_7', reference: '800 - 1600', id: 7 },
+  { color: 'coroplethic_8', reference: '+ 1600', id: 8 },
 ]
 
 const fnCompare = new Intl.Collator('es', {
@@ -145,7 +146,7 @@ const selectInteactionFilter = (feature) => {
     <ol-map
       :load-tiles-while-animating="true"
       :load-tiles-while-interacting="true"
-      class="flex w-full overflow-hidden flex-1 h-[58vh] xl:h-[58vh] 2xl:h-[68vh] rounded-xl shadow-2xl"
+      class="flex overflow-hidden flex-1 h-[58vh] xl:h-[62vh] 2xl:h-[68vh] rounded-xl shadow-2xl"
     >
       <ol-view
         ref="view"
@@ -179,21 +180,22 @@ const selectInteactionFilter = (feature) => {
       <ol-zoom-control />
     </ol-map>
     <GeoInfoCard
-      class="w-60 z-80 h-48 bottom-[8%] right-[60%] xl:bottom-[3%] xl:right-[27%] 2xl:right-[22.6%] absolute shadow-2xl"
+      class="w-60 z-80 h-48 bottom-[8%] right-[60%] xl:bottom-[3%] xl:right-[35%] 2xl:right-[24%] absolute shadow-2xl"
       :titulo="departNombre"
       :color-theme="getThemeByDataSource('snvs')"
       :cantidad="casosCant"
       :tasa="casosTasa"
     ></GeoInfoCard>
     <TableCard
+      tableDimensions="sm:h-[38vh] xl:h-[52vh] 2xl:h-[60vh]"
       :titulos-mostrados="['Departamento', 'Cantidad', 'Tasa']"
       :color-theme="getThemeByDataSource('snvs')"
-      class="w-1/4 2xl:w-96 ml-3"
+      class="w-1/3 2xl:w-96 ml-2"
       :datos="depsFromProv"
       :titulos-columnas="['Departamento', 'Cantidad', 'Tasa']"
     />
     <CoroplethicMapScale
-      class="z-80 w-33 bottom-[8%] xl:bottom-[3%] 2xl:top-[18%] left-[0.8%] absolute"
+      class="z-80 w-33 bottom-[8%] xl:bottom-[3%] left-[0.8%] absolute"
       :references="scaleCriteria"
       :color-theme="getThemeByDataSource('snvs')"
     ></CoroplethicMapScale>
