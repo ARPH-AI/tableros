@@ -5,14 +5,16 @@
     :class="[
       'p-2 flex items-center gap-2 rounded-md transition-colors',
       {
-        'dark:text-dark_contrast text-light_contrast hover:text-primary dark:hover:text-primary': !active,
-        'dark:text-secondary text-primary shadow-lg hover:bg-secondary': active,
+        'text-light_contrast dark:text-dark_contrast hover:bg-color-light_contrast dark:hover:text-dark_contrast':
+          !active,
+        'text-light_contrast dark:text-dark_contrast hover:bg-color-light_contrast dark:hover:bg-color-dark_contrast dark:hover:text-dark_contrast':
+          active,
       },
     ]"
   >
     <slot name="icon"> </slot>
 
-    <span class="font-medium text-primary">{{ title }}</span>
+    <span class="font-medium text-light_contrast dark:text-dark_contrast">{{ title }}</span>
   </a>
   <router-link
     v-else-if="to"
@@ -35,8 +37,7 @@
     :class="[
       'p-2 flex items-center gap-2 rounded-md transition-colors',
       {
-        'p-2 dark:text-dark_contrast text-light_contrast hover:bg-secondary dark:hover:text-gray-300 dark:hover:bg-slate-900':
-          !active,
+        'p-2 dark:text-dark_contrast text-light_contrast  dark:hover:text-gray-300 dark:hover:bg-slate-900': !active,
         'dark:text-dark_contrast shadow-lg': active,
       },
     ]"
@@ -58,5 +59,7 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  href: { default: 'seccion-situacion-actual', type: [String, Object] },
+  to: { default: 'seccion-situacion-actual', type: [String, Object] },
 })
 </script>

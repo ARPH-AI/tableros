@@ -9,6 +9,7 @@ const props = defineProps<{
   series: object[]
   etiquetas: string[]
   titulo: string
+  chartHeight: string
 }>()
 
 const createSeries = (series) => {
@@ -38,8 +39,7 @@ const createSeries = (series) => {
 const light_theme_options = ref({
   textStyle: {
     fontFamily: 'monospace',
-    fontWeight: 500,
-    fontSize: 16,
+    fontSize: 14,
     color: 'black',
   },
   tooltip: {
@@ -52,24 +52,24 @@ const light_theme_options = ref({
     },
   },
   toolbox: {
-    itemSize: 18,
-    top: 1,
+    itemSize: 14,
+    top: 20,
     right: 5,
     showTitle: true,
     orient: 'vertical',
     feature: {
-      dataView: { iconStyle: { borderColor: 'black' }, show: true, readOnly: false },
-      magicType: { iconStyle: { borderColor: 'black' }, show: true, type: ['line', 'bar'] },
+      dataView: { title: 'Ver datos', iconStyle: { borderColor: 'black' }, show: true, readOnly: false },
+      magicType: { show: false },
       dataZoom: {
         iconStyle: { borderColor: 'black' },
         yAxisIndex: 'none',
       },
-      restore: { iconStyle: { borderColor: 'black' }, show: true },
-      saveAsImage: { iconStyle: { borderColor: 'black' }, show: true },
+      restore: { title: 'Estado inicial', iconStyle: { borderColor: 'black' }, show: true },
+      saveAsImage: { title: 'Descargar como imágen', iconStyle: { borderColor: 'black' }, show: true },
     },
   },
   legend: {
-    width: '80%',
+    width: '100%',
     bottom: 12,
     type: 'plain',
     show: true,
@@ -78,6 +78,7 @@ const light_theme_options = ref({
     },
   },
   grid: {
+    top: '2%',
     left: '3%',
     right: '10%',
     bottom: '20%',
@@ -112,8 +113,7 @@ const light_theme_options = ref({
 const dark_theme_options = ref({
   textStyle: {
     fontFamily: 'monospace',
-    fontWeight: 500,
-    fontSize: 16,
+    fontSize: 14,
     color: 'white',
   },
   tooltip: {
@@ -126,23 +126,23 @@ const dark_theme_options = ref({
     },
   },
   toolbox: {
-    itemSize: 18,
-    top: 1,
+    itemSize: 14,
+    top: 20,
     right: 5,
     orient: 'vertical',
     feature: {
-      dataView: { iconStyle: { borderColor: 'white' }, show: true, readOnly: false },
-      magicType: { iconStyle: { borderColor: 'white' }, show: true, type: ['line', 'bar'] },
+      dataView: { title: 'Ver datos', iconStyle: { borderColor: 'white' }, show: true, readOnly: false },
+      magicType: { show: false },
       dataZoom: {
         iconStyle: { borderColor: 'white' },
         yAxisIndex: 'none',
       },
-      restore: { iconStyle: { borderColor: 'white' }, show: true },
-      saveAsImage: { iconStyle: { borderColor: 'white' }, show: true },
+      restore: { title: 'Estado inicial', iconStyle: { borderColor: 'white' }, show: true },
+      saveAsImage: { title: 'Descargar como imágen', iconStyle: { borderColor: 'white' }, show: true },
     },
   },
   legend: {
-    width: '80%',
+    width: '100%',
     bottom: 12,
     type: 'plain',
     show: true,
@@ -186,17 +186,13 @@ const dark_theme_options = ref({
 
 <template>
   <div
-    :class="`w-full relative rounded-lg border-r-4 shadow-lg  bg-light_smooth-50 md:shadow-xl bg-light_base dark:bg-dark_smooth border-${props.colorTheme}`"
+    :class="`sm:p-2 xl:p-4 2xl:p-5 rounded-lg border-r-4 shadow-2xl bg-light_smooth dark:bg-dark_smooth dark:border-${props.colorTheme}_dark border-${props.colorTheme}`"
   >
-    <div class="relative z-10 px-3 py-8">
-      <h5 class="p-3 mt-2 font-semibold uppercase text-light_contrast dark:text-dark_contrast">{{ titulo }}</h5>
-      <v-chart class="chart" :option="isDark ? dark_theme_options : light_theme_options" autoresize />
+    <div class="leading-tight text-left text-light_contrast dark:text-dark_contrast">
+      <h5 class="pl-2 text-sm uppercase border-l-4 border-light_contrast dark:border-dark_contrast">
+        {{ titulo }}
+      </h5>
+      <v-chart :class="`${props.chartHeight}`" autoresize :option="isDark ? dark_theme_options : light_theme_options" />
     </div>
   </div>
 </template>
-
-<style scoped>
-.chart {
-  height: 50vh;
-}
-</style>

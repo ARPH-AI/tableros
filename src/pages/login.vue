@@ -1,10 +1,11 @@
+<route lang="yaml">
+meta:
+  public: true
+</route>
 <script setup lang="ts"></script>
 
 <template>
-  <h1 class="pt-100">Login Page</h1>
-  <p v-if="$route.query.redirectTo" style="color: brown">You need to be Authenticated in order to see this page</p>
-  <button class="btn btn-success" @click="$auth.login">Login with Auth Plugin</button>
-
-  <br /><br />
-  <router-link :to="{ name: 'index' }">To Index</router-link>
+  <div class="grid px-4 py-4 mt-8 w-full md:px-10">
+    <Login />
+  </div>
 </template>

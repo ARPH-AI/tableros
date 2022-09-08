@@ -11,9 +11,10 @@ interface Props {
   tituloX?: string
   tituloY?: string
   colorTheme?: string
+  chartHeight: string
 }
 
-const props = withDefaults(defineProps<Props>(), { colorTheme: 'primary', stacked: false, tituloY: 'Y', tituloX: 'X' })
+const props = withDefaults(defineProps<Props>(), { colorTheme: 'color_0', stacked: false, tituloY: 'Y', tituloX: 'X' })
 
 const stackSeries = (series) => {
   return series.map((item, index) => {
@@ -36,7 +37,7 @@ const stackSeries = (series) => {
 const light_theme_options = {
   textStyle: {
     fontFamily: 'monospace',
-    fontSize: 16,
+    fontSize: 14,
     color: 'black',
   },
   tooltip: {
@@ -49,13 +50,12 @@ const light_theme_options = {
     },
   },
   grid: {
-    left: '3%',
-    right: '10%',
-    bottom: '20%',
-    containLabel: true,
+    top: '8%',
+    bottom: '35%',
+    left: '40%',
   },
   legend: {
-    width: '80%',
+    width: '100%',
     bottom: 12,
     type: 'plain',
     show: true,
@@ -64,19 +64,19 @@ const light_theme_options = {
     },
   },
   toolbox: {
-    itemSize: 18,
-    top: 1,
-    right: 20,
+    itemSize: 14,
+    top: 20,
+    right: 5,
     orient: 'vertical',
     feature: {
-      dataView: { iconStyle: { borderColor: 'black' }, show: true, readOnly: false },
-      magicType: { iconStyle: { borderColor: 'black' }, show: true, type: ['line', 'bar'] },
+      dataView: { title: 'Ver datos', iconStyle: { borderColor: 'black' }, show: true, readOnly: false },
+      magicType: { show: false },
       dataZoom: {
         iconStyle: { borderColor: 'black' },
         yAxisIndex: 'none',
       },
-      restore: { iconStyle: { borderColor: 'black' }, show: true },
-      saveAsImage: { iconStyle: { borderColor: 'black' }, show: true },
+      restore: { title: 'Estado inicial', iconStyle: { borderColor: 'black' }, show: true },
+      saveAsImage: { title: 'Descargar como imágen', iconStyle: { borderColor: 'black' }, show: true },
     },
   },
   yAxis: {
@@ -101,7 +101,7 @@ const light_theme_options = {
 const dark_theme_options = {
   textStyle: {
     fontFamily: 'monospace',
-    fontSize: 16,
+    fontSize: 14,
     color: 'white',
   },
   tooltip: {
@@ -114,14 +114,14 @@ const dark_theme_options = {
     },
   },
   grid: {
-    left: '3%',
-    right: '10%',
-    bottom: '20%',
-    containLabel: true,
+    top: '8%',
+    bottom: '35%',
+    //containLabel: true,
+    left: '40%',
   },
   legend: {
-    width: '80%',
-    bottom: 12,
+    width: '100%',
+    bottom: 2,
     type: 'plain',
     show: true,
     textStyle: {
@@ -129,19 +129,19 @@ const dark_theme_options = {
     },
   },
   toolbox: {
-    itemSize: 18,
-    top: 1,
-    right: 20,
+    itemSize: 14,
+    top: 20,
+    right: 5,
     orient: 'vertical',
     feature: {
-      dataView: { iconStyle: { borderColor: 'white' }, show: true, readOnly: false },
-      magicType: { iconStyle: { borderColor: 'white' }, show: true, type: ['line', 'bar'] },
+      dataView: { title: 'Ver datos', iconStyle: { borderColor: 'white' }, show: true, readOnly: false },
+      magicType: { show: false },
       dataZoom: {
         iconStyle: { borderColor: 'white' },
         yAxisIndex: 'none',
       },
-      restore: { iconStyle: { borderColor: 'white' }, show: true },
-      saveAsImage: { iconStyle: { borderColor: 'white' }, show: true },
+      restore: { title: 'Estado inicial', iconStyle: { borderColor: 'white' }, show: true },
+      saveAsImage: { title: 'Descargar como imágen', iconStyle: { borderColor: 'white' }, show: true },
     },
   },
   yAxis: {
@@ -166,19 +166,13 @@ const dark_theme_options = {
 
 <template>
   <div
-    :class="`w-full relative rounded-lg border-r-4 shadow-lg  bg-light_smooth-50 md:shadow-xl bg-light_base dark:bg-dark_smooth border-${props.colorTheme}`"
+    :class="`sm:p-2 xl:p-4 2xl:p-5 rounded-lg border-r-4 shadow-2xl bg-light_smooth dark:bg-dark_smooth dark:border-${props.colorTheme}_dark border-${props.colorTheme}`"
   >
-    <div class="relative z-10 px-3 py-8">
-      <h5 class="p-3 mt-2 font-semibold uppercase text-light_contrast dark:text-dark_contrast">
+    <div class="leading-tight text-left text-light_contrast dark:text-dark_contrast">
+      <h5 class="pl-2 text-sm uppercase border-l-4 border-light_contrast dark:border-dark_contrast">
         {{ titulo }}
       </h5>
-      <v-chart class="chart" :option="isDark ? dark_theme_options : light_theme_options" autoresize />
+      <v-chart :class="`${props.chartHeight}`" autoresize :option="isDark ? dark_theme_options : light_theme_options" />
     </div>
   </div>
 </template>
-
-<style scoped>
-.chart {
-  height: 43vh;
-}
-</style>

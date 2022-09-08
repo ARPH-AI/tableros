@@ -6,23 +6,6 @@ meta:
 <script setup lang="ts"></script>
 
 <template>
-  <div class="grid px-4 py-4 mt-8 w-full md:px-10">
-    <div class="grid grid-cols-1 gap-3 lg:grid-cols-5 md:grid-cols-4">
-      <!-- Left column -->
-      <div class="grid grid-cols-1 col-span-1 gap-3 lg:col-span-2">
-        <div class="grid grid-cols-1 gap-3 lg:grid-cols-2">
-          <CasosActivos />
-          <CasosAcumulados />
-        </div>
-        <CasosActivosSemanaEpidemiologica />
-        <CasosActivosLugar />
-      </div>
-      <!-- Right column -->
-      <div class="col-span-3">
-        <NuevosCasos />
-      </div>
-    </div>
-  </div>
 </template>
 
 <style scoped></style>

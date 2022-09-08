@@ -82,12 +82,16 @@ const getSeries = (result: ResultSet, filterStr: string, pivot: PivotConfig) => 
   <query-builder :cubejs-api="cubeApi" :query="getTotalNuevosCasos()">
     <template #default="{ loading, resultSet }">
       <div v-if="loading" class="flex justify-center items-center">
-        <Spinner />
+        <BaseGraphSkeleton
+          styles="sm:h-[38vh] xl:h-[55vh] 2xl:h-[60vh]"
+          :color-theme="getThemeByDataSource(props.dataSource)"
+        />
       </div>
       <div v-if="!loading && resultSet !== undefined">
         <GraficoBarLine
-          :series-line="getSeries(resultSet, getSeriesLineName(), pivotConfig)[0]"
-          :series-bar="getSeries(resultSet, getSeriesBarName(), pivotConfig)[0]"
+          chart-height="sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]"
+          :series-line="getSeries(resultSet, getSeriesLineName() || 'Promedio Sem.', pivotConfig)[0]"
+          :series-bar="getSeries(resultSet, getSeriesBarName() || 'Promedio Sem.', pivotConfig)[0]"
           :etiquetas="resultSet.chartPivot(pivotConfig).map((row) => row.x)"
           :titulo="titulo"
           :color-theme="getThemeByDataSource(props.dataSource)"

@@ -1,20 +1,24 @@
-<script setup lang="ts">
+<script setup>
 const props = defineProps({
-  cantidad: { type: String, default: '0' },
-  titulo: { type: String, default: 'Tablero ARPHAI' },
+  cantidad: { type: String, default: 'third' },
+  titulo: { type: String, default: 'third' },
   colorTheme: { type: String, default: 'third' },
+  percent: { type: Boolean, default: false },
 })
 </script>
 
 <template>
   <div
-    :class="`rounded-lg border-r-4 shadow-lg bg-light_smooth-50 dark:bg-dark_smooth md:shadow-xl border-${props.colorTheme}`"
+    :class="`sm:p-2 xl:p-4 2xl:p-5 rounded-lg border-r-4 shadow-2xl bg-light_smooth dark:bg-dark_smooth dark:border-${props.colorTheme}_dark border-${props.colorTheme}`"
   >
-    <div class="relative z-10 pt-2 pb-4 text-center text-light_contrast dark:text-dark_contrast">
-      <h3 :class="`my-3 text-3xl font-semibold leading-tight text-${props.colorTheme}`">
-        {{ Number(cantidad).toLocaleString() }}
+    <div class="leading-tight text-left text-light_contrast dark:text-dark_contrast">
+      <h3 :class="`text-3xl font-semibold dark:text-${props.colorTheme}_dark text-${props.colorTheme}`">
+        <template v-if="percent">{{
+          Number(cantidad / 100).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 })
+        }}</template>
+        <template v-else>{{ Number(cantidad).toLocaleString() }}</template>
       </h3>
-      <h4 class="text-sm font-extrabold leading-tight uppercase">
+      <h4 class="text-sm uppercase">
         {{ titulo }}
       </h4>
     </div>

@@ -84,7 +84,8 @@ ALTER TABLE tableros.semana_epidemiologica OWNER TO dashboarduser;
 
 CREATE TABLE tableros.grupo_edad (
     id smallint NOT NULL,
-    descripcion character(8) NOT NULL
+    decada character(8) NOT NULL,
+    grupo_etario character(8) NOT NULL
 );
 
 

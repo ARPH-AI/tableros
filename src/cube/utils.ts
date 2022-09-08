@@ -24,6 +24,20 @@ export function flattenColumns(columns: TableColumn[] = []) {
   }, [])
 }
 
+export function keepProps(array, keys) {
+  const keepKeys = (item) => {
+    const keepObjects = keys.map((key) => {
+      return { [key]: item[key] }
+    })
+    return Object.assign({}, ...keepObjects)
+  }
+  return array.map(keepKeys)
+}
+
+export function filterIncludes(array, keys) {
+  return array.filter((item) => keys.includes(item))
+}
+
 export function obtenerCantidad(resultado: ResultSet) {
   return resultado
     .rawData()

@@ -1,9 +1,11 @@
 import { AuthPlugin } from './auth/types'
+import { NotifyPlugin } from './notification/types'
 import 'vue-router'
 
 declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
     $auth: AuthPlugin
+    $notify: NotifyPlugin
   }
 }
 declare module 'vue-router' {

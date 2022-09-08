@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import cubeApi from '@/cube'
 import { getThemeByDataSource } from '@/composables'
 
@@ -21,7 +21,7 @@ const totalCasosMascSNVS = {
   measures: ['CovidEdadSexoMasc.cantidad_masc_snvs'],
   timeDimensions: [],
   order: {
-    'CovidEdadSexoMasc.grupo_edad_masc': 'desc',
+    'CovidEdadSexoMasc.grupo_edad_masc': 'asc',
   },
   dimensions: ['CovidEdadSexoMasc.grupo_edad_masc'],
 }
@@ -39,7 +39,7 @@ const totalCasosFemSNVS = {
   measures: ['CovidEdadSexoFem.cantidad_fem_snvs'],
   timeDimensions: [],
   order: {
-    'CovidEdadSexoFem.grupo_edad_fem': 'desc',
+    'CovidEdadSexoFem.grupo_edad_fem': 'asc',
   },
   dimensions: ['CovidEdadSexoFem.grupo_edad_fem'],
 }
@@ -78,23 +78,28 @@ const getTotalCasosFem = () => {
 
 const resultSetMasc = await cubeApi.load(getTotalCasosMasc())
 const resultSetFem = await cubeApi.load(getTotalCasosFem())
-
-const getHardcodedTags = ['0-10', '10-20', '20-30', '30-40', '40-50', ...'90-100']
 </script>
 
 <template>
-  <!-- <GraficoPiramide
-    :colorTheme="getThemeByDataSource(props.dataSource)"
-    :series="[...resultSetMasc.series(pivotConfigMasc), ...resultSetFem.series(pivotConfigFem)]"
-    :titulo="titulo"
-    :etiquetas="resultSetMasc.chartPivot(pivotConfigMasc).map((row) => row.x)"
-  /> -->
-  <GraficoPiramide
-    :color-theme="getThemeByDataSource(props.dataSource)"
-    :series="[...resultSetMasc.series(pivotConfigMasc), ...resultSetFem.series(pivotConfigFem)]"
-    :titulo="titulo"
-    :etiquetas="getHardcodedTags"
-  />
+  <Suspense>
+    <template #default>
+      <GraficoPiramide
+        :chart-height="
+          dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[26vh]' : 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]'
+        "
+        :color-theme="getThemeByDataSource(props.dataSource)"
+        :series="[...resultSetMasc.series(pivotConfigMasc), ...resultSetFem.series(pivotConfigFem)]"
+        :titulo="titulo"
+        :etiquetas="resultSetMasc.chartPivot(pivotConfigMasc).map((row) => row.x)"
+      />
+    </template>
+    <template #fallback>
+      <BaseGraphSkeleton
+        styles="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
+        :color-theme="getThemeByDataSource(props.dataSource)"
+      ></BaseGraphSkeleton>
+    </template>
+  </Suspense>
 </template>
 
 <style scoped></style>
