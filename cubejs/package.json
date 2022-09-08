@@ -1,6 +1,6 @@
 {
-  "name": "tablero",
-  "version": "0.0.1",
+  "name": "arphai-cube",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "./node_modules/.bin/cubejs-server"

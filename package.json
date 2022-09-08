@@ -1,9 +1,12 @@
 {
-  "name": "vuelix",
+  "name": "arphai-dashboard",
   "version": "1.0.0",
   "scripts": {
     "dev": "vite --host",
     "build": "npm run gen-api && vue-tsc --noEmit && vite build",
+    "release:patch": "npm version patch && cd backend && npm version patch && cd ../cubejs && npm version patch",
+    "release:minor": "npm version minor && cd backend && npm version minor && cd ../cubejs && npm version minor",
+    "release:major": "npm version major && cd backend && npm version major && cd ../cubejs && npm version major",
     "serve": "vite preview",
     "type-check": "vue-tsc --noEmit",
     "eslint": "npx eslint --ignore-path .prettierignore --ext .ts,.js,.vue .",
