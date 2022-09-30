@@ -193,6 +193,7 @@ const selectInteactionFilter = (feature) => {
       class="w-1/3 2xl:w-96 ml-2"
       :datos="depsFromProv"
       :titulos-columnas="['Departamento', 'Cantidad', 'Tasa']"
+      titulo=""
     />
     <CoroplethicMapScale
       class="z-80 w-33 bottom-[8%] xl:bottom-[3%] left-[0.8%] absolute"

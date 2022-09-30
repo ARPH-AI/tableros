@@ -25,6 +25,6 @@ export interface InlineResponse2004 {
      * @type {string}
      * @memberof InlineResponse2004
      */
-    'info'?: string;
+    'version'?: string;
 }
 

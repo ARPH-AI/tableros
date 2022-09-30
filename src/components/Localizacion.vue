@@ -107,15 +107,19 @@ const pivotConfig = {
 }
 
 const changeDate = (event) => {
-  fecha.value = event.target.value
+  if (event.target.value) {
+    fecha.value = event.target.value
+  }
 }
 
 const forceUpdate = () => key.value++
 
 watchEffect(async () => {
-  resultSet = await cubeApi.load(totalCasos(fecha.value))
-  coords.value = await getCoords(resultSet.rawData())
-  forceUpdate()
+  if (fecha.value) {
+    resultSet = await cubeApi.load(totalCasos(fecha.value))
+    coords.value = await getCoords(resultSet.rawData())
+    forceUpdate()
+  }
 })
 </script>
 

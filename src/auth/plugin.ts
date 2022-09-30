@@ -31,7 +31,7 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
   function storeTokens(tokens: UserTokens) {
     localStorage.setItem(TOKEN_STORAGE_KEY, tokens.accessToken)
     localStorage.setItem(REFRESH_TOKEN_STORAGE_KEY, tokens.refreshToken)
-    localStorage.setItem(CUBE_TOKEN_STORAGE_KEY, tokens.cubeToken)
+    localStorage.setItem(CUBE_TOKEN_STORAGE_KEY, tokens.cubeAccessToken)
   }
 
   function removeTokens(): void {
@@ -40,41 +40,64 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
     localStorage.removeItem(CUBE_TOKEN_STORAGE_KEY)
   }
 
-  async function getCubeToken() {
-    const response = await backendApi.getCubeToken()
-    let token = ''
+  async function getHsiAccountPermissions() {
+    const response = await backendApi.getHsiAccountPermissions()
+    let permissions = {}
     if (response.status === 200) {
-      token = response.data.token || ''
+      permissions = response.data
     } else {
-      console.log('Error al quere obtener token de cube')
+      console.error('Error al querer obtener permisos de usuarix')
     }
-    return token
+    return permissions
+  }
+
+  async function getHsiAccountInfo() {
+    const response = await backendApi.getHsiAccountInfo()
+    let info = {}
+    if (response.status === 200) {
+      const { id, email, personDto:{ firstName, lastName }} = response.data
+      info = { id, email, firstName, lastName }
+    } else {
+      console.log('Error al querer obtener info de usuarix')
+    }
+    return info
   }
 
   async function login(formData: LoginUser) {
+    let response
+    const notify = useNotify()
     const body: AuthApiLoginUserRequest = {
       loginUser: formData,
     }
-    const response = await backendApi.loginUser(body)
+
+    try {
+      response = await backendApi.loginUser(body)
+    } catch (error) {
+      notify.showNotify({ type: 'error', show: true, data: { text: error.message }})
+      return false
+    }
+
     const { data } = response
     if (response.status == 200) {
-      user.value = data.user
       isAuthenticated.value = true
       accessToken.value = data.accessToken
       refreshToken.value = data.refreshToken
-      const cubeToken = await getCubeToken()
-      cubeAccessToken.value = cubeToken
-      const finalData = Object.assign({ cubeToken: cubeToken }, data)
-      storeTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken, cubeToken: cubeToken })
+      cubeAccessToken.value = data.cubeAccessToken
+
+      const info = await getHsiAccountInfo()
+      const perm = await getHsiAccountPermissions()
+      user.value = Object.assign({}, info, perm)
+
+      const finalData = Object.assign({ cubeAccessToken: cubeAccessToken }, data)
+      storeTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken, cubeAccessToken: data.cubeAccessToken })
       router.push(router.currentRoute.value.query.redirectTo?.toString() || options.loginRedirectRoute)
       return finalData
     } else {
-      const notify = useNotify()
       notify.showNotify({
         type: 'error',
         show: true,
         data: {
-          text: data.error,
+          text: data.error || data.text,
         },
       })
     }
@@ -88,11 +111,10 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
       const { data } = response
       if (response.status === 200) {
         storeTokens(response.data)
-        const { accessToken: token, refreshToken, user: userRes } = data
-        user.value = userRes
+        const { accessToken: token, refreshToken } = data
         isAuthenticated.value = true
         accessToken.value = token
-        storeTokens({ token: token, refreshToken: refreshToken })
+        storeTokens({ accessToken: token, refreshToken: refreshToken })
         router.push(router.currentRoute.value.query.redirectTo?.toString() || options.loginRedirectRoute)
       } else {
         logout()
@@ -113,6 +135,7 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
     user.value = { ...ANONYMOUS_USER }
     isAuthenticated.value = false
     accessToken.value = undefined
+    cubeAccessToken.value = undefined
     removeTokens()
     router.push(options.logoutRedirectRoute)
   }
@@ -129,6 +152,7 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
     isAuthenticated,
     accessToken,
     refreshToken,
+    cubeAccessToken,
     user,
     userFullName,
     login,

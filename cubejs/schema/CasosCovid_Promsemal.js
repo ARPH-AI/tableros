@@ -29,7 +29,7 @@ cube(`casosCovidPromSem`, {
         from
           tableros.snvs s
         where
-          clasificacion_resumen = 'Confirmado' and
+          clasif_resumen = 'Confirmado' and
           se.fecha=s.fecha_apertura
       ) as cantidad_snvs
     from

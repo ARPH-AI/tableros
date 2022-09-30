@@ -1,0 +1,32 @@
+version: '3'
+services:
+  postgres-dashboard:
+    image: postgres:13.7
+    container_name: postgres-dashboard
+    environment:
+      - POSTGRES_DB=${PG_DBNAME}
+      - POSTGRES_USER=${PG_USER}
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+    volumes:
+      - dashboard-psqlserver-volume:/var/lib/postgresql/data
+    ports:
+      - '5632:5432'
+    env_file:
+      - .env
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin-service
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PG_ADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PG_ADMIN_DEFAULT_PASSWORD}
+    ports:
+      - '9090:80'
+    env_file:
+      - .env
+    volumes:
+      - pgadmin-service-volume:/var/lib/pgadmin
+      - ./develop/databases/configs/pgadmin/dbservers.json:/pgadmin4/servers.json
+
+volumes:
+  dashboard-psqlserver-volume:
+  pgadmin-service-volume:

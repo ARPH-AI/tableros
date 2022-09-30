@@ -13,7 +13,6 @@
  */
 
 
-import { InlineResponse2003RoleAssignments } from './inline-response2003-role-assignments';
 
 /**
  * 
@@ -23,9 +22,9 @@ import { InlineResponse2003RoleAssignments } from './inline-response2003-role-as
 export interface InlineResponse2003 {
     /**
      * 
-     * @type {Array<InlineResponse2003RoleAssignments>}
+     * @type {string}
      * @memberof InlineResponse2003
      */
-    'roleAssignments'?: Array<InlineResponse2003RoleAssignments>;
+    'info'?: string;
 }
 

@@ -34,8 +34,8 @@ cube(`casosComorbilidad`, {
      g.description as sexo
    from
      tableros.problema_con_covid as pcc1
-       join public.person p on (p.id=pcc1.person_id)
-       join public.gender g on (p.gender_id=g.id)
+       join person p on (p.id=pcc1.person_id)
+       join gender g on (p.gender_id=g.id)
        left join tableros.pacientes_con_comorbilidad pcc on pcc1.patient_id=pcc.patient_id
    where
      not exists (

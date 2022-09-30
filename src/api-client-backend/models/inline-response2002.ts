@@ -13,6 +13,7 @@
  */
 
 
+import { InlineResponse2002RoleAssignments } from './inline-response2002-role-assignments';
 
 /**
  * 
@@ -22,9 +23,9 @@
 export interface InlineResponse2002 {
     /**
      * 
-     * @type {string}
+     * @type {Array<InlineResponse2002RoleAssignments>}
      * @memberof InlineResponse2002
      */
-    'token'?: string;
+    'roleAssignments'?: Array<InlineResponse2002RoleAssignments>;
 }
 

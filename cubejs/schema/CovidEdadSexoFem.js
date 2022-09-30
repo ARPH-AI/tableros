@@ -16,7 +16,7 @@ cube(`CovidEdadSexoFem`, {
         select count(1)
         from tableros.snvs
         where
-          snvs.edad=ge.id and
+          snvs.edad_actual=ge.id and
           snvs.sexo='F'
       ) as cantidad_snvs
     from tableros.grupo_edad ge

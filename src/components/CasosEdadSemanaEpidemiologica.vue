@@ -59,7 +59,7 @@ const totalCasosHSI = {
 }
 
 const totalCasosSNVS = {
-  measures: ['CovidEdadSexoSNVS.id_evento_caso'],
+  measures: ['CovidEdadSexoSNVS.ideventocaso'],
   timeDimensions: [
     {
       dimension: 'CovidEdadSexoSNVS.Fecha_apertura',
@@ -68,7 +68,7 @@ const totalCasosSNVS = {
     },
   ],
   order: {
-    'CovidEdadSexoSNVS.id_evento_caso': 'desc',
+    'CovidEdadSexoSNVS.ideventocaso': 'desc',
   },
   dimensions: ['CovidEdadSexoSNVS.Grupo_edad'],
   filters: [],

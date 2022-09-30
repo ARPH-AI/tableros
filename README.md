@@ -1,6 +1,7 @@
 # Entorno de desarrollo para Arphai Dashboard
 
 ## Antes de empezar
+
 > Es necesario tener instalado en tu sistema operativo los siguiente programas
 
 - git
@@ -36,8 +37,8 @@ make start
 Auditamos con esta biblioteca [vue-a11y](https://github.com/vue-a11y/vue-axe-next) que utiliza [axe-core](https://github.com/dequelabs/axe-core/). Toma en cuenta las siguientes [reglas](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md).
 
 ## Datos geo
-> Ver [README](scripts/README.md)
 
+> Ver [README](scripts/README.md)
 
 # Vuelix Documentation
 
@@ -109,6 +110,41 @@ Auditamos con esta biblioteca [vue-a11y](https://github.com/vue-a11y/vue-axe-nex
 - Producción: Poner credenciales de Cube en .env.production
 
 ## Dockerizacion
+
+## Flujo de uso en Produccion y en Desarrallo
+
+### Produccion
+
+1. Se deben renombrar todas los .env.prod a .env (en el root y en la carpeta backend) y completar con los datos necesario
+
+2. Luego se debe ejecutar los siguientes comandos desde makefile:
+
+```bash
+  make recreate-data-dashboard-prod
+```
+
+3. Luego ejecutar para buildear el frontend y levantar los servicios necesarios.
+
+```bash
+  make build-prod
+  make start-prod
+```
+
+### Desarrollo
+
+1. Se deben renombrar todas los .env.development a .env (en el root y en la carpeta backend) y completar con los datos necesario
+
+2. Luego se debe ejecutar los siguientes comandos desde makefile:
+
+```bash
+  make recreate-db-develop
+```
+
+3. 3. Luego ejecutar para levantar los servicios
+
+```bash
+  make start
+```
 
 Para facilitar el desarrollo se genero una dockerizacion de los siguientes servicios.
 

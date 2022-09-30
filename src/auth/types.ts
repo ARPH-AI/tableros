@@ -12,6 +12,7 @@ export const ANONYMOUS_USER: Readonly<User> = Object.freeze({
   id: undefined,
   firstName: 'Anonymous',
   lastName: '',
+  email: '',
 })
 
 export interface AuthPlugin {
@@ -19,6 +20,7 @@ export interface AuthPlugin {
   isAuthenticated: boolean
   userFullName: string
   accessToken?: string
+  cubeAccessToken?: string
   refreshToken?: string
   login: (formData: UserFormData) => Promise<Response>
   logout: () => Promise<void>
@@ -44,7 +46,7 @@ export interface RequiredAuthOptions {
 export interface UserTokens {
   accessToken: string
   refreshToken: string
-  cubeToken?: string
+  cubeAccessToken?: string
 }
 
 /*

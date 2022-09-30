@@ -21,9 +21,9 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
-import { InlineResponse2003 } from '../models';
+import { InlineResponse2002 } from '../models';
 // @ts-ignore
-import { InlineResponse2004 } from '../models';
+import { InlineResponse2003 } from '../models';
 // @ts-ignore
 import { InlineResponse400 } from '../models';
 /**
@@ -37,8 +37,8 @@ export const AccountApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountInfo: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/account/info`;
+        getHsiAccountInfo: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/hsi/account/info`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -66,8 +66,8 @@ export const AccountApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountPermissions: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/account/permissions`;
+        getHsiAccountPermissions: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/hsi/account/permissions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -105,8 +105,8 @@ export const AccountApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAccountInfo(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountInfo(options);
+        async getHsiAccountInfo(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2003>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getHsiAccountInfo(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -114,8 +114,8 @@ export const AccountApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAccountPermissions(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2003>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountPermissions(options);
+        async getHsiAccountPermissions(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2002>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getHsiAccountPermissions(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -133,16 +133,16 @@ export const AccountApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountInfo(options?: any): AxiosPromise<InlineResponse2004> {
-            return localVarFp.getAccountInfo(options).then((request) => request(axios, basePath));
+        getHsiAccountInfo(options?: any): AxiosPromise<InlineResponse2003> {
+            return localVarFp.getHsiAccountInfo(options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountPermissions(options?: any): AxiosPromise<InlineResponse2003> {
-            return localVarFp.getAccountPermissions(options).then((request) => request(axios, basePath));
+        getHsiAccountPermissions(options?: any): AxiosPromise<InlineResponse2002> {
+            return localVarFp.getHsiAccountPermissions(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -160,8 +160,8 @@ export class AccountApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AccountApi
      */
-    public getAccountInfo(options?: AxiosRequestConfig) {
-        return AccountApiFp(this.configuration).getAccountInfo(options).then((request) => request(this.axios, this.basePath));
+    public getHsiAccountInfo(options?: AxiosRequestConfig) {
+        return AccountApiFp(this.configuration).getHsiAccountInfo(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -170,7 +170,7 @@ export class AccountApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AccountApi
      */
-    public getAccountPermissions(options?: AxiosRequestConfig) {
-        return AccountApiFp(this.configuration).getAccountPermissions(options).then((request) => request(this.axios, this.basePath));
+    public getHsiAccountPermissions(options?: AxiosRequestConfig) {
+        return AccountApiFp(this.configuration).getHsiAccountPermissions(options).then((request) => request(this.axios, this.basePath));
     }
 }
