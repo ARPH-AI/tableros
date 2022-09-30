@@ -25,6 +25,6 @@ export interface InlineResponse2005 {
      * @type {string}
      * @memberof InlineResponse2005
      */
-    'version'?: string;
+    'flavor'?: string;
 }
 

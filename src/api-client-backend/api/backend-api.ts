@@ -33,8 +33,6 @@ import { InlineResponse2004 } from '../models';
 // @ts-ignore
 import { InlineResponse2005 } from '../models';
 // @ts-ignore
-import { InlineResponse2006 } from '../models';
-// @ts-ignore
 import { InlineResponse400 } from '../models';
 // @ts-ignore
 import { LoginUser } from '../models';
@@ -51,8 +49,8 @@ export const BackendApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountInfo: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/account/info`;
+        getHsiAccountInfo: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/hsi/account/info`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -80,8 +78,8 @@ export const BackendApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountPermissions: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/account/permissions`;
+        getHsiAccountPermissions: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/hsi/account/permissions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -109,8 +107,8 @@ export const BackendApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCubeToken: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/auth/cubejs-token`;
+        getHsiPublicInfo: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/hsi/public/info`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -138,8 +136,8 @@ export const BackendApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPublicInfo: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/public/info`;
+        getHsiPublicVersion: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/hsi/public/version`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -272,8 +270,8 @@ export const BackendApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAccountInfo(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountInfo(options);
+        async getHsiAccountInfo(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2003>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getHsiAccountInfo(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -281,8 +279,8 @@ export const BackendApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAccountPermissions(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2003>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountPermissions(options);
+        async getHsiAccountPermissions(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2002>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getHsiAccountPermissions(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -290,8 +288,8 @@ export const BackendApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getCubeToken(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2002>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getCubeToken(options);
+        async getHsiPublicInfo(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getHsiPublicInfo(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -299,8 +297,8 @@ export const BackendApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPublicInfo(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2006>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPublicInfo(options);
+        async getHsiPublicVersion(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getHsiPublicVersion(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -308,7 +306,7 @@ export const BackendApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPublicVersion(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2005>> {
+        async getPublicVersion(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2004>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPublicVersion(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -347,39 +345,39 @@ export const BackendApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountInfo(options?: any): AxiosPromise<InlineResponse2004> {
-            return localVarFp.getAccountInfo(options).then((request) => request(axios, basePath));
+        getHsiAccountInfo(options?: any): AxiosPromise<InlineResponse2003> {
+            return localVarFp.getHsiAccountInfo(options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountPermissions(options?: any): AxiosPromise<InlineResponse2003> {
-            return localVarFp.getAccountPermissions(options).then((request) => request(axios, basePath));
+        getHsiAccountPermissions(options?: any): AxiosPromise<InlineResponse2002> {
+            return localVarFp.getHsiAccountPermissions(options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCubeToken(options?: any): AxiosPromise<InlineResponse2002> {
-            return localVarFp.getCubeToken(options).then((request) => request(axios, basePath));
+        getHsiPublicInfo(options?: any): AxiosPromise<InlineResponse2005> {
+            return localVarFp.getHsiPublicInfo(options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPublicInfo(options?: any): AxiosPromise<InlineResponse2006> {
-            return localVarFp.getPublicInfo(options).then((request) => request(axios, basePath));
+        getHsiPublicVersion(options?: any): AxiosPromise<InlineResponse2004> {
+            return localVarFp.getHsiPublicVersion(options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPublicVersion(options?: any): AxiosPromise<InlineResponse2005> {
+        getPublicVersion(options?: any): AxiosPromise<InlineResponse2004> {
             return localVarFp.getPublicVersion(options).then((request) => request(axios, basePath));
         },
         /**
@@ -444,8 +442,8 @@ export class BackendApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BackendApi
      */
-    public getAccountInfo(options?: AxiosRequestConfig) {
-        return BackendApiFp(this.configuration).getAccountInfo(options).then((request) => request(this.axios, this.basePath));
+    public getHsiAccountInfo(options?: AxiosRequestConfig) {
+        return BackendApiFp(this.configuration).getHsiAccountInfo(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -454,8 +452,8 @@ export class BackendApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BackendApi
      */
-    public getAccountPermissions(options?: AxiosRequestConfig) {
-        return BackendApiFp(this.configuration).getAccountPermissions(options).then((request) => request(this.axios, this.basePath));
+    public getHsiAccountPermissions(options?: AxiosRequestConfig) {
+        return BackendApiFp(this.configuration).getHsiAccountPermissions(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -464,8 +462,8 @@ export class BackendApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BackendApi
      */
-    public getCubeToken(options?: AxiosRequestConfig) {
-        return BackendApiFp(this.configuration).getCubeToken(options).then((request) => request(this.axios, this.basePath));
+    public getHsiPublicInfo(options?: AxiosRequestConfig) {
+        return BackendApiFp(this.configuration).getHsiPublicInfo(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -474,8 +472,8 @@ export class BackendApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BackendApi
      */
-    public getPublicInfo(options?: AxiosRequestConfig) {
-        return BackendApiFp(this.configuration).getPublicInfo(options).then((request) => request(this.axios, this.basePath));
+    public getHsiPublicVersion(options?: AxiosRequestConfig) {
+        return BackendApiFp(this.configuration).getHsiPublicVersion(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

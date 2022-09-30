@@ -19,14 +19,17 @@ export function configureRefreshTokenResponseInterceptor(axiosInstance: AxiosIns
       return response
     },
     function (error) {
-      // Handlear cualquier response status distinto a 2xx
-      const { response } = error
-      const { url } = response.config
-      const auth = useAuth()
-      if (!url.includes('/auth/refresh') && auth.isAuthenticated && response.data.name === 'TokenExpiredError') {
-        auth.tokenRefresh(auth.refreshToken || '')
+      if (error.response) {
+        // Handlear cualquier response status distinto a 2xx
+        const { response } = error
+        const { url } = response.config
+        const auth = useAuth()
+        if (!url.includes('/auth/refresh') && auth.isAuthenticated && response.data.name === 'TokenExpiredError') {
+          auth.tokenRefresh(auth.refreshToken || '')
+        }
+        return Promise.resolve(response)
       }
-      return Promise.resolve(response)
+      return Promise.reject(error)
     }
   )
 }

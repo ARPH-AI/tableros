@@ -25,7 +25,7 @@ const totalCasosHSI = {
 }
 
 const totalCasosSNVS = {
-  measures: ['CovidEdadSexoSNVS.id_evento_caso'],
+  measures: ['CovidEdadSexoSNVS.ideventocaso'],
   timeDimensions: [
     {
       dimension: 'CovidEdadSexoSNVS.Fecha_apertura',

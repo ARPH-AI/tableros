@@ -17,7 +17,6 @@
 export * from './api/account-api';
 export * from './api/auth-api';
 export * from './api/backend-api';
-export * from './api/cube-api';
 export * from './api/info-api';
 export * from './api/permissions-api';
 export * from './api/public-api';

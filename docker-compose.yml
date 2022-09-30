@@ -1,51 +1,30 @@
 version: '3'
 services:
-  postgres-dashboard:
-    image: postgres:13.7
-    container_name: postgres-dashboard
-    environment:
-      - POSTGRES_DB=${PG_DBNAME}
-      - POSTGRES_USER=${PG_USER}
-      - POSTGRES_PASSWORD=${PG_PASSWORD}
-    volumes:
-      - dashboard-psqlserver-volume:/var/lib/postgresql/data
-      - ./develop/databases/scripts/init/:/docker-entrypoint-initdb.d/
-      - ./develop/databases/scripts/:/scripts
-    ports:
-      - "5532:5432"
-    env_file:
-      - .env
   cube:
-    image: cubejs/cube:v0.26.44
+    image: cubejs/cube:v0.30.64
     container_name: cube-dashboard
     ports:
       - 4040:4000
       - 3030:3000
     environment:
-     - CUBEJS_DB_HOST=${PG_HOST}
-     - CUBEJS_DB_NAME=${PG_DBNAME}
-     - CUBEJS_DB_USER=${PG_USER}
-     - CUBEJS_DB_PASS=${PG_PASSWORD}
-     - CUBEJS_WEB_SOCKETS=true
-     - CUBEJS_DEV_MODE=true
-     - CUBEJS_DB_TYPE=postgres
-     - CUBEJS_API_SECRET=${CUBE_SECRET}
+      - CUBEJS_DB_HOST=${PG_HOST}
+      - CUBEJS_DB_NAME=${PG_DBNAME}
+      - CUBEJS_DB_USER=${PG_USER}
+      - CUBEJS_DB_PASS=${PG_PASSWORD}
+      - CUBEJS_DB_PORT=${PG_PORT}
+      - CUBEJS_WEB_SOCKETS=true
+      - CUBEJS_DEV_MODE=true
+      - CUBEJS_DB_TYPE=postgres
+      - CUBEJS_API_SECRET=${CUBE_SECRET}
     env_file: .env
     volumes:
       - ./cubejs/:/cube/conf
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin-service
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PG_ADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PG_ADMIN_DEFAULT_PASSWORD}
+  backend:
+    build:
+      context: ./backend
+    container_name: backend-arphai
     ports:
-      - "9090:80"
-    env_file:
-      - .env
+      - 5000:5000
+    env_file: ./backend/.env
     volumes:
-      - pgadmin-service-volume:/var/lib/pgadmin
-      - ./develop/databases/configs/pgadmin/dbservers.json:/pgadmin4/servers.json
-volumes:
-  dashboard-psqlserver-volume:
-  pgadmin-service-volume:
+      - ./backend/app.js:/app/app.js

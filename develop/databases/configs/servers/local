@@ -1,7 +1,0 @@
-# Config PSQL local
-# export PG_HOST="postgres-dashboard"
-export PG_PORT="5432"
-export PG_DBNAME="dashboard"
-export PG_USER="dashboarduser"
-export PG_PASSWORD="dashboardpassword"
-export PG_SCHEMA="tableros"

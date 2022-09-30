@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite --host",
-    "build": "npm run gen-api && vue-tsc --noEmit && vite build",
+    "build": "vite build",
+    "build-all-plataform": "npm run gen-api && vue-tsc --noEmit && vite build",
     "release:patch": "npm version patch && cd backend && npm version patch && cd ../cubejs && npm version patch",
     "release:minor": "npm version minor && cd backend && npm version minor && cd ../cubejs && npm version minor",
     "release:major": "npm version major && cd backend && npm version major && cd ../cubejs && npm version major",
@@ -18,8 +19,8 @@
     "gen-api": "rm -rf src/api-client && npx @openapitools/openapi-generator-cli generate -i ./spec/schema_osm.yml -g typescript-axios -o src/api-client-osm --additional-properties withSeparateModelsAndApi=true,supportsES6=true,useSingleRequestParameter=true,apiPackage=api,modelPackage=models && npx @openapitools/openapi-generator-cli generate -i ./spec/schema_datosgeo.yml -g typescript-axios -o src/api-client-datosgeo --additional-properties withSeparateModelsAndApi=true,supportsES6=true,useSingleRequestParameter=true,apiPackage=api,modelPackage=models && npx @openapitools/openapi-generator-cli generate -i ./spec/schema_backend.yml -g typescript-axios -o src/api-client-backend --additional-properties withSeparateModelsAndApi=true,supportsES6=true,useSingleRequestParameter=true,apiPackage=api,modelPackage=models"
   },
   "dependencies": {
-    "@cubejs-client/core": "^0.29.23",
-    "@cubejs-client/vue3": "^0.30.54",
+    "@cubejs-client/core": "^0.30.64",
+    "@cubejs-client/vue3": "^0.30.64",
     "@headlessui/vue": "^1.5.0",
     "@heroicons/vue": "^1.0.6",
     "@popperjs/core": "^2.11.5",

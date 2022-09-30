@@ -33,16 +33,16 @@ const getData = async (resultSet) => {
   return resultSet.map((item) => {
     return {
       nombre: item['CovidEdadSexoSNVS.Ciudad'].toUpperCase().trim(),
-      valor: parseInt(item['CovidEdadSexoSNVS.id_evento_caso']),
+      valor: parseInt(item['CovidEdadSexoSNVS.ideventocaso']),
     }
   })
 }
 
 const totalCasos = (fecha) => {
   return {
-    measures: ['CovidEdadSexoSNVS.id_evento_caso'],
+    measures: ['CovidEdadSexoSNVS.ideventocaso'],
     order: {
-      'CovidEdadSexoSNVS.id_evento_caso': 'asc',
+      'CovidEdadSexoSNVS.ideventocaso': 'asc',
     },
     filters: [
       {

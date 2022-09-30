@@ -21,7 +21,7 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 // @ts-ignore
-import { InlineResponse2003 } from '../models';
+import { InlineResponse2002 } from '../models';
 // @ts-ignore
 import { InlineResponse400 } from '../models';
 /**
@@ -35,8 +35,8 @@ export const PermissionsApiAxiosParamCreator = function (configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountPermissions: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/account/permissions`;
+        getHsiAccountPermissions: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/hsi/account/permissions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -74,8 +74,8 @@ export const PermissionsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAccountPermissions(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2003>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAccountPermissions(options);
+        async getHsiAccountPermissions(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2002>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getHsiAccountPermissions(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -93,8 +93,8 @@ export const PermissionsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccountPermissions(options?: any): AxiosPromise<InlineResponse2003> {
-            return localVarFp.getAccountPermissions(options).then((request) => request(axios, basePath));
+        getHsiAccountPermissions(options?: any): AxiosPromise<InlineResponse2002> {
+            return localVarFp.getHsiAccountPermissions(options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -112,7 +112,7 @@ export class PermissionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PermissionsApi
      */
-    public getAccountPermissions(options?: AxiosRequestConfig) {
-        return PermissionsApiFp(this.configuration).getAccountPermissions(options).then((request) => request(this.axios, this.basePath));
+    public getHsiAccountPermissions(options?: AxiosRequestConfig) {
+        return PermissionsApiFp(this.configuration).getHsiAccountPermissions(options).then((request) => request(this.axios, this.basePath));
     }
 }
