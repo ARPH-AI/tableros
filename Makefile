@@ -18,16 +18,15 @@ envfile:
 
 start:
 	@echo ":::::: Starting dockerized infrastructure"
-	docker-compose -f docker-compose.yml -f docker-compose.develop.yml up -d --remove-orphans
+	docker-compose -p arphai -f docker-compose.yml -f docker-compose.develop.yml up -d --remove-orphans
 
 stop:
 	@echo ":::::: Stopping dockerized infrastructure"
-	docker-compose -f docker-compose.yml -f docker-compose.develop.yml stop  
+	docker-compose -p arphai -f docker-compose.yml -f docker-compose.develop.yml stop	
 
 down:
 	@echo ":::::: Stopping dockerized infrastructure"
-	docker-compose -f docker-compose.yml -f docker-compose.develop.yml down 
-
+	docker-compose -p arphai -f docker-compose.yml -f docker-compose.develop.yml down
 
 reset:
 	@echo ":::::: Resetting dockerized infrastructure"
@@ -36,10 +35,14 @@ reset:
 
 hard-reset:
 	@echo ":::::: Resetting volumes"
-	make stop
-	docker volume prune -f
+	make full-down	
 	make start
 
+full-down:
+	@echo "::::::: Full Down"
+	make down
+	docker image rm arphai_backend
+	docker volume rm arphai_dashboard-psqlserver-volume  arphai_pgadmin-service-volume
 
 #####################
 # DB-DEVELOP
@@ -137,15 +140,15 @@ recreate-in-new-db:
 
 build-prod:
 	make build-frontend
-	docker-compose -f docker-compose.yml -f docker-compose.production.yml build
+	docker-compose -p arphai -f docker-compose.yml -f docker-compose.production.yml build
 
 start-prod:
 	@echo ":::::: Starting dockerized production infrastructure"
-	docker-compose -f docker-compose.yml -f docker-compose.production.yml up -d
+	docker-compose -p arphai -f docker-compose.yml -f docker-compose.production.yml up -d
 
 stop-prod:
 	@echo ":::::: Stopping dockerized production infrastructure"
-	docker-compose -f docker-compose.yml -f docker-compose.production.yml down
+	docker-compose -p arphai -f docker-compose.yml -f docker-compose.production.yml down
 
 reset-prod:
 	@echo ":::::: Resetting dockerized production infrastructure"
@@ -153,7 +156,7 @@ reset-prod:
 	make start
 
 down-prod:
-	docker-compose -f docker-compose.yml -f docker-compose.production.yml down
+	docker-compose -p arphai -f docker-compose.yml -f docker-compose.production.yml down
 
 #####################
 # GENERALS
