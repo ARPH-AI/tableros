@@ -24,5 +24,12 @@ cube(`SemanaEpidemiologica`, {
       type: `number`,
     },
   },
+  preAggregations: {
+    semanaPorDia: {
+      measures: [count],
+      timeDimension: fecha,
+      granularity: `day`,
+    },
+  },
   dataSource: `default`,
 })

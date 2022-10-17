@@ -113,6 +113,11 @@ cube(`CovidEdadSexo`, {
       type: `number`,
     },
   },
+  preAggregations: {
+    main: {
+      type: `originalSql`,
+    },
+  },
   title: ` `,
   dataSource: `default`,
 })

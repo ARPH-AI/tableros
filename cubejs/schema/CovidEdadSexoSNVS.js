@@ -90,5 +90,10 @@ cube(`CovidEdadSexoSNVS`, {
       type: `number`,
     },
   },
+  preAggregations: {
+    main: {
+      type: `originalSql`,
+    },
+  },
   dataSource: `default`,
 })

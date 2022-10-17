@@ -72,6 +72,11 @@ cube(`casos`, {
       type: `string`,
     },
   },
+  preAggregations: {
+    main: {
+      type: `originalSql`,
+    },
+  },
   title: ` `,
   dataSource: `default`,
 })
