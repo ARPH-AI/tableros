@@ -308,6 +308,6 @@ Tenemos los siguientes comandos para utilizar:
 make start
 make stop
 make reset
-make hard-reset #Este particularmente borra los volumenes
+make hard-reset #Este particularmente borra los volumenes e imagenes
 make cube-restart
 ```
