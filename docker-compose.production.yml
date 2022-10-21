@@ -13,7 +13,7 @@ services:
     environment:
       - CUBESTORE_REMOTE_DIR=/cube/data
     volumes:
-      - .cubestore:/cube/data
+      - ./deploy/cubestore/data:/cube/data
   frontend:
     image: nginx
     ports:
