@@ -7,17 +7,19 @@ import { format } from 'date-fns'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import { QuestionMarkCircleIcon } from '@heroicons/vue/outline'
 
+
+const ciudadesFilter = (item) => item['casos.ciudad']
 const getCoords = async (resultSet) => {
   const centroide_lat = 'centroide.lat'
   const centroide_lon = 'centroide.lon'
   const campos = `${centroide_lat},${centroide_lon}`
-  const ciudades = resultSet.map((item) => {
-    return {
-      nombre: item['casos.ciudad'],
-      campos,
-      max: 1,
-    }
-  })
+  const ciudades = resultSet
+    .filter(ciudadesFilter)
+    .map((item) => ({
+        nombre: item['casos.ciudad'],
+        campos,
+        max: 1,
+    }))
 
   const params = {
     inlineObject: {
