@@ -28,15 +28,12 @@ let zoom = ref(provincias[0].zoom)
 let center = ref([provinciaSel.value.centroide.lon, provinciaSel.value.centroide.lat])
 let url = ref('departamentos-buenos_aires.json')
 
-// El uppercase y trim, habria que hacerlo en otro lado
-const getData = async (resultSet) => {
-  return resultSet.map((item) => {
-    return {
-      nombre: item['CovidEdadSexoSNVS.Ciudad'].toUpperCase().trim(),
-      valor: parseInt(item['CovidEdadSexoSNVS.ideventocaso']),
-    }
-  })
-}
+const dataFilter = (item) => item['CovidEdadSexoSNVS.Ciudad']
+const dataMap = (item) => ({
+    nombre: item['CovidEdadSexoSNVS.Ciudad'].toUpperCase().trim(),
+    valor: parseInt(item['CovidEdadSexoSNVS.ideventocaso']),
+})
+const getData = async (resultSet) => resultSet.filter(dataFilter).map(dataMap)
 
 const totalCasos = (fecha) => {
   return {
@@ -65,10 +62,12 @@ const pivotConfig = {
 const forceUpdate = () => key.value++
 
 watchEffect(async () => {
-  resultSet = await cubeApi.load(totalCasos(fecha.value))
-  datos.value = await getData(resultSet.rawData())
-  zoom.value = zoomChild.value ? zoomChild.value : zoom.value
-  forceUpdate()
+  if(fecha.value && fecha.value.trim()) {
+    resultSet = await cubeApi.load(totalCasos(fecha.value))
+    datos.value = await getData(resultSet.rawData())
+    zoom.value = zoomChild.value ? zoomChild.value : zoom.value
+    forceUpdate()
+  }
 })
 
 const changeDate = (event) => {

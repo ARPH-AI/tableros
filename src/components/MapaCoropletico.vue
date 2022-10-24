@@ -105,7 +105,7 @@ const overrideStyleFunction = (feature, style) => {
   if (casos !== undefined) {
     for (let idx = 0; idx < criteria.length; idx++) {
       if (criteria[idx](casos.tasa) == true) {
-        color = gradiente[idx]
+        color = gradiente[idx+1]
         break
       }
     }

@@ -143,7 +143,7 @@ const onProxyReq = (proxyReq, req, res) => {
     proxyReq.setHeader('content-length', JSON.stringify(req.body).length);
     proxyReq.write(JSON.stringify(req.body))
     proxyReq.end()
-	}
+  }
 }
 
 const onProxyRes = responseInterceptor(async (responseBuffer, proxyRes, req, res) => {
