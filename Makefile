@@ -126,7 +126,7 @@ recreate-data-dashboard-prod:
 	make create-file-dashboard-prod
 	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -f $(ROOT_PROD)/scripts/01-populate-dashboard-schema-prod.sql
 	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -f $(ROOT_PROD)/scripts/02-create-dashboard-views-prod.sql
-	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -f $(ROOT_PROD)/scripts/onlydata/only-data-dashboard.sql
+	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -f $(ROOT_PROD)/scripts/onlydata/onlydata-dashboard.sql
 
 recreate-in-new-db:
 	@echo ":::::: Recreate DB"
@@ -152,8 +152,8 @@ stop-prod:
 
 reset-prod:
 	@echo ":::::: Resetting dockerized production infrastructure"
-	make stop
-	make start
+	make stop-prod
+	make start-prod
 
 down-prod:
 	docker-compose -p arphai -f docker-compose.yml -f docker-compose.production.yml down
