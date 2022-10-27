@@ -5,7 +5,6 @@ services:
     container_name: cube-dashboard
     ports:
       - 4040:4000
-      - 3030:3000
     environment:
       - CUBEJS_DB_HOST=${PG_HOST}
       - CUBEJS_DB_NAME=${PG_DBNAME}
