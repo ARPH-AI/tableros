@@ -29,5 +29,3 @@ services:
     image: bitnami/redis:latest
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
-    logging:
-      driver: none
