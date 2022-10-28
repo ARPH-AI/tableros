@@ -133,6 +133,10 @@ recreate-in-new-db:
 	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p$(PG_PORT) -f $(SQLSCRIPTS)/schemas/03-create-snvs-index.sql
 	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p$(PG_PORT) -f $(SQLSCRIPTS)/schemas/05-backup-public.sql
 
+run-file-in-db:
+	@echo ":::::: File In DB"
+	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p$(PG_PORT) -f $(FILE)
+
 #####################
 # PRODUCTION INFRASTRUCTURE 
 #####################
