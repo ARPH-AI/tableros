@@ -4,6 +4,7 @@ services:
     environment:
       - CUBEJS_CUBESTORE_HOST=cubestore
       - CUBEJS_REDIS_URL=redis://redis:6379
+      - DEBUG_LOG=true
     ports:
       - 4040:4000
     depends_on:
