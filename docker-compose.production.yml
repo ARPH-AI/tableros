@@ -1,5 +1,24 @@
 version: '3'
 services:
+  cube:
+    environment:
+      - CUBEJS_CUBESTORE_HOST=cubestore
+      - CUBEJS_REDIS_URL=redis://redis:6379
+      - DEBUG_LOG=true
+    ports:
+      - 4040:4000
+    depends_on:
+      - cubestore
+    links:
+      - cubestore
+  cubestore:
+    image: cubejs/cubestore:latest
+    environment:
+      - CUBESTORE_REMOTE_DIR=/cube/data
+    ports:
+      - 3030:3030
+    volumes:
+      - ./deploy/cubestore/data:/cube/data
   frontend:
     image: nginx
     ports:
@@ -7,3 +26,7 @@ services:
     volumes:
       - ./dist:/usr/share/nginx/html
       - ./deploy/production/.nginx/nginx.conf:/etc/nginx/nginx.conf
+  redis:
+    image: bitnami/redis:latest
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes

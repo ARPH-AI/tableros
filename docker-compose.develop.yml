@@ -1,5 +1,8 @@
 version: '3'
 services:
+  cube:
+    ports:
+      - 3030:3030
   postgres-dashboard:
     image: postgres:13.7
     container_name: postgres-dashboard
