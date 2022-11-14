@@ -5,10 +5,11 @@
 > Es necesario tener instalado en tu sistema operativo los siguiente programas
 
 - git
-- docker
-- docker-compose
+- docker  **Testeado con Docker version 20.10.14**
+- docker-compose **Testeado con Docker Compose version v2.3.3**
 - make
-- node/npm (preferentemente con nvm)
+- node/npm (preferentemente con nvm) **Tener instalado minimo  Node v16.17.0 o superior**
+
 
 Es habitual al instalar docker, no tener tu usuario en el grupo docker. Solución `usermod -aG docker $TU_USUARIO`
 
@@ -16,41 +17,12 @@ Es habitual al instalar docker, no tener tu usuario en el grupo docker. Solució
 
 > Ver [Documentación de VUELIX](README.vuelix.md) - Vuelix is a Vue 3 + Vite starter template to scaffold new projects really fast and with a great developer experience.
 
-### Montar infraestructura desarrollo 1er vez
 
-> Recordar tener un dump de la DB que contenga al menos el esquema public de HSI
-
-Usar variables de ambiente por defecto:
-
-```
-cp .env.example .env
-```
-
-Inicializa todos los servicios (pgadmin, postgres y cube)
-
-```
-make start
-```
 
 ## Accesibilidad
 
 Auditamos con esta biblioteca [vue-a11y](https://github.com/vue-a11y/vue-axe-next) que utiliza [axe-core](https://github.com/dequelabs/axe-core/). Toma en cuenta las siguientes [reglas](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md).
 
-## Datos geo
-
-> Ver [README](scripts/README.md)
-
-# Vuelix Documentation
-
-Vuelix is a Vue 3 + Vite starter template to scaffold new projects really fast and with a great developer experience.
-
-## Table of contents
-
-Restaura DB desde dump de HSI
-
-```
-make restore-db-dump BACKUP_FILE="ruta_archivo_de_dump"
-```
 
 ### Instalar dependencias
 
@@ -91,26 +63,33 @@ npm run serve
 
 Usa en el navegador: [http://localhost:5000](http://localhost:5000)
 
-### Modificar Esquema o datos iniciales de DB
+## Datos geo
 
-> Hace un backup de tabla snvs, borra esquema completo con datos y vuelve a crearlo reaturando los datos iniciales y snvs
-
-```
-make drop-dashboard-schema
-make load-dashboard-changes
-```
-
-### Accesibilidad
-
-Auditamos con esta biblioteca [vue-a11y](https://github.com/vue-a11y/vue-axe-next) que utiliza [axe-core](https://github.com/dequelabs/axe-core/). Toma en cuenta las siguientes [reglas](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md).
+> Ver [README](scripts/README.md)
 
 ## Dockerizacion
 
-## Flujo de uso en Produccion y en Desarrallo
+## Flujo de uso en Produccion y en Desarrollo
+
+### Montar infraestructura desarrollo 1er vez
+
+> Recordar tener un dump de la DB que contenga al menos el esquema public de HSI
+
+Usar variables de ambiente por defecto:
+
+```
+cp .env.example .env
+```
+
+Inicializa todos los servicios (pgadmin, postgres y cube)
+
+```
+make start
+```
 
 ### Produccion
 
-1. Se deben renombrar todas los .env.prod a .env (en el root y en la carpeta backend) y completar con los datos necesario
+1. Se deben modificar del archivo .env.example ( tanto en el root y en la carpeta backend) a .env y completar con los datos necesario
 
 2. Luego se debe ejecutar los siguientes comandos desde makefile:
 
@@ -127,7 +106,7 @@ Auditamos con esta biblioteca [vue-a11y](https://github.com/vue-a11y/vue-axe-nex
 
 ### Desarrollo
 
-1. Se deben renombrar todas los .env.development a .env (en el root y en la carpeta backend) y completar con los datos necesario
+1. Se deben renombrar todas los .env. a .env (en el root y en la carpeta backend) y completar con los datos necesario
 
 2. Luego se debe ejecutar los siguientes comandos desde makefile:
 
@@ -198,9 +177,11 @@ La variable particular que tenemos de Cube es la siguiente:
 
 ```bash
   - CUBE_SECRET
+  - CUBEJS_DEV_MODE
 ```
 
-Esta variable es la que permite conectar luego la aplicacion de VUE con CUBE
+Esta variable es la que permite conectar luego la aplicacion de VUE con CUBE.
+La variable CUBEJS_DEV_MODE debe estar en false en produccion y true en desarollo
 
 #### Archivos de configuracion
 
@@ -235,12 +216,11 @@ Son las credenciales para poder acceder desde el navegador desde ´localhost:909
 
 Se genero un archivo de makefile para ayudar al uso de este entorno de desarollo
 
-#### Comando para actualizar cambios en el esquema tableros
+### Desarrollo
 
-**Este comando crea el esquema tableros, carga la data de la base y reinicia el servicio de cube (presupone que anteriormente se utilizo make drop-dashboard-schema**
-
+**Carga de backup del esquema publico,creacion de esquema dashboard,carga de datos en en esquema y de tabla snvs**
 ```bash
- make load-dashboard-changes
+ make recreate-db-develop
 ```
 
 **Dropear este esquema previamente generando un dump de la tabla snvs en el directorio /develop/databases/dump/**
@@ -249,21 +229,69 @@ Se genero un archivo de makefile para ayudar al uso de este entorno de desarollo
 make drop-dashboard-schema
 ```
 
+**Borrar todos los cambios en la db en desarrollo**
+
+```bash
+make drop-all-db
+```
+
+**Comando para cargar un archivo en la DB en desarollo**
+
+```bash
+make run-query-file FILE=path/del/archivo.sql
+```
+
+
+**Comandos para la utilización de docker-compose**
+
+```bash
+make start
+make stop
+make reset
+make hard-reset #Este particularmente borra los volumenes e imagenes
+make cube-restart
+```
+
+
 **Existen tambien separadas algunos otros comandos mas especificos**
 
 ```bash
+make load-csv-snvs
 make backup-snvs-table
 make restore-snvs-table
 make create-dashboard-schema
 ```
+### Produccion
 
-#### Comando para cargar un archivo en la DB en produccion
+**Comando para agregar a db tablas y vistas  del schema tableros y  vistas, carga de datos en estas tablas**
+
+```bash
+make recreate-data-dashboard-prod
+```
+
+**Comando para cargar un archivo en la DB en produccion**
 
 ```bash
 make run-file-in-db FILE=path/de/archivo.sql
 ```
 
 El archivo debe ser de extension .sql para que se ejecute correctamente.
+
+**Comando para borrar toda la información agregada en producción y dejar la db en producción**
+
+```bash
+make run-file-in-db FILE=/deploy/production/databases/scripts/03-remove-dashboard-prod.sql
+```
+
+**Comandos para la utilización de docker-compose en producción**
+
+```bash
+make build-prod
+make start-prod
+make stop-prod
+make reset-prod
+make down-prod
+```
 
 #### Comandos para trabajar con la DB
 
@@ -295,12 +323,6 @@ make drop-schema SCHEMA="nombredelesquema"
 
 ```bash
 make restore-db-dump BACKUP_FILE="rutaalarchivo"
-```
-
-**Dropear toda la db**
-
-```bash
-make drop-all-db
 ```
 
 #### Comandos generales para usar el docker
