@@ -9,7 +9,7 @@ SQLSCRIPTS := $(ROOT)/scripts
 SCHEMA:= tableros
 
 #####################
-# DEVELOP INFRASTRUCTURE 
+# DEVELOP INFRASTRUCTURE
 #####################
 
 envfile:
@@ -22,7 +22,7 @@ start:
 
 stop:
 	@echo ":::::: Stopping dockerized infrastructure"
-	docker-compose -p arphai -f docker-compose.yml -f docker-compose.develop.yml stop	
+	docker-compose -p arphai -f docker-compose.yml -f docker-compose.develop.yml stop
 
 down:
 	@echo ":::::: Stopping dockerized infrastructure"
@@ -35,7 +35,7 @@ reset:
 
 hard-reset:
 	@echo ":::::: Resetting volumes"
-	make full-down	
+	make full-down
 	make start
 
 full-down:
@@ -138,7 +138,7 @@ run-file-in-db:
 	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p$(PG_PORT) -f $(FILE)
 
 #####################
-# PRODUCTION INFRASTRUCTURE 
+# PRODUCTION INFRASTRUCTURE
 #####################
 
 
