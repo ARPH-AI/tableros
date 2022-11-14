@@ -18,16 +18,15 @@ envfile:
 
 start:
 	@echo ":::::: Starting dockerized infrastructure"
-	docker-compose -f docker-compose.yml -f docker-compose.develop.yml up -d --remove-orphans
+	docker-compose -p arphai -f docker-compose.yml -f docker-compose.develop.yml up -d --remove-orphans
 
 stop:
 	@echo ":::::: Stopping dockerized infrastructure"
-	docker-compose -f docker-compose.yml -f docker-compose.develop.yml stop  
+	docker-compose -p arphai -f docker-compose.yml -f docker-compose.develop.yml stop	
 
 down:
 	@echo ":::::: Stopping dockerized infrastructure"
-	docker-compose -f docker-compose.yml -f docker-compose.develop.yml down 
-
+	docker-compose -p arphai -f docker-compose.yml -f docker-compose.develop.yml down
 
 reset:
 	@echo ":::::: Resetting dockerized infrastructure"
@@ -36,10 +35,14 @@ reset:
 
 hard-reset:
 	@echo ":::::: Resetting volumes"
-	make stop
-	docker volume prune -f
+	make full-down	
 	make start
 
+full-down:
+	@echo "::::::: Full Down"
+	make down
+	docker image rm arphai_backend
+	docker volume rm arphai_dashboard-psqlserver-volume  arphai_pgadmin-service-volume
 
 #####################
 # DB-DEVELOP
@@ -123,12 +126,16 @@ recreate-data-dashboard-prod:
 	make create-file-dashboard-prod
 	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -f $(ROOT_PROD)/scripts/01-populate-dashboard-schema-prod.sql
 	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -f $(ROOT_PROD)/scripts/02-create-dashboard-views-prod.sql
-	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -f $(ROOT_PROD)/scripts/onlydata/only-data-dashboard.sql
+	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -f $(ROOT_PROD)/scripts/onlydata/onlydata-dashboard.sql
 
 recreate-in-new-db:
 	@echo ":::::: Recreate DB"
 	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p$(PG_PORT) -f $(SQLSCRIPTS)/schemas/03-create-snvs-index.sql
 	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p$(PG_PORT) -f $(SQLSCRIPTS)/schemas/05-backup-public.sql
+
+run-file-in-db:
+	@echo ":::::: File In DB"
+	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p$(PG_PORT) -f $(FILE)
 
 #####################
 # PRODUCTION INFRASTRUCTURE 
@@ -137,23 +144,23 @@ recreate-in-new-db:
 
 build-prod:
 	make build-frontend
-	docker-compose -f docker-compose.yml -f docker-compose.production.yml build
+	docker-compose -p arphai -f docker-compose.yml -f docker-compose.production.yml build
 
 start-prod:
 	@echo ":::::: Starting dockerized production infrastructure"
-	docker-compose -f docker-compose.yml -f docker-compose.production.yml up -d
+	docker-compose -p arphai -f docker-compose.yml -f docker-compose.production.yml up -d
 
 stop-prod:
 	@echo ":::::: Stopping dockerized production infrastructure"
-	docker-compose -f docker-compose.yml -f docker-compose.production.yml down
+	docker-compose -p arphai -f docker-compose.yml -f docker-compose.production.yml down
 
 reset-prod:
 	@echo ":::::: Resetting dockerized production infrastructure"
-	make stop
-	make start
+	make stop-prod
+	make start-prod
 
 down-prod:
-	docker-compose -f docker-compose.yml -f docker-compose.production.yml down
+	docker-compose -p arphai -f docker-compose.yml -f docker-compose.production.yml down
 
 #####################
 # GENERALS

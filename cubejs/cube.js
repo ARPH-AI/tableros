@@ -13,7 +13,9 @@ module.exports = {
        values: [securityContext.user_id],
     });
 */
-     return query;
-   },
-
+    return query
+  },
+  logger: (msg, params) => {
+    console.log(`${msg}: ${JSON.stringify(params)}`)
+  },
 }

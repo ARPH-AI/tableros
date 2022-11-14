@@ -5,7 +5,6 @@ services:
     container_name: cube-dashboard
     ports:
       - 4040:4000
-      - 3030:3000
     environment:
       - CUBEJS_DB_HOST=${PG_HOST}
       - CUBEJS_DB_NAME=${PG_DBNAME}
@@ -13,7 +12,7 @@ services:
       - CUBEJS_DB_PASS=${PG_PASSWORD}
       - CUBEJS_DB_PORT=${PG_PORT}
       - CUBEJS_WEB_SOCKETS=true
-      - CUBEJS_DEV_MODE=true
+      - CUBEJS_DEV_MODE=${CUBEJS_DEV_MODE}
       - CUBEJS_DB_TYPE=postgres
       - CUBEJS_API_SECRET=${CUBE_SECRET}
     env_file: .env
