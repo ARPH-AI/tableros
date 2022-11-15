@@ -5,7 +5,7 @@ meta:
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { useDataSourceStore } from '@/stores/data-source-store.js'
+import { useDataSourceStore } from '@/stores/data-source-store'
 const { dataSource } = storeToRefs(useDataSourceStore())
 </script>
 

@@ -6,20 +6,18 @@ import { osmApi, datosgeoApi } from '@/api'
 import { format } from 'date-fns'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import { QuestionMarkCircleIcon } from '@heroicons/vue/outline'
-
+import VueTailwindDatepicker from 'vue-tailwind-datepicker'
 
 const ciudadesFilter = (item) => item['casos.ciudad']
 const getCoords = async (resultSet) => {
   const centroide_lat = 'centroide.lat'
   const centroide_lon = 'centroide.lon'
   const campos = `${centroide_lat},${centroide_lon}`
-  const ciudades = resultSet
-    .filter(ciudadesFilter)
-    .map((item) => ({
-        nombre: item['casos.ciudad'],
-        campos,
-        max: 1,
-    }))
+  const ciudades = resultSet.filter(ciudadesFilter).map((item) => ({
+    nombre: item['casos.ciudad'],
+    campos,
+    max: 1,
+  }))
 
   const params = {
     inlineObject: {
@@ -81,7 +79,10 @@ let coords = ref([])
 
 //let fecha = ref('2021-09-09')
 let fecha = ref(format(new Date(), 'yyyy-MM-dd'))
-
+const formatter = ref({
+  date: 'YYYY MM DD',
+  month: 'MMM',
+})
 const titulo = 'Total de casos activos por lugar de residencia'
 
 const totalCasos = (fecha) => {
@@ -153,7 +154,18 @@ watchEffect(async () => {
           </PopoverPanel>
         </Popover>
       </div>
-      <input
+      <div class="flex">
+        <vue-tailwind-datepicker
+          v-model="fecha"
+          aria-label="Seleccion de fecha"
+          class="flex-1 float-right focus:outline-none shadow-xl rounded-lg"
+          overlay
+          :formatter="formatter"
+          as-single
+          input-classes="block text-sm font-medium text-light_contrast dark:text-dark_contrast"
+        />
+      </div>
+      <!-- <input
         v-model="fecha"
         aria-label="Seleccion de fecha"
         class="
@@ -172,7 +184,7 @@ watchEffect(async () => {
         "
         type="date"
         @change="changeDate"
-      />
+      /> -->
     </div>
 
     <MapaClustering :key="key" :center="center" :zoom="zoom" :coords="coords" />

@@ -1,65 +1,74 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import 'echarts'
 import VChart from 'vue-echarts'
 import { isDark } from '@/composables'
-import { formatLeftDataToNaturalNumber, normalizeArgsDecimals } from '@/utils'
+import { formatDecimalValues } from '@/utils'
 
-const props = defineProps<{
-  colorTheme: string
+interface Props {
   series: object[]
   etiquetas: string[]
   titulo: string
+  stacked?: boolean
+  tituloX?: string
+  tituloY?: string
+  colorTheme?: string
   chartHeight: string
-}>()
+}
 
-const createSeries = (series) => {
+const props = withDefaults(defineProps<Props>(), { colorTheme: 'color_0', stacked: false, tituloY: 'Y', tituloX: 'X' })
+
+const stackSeries = (series) => {
   return series.map((item, index) => {
-    let color = index % 2 ? '#00bfcc' : '#ff6c0a'
-    let coeficiente = index % 2 ? 1 : -1
+    let color = index % 2 ? '#ff6c0a' : '#00bfcc'
     return {
       name: item.title,
-      data: item.series.map(({ value }) => value * coeficiente),
+      realtimeSort: true,
+      data: item.series.map(({ value }) => value),
+      ...(props.stacked && { stack: 'total' }),
       type: 'bar',
-      stack: 'Total',
       itemStyle: {
+        opacity: 0.7,
         color,
-        borderRadius: 5,
-        opacity: 0.8,
-      },
-      label: {
-        show: false,
-      },
-      emphasis: {
-        focus: 'series',
+        borderRadius: 3,
       },
     }
   })
 }
 
-const formatTooltip = (args: any) => formatLeftDataToNaturalNumber(normalizeArgsDecimals(args))
-
-const light_theme_options = ref({
+const light_theme_options = {
   textStyle: {
-    fontFamily: 'monospace',
+    fontFamily: 'sans-serif',
     fontSize: 14,
     color: 'black',
   },
   tooltip: {
-    formatter: formatTooltip,
+    formatter: formatDecimalValues,
     trigger: 'axis',
     axisPointer: {
-      type: 'shadow',
+      type: 'shadow', // 'shadow' as default; can also be 'line' or 'shadow'
       crossStyle: {
         color: '#999',
       },
-    }
+    },
+  },
+  grid: {
+    top: '8%',
+    bottom: '35%',
+    left: '40%',
+  },
+  legend: {
+    width: '100%',
+    bottom: -7,
+    type: 'plain',
+    show: true,
+    textStyle: {
+      color: 'black',
+    },
   },
   toolbox: {
     itemSize: 14,
     top: 20,
     right: 5,
-    showTitle: true,
     orient: 'vertical',
     feature: {
       dataView: { title: 'Ver datos', iconStyle: { borderColor: 'black' }, show: true, readOnly: false },
@@ -72,62 +81,55 @@ const light_theme_options = ref({
       saveAsImage: { title: 'Descargar como imágen', iconStyle: { borderColor: 'black' }, show: true },
     },
   },
-  legend: {
-    width: '100%',
-    bottom: 12,
-    type: 'plain',
-    show: true,
-    textStyle: {
-      color: props.colorTheme,
-    },
+  yAxis: {
+    type: 'category',
+    name: props.tituloY,
+    inverse: true,
+    nameLocation: 'middle',
+    nameGap: 25,
+    data: props.etiquetas,
   },
-  grid: {
-    top: '2%',
-    left: '3%',
-    right: '10%',
-    bottom: '20%',
-    containLabel: true,
+  xAxis: {
+    axisLabel: { verticalAlign: 'bottom', paddingTop: 20 },
+    type: 'value',
+    name: props.tituloX,
+    nameLocation: 'middle',
+    nameGap: 25,
+    boundaryGap: [0, 0.01],
+    offset: 20
   },
-  xAxis: [
-    {
-      type: 'value',
-      axisLabel: {
-        formatter: function (value) {
-          let label
-          if (value < 0) {
-            label = value *= -1
-          } else label = value
-          return label
-        },
-      },
-    },
-  ],
-  yAxis: [
-    {
-      type: 'category',
-      axisTick: {
-        show: false,
-      },
-      data: props.etiquetas,
-    },
-  ],
-  series: createSeries(props.series),
-})
+  series: stackSeries(props.series),
+}
 
-const dark_theme_options = ref({
+const dark_theme_options = {
   textStyle: {
-    fontFamily: 'monospace',
+    fontFamily: 'sans-serif',
     fontSize: 14,
     color: 'white',
   },
   tooltip: {
-    formatter: formatTooltip,
+    formatter: formatDecimalValues,
     trigger: 'axis',
     axisPointer: {
-      type: 'shadow',
+      type: 'shadow', // 'shadow' as default; can also be 'line' or 'shadow'
       crossStyle: {
         color: '#999',
       },
+    },
+  },
+  grid: {
+    top: '8%',
+    bottom: '35%',
+    //containLabel: true,
+    left: '40%',
+  },
+  legend: {
+    width: '100%',
+    bottom: -7,
+    type: 'plain',
+    show: true,
+    textStyle: {
+      color: 'white',
     },
   },
   toolbox: {
@@ -146,47 +148,25 @@ const dark_theme_options = ref({
       saveAsImage: { title: 'Descargar como imágen', iconStyle: { borderColor: 'white' }, show: true },
     },
   },
-  legend: {
-    width: '100%',
-    bottom: 12,
-    type: 'plain',
-    show: true,
-    textStyle: {
-      color: props.colorTheme,
-    },
+  yAxis: {
+    type: 'category',
+    name: props.tituloY,
+    inverse: true,
+    nameLocation: 'middle',
+    nameGap: 25,
+    data: props.etiquetas,
   },
-  grid: {
-    top: '2%',
-    left: '3%',
-    right: '10%',
-    bottom: '20%',
-    containLabel: true,
+  xAxis: {
+    axisLabel: { verticalAlign: 'bottom', paddingTop: 20 },
+    type: 'value',
+    name: props.tituloX,
+    nameLocation: 'middle',
+    nameGap: 25,
+    boundaryGap: [0, 0.01],
+    offset: 20
   },
-  xAxis: [
-    {
-      type: 'value',
-      axisLabel: {
-        formatter: function (value) {
-          let label
-          if (value < 0) {
-            label = value *= -1
-          } else label = value
-          return label
-        },
-      },
-    },
-  ],
-  yAxis: [
-    {
-      type: 'category',
-      axisTick: {
-        show: false,
-      },
-      data: props.etiquetas,
-    },
-  ],
-  series: createSeries(props.series),
-})
+  series: stackSeries(props.series),
+}
 </script>
 
 <template>

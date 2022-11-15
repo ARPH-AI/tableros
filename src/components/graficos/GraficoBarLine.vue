@@ -40,7 +40,7 @@ const light_theme_options = {
     containLabel: true,
   },
   textStyle: {
-    fontFamily: 'monospace',
+    fontFamily: 'sans-serif',
     fontSize: 14,
     color: 'black',
   },
@@ -153,7 +153,7 @@ const dark_theme_options = {
     containLabel: true,
   },
   textStyle: {
-    fontFamily: 'monospace',
+    fontFamily: 'sans-serif',
     fontSize: 14,
     color: 'white',
   },

@@ -1,13 +1,13 @@
 <template>
   <div class="w-full mt-4">
-    <div class="w-full max-w-md rounded-2xlp-2">
+    <div class="w-full max-w-md rounded-2xl p-2">
       <Disclosure v-for="(section, index) in props.content" :key="index" v-slot="{ open }">
         <DisclosureButton
           class="
             flex
             w-full
             justify-between
-            rounded-lg
+            rounded-2xl
             py-3
             px-3
             font-medium

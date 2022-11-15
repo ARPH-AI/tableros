@@ -1,4 +1,4 @@
-import { TrendingUpIcon, MapIcon, UserGroupIcon } from '@heroicons/vue/outline'
+import { TrendingUpIcon, MapIcon, UserGroupIcon, HomeIcon, SearchIcon, ViewGridIcon } from '@heroicons/vue/outline'
 
 export const sections = {
   SITUACION_ACTUAL: {
@@ -30,7 +30,31 @@ export const general_sections = {
     value: 1,
     title: 'Tablero epidemiologico',
   },
+  HOME: {
+    key: 'home',
+    value: 0,
+    title: 'Home',
+    iconComponent: HomeIcon,
+  },
 }
+
+export const main_axis = {
+  VIGILANCIA_SINDROMICA: {
+    key: 'vigilancia-sindromica',
+    title: 'Vigilancia sindrómica',
+    iconComponent: SearchIcon,
+    description:
+      'Se utiliza la HCE como fuente principal y se recabaron señales de posibles eventos. En este caso y a partir de campos estructurados y terminología SNOMED CT se incluyen las consultas febriles clasificadas en respiratorias y otras. Dentro de esta sección encontraremos las distintas señales  representadas en gráficos.',
+  },
+  ENOS: {
+    key: 'enos',
+    title: 'Enfermedades de Notificación Obligatoria',
+    iconComponent: ViewGridIcon,
+    description:
+      'La información se encuentra organizada a partir de 2 fuentes principales: Historia Clinica Electronica y Sistema Nacional de Vigilancia en Salud, de las cuales características epidemiológicas relevantes relacionadas con persona, lugar y tiempo, creando entonces 3 sub-secciones, accesibles desde el menú lateral del tablero.  En situación actual se incluyen indicadores que brindan en una mirada sucinta y general la situación actual de los eventos o casos, incluyendo los datos de atención ambulatoria en la sección de fuente HCE. En la sección de mapas se presenta uno con la georreferenciación de la residencia de las personas (tomando el dato de dirección registrada en el sistema) mientras que para los datos de SNVS,  se cuantifican los eventos para una localidad mínima que contiene el set de datos. En la sección caracterización, se utilizan datos estructurados de edad y sexo y comorbilidades',
+  },
+}
+
 export const data_sources = {
   HSI: {
     key: 'HSI',
@@ -38,8 +62,6 @@ export const data_sources = {
     title: 'Historia Clínica Electrónica',
     content:
       'Desde la HSI se relevan datos de posibles eventos registrados en campos estructurados codificados con SNOMED CT, ya sean síntomas (para el caso de la vigilancia sindrómica) cómo diagnósticos que registra el personal de salud en la HSI.',
-    content:
-      'Los datos de esta sección corresponden a los registros de la atención ambulatoria en Historia Clínica Electrónica.',
   },
   SNVS: {
     key: 'SNVS',
@@ -47,8 +69,6 @@ export const data_sources = {
     title: 'Sistema Nacional de Vigilancia en Salud',
     content:
       'En la solapa identificada cómo SNVS se visualizan los casos notificados al sistema. Actualmente no se cuenta con vínculo de transmisión de información entre ambos sistemas.',
-    content:
-      'Los datos de esta sección corresponden a los registros de los eventos de notificación obligatoria en el Sistema Nacional de Vigilancia en Salud',
   },
 }
 

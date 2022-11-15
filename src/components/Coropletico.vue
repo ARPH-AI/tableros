@@ -30,8 +30,8 @@ let url = ref('departamentos-buenos_aires.json')
 
 const dataFilter = (item) => item['CovidEdadSexoSNVS.Ciudad']
 const dataMap = (item) => ({
-    nombre: item['CovidEdadSexoSNVS.Ciudad'].toUpperCase().trim(),
-    valor: parseInt(item['CovidEdadSexoSNVS.ideventocaso']),
+  nombre: item['CovidEdadSexoSNVS.Ciudad'].toUpperCase().trim(),
+  valor: parseInt(item['CovidEdadSexoSNVS.ideventocaso']),
 })
 const getData = async (resultSet) => resultSet.filter(dataFilter).map(dataMap)
 
@@ -62,7 +62,7 @@ const pivotConfig = {
 const forceUpdate = () => key.value++
 
 watchEffect(async () => {
-  if(fecha.value && fecha.value.trim()) {
+  if (fecha.value && fecha.value.trim()) {
     resultSet = await cubeApi.load(totalCasos(fecha.value))
     datos.value = await getData(resultSet.rawData())
     zoom.value = zoomChild.value ? zoomChild.value : zoom.value
@@ -70,15 +70,15 @@ watchEffect(async () => {
   }
 })
 
-const changeDate = (event) => {
+const changeDate = (event: { target: { value: string } }) => {
   fecha.value = event.target.value
 }
 
-const changeZoom = (event) => {
-  zoomChild.value = event
-}
+// const changeZoom = (event: null) => {
+//   zoomChild.value = event
+// }
 
-const matchArchivo = (nombre) => {
+const matchArchivo = (nombre: string) => {
   // Normalizando desde nombre de DB a nombre de archivo
   return nombre
     .toLowerCase()
@@ -99,14 +99,21 @@ const changeProvincia = (event) => {
   <div class="relative flex flex-col">
     <div class="flex flex-row flex-1 mb-2 shadow-b-xl">
       <div class="flex place-items-center shadow-b-xl">
-        <h5 class="pl-2
+        <h5
+          class="
+            pl-2
             border-l-4
             border-light_contrast
             dark:border-dark_contrast
             text-left text-sm
             uppercase
             text-light_contrast
-            dark:text-dark_contrast mr-2">{{ titulo }}</h5>
+            dark:text-dark_contrast
+            mr-2
+          "
+        >
+          {{ titulo }}
+        </h5>
         <Popover class="pr-10 relative">
           <PopoverButton aria-label="Informacion sobre el mapa">
             <QuestionMarkCircleIcon class="w-5" aria-hidden="true"
@@ -197,8 +204,8 @@ const changeProvincia = (event) => {
       </Listbox>
       <div class="flex flex-1 w-1/4">
         <input
-          aria-label="Seleccion de fecha"
           v-model="fecha"
+          aria-label="Seleccion de fecha"
           class="
             z-40
             flex-1

@@ -10,7 +10,7 @@ import { sidebarState, isDark, toggleDarkMode } from '@/composables'
 import { getThemeByDataSource } from '@/composables'
 import { storeToRefs } from 'pinia'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
-import { useDataSourceStore } from '@/stores/data-source-store.js'
+import { useDataSourceStore } from '@/stores/data-source-store.ts'
 import { isCurrentRoute } from '@/composables'
 import { general_sections } from '@/constants'
 import { QuestionMarkCircleIcon } from '@heroicons/vue/outline'
@@ -19,12 +19,13 @@ const { dataSource } = storeToRefs(useDataSourceStore())
 </script>
 
 <template>
-  <header class="flex-shrink-0 h-auto border-b border-light_contrast dark:border-dark_contrast dark:bg-dark_base">
+  <header class="flex-shrink-0 border-b border-light_contrast dark:border-dark_contrast dark:bg-dark_base">
     <div class="flex justify-between items-center p-2">
       <!-- Navbar left -->
       <div class="flex items-center space-x-3">
         <!-- Toggle sidebar button -->
-        <button
+        <!-- <button
+          v-show="!isCurrentRoute(general_sections.HOME.key)"
           class="p-2 dark:text-dark_contrast"
           aria-label="Desplegar menú lalteral"
           @click="sidebarState.isOpen = !sidebarState.isOpen"
@@ -39,12 +40,12 @@ const { dataSource } = storeToRefs(useDataSourceStore())
           >
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
           </svg>
-        </button>
+        </button> -->
         <a aria-label="Navegar al inicio del sitio" href="/" class="p-1">
           <img alt="ARPHAI logo" src="@/assets/logo.png" class="w-20" />
         </a>
 
-        <span class="float-left font-mono font-semibold leading-relaxed align-middle">
+        <span class="float-left font-sans font-semibold leading-relaxed align-middle">
           Tablero de información epidemiológica
         </span>
       </div>
@@ -72,7 +73,7 @@ const { dataSource } = storeToRefs(useDataSourceStore())
         </button>
 
         <!-- User menu dropdown -->
-        <Menu as="div" class="inline-block relative z-50 font-mono">
+        <Menu as="div" class="inline-block relative z-50 font-sans">
           <MenuButton class="inline-flex justify-center w-full">
             <ProfileAvatar
               :bg-color="isDark ? '#FFFF' : '#000'"

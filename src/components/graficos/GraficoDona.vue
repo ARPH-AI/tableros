@@ -12,11 +12,10 @@ const props = defineProps<{
   chartHeight: string
 }>()
 
-const colorPalette = ['#b3ecf0', '#80dfe6', '#33ccd6', '#00acb8', '#00868f']
-
+const colorPalette = ['#00becb', '#53c07a', '#c2ab1a', '#f7931e', '#f3591a']
 const light_theme_options = ref({
   textStyle: {
-    fontFamily: 'monospace',
+    fontFamily: 'sans-serif',
     fontSize: 14,
     textBorderColor: '#fe161f',
     textBorderType: 'solid',
@@ -79,7 +78,7 @@ const light_theme_options = ref({
 
 const dark_theme_options = ref({
   textStyle: {
-    fontFamily: 'monospace',
+    fontFamily: 'sans-serif',
     fontSize: 14,
     textBorderColor: '#fe161f',
     textBorderType: 'solid',

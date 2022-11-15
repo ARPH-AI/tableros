@@ -8,7 +8,7 @@ export const toggleDarkMode = useToggle(isDark)
 export const sidebarState = reactive({
   isOpen: false,
   isHovered: false,
-  handleHover(value) {
+  handleHover(value: boolean) {
     if (window.innerWidth < 1024) {
       return
     }
@@ -23,7 +23,7 @@ export const sidebarState = reactive({
   },
 })
 
-export const getThemeByDataSource = (dataSource) => {
+export const getThemeByDataSource = (dataSource: string) => {
   switch (dataSource) {
     case 'hsi':
       return 'color_0'
@@ -34,6 +34,6 @@ export const getThemeByDataSource = (dataSource) => {
   }
 }
 
-export const isCurrentRoute = (routeName) => {
+export const isCurrentRoute = (routeName: string) => {
   return useRouter().currentRoute.value.name == routeName
 }

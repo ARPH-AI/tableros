@@ -34,7 +34,7 @@ const stackSeries = (series) => {
 }
 const light_theme_options = ref({
   textStyle: {
-    fontFamily: 'monospace',
+    fontFamily: 'sans-serif',
     fontSize: 14,
     color: 'black',
   },
@@ -97,7 +97,7 @@ const light_theme_options = ref({
 
 const dark_theme_options = ref({
   textStyle: {
-    fontFamily: 'monospace',
+    fontFamily: 'sans-serif',
     fontSize: 14,
     color: 'white',
   },
