@@ -52,21 +52,18 @@
         "
       >
         <!-- ENOs -->
-        <div v-if="currentSection === 'enos'"><Base /></div>
+        <div v-if="currentSection == 'enos'"><Base /></div>
 
         <!-- Vigilancia Sindromica  -->
-        <RouterViewTransition v-show="currentSection === 'vigilancia-sindromica'"></RouterViewTransition>
+        <div v-else><RouterViewTransition></RouterViewTransition></div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-// import { sidebarState } from '@/composables'
 import RouterViewTransition from '@/components/RouterViewTransition.vue'
 import { storeToRefs } from 'pinia'
 import { useSectionsStore } from '@/stores/sections-store.ts'
-// import { isCurrentRoute } from '@/composables'
 const { currentSection } = storeToRefs(useSectionsStore())
-console.log(currentSection, 'dddddd')
 </script>
