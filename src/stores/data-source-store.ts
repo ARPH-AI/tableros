@@ -10,6 +10,9 @@ export const useDataSourceStore = defineStore('dataSourceStore', {
     getCurrentDataSource(state) {
       return state.dataSource
     },
+    getCurrentDataSource(state) {
+      return state.dataSource
+    },
     actions: {
       setCurrentDataSource(state) {
         state.dataSource = state

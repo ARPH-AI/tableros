@@ -16,6 +16,7 @@
       class="rounded-3xl grid grid-cols-1 gap-4 place-items-center"
       :aria-label="`Navegar hacia la sección ${props.section.title}`"
       :to="props.section.key"
+      @click="currentSection = props.section.key"
     >
       <div class="w-full h-full place-items-center rounded-3xl bg-light_base dark:bg-dark_contrast">
         <h2 class="p-4 inline-block align-middle">{{ props.section.title }}</h2>
@@ -28,6 +29,12 @@
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia'
+
+import { useSectionsStore } from '@/stores/sections-store.ts'
+
+const { currentSection } = storeToRefs(useSectionsStore())
+
 const props = defineProps({
   section: {
     type: Object,

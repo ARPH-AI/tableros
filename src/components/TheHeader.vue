@@ -77,8 +77,8 @@ const { dataSource } = storeToRefs(useDataSourceStore())
           <MenuButton class="inline-flex justify-center w-full">
             <ProfileAvatar
               :bg-color="isDark ? '#FFFF' : '#000'"
-              border
               border-color="isDark ? '#FFFF' : '#000'"
+              border
               :username="$auth.user.email"
               :text-color="isDark ? '#000' : '#FFF'"
             ></ProfileAvatar>

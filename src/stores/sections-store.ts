@@ -4,16 +4,16 @@ import { main_axis } from '@/constants'
 export const useSectionsStore = defineStore('sectionsStore', {
   state: () => {
     return {
-      current_section: main_axis.VIGILANCIA_SINDROMICA.key,
+      currentSection: 'enos',
     }
   },
   getters: {
     getCurrentSection(state) {
-      return state.current_section
+      return state.currentSection
     },
     actions: {
       setCurrentSection(state) {
-        state.current_section = state
+        state.currentSection = state
       },
     },
   },
