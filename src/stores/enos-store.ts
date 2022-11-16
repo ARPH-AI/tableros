@@ -10,10 +10,10 @@ export const useEnosStore = defineStore('enosStore', {
     getCurrentEno(state) {
       return state.current_eno
     },
-    actions: {
-      setCurrentEno(state) {
-        state.current_eno = state
-      },
+  },
+  actions: {
+    setCurrentEno(state) {
+      state.current_eno = state
     },
   },
 })

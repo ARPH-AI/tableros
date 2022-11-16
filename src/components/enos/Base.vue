@@ -5,7 +5,7 @@
       v-show="!isCurrentRoute(general_sections.INFORMACION.key)"
       class="grid float-left grid-cols-1 pl-4 mt-4 ml-4 text-left h-fit"
     >
-      <span class="float-left text-4xl align-middle">{{ enos.COVID.title }}</span>
+      <span class="float-left text-4xl align-middle">Nombre de la seccion</span>
     </div>
 
     <div
