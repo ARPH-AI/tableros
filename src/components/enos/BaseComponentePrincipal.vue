@@ -16,7 +16,9 @@ const props = defineProps({
 const componente = shallowRef(props.eno.eno.mainComponent)
 </script>
 <template>
-  <suspense timeout="0"><component :is="componente"></component></suspense>
+  <div class="">
+    <suspense timeout="0"><component :is="componente"></component></suspense>
+  </div>
 </template>
 
 <style></style>

@@ -19,7 +19,7 @@
         >
         <span class="float-left leading-relaxed align-middle"> Actualizacion: {{ currentTime }}</span>
       </div>
-
+      <!-- tab list tiene que ser dinamica -->
       <TabList
         v-show="!isCurrentRoute(general_sections.INFORMACION.key)"
         class="dark:bg-dark_smooth bg-light_smooth rounded-xl p-2 inline-flex float-right mr-6"
@@ -78,6 +78,7 @@
       </TabList>
     </div>
     <TabPanels>
+      <!-- reproducir uno de estos por cada cant de tabs -->
       <TabPanel><RouterViewTransition></RouterViewTransition></TabPanel>
       <TabPanel><RouterViewTransition></RouterViewTransition></TabPanel>
     </TabPanels>
