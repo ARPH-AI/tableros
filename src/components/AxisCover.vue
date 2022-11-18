@@ -1,7 +1,7 @@
 <template>
   <div class="hover:opacity-50">
     <router-link
-      class="rounded-2xl grid grid-cols-1 gap-3 place-items-center"
+      class="rounded-2xl grid hover:text-light_contrast grid-cols-1 gap-3 place-items-center"
       :aria-label="`Navegar hacia la sección ${props.section.title}`"
       :to="props.section.key"
       @click="currentSection = props.section.key"

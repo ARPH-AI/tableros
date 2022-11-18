@@ -1,9 +1,10 @@
 <script setup>
-import { sections, general_sections, main_axis } from '@/constants'
+import { sections, general_sections } from '@/constants'
 import { getThemeByDataSource } from '@/composables'
 import { storeToRefs } from 'pinia'
 import { useDataSourceStore } from '@/stores/data-source-store.ts'
 import { useSectionsStore } from '@/stores/sections-store.ts'
+import { isCurrentRoute } from '@/composables'
 
 const { currentSection } = storeToRefs(useSectionsStore())
 
@@ -29,7 +30,7 @@ const { dataSource } = storeToRefs(useDataSourceStore())
     <div class="mt-16">
       <BaseMinimalSideBarButton
         v-for="(section, index) in sections"
-        v-show="currentSection == 'enos'"
+        v-show="currentSection == 'enos' && !isCurrentRoute == 'enos'"
         :key="index"
         :section="section"
         :color-theme="getThemeByDataSource(dataSource)"

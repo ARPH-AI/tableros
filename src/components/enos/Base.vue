@@ -86,16 +86,21 @@
 </template>
 
 <script setup>
-// import { sidebarState } from '@/composables'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import RouterViewTransition from '@/components/RouterViewTransition.vue'
 import Popper from 'vue3-popper'
 import { general_sections, data_sources } from '@/constants'
 import { storeToRefs } from 'pinia'
 import { useDataSourceStore } from '@/stores/data-source-store.ts'
-import { isCurrentRoute } from '@/composables'
+import { useEnosStore } from '@/stores/enos-store.ts'
 
+import { isCurrentRoute } from '@/composables'
+import { getCurrentEnoDataSources } from '@/composables'
 const { dataSource } = storeToRefs(useDataSourceStore())
+
+const { current_eno } = storeToRefs(useEnosStore())
+console.log(current_eno, 'ddd')
+console.log(getCurrentEnoDataSources(current_eno), 'FFFFFF')
 
 var today = new Date()
 var dd = String(today.getDate()).padStart(2, '0')

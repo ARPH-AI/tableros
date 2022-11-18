@@ -5,12 +5,16 @@ import { enos } from '@/data/enos/enos'
 
 export const isDark = useDark()
 export const toggleDarkMode = useToggle(isDark)
-
 export const getCurrentEnoDataSources = (current_eno) => {
-  console.log(current_eno, 'CURRENT ENO')
-  const dataSources = []
-
-  return []
+  let eno_data_sources = []
+  console.log(current_eno.value, 'CURRENT ENO')
+  const enos_array = Object.entries(enos)
+  enos_array.forEach(function (eno) {
+    if (eno[1].key == current_eno.value) {
+      eno_data_sources = eno[1].fuente_datos
+    }
+  })
+  return eno_data_sources || []
 }
 export const sidebarState = reactive({
   isOpen: false,
