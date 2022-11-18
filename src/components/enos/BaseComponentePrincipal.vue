@@ -18,7 +18,7 @@ const componente = shallowRef(props.eno.eno.mainComponent)
 <template>
   <div>
     <div class="hover:opacity-50">
-      <router-link :to="props.eno.eno.main_page"
+      <router-link :to="props.eno.eno.main_page" @click="current_eno = props.eno.eno.key"
         ><h3 class="mb-3 p-3 bg-light_smooth dark:bg-dark_smooth rounded-lg font-medium">{{ props.eno.eno.title }}</h3>
         <Suspense><component :is="componente" :data-source="dataSource"></component></Suspense>
       </router-link>

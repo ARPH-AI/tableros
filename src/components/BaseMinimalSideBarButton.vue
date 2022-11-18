@@ -9,7 +9,7 @@
     ]"
     :to="props.section.key"
     ><Popper arrow disable-click-away hover interactive :content="props.section.title"
-      ><props.section.iconComponent class="flex-shrink-0 w-6 h-6" />
+      ><props.section.iconComponent class="justify-self-center flex-shrink-0 w-6 h-6" />
     </Popper>
   </router-link>
 </template>

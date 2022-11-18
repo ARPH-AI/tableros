@@ -10,7 +10,7 @@ const { currentSection } = storeToRefs(useSectionsStore())
 const { dataSource } = storeToRefs(useDataSourceStore())
 </script>
 <template>
-  <nav class="grid grid-cols-1 items-center px-2 mt-32 font-sans">
+  <nav class="grid grid-cols-1 place-items-center px-2 mt-32 font-sans">
     <BaseMinimalSideBarButton
       :section="general_sections.HOME"
       :color-theme="getThemeByDataSource(dataSource)"

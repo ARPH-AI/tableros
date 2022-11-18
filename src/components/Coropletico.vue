@@ -9,12 +9,16 @@ import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headless
 import { CheckIcon, SelectorIcon } from '@heroicons/vue/solid'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import { QuestionMarkCircleIcon } from '@heroicons/vue/outline'
+import VueTailwindDatepicker from 'vue-tailwind-datepicker'
 
 const provinciasImport = await fetch('provincias-argentina.json')
 const provincias = await provinciasImport.json()
 
 const titulo = 'Casos activos por departamento'
-
+const formatter = ref({
+  date: 'YYYY MM DD',
+  month: 'MMM',
+})
 let resultSet = {}
 let datos = ref([])
 //let  fecha = ref('2021-04-09')
@@ -203,7 +207,19 @@ const changeProvincia = (event) => {
         </div>
       </Listbox>
       <div class="flex flex-1 w-1/4">
-        <input
+        <div class="flex">
+          <vue-tailwind-datepicker
+            v-model="fecha"
+            aria-label="Seleccion de fecha"
+            class="flex-1 float-right focus:outline-none shadow-xl rounded-lg"
+            overlay
+            :formatter="formatter"
+            as-single
+            input-classes="block text-sm font-medium text-light_contrast dark:text-dark_contrast"
+            @change="changeDate"
+          />
+        </div>
+        <!-- <input
           v-model="fecha"
           aria-label="Seleccion de fecha"
           class="
@@ -222,7 +238,7 @@ const changeProvincia = (event) => {
           "
           type="date"
           @change="changeDate"
-        />
+        /> -->
       </div>
     </div>
     <div class="flex-1 flex flex-row">
