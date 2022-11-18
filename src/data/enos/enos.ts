@@ -42,3 +42,30 @@ export const enos = {
     mainComponent: CasosActivosSemanaEpidemiologicaVue,
   },
 }
+
+export const enos_array = [
+  {
+    key: 'covid',
+    title: 'COVID-19',
+    fuente_datos: [data_sources.HSI, data_sources.SNVS],
+    main_page: 'seccion-situacion-actual',
+    componentes: {
+      situacion_actual: [],
+      caracterizacion: [],
+      geo: [],
+    },
+    mainComponent: CasosActivosSemanaEpidemiologicaVue,
+  },
+  // {
+  //   key: 'dengue',
+  //   title: 'Dengue',
+  //   fuente_datos: [data_sources.HSI],
+  //   main_page: 'seccion-situacion-actual',
+  //   secciones: [sections.SITUACION_ACTUAL, sections.CARACTERIZACION],
+  //   componentes: {
+  //     situacion_actual: [],
+  //     caracterizacion: [],
+  //   },
+  //   mainComponent: CasosActivosSemanaEpidemiologicaVue,
+  // },
+]

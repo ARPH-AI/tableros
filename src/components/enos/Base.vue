@@ -94,6 +94,8 @@ import { storeToRefs } from 'pinia'
 import { useDataSourceStore } from '@/stores/data-source-store.ts'
 import { useEnosStore } from '@/stores/enos-store.ts'
 
+// const lista_enos = enos_array
+// console.log(lista_enos, 'UUUUII')
 import { isCurrentRoute } from '@/composables'
 import { getCurrentEnoDataSources } from '@/composables'
 const { dataSource } = storeToRefs(useDataSourceStore())
