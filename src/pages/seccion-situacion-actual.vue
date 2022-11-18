@@ -6,7 +6,10 @@ meta:
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useDataSourceStore } from '@/stores/data-source-store'
+import { useEnosStore } from '@/stores/enos-store'
+
 const { dataSource } = storeToRefs(useDataSourceStore())
+const { current_eno } = storeToRefs(useEnosStore())
 </script>
 
 <template>

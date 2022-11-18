@@ -7,6 +7,7 @@ meta:
 import { storeToRefs } from 'pinia'
 import { useDataSourceStore } from '@/stores/data-source-store'
 const { dataSource } = storeToRefs(useDataSourceStore())
+import { getThemeByDataSource } from '@/composables'
 </script>
 
 <template>
@@ -36,7 +37,14 @@ const { dataSource } = storeToRefs(useDataSourceStore())
               measure="CovidEdadSexo.frecuenciaCasosMen"
             />
           </div>
-          <Suspense><CasosAcumuladosSexo data-source="hsi" /></Suspense>
+          <Suspense
+            ><CasosAcumuladosSexo data-source="hsi" /><template #fallback>
+              <BaseGraphSkeleton
+                styles="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
+                :color-theme="getThemeByDataSource(dataSource)"
+              ></BaseGraphSkeleton>
+            </template>
+          </Suspense>
           <Suspense><ComorbilidadesFrecuencia data-source="hsi" /></Suspense>
         </div>
       </div>

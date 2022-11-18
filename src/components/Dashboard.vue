@@ -29,6 +29,7 @@
         dark:bg-dark_base
         -translate-x-full
         lg:translate-x-0 lg:w-20
+        font-sans
       "
     >
       <!-- Expanded Sidebar Navigation -->

@@ -32,12 +32,6 @@ import RouterViewTransition from '@/components/RouterViewTransition.vue'
   background-color: #f1f1f1;
   height: 100%;
 }
-body {
-}
-bignumber {
-  font-weight: 200;
-  font-size: 40px;
-}
 
 /* On small screens, set height to 'auto' for the grid */
 @media screen and (max-width: 767px) {

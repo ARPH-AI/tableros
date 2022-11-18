@@ -1,10 +1,17 @@
 import { useDark, useToggle } from '@vueuse/core'
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import { enos } from '@/data/enos/enos'
 
 export const isDark = useDark()
 export const toggleDarkMode = useToggle(isDark)
 
+export const getCurrentEnoDataSources = (current_eno) => {
+  console.log(current_eno, 'CURRENT ENO')
+  const dataSources = []
+
+  return []
+}
 export const sidebarState = reactive({
   isOpen: false,
   isHovered: false,

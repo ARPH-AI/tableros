@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import cubeApi from '@/cube'
 import { QueryBuilder } from '@cubejs-client/vue3'
-import Card from '@/components/Card.vue'
 import { obtenerCantidad } from '@/cube/utils'
 import { getThemeByDataSource } from '@/composables'
 
@@ -50,7 +49,7 @@ const getTotalCasosAcumulados = () => {
         <BaseCardSkeleton :color-theme="getThemeByDataSource(props.dataSource)"></BaseCardSkeleton>
       </div>
       <div v-if="!loading && resultSet !== undefined">
-        <Card
+        <NumberCard
           :color-theme="getThemeByDataSource(props.dataSource)"
           :cantidad="obtenerCantidad(resultSet)"
           :titulo="titulo"

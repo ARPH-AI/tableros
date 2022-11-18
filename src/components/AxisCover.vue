@@ -1,28 +1,29 @@
 <template>
-  <div
-    class="
-      my-10
-      mx-16
-      transition-opacity
-      duration-300
-      hover:opacity-50
-      p-3
-      bg-light_smooth
-      dark:bg-dark_smooth
-      rounded-3xl
-    "
-  >
+  <div class="hover:opacity-50">
     <router-link
-      class="rounded-3xl grid grid-cols-1 gap-4 place-items-center"
+      class="rounded-2xl grid grid-cols-1 gap-3 place-items-center"
       :aria-label="`Navegar hacia la sección ${props.section.title}`"
       :to="props.section.key"
       @click="currentSection = props.section.key"
     >
-      <div class="w-full h-full place-items-center rounded-3xl bg-light_base dark:bg-dark_contrast">
-        <h2 class="p-4 inline-block align-middle">{{ props.section.title }}</h2>
-      </div>
-      <div class="p-3 h-full w-full place-items-center text-justify rounded-3xl bg-light_base dark:bg-dark_contrast">
-        <p class="line-clamp-6">{{ props.section.description }}</p>
+      <h3 class="w-full p-3 bg-light_smooth dark:bg-dark_smooth rounded-lg font-medium">
+        {{ props.section.title }}
+      </h3>
+
+      <div
+        class="
+          p-3
+          h-full
+          bg-light_smooth
+          dark:bg-dark_smooth
+          rounded-3xl
+          w-full
+          place-items-center
+          text-justify
+          rounded-2xl
+        "
+      >
+        <p class="line-clamp-5">{{ props.section.description }}</p>
       </div>
     </router-link>
   </div>

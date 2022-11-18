@@ -38,7 +38,7 @@ const getTotalCasosAcumulados = () => {
         <BaseCardSkeleton :color-theme="getThemeByDataSource(props.dataSource)"></BaseCardSkeleton>
       </div>
       <div v-if="!loading && resultSet !== undefined">
-        <Card
+        <NumberCard
           :color-theme="getThemeByDataSource(props.dataSource)"
           :cantidad="obtenerCantidad(resultSet)"
           :titulo="titulo"

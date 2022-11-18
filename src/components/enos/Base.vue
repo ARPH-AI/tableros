@@ -5,7 +5,7 @@
       v-show="!isCurrentRoute(general_sections.INFORMACION.key)"
       class="grid float-left grid-cols-1 pl-4 mt-4 ml-4 text-left h-fit"
     >
-      <span class="float-left text-4xl align-middle">Nombre de la seccion</span>
+      <span class="float-left text-4xl align-middle">{{}}</span>
     </div>
 
     <div
@@ -90,7 +90,7 @@
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import RouterViewTransition from '@/components/RouterViewTransition.vue'
 import Popper from 'vue3-popper'
-import { general_sections, data_sources, enos } from '@/constants'
+import { general_sections, data_sources } from '@/constants'
 import { storeToRefs } from 'pinia'
 import { useDataSourceStore } from '@/stores/data-source-store.ts'
 import { isCurrentRoute } from '@/composables'
@@ -102,7 +102,6 @@ var dd = String(today.getDate()).padStart(2, '0')
 var mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
 var yyyy = today.getFullYear()
 var currentTime = dd + '/' + mm + '/' + yyyy
-console.log(dataSource, 'ddddddlwowuiwiw')
 </script>
 
 <style>

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import cubeApi from '@/cube'
 import { getThemeByDataSource } from '@/composables'
 
@@ -81,8 +81,8 @@ const resultSetFem = await cubeApi.load(getTotalCasosFem())
 </script>
 
 <template>
-  <Suspense>
-    <template #default>
+  <Transition mode="out-in">
+    <Suspense>
       <GraficoPiramide
         :chart-height="
           dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[26vh]' : 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]'
@@ -92,14 +92,14 @@ const resultSetFem = await cubeApi.load(getTotalCasosFem())
         :titulo="titulo"
         :etiquetas="resultSetMasc.chartPivot(pivotConfigMasc).map((row) => row.x)"
       />
-    </template>
-    <template #fallback>
-      <BaseGraphSkeleton
-        styles="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
-        :color-theme="getThemeByDataSource(props.dataSource)"
-      ></BaseGraphSkeleton>
-    </template>
-  </Suspense>
+      <template #fallback>
+        <BaseGraphSkeleton
+          styles="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
+          :color-theme="getThemeByDataSource(props.dataSource)"
+        ></BaseGraphSkeleton>
+      </template>
+    </Suspense>
+  </Transition>
 </template>
 
 <style scoped></style>

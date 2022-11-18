@@ -41,11 +41,12 @@ const getTotalCasos = () => {
         <BaseCardSkeleton :color-theme="getThemeByDataSource(props.dataSource)"></BaseCardSkeleton>
       </div>
       <div v-if="!loading && resultSet !== undefined">
-        <Card
+        <NumberCard
           :color-theme="getThemeByDataSource(props.dataSource)"
           :cantidad="obtenerCantidad(resultSet)"
           :titulo="title"
-          :percent=true
+          :percent="true"
+          styles="bg-light_smooth dark:bg-dark_smooth"
         />
       </div>
     </template>

@@ -1,4 +1,3 @@
-import { TrendingUpIcon, MapIcon, UserGroupIcon, HomeIcon } from '@heroicons/vue/outline'
 import { sections } from '@/constants'
 import CasosActivosSemanaEpidemiologicaVue from '@/components/CasosActivosSemanaEpidemiologica.vue'
 
@@ -22,6 +21,7 @@ export const enos = {
     key: 'covid',
     title: 'COVID-19',
     fuente_datos: [data_sources.HSI, data_sources.SNVS],
+    main_page: 'seccion-situacion-actual',
     componentes: {
       situacion_actual: [],
       caracterizacion: [],
@@ -33,6 +33,7 @@ export const enos = {
     key: 'dengue',
     title: 'Dengue',
     fuente_datos: [data_sources.HSI],
+    main_page: 'seccion-situacion-actual',
     secciones: [sections.SITUACION_ACTUAL, sections.CARACTERIZACION],
     componentes: {
       situacion_actual: [],
