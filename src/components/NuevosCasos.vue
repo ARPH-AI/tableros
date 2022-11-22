@@ -22,10 +22,10 @@ const totalNuevosCasosHSI = {
 }
 
 const totalNuevosCasosSNVS = {
-  measures: ['casosCovidPromSem.cantidadXDiaSNVS', 'casosCovidPromSem.promedioSemanalSNVS'],
+  measures: ['casosCovidPromSemSNVS.cantidadXDiaSNVS', 'casosCovidPromSemSNVS.promedioSemanalSNVS'],
   timeDimensions: [
     {
-      dimension: 'casosCovidPromSem.Fecha_inicio_Conf',
+      dimension: 'casosCovidPromSemSNVS.Fecha_inicio_Conf',
       granularity: 'day',
       dateRange: 'last 360 days',
       //      dateRange: [`${fechaInicio}`, `${fechaFin}`],

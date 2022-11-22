@@ -29,12 +29,12 @@ const totalCasosActivosHSI = {
 }
 
 const totalCasosActivosSNVS = {
-  measures: ['casosCovidPromSem.cantidadXDiaSNVS'],
+  measures: ['casosCovidPromSemSNVS.cantidadXDiaSNVS'],
   timeDimensions: [],
   order: {},
   filters: [
     {
-      member: 'casosCovidPromSem.Fecha_inicio_Conf',
+      member: 'casosCovidPromSemSNVS.Fecha_inicio_Conf',
       operator: 'equals',
       values: [`${date}`],
     },

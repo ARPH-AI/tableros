@@ -1,4 +1,5 @@
 cube(`SemanaEpidemiologica`, {
+  sqlAlias: `SemEpi`,
   sql: `select * from tableros.semana_epidemiologica`,
   measures: {
     count: {

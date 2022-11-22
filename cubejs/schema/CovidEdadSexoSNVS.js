@@ -1,4 +1,5 @@
 cube(`CovidEdadSexoSNVS`, {
+  sqlAlias: `EdadSNVS`,
   sql: `
     select
       snvs.ideventocaso,
@@ -93,6 +94,9 @@ cube(`CovidEdadSexoSNVS`, {
   preAggregations: {
     main: {
       type: `originalSql`,
+      refreshKey: {
+        every: `1 day`,
+      },
     },
   },
   dataSource: `default`,

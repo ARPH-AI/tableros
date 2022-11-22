@@ -1,4 +1,5 @@
 cube(`CovidEdadSexo`, {
+  sqlAlias: `Sexo`,
   sql: `
   select
     (case
@@ -17,7 +18,10 @@ cube(`CovidEdadSexo`, {
       end
     ) as grupo_edad,
     se.numero_semana,
-    se.anio
+    se.anio,
+    pcc.ciudad as ciudad,
+    pcc.provincia as provincia,
+    pcc.departamento as departamento
   from
     tableros.problema_con_covid pcc
       join person p on (p.id=pcc.person_id)
@@ -112,10 +116,25 @@ cube(`CovidEdadSexo`, {
       sql: `anio`,
       type: `number`,
     },
+    ciudad: {
+      sql: `ciudad`,
+      type: `string`,
+    },
+    provincia: {
+      sql: `provincia`,
+      type: `string`,
+    },
+    departamento: {
+      sql: `departamento`,
+      type: `string`,
+    },
   },
   preAggregations: {
     main: {
       type: `originalSql`,
+      refreshKey: {
+        every: `1 day`,
+      },
     },
   },
   title: ` `,

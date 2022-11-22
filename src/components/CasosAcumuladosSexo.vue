@@ -18,12 +18,12 @@ const totalCasosMascHSI = {
 }
 
 const totalCasosMascSNVS = {
-  measures: ['CovidEdadSexoMasc.cantidad_masc_snvs'],
+  measures: ['CovidEdadSexoMascSNVS.cantidad_masc_snvs'],
   timeDimensions: [],
   order: {
-    'CovidEdadSexoMasc.grupo_edad_masc': 'asc',
+    'CovidEdadSexoMascSNVS.grupo_edad_masc': 'asc',
   },
-  dimensions: ['CovidEdadSexoMasc.grupo_edad_masc'],
+  dimensions: ['CovidEdadSexoMascSNVS.grupo_edad_masc'],
 }
 
 const totalCasosFemHSI = {
@@ -36,23 +36,23 @@ const totalCasosFemHSI = {
 }
 
 const totalCasosFemSNVS = {
-  measures: ['CovidEdadSexoFem.cantidad_fem_snvs'],
+  measures: ['CovidEdadSexoFemSNVS.cantidad_fem_snvs'],
   timeDimensions: [],
   order: {
-    'CovidEdadSexoFem.grupo_edad_fem': 'asc',
+    'CovidEdadSexoFemSNVS.grupo_edad_fem': 'asc',
   },
-  dimensions: ['CovidEdadSexoFem.grupo_edad_fem'],
+  dimensions: ['CovidEdadSexoFemSNVS.grupo_edad_fem'],
 }
 
 const pivotConfigMasc = {
-  x: ['CovidEdadSexo.Grupo_edad'],
+  x: ['CovidEdadSexoMasc.grupo_edad_masc'],
   y: ['measures'],
   fillMissingDates: true,
   joinDateRange: false,
 }
 
 const pivotConfigFem = {
-  x: ['CovidEdadSexo.Grupo_edad'],
+  x: ['CovidEdadSexoFem.grupo_edad_fem'],
   y: ['measures'],
   fillMissingDates: true,
   joinDateRange: false,
