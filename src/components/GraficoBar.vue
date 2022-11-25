@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<Props>(), { colorTheme: 'color_0', stacke
 
 const stackSeries = (series) => {
   return series.map((item, index) => {
-    let color = index % 2 ? '#00bfcc' : '#ff6c0a'
+    let color = index % 2 ? '#ff6c0a' : '#00bfcc'
     return {
       name: item.title,
       realtimeSort: true,
@@ -56,7 +56,7 @@ const light_theme_options = {
   },
   legend: {
     width: '100%',
-    bottom: 12,
+    bottom: -7,
     type: 'plain',
     show: true,
     textStyle: {
@@ -88,12 +88,13 @@ const light_theme_options = {
     data: props.etiquetas,
   },
   xAxis: {
-    axisLabel: { verticalAlign: 'bottom', padding: 20 },
+    axisLabel: { verticalAlign: 'bottom', paddingTop: 20 },
     type: 'value',
     name: props.tituloX,
     nameLocation: 'middle',
     nameGap: 25,
     boundaryGap: [0, 0.01],
+    offset: 20
   },
   series: stackSeries(props.series),
 }
@@ -121,7 +122,7 @@ const dark_theme_options = {
   },
   legend: {
     width: '100%',
-    bottom: 2,
+    bottom: -7,
     type: 'plain',
     show: true,
     textStyle: {
@@ -153,12 +154,13 @@ const dark_theme_options = {
     data: props.etiquetas,
   },
   xAxis: {
-    axisLabel: { verticalAlign: 'bottom', padding: 20 },
+    axisLabel: { verticalAlign: 'bottom', paddingTop: 20 },
     type: 'value',
     name: props.tituloX,
     nameLocation: 'middle',
     nameGap: 25,
     boundaryGap: [0, 0.01],
+    offset: 20
   },
   series: stackSeries(props.series),
 }
