@@ -37,8 +37,8 @@ const createSeries = (series) => {
 }
 
 const transformNegativeValuesToPositive = (args: any) => `${args[0].axisValueLabel} <br /> 
-            ${args[0].marker} ${args[0].seriesId}: <b>${args[0].value * -1}</b> <br /> 
-            ${args[1].marker} ${args[1].seriesId}: <b>${args[1].value}</b>`
+            ${args[0].marker} ${args[0].seriesName}: <b>${args[0].value * -1}</b> <br /> 
+            ${args[1].marker} ${args[1].seriesName}: <b>${args[1].value}</b>`
 
 const light_theme_options = ref({
   textStyle: {
