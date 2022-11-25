@@ -12,6 +12,7 @@ cube(`CovidEdadSexoSNVS`, {
         end
       ) as grupo_edad,
       snvs.departamento_residencia as ciudad,
+      snvs.departamento_residencia as departamento,
       se.numero_semana,
       se.anio
   from tableros.snvs
@@ -80,6 +81,10 @@ cube(`CovidEdadSexoSNVS`, {
     },
     Ciudad: {
       sql: `ciudad`,
+      type: `string`,
+    },
+    departamento: {
+      sql: `departamento`,
       type: `string`,
     },
     Numero_semana_snvs: {

@@ -1,24 +1,24 @@
 cube(`casosCovidPromSem`, {
   sqlAlias: `promSem`,
   sql: `
-		select
-    	se.nombre_semana,
+    select
+      se.nombre_semana,
       se.numero_semana,
       se.anio,
       se.fecha,
-	  	(case when pcc3.cantidad is null then 0 else pcc3.cantidad end),
+      (case when pcc3.cantidad is null then 0 else pcc3.cantidad end),
    	  pcc3.departamento,
       pcc3.provincia,
       pcc3.ciudad
     from tableros.semana_epidemiologica se
-    	left join (
+      left join (
         select
-					pcc1.start_date as start_date,
-					pcc1.departamento,
-					pcc1.provincia,
-					pcc1.ciudad,
-					pcc1.id_consulta,
-					1 as cantidad
+          pcc1.start_date as start_date,
+          pcc1.departamento,
+          pcc1.provincia,
+          pcc1.ciudad,
+          pcc1.id_consulta,
+          1 as cantidad
         from
           tableros.problema_con_covid as pcc1
         where

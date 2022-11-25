@@ -6,18 +6,21 @@ cube(`casosCovidPromSemSNVS`, {
       se.numero_semana,
       se.anio,
       se.fecha,
-      (
+      (case when s.cantidad_snvs is null then 0 else s.cantidad_snvs end),
+      s.departamento
+    from tableros.semana_epidemiologica se
+      left join (
         select
-          count(1)
+          ts.departamento_residencia as departamento,
+          1 as cantidad_snvs,
+          ts.fecha_apertura
         from
-          tableros.snvs s
+          tableros.snvs ts
         where
-          clasif_resumen = 'Confirmado' and
-          se.fecha=s.fecha_apertura
-      ) as cantidad_snvs
-    from
-      tableros.semana_epidemiologica se
-  `,
+          ts.clasif_resumen = 'Confirmado'
+      ) as s
+      on s.fecha_apertura = se.fecha
+	`,
   measures: {
     cantidadXDiaSNVS: {
       sql: `cantidad_snvs`,
@@ -49,6 +52,10 @@ cube(`casosCovidPromSemSNVS`, {
     numero_semana: {
       sql: `numero_semana`,
       type: `number`,
+    },
+    departamento: {
+      sql: `departamento`,
+      type: `string`,
     },
   },
   preAggregations: {

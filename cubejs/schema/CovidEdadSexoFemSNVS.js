@@ -2,17 +2,14 @@ cube(`CovidEdadSexoFemSNVS`, {
   sqlAlias: `EdadFemSNVS`,
   sql: `
     select
-      id,
-      grupo_etario as grupo_edad,
-      (
-        select count(1)
-        from tableros.snvs
-        where
-          snvs.edad_actual=ge.id and
-          snvs.sexo='F'
-      ) as cantidad_snvs
-    from tableros.grupo_edad ge
-  `,
+      s.ideventocaso as id,
+      1 as cantidad_snvs,
+      ge.grupo_etario as grupo_edad,
+      s.departamento_residencia as departamento
+    from
+      tableros.snvs s
+        join tableros.grupo_edad ge on (s.edad_actual = ge.id and s.sexo='F')
+   `,
   measures: {
     cantidad_fem_snvs: {
       sql: `cantidad_snvs`,
@@ -29,6 +26,10 @@ cube(`CovidEdadSexoFemSNVS`, {
     grupo_edad_fem: {
       sql: `grupo_edad`,
       type: `number`,
+    },
+    departamento: {
+      sql: `departamento`,
+      type: `string`,
     },
   },
   preAggregations: {
