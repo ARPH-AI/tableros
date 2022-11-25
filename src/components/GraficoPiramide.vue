@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import 'echarts'
 import VChart from 'vue-echarts'
 import { isDark } from '@/composables'
+import { formatLeftDataToNaturalNumber } from '@/utils'
 
 const props = defineProps<{
   colorTheme: string
@@ -43,6 +44,7 @@ const light_theme_options = ref({
     color: 'black',
   },
   tooltip: {
+    formatter: formatLeftDataToNaturalNumber,
     trigger: 'axis',
     axisPointer: {
       type: 'shadow',
