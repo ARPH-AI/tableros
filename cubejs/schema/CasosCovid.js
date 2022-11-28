@@ -1,4 +1,5 @@
 cube(`casosCovid`, {
+  sqlAlias: `cC19`,
   sql: `
     select
       1 as identificador,
@@ -8,7 +9,9 @@ cube(`casosCovid`, {
       pcc1.description as variable,
       pcc1.id_consulta,
       pcc1.patient_id,
-      pcc1.ciudad
+      pcc1.ciudad,
+      pcc1.provincia as provincia,
+      pcc1.departamento as departamento
     from
       tableros.problema_con_covid as pcc1
     where
@@ -23,7 +26,6 @@ cube(`casosCovid`, {
           pcc1.start_date between pcc2.start_date and pcc2.start_date + interval '14 day'
       )
   `,
-
   measures: {
     identificador: {
       sql: `identificador`,
@@ -41,7 +43,6 @@ cube(`casosCovid`, {
       description: `  `,
     },
   },
-
   dimensions: {
     Estado: {
       sql: `variable`,
@@ -59,10 +60,21 @@ cube(`casosCovid`, {
       sql: `ciudad`,
       type: `string`,
     },
+    provincia: {
+      sql: `provincia`,
+      type: `string`,
+    },
+    departamento: {
+      sql: `departamento`,
+      type: `string`,
+    },
   },
   preAggregations: {
     main: {
       type: `originalSql`,
+      refreshKey: {
+        every: `1 day`,
+      },
     },
   },
   title: ` `,

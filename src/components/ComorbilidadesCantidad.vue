@@ -9,6 +9,10 @@ const props = defineProps({
 })
 
 const procesaDatos = (lista, total) => {
+  if (lista.length === 0) {
+    return lista
+  }
+
   let resultado_intermedio = {}
   for (let i = 0; i < lista[0].series.length; i++) {
     let val = lista[0].series[i].value

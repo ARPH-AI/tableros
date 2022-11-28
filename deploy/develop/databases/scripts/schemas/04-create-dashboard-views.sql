@@ -17,7 +17,7 @@ SET row_security = off;
 --
 
 CREATE VIEW tableros.problema_con_covid AS
-  SELECT hc.start_date,
+   SELECT hc.start_date,
     hc.cie10_codes,
     s.pt,
     s.id,
@@ -31,7 +31,9 @@ CREATE VIEW tableros.problema_con_covid AS
     c.id AS id_ciudad,
     vt.id AS tipo_variable_id,
     d2.description as institucion_departamento,
-    p2.description as institucion_provincia
+    p2.description as institucion_provincia,
+    d3.description as departamento,
+    p3.description as provincia
   FROM ((((((((((public.outpatient_consultation oc
     JOIN public.document d ON ((oc.document_id = d.id)))
     JOIN public.document_health_condition dhc ON ((dhc.document_id = d.id)))
@@ -43,6 +45,8 @@ CREATE VIEW tableros.problema_con_covid AS
     LEFT JOIN public.person_extended pe ON ((pe.person_id = p.person_id)))
     LEFT JOIN public.address a ON ((a.id = pe.address_id)))
     LEFT JOIN public.city c ON ((c.id = a.city_id))
+    LEFT JOIN public.department d3 on ((d3.id = a.department_id ))
+    LEFT JOIN public.province p3 on ((p3.id = a.province_id ))
     LEFT JOIN public.institution i on ((i.id = oc.institution_id))
     LEFT JOIN public.address a2 on ((a2.id = i.address_id))
     LEFT JOIN public.department d2 on ((d2.id = a2.department_id ))
