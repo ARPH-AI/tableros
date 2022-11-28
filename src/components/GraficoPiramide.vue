@@ -51,7 +51,7 @@ const light_theme_options = ref({
       crossStyle: {
         color: '#999',
       },
-    },
+    }
   },
   toolbox: {
     itemSize: 14,

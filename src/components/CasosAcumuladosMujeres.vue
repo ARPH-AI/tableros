@@ -16,7 +16,7 @@ const totalCasosAcumuladosHSI = {
   order: {},
 }
 const totalCasosAcumuladosSNVS = {
-  measures: ['CovidEdadSexoFem.cantidad_fem_snvs'],
+  measures: ['CovidEdadSexoFemSNVS.cantidad_fem_snvs'],
   timeDimensions: [],
   order: {},
 }

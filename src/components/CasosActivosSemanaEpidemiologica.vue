@@ -17,21 +17,21 @@ const oneYear = format(addYears(todayDate, -1), dateFormat)
 const titulo = 'Casos activos por Semana Epidemiológica'
 
 const totalCasosSNVS = {
-  measures: ['casosCovidPromSem.cantidadXDiaSNVS'],
+  measures: ['casosCovidPromSemSNVS.cantidadXDiaSNVS'],
   timeDimensions: [],
   order: {
     //    'casosCovidPromSem.cantidadXDiaSNVS': 'desc',
-    'casosCovidPromSem.anio': 'desc',
-    'casosCovidPromSem.numero_semana': 'desc',
+    'casosCovidPromSemSNVS.anio': 'desc',
+    'casosCovidPromSemSNVS.numero_semana': 'desc',
   },
   filters: [
     {
-      member: 'casosCovidPromSem.Fecha_inicio_Conf',
+      member: 'casosCovidPromSemSNVS.Fecha_inicio_Conf',
       operator: 'inDateRange',
       values: [oneYear, today],
     },
   ],
-  dimensions: ['casosCovidPromSem.nombre_semana', 'casosCovidPromSem.anio', 'casosCovidPromSem.numero_semana'],
+  dimensions: ['casosCovidPromSemSNVS.nombre_semana', 'casosCovidPromSemSNVS.anio', 'casosCovidPromSemSNVS.numero_semana'],
 }
 
 const totalCasosHSI = {
@@ -58,8 +58,8 @@ const pivotConfigHSI = {
 }
 
 const pivotConfigSNVS = {
-  x: ['casosCovidPromSem.nombre_semana'],
-  y: ['casosCovidPromSem.cantidadXDiaSNVS'],
+  x: ['casosCovidPromSemSNVS.nombre_semana'],
+  y: ['casosCovidPromSemSNVS.cantidadXDiaSNVS'],
   fillMissingDates: true,
   joinDateRange: false,
 }
@@ -90,9 +90,9 @@ const getKeys = {
     'Sospecha,casos.identificador',
   ],
   snvs: [
-    'casosCovidPromSem.nombre_semana',
+    'casosCovidPromSemSNVS.nombre_semana',
     //        "casosCovidPromSem.anio",
-    'casosCovidPromSem.cantidadXDiaSNVS',
+    'casosCovidPromSemSNVS.cantidadXDiaSNVS',
   ],
 }
 

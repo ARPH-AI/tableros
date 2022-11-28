@@ -25,13 +25,17 @@ const createPercentageMeasure = (status) => ({
 */
 
 cube(`casosComorbilidad`, {
+  sqlAlias: `cCom`,
   sql: `
   select
      ROW_NUMBER () OVER (ORDER BY pcc1.id_consulta) as identificador,
      pcc1.patient_id as paciente,
      pcc.comorbilidad as comorbilidad,
      pcc1.description as estado,
-     g.description as sexo
+     g.description as sexo,
+     pcc1.ciudad as ciudad,
+     pcc1.provincia as provincia,
+     pcc1.departamento as departamento
    from
      tableros.problema_con_covid as pcc1
        join person p on (p.id=pcc1.person_id)
@@ -87,10 +91,25 @@ cube(`casosComorbilidad`, {
       sql: `paciente`,
       type: `number`,
     },
+    ciudad: {
+      sql: `ciudad`,
+      type: `string`,
+    },
+    provincia: {
+      sql: `provincia`,
+      type: `string`,
+    },
+    departamento: {
+      sql: `departamento`,
+      type: `string`,
+    },
   },
   preAggregations: {
     main: {
       type: `originalSql`,
+      refreshKey: {
+        every: `1 day`,
+      },
     },
   },
   title: ` `,

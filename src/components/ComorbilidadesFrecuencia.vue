@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import cubeApi from '@/cube'
-import { QueryBuilder } from '@cubejs-client/vue3'
 // import { obtenerCantidad } from '@/cube/utils'
 import { getThemeByDataSource } from '@/composables'
 import { obtenerCantidad } from '@/cube/utils'
@@ -13,14 +12,14 @@ const titulo = 'Frecuencia de comorbilidades'
 const tituloX = '% de casos confirmados'
 const tituloY = ''
 
-const procesaDatos = (lista, total) => {
-  const calculaFrecuencia = (item) => {
-    const num = (item.value * 100) / total
+const procesaDatos = (lista: any[], total: number) => {
+  const calculaFrecuencia = (item: { value: string|number }) => {
+    const num = (Number(item.value) * 100) / total
     item.value = num.toFixed(2)
     return item
   }
 
-  const procesaItem = (item) => {
+  const procesaItem = (item: { title: string; series: any[] }) => {
     item.title = item.title.split(',')[0]
     item.series = item.series.map(calculaFrecuencia)
     return item

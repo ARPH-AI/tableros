@@ -1,4 +1,5 @@
 cube(`casos`, {
+  sqlAlias: `casos`,
   sql: `
     select
       ROW_NUMBER () OVER (ORDER BY pcc1.id_consulta) as identificador,
@@ -12,7 +13,9 @@ cube(`casos`, {
       se.numero_semana,
       se.fecha,
       se.anio,
-      pcc1.ciudad
+      pcc1.ciudad,
+      pcc1.provincia as provincia,
+      pcc1.departamento as departamento
     from
       tableros.problema_con_covid as pcc1,
       tableros.semana_epidemiologica se
@@ -71,10 +74,21 @@ cube(`casos`, {
       sql: `ciudad`,
       type: `string`,
     },
+    provincia: {
+      sql: `provincia`,
+      type: `string`,
+    },
+    departamento: {
+      sql: `departamento`,
+      type: `string`,
+    },
   },
   preAggregations: {
     main: {
       type: `originalSql`,
+      refreshKey: {
+        every: `1 day`,
+      },
     },
   },
   title: ` `,

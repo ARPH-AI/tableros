@@ -1,13 +1,24 @@
 cube(`casosCovidPromSem`, {
+  sqlAlias: `promSem`,
   sql: `
     select
       se.nombre_semana,
       se.numero_semana,
       se.anio,
       se.fecha,
-      (
+      (case when pcc3.cantidad is null then 0 else pcc3.cantidad end),
+   	  pcc3.departamento,
+      pcc3.provincia,
+      pcc3.ciudad
+    from tableros.semana_epidemiologica se
+      left join (
         select
-          count(1)
+          pcc1.start_date as start_date,
+          pcc1.departamento,
+          pcc1.provincia,
+          pcc1.ciudad,
+          pcc1.id_consulta,
+          1 as cantidad
         from
           tableros.problema_con_covid as pcc1
         where
@@ -20,32 +31,15 @@ cube(`casosCovidPromSem`, {
               pcc1.patient_id=pcc2.patient_id and
               pcc1.start_date between pcc2.start_date and pcc2.start_date + interval '14 day'
           ) and
-          pcc1.description = 'Confirmado' and
-          pcc1.start_date=se.fecha
-      ) as cantidad,
-      (
-        select
-          count(1)
-        from
-          tableros.snvs s
-        where
-          clasif_resumen = 'Confirmado' and
-          se.fecha=s.fecha_apertura
-      ) as cantidad_snvs
-    from
-      tableros.semana_epidemiologica se
-  `,
-
+          pcc1.description = 'Confirmado'
+      ) as pcc3
+      on pcc3.start_date=se.fecha
+	`,
   measures: {
     cantidadXDia: {
       sql: `cantidad`,
       type: `sum`,
       title: `Casos Diarios`,
-    },
-    cantidadXDiaSNVS: {
-      sql: `cantidad_snvs`,
-      type: `sum`,
-      title: `Casos Diarios SNVS`,
     },
     promedioSemanal: {
       sql: `cantidad`,
@@ -55,16 +49,7 @@ cube(`casosCovidPromSem`, {
       },
       title: `Promedio Sem.`,
     },
-    promedioSemanalSNVS: {
-      sql: `cantidad_snvs`,
-      type: `avg`,
-      rollingWindow: {
-        trailing: `7 day`,
-      },
-      title: `Promedio Sem. SNVS`,
-    },
   },
-
   dimensions: {
     Fecha_inicio_Conf: {
       sql: `fecha`,
@@ -82,10 +67,25 @@ cube(`casosCovidPromSem`, {
       sql: `numero_semana`,
       type: `number`,
     },
+    ciudad: {
+      sql: `ciudad`,
+      type: `string`,
+    },
+    provincia: {
+      sql: `provincia`,
+      type: `string`,
+    },
+    departamento: {
+      sql: `departamento`,
+      type: `string`,
+    },
   },
   preAggregations: {
     main: {
       type: `originalSql`,
+      refreshKey: {
+        every: `1 day`,
+      },
     },
   },
   title: ` `,
