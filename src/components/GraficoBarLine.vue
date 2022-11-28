@@ -5,6 +5,7 @@ import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { obtenerMinimo, obtenerMaximo, porcentaje } from '@/cube/utils'
 import { isDark } from '@/composables'
+import { formatDecimalValues } from '@/utils'
 
 const props = defineProps<{
   colorTheme: string
@@ -29,6 +30,7 @@ const min = minLine > minBar ? minBar : minLine
 
 const etiquetasFormateadas = props.etiquetas.map((item) => format(new Date(item), 'd MMM', { locale: es }))
 
+
 const light_theme_options = {
   grid: {
     top: '12%',
@@ -43,6 +45,7 @@ const light_theme_options = {
     color: 'black',
   },
   tooltip: {
+    formatter: formatDecimalValues,
     trigger: 'axis',
     axisPointer: {
       type: 'cross',
@@ -60,10 +63,22 @@ const light_theme_options = {
     feature: {
       dataView: { title: 'Ver datos', iconStyle: { borderColor: 'black' }, show: true, readOnly: false },
       magicType: { show: false },
-      dataZoom: {
-        iconStyle: { borderColor: 'black' },
-        yAxisIndex: 'none',
-      },
+      dataZoom: [
+        {
+            id: 'dataZoomX',
+            type: 'slider',
+            xAxisIndex: [0],
+            filterMode: 'filter',
+            iconStyle: { borderColor: 'black' },
+        },
+        {
+            id: 'dataZoomY',
+            type: 'slider',
+            yAxisIndex: [0],
+            filterMode: 'empty',
+            iconStyle: { borderColor: 'black' },
+        }
+      ],
       restore: { title: 'Estado inicial', iconStyle: { borderColor: 'black' }, show: true },
       saveAsImage: { title: 'Descargar como imágen', iconStyle: { borderColor: 'black' }, show: true },
     },

@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import 'echarts'
 import VChart from 'vue-echarts'
 import { isDark } from '@/composables'
+import { formatLeftDataToNaturalNumber } from '@/utils'
 
 const props = defineProps<{
   colorTheme: string
@@ -36,10 +37,6 @@ const createSeries = (series) => {
   })
 }
 
-const transformNegativeValuesToPositive = (args: any) => `${args[0].axisValueLabel} <br /> 
-            ${args[0].marker} ${args[0].seriesName}: <b>${args[0].value * -1}</b> <br /> 
-            ${args[1].marker} ${args[1].seriesName}: <b>${args[1].value}</b>`
-
 const light_theme_options = ref({
   textStyle: {
     fontFamily: 'monospace',
@@ -47,7 +44,7 @@ const light_theme_options = ref({
     color: 'black',
   },
   tooltip: {
-    formatter: transformNegativeValuesToPositive,
+    formatter: formatLeftDataToNaturalNumber,
     trigger: 'axis',
     axisPointer: {
       type: 'shadow',
