@@ -19,8 +19,8 @@ const normalizeDecimals = (num) =>
 
 
 export const formatLeftDataToNaturalNumber = (args) => `
-  ${axisValueLabel(args[0])} <br/> 
-  ${marker(args[0])} ${seriesName(args[0])}: ${bold(positive(value(args[0])))} <br/> 
+  ${axisValueLabel(args[0])} <br/>
+  ${marker(args[0])} ${seriesName(args[0])}: ${bold(positive(value(args[0])))} <br/>
   ${marker(args[1])} ${seriesName(args[1])}: ${bold(value(args[1]))}`
 
 export const formatDecimalValues = (args) => `
