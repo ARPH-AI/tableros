@@ -30,7 +30,7 @@ const procesaDatos = (lista, total) => {
     num = (value * 100) / total
     resultado.push({
       value: num.toFixed(2),
-      name: key != 0 ? key : 'Ninugno',
+      name: key != 0 ? key : 'Ninguno',
     })
   }
   return resultado

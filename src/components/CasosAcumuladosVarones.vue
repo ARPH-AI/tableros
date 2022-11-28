@@ -42,6 +42,7 @@ const getTotalCasosAcumulados = () => {
           :color-theme="getThemeByDataSource(props.dataSource)"
           :cantidad="obtenerCantidad(resultSet)"
           :titulo="titulo"
+          :miles=true
         />
       </div>
     </template>

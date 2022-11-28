@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import 'echarts'
 import VChart from 'vue-echarts'
 import { isDark } from '@/composables'
+import { formatDonaDecimalValues } from '@/utils'
 
 const props = defineProps<{
   colorTheme: string
@@ -22,7 +23,7 @@ const light_theme_options = ref({
   },
   tooltip: {
     trigger: 'item',
-    formatter: '{b}<br /><b>{c}%',
+    formatter: formatDonaDecimalValues,
   },
   toolbox: {
     itemSize: 14,
@@ -85,7 +86,7 @@ const dark_theme_options = ref({
   },
   tooltip: {
     trigger: 'item',
-    formatter: '{b}<br /><b>{c}%',
+    formatter: formatDonaDecimalValues,
   },
   toolbox: {
     itemSize: 14,
