@@ -1,4 +1,4 @@
-const LOCALE = 'es-AR'
+const LOCALE = import.meta.env.LOCALE
 
 const marker = (args) => args && args.marker ? args.marker : ''
 

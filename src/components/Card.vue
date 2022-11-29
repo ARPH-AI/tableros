@@ -6,8 +6,7 @@ const props = defineProps({
   percent: { type: Boolean, default: false },
   miles: { type: Boolean, default: false },
 })
-const LOCALE = 'es-AR'
-const UNIDAD_MILES = 'mil'
+const LOCALE = import.meta.env.LOCALE
 </script>
 
 <template>
