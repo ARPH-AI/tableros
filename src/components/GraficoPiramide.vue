@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import 'echarts'
 import VChart from 'vue-echarts'
 import { isDark } from '@/composables'
-import { formatLeftDataToNaturalNumber } from '@/utils'
+import { formatLeftDataToNaturalNumber, normalizeArgsDecimals } from '@/utils'
 
 const props = defineProps<{
   colorTheme: string
@@ -37,6 +37,8 @@ const createSeries = (series) => {
   })
 }
 
+const formatTooltip = (args: any) => formatLeftDataToNaturalNumber(normalizeArgsDecimals(args))
+
 const light_theme_options = ref({
   textStyle: {
     fontFamily: 'monospace',
@@ -44,7 +46,7 @@ const light_theme_options = ref({
     color: 'black',
   },
   tooltip: {
-    formatter: formatLeftDataToNaturalNumber,
+    formatter: formatTooltip,
     trigger: 'axis',
     axisPointer: {
       type: 'shadow',
@@ -119,6 +121,7 @@ const dark_theme_options = ref({
     color: 'white',
   },
   tooltip: {
+    formatter: formatTooltip,
     trigger: 'axis',
     axisPointer: {
       type: 'shadow',

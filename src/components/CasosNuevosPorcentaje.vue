@@ -4,6 +4,7 @@ import { QueryBuilder } from '@cubejs-client/vue3'
 import Card from '@/components/Card.vue'
 import { obtenerCantidad } from '@/cube/utils'
 import { getThemeByDataSource } from '@/composables'
+import { normalizeDecimals } from '@/utils'
 
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
@@ -44,7 +45,7 @@ const getTotalCasos = () => {
           :color-theme="getThemeByDataSource(props.dataSource)"
           :cantidad="obtenerCantidad(resultSet)"
           :titulo="title"
-          :percent="true"
+          :percent=true
         />
       </div>
     </template>

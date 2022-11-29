@@ -4,7 +4,9 @@ const props = defineProps({
   titulo: { type: String, default: 'third' },
   colorTheme: { type: String, default: 'third' },
   percent: { type: Boolean, default: false },
+  miles: { type: Boolean, default: false },
 })
+const LOCALE = import.meta.env.LOCALE
 </script>
 
 <template>
@@ -14,9 +16,12 @@ const props = defineProps({
     <div class="leading-tight text-left text-light_contrast dark:text-dark_contrast">
       <h3 :class="`text-3xl font-semibold dark:text-${props.colorTheme}_dark text-${props.colorTheme}`">
         <template v-if="percent">{{
-          Number(cantidad / 100).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 })
+          Number(cantidad / 100).toLocaleString(LOCALE, { style: 'percent', minimumFractionDigits: 0, maximumFactionDigits: 2 })
         }}</template>
-        <template v-else>{{ Number(cantidad).toLocaleString() }}</template>
+        <template v-else-if="miles">{{
+          Number(cantidad).toLocaleString(LOCALE)
+        }}</template>
+        <template v-else>{{ Number(cantidad).toLocaleString(LOCALE) }}</template>
       </h3>
       <h4 class="text-sm uppercase">
         {{ titulo }}

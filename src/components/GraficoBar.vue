@@ -2,6 +2,7 @@
 import 'echarts'
 import VChart from 'vue-echarts'
 import { isDark } from '@/composables'
+import { formatDecimalValues } from '@/utils'
 
 interface Props {
   series: object[]
@@ -41,6 +42,7 @@ const light_theme_options = {
     color: 'black',
   },
   tooltip: {
+    formatter: formatDecimalValues,
     trigger: 'axis',
     axisPointer: {
       type: 'shadow', // 'shadow' as default; can also be 'line' or 'shadow'
@@ -106,6 +108,7 @@ const dark_theme_options = {
     color: 'white',
   },
   tooltip: {
+    formatter: formatDecimalValues,
     trigger: 'axis',
     axisPointer: {
       type: 'shadow', // 'shadow' as default; can also be 'line' or 'shadow'

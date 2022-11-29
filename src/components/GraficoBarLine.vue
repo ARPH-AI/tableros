@@ -158,6 +158,7 @@ const dark_theme_options = {
     color: 'white',
   },
   tooltip: {
+    formatter: formatDecimalValues,
     trigger: 'axis',
     axisPointer: {
       type: 'cross',
