@@ -1,12 +1,12 @@
 const LOCALE = 'es-AR'
 
-const marker = (args) => args.marker ? args.marker : ''
+const marker = (args) => args && args.marker ? args.marker : ''
 
-const axisValueLabel = (args) => args.axisValueLabel ? args.axisValueLabel : ''
+const axisValueLabel = (args) => args && args.axisValueLabel ? args.axisValueLabel : ''
 
-const seriesName = (args) => args.seriesName ? args.seriesName : ''
+const seriesName = (args) => (args && args.seriesName ? args.seriesName : '')
 
-const value = (args) => args.value ? args.value : ''
+const value = (args) => (args && args.value ? args.value : '')
 
 const bold = (txt) => `<b>${txt}</b>`
 
@@ -32,8 +32,8 @@ export const normalizeArgsDecimals = (args, options={}) => {
 }
 
 export const formatLeftDataToNaturalNumber = (args) => `
-  ${axisValueLabel(args[0])} <br/> 
-  ${marker(args[0])} ${seriesName(args[0])}: ${bold(positive(value(args[0])))} <br/> 
+  ${axisValueLabel(args[0])} <br/>
+  ${marker(args[0])} ${seriesName(args[0])}: ${bold(positive(value(args[0])))} <br/>
   ${marker(args[1])} ${seriesName(args[1])}: ${bold(value(args[1]))}
 `
 
