@@ -39,7 +39,7 @@ CREATE VIEW tableros.problema_con_covid AS
     JOIN public.document_health_condition dhc ON ((dhc.document_id = d.id)))
     JOIN public.health_condition hc ON ((dhc.health_condition_id = hc.id)))
     JOIN public.snomed s ON ((s.id = hc.snomed_id)))
-    JOIN tableros.termino_variable tv ON (((tv.id_snomed)::text = (s.sctid)::text)))
+    JOIN tableros.termino_variable tv ON (((tv.id_snomed)::text = (s.sctid)::text)) and tv.id_enfermedad=1)
     JOIN tableros.variable_tipo vt ON ((vt.id = tv.id_variable_tipo)))
     JOIN public.patient p ON ((p.id = oc.patient_id)))
     LEFT JOIN public.person_extended pe ON ((pe.person_id = p.person_id)))

@@ -36,7 +36,8 @@ CREATE TABLE tableros.termino_variable (
     concepto character varying(255) NOT NULL,
     perf_term character varying(255) NOT NULL,
     id_snomed character varying(255) NOT NULL,
-    id_variable_tipo integer NOT NULL
+    id_variable_tipo integer NOT NULL,
+    id_enfermedad integer NOT NULL
 );
 
 
@@ -53,6 +54,20 @@ CREATE TABLE tableros.variable_tipo (
 
 
 ALTER TABLE tableros.variable_tipo OWNER TO $PG_USER;
+
+
+--
+-- Name: enfermedad; Type: TABLE; Schema: tableros; Owner: dashboarduser
+--
+
+CREATE TABLE tableros.enfermedad (
+    id integer NOT NULL,
+    description character varying(255) NOT NULL
+);
+
+
+ALTER TABLE tableros.enfermedad OWNER TO dashboarduser;
+
 
 --
 -- Name: semana_epidemiologica; Type: TABLE; Schema: tableros; Owner: $PG_USER
@@ -139,6 +154,13 @@ ALTER TABLE ONLY tableros.termino_variable
 
 ALTER TABLE ONLY tableros.variable_tipo
     ADD CONSTRAINT id_variable_tipo PRIMARY KEY (id);
+
+
+-- Name: enfermedad id_enfermedad; Type: CONSTRAINT; Schema: tableros; Owner: $PG_USER
+--
+
+ALTER TABLE ONLY tableros.enfermedad
+    ADD CONSTRAINT id_enfermedad_tipo PRIMARY KEY (id);
 
 
 --

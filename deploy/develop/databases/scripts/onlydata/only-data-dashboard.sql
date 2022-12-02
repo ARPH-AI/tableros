@@ -2142,33 +2142,87 @@ COPY tableros.semana_epidemiologica (id, nombre_semana, numero_semana, anio, fec
 -- Data for Name: termino_variable; Type: TABLE DATA; Schema: tableros; Owner: dashboarduser
 --
 
-COPY tableros.termino_variable (id, concepto, perf_term, id_snomed, id_variable_tipo) FROM stdin;
-1	coronavirus 2 del síndrome respiratorio agudo severo detectado (hallazgo) 	coronavirus 2 del síndrome respiratorio agudo severo detectado (hallazgo)	1240581000000104	1
-2	infección asintomática por coronavirus 2 del síndrome respiratorio agudo severo (hallazgo)	infección asintomática por coronavirus 2 del síndrome respiratorio agudo severo (hallazgo)	189486241000119100	1
-6	enfermedad causada por coronavirus del síndrome respiratorio agudo severo 2 (trastorno)	enfermedad causada por coronavirus del síndrome respiratorio agudo severo 2 (trastorno)	840539006	1
-7	neumonía causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	neumonía causada por coronavirus 2 del síndrome respiratorio agudo severo	882784691000119100	1
-8	bronquitis aguda causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	bronquitis aguda causada por coronavirus 2 del síndrome respiratorio agudo severo	138389411000119105	1
-9	linfocitopenia debida a coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	linfocitopenia debida a coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	866151004	1
-10	miocarditis debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	miocarditis debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	1240531000000103	1
-11	disnea causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	disnea causada por coronavirus 2 del síndrome respiratorio agudo severo	119981000146107	1
-12	fiebre causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	fiebre causada por coronavirus 2 del síndrome respiratorio agudo severo	119751000146104	1
-13	otitis media debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	otitis media debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	1240521000000100	1
-14	 conjuntivitis debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno) |	conjuntivitis debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	119741000146102	1
-15	miocardiopatía debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	miocardiopatía debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	119731000146105	1
-16	encefalopatía debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	encefalopatía debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	1240561000000108	1
-17	trombocitopenia debida a coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	trombocitopenia debida a coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	866152006	1
-18	infección del tracto respiratorio inferior causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	infección del tracto respiratorio inferior causada por coronavirus 2 del síndrome respiratorio agudo severo	880529761000119102	1
-19	lesión renal aguda debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	lesión renal aguda debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	870589006	1
-20	sepsis debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	sepsis debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	870588003	1
-21	síndrome de distrés respiratorio agudo debido a coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	síndrome de distrés respiratorio agudo debido a coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	674814021000119106	1
-22	rabdomiólisis debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	rabdomiólisis debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	870591003	1
-23	insuficiencia respiratoria hipoxémica aguda debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	insuficiencia respiratoria hipoxémica aguda debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	870590002	1
-24	infección del tracto respiratorio superior causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	infección del tracto respiratorio superior causada por coronavirus 2 del síndrome respiratorio agudo severo	1240541000000107	1
-27	infección por coronavirus (trastorno)	infección por coronavirus (trastorno)	186747009	1
-28	neumonía causada por coronavirus humano (trastorno)	neumonía causada por coronavirus humano (trastorno)	713084008	1
-29	neumonía causada por coronavirus del síndrome respiratorio agudo grave (trastorno)	neumonía causada por coronavirus del síndrome respiratorio agudo grave (trastorno)	441590008	1
-31	sospecha de enfermedad causada por COVID-19	sospecha de enfermedad causada por coronavirus del síndrome respiratorio agudo severo 2 (situación)	840544004	2
-35	Sospecha de infección por coronavirus	sospecha de infección por coronavirus (situación)	700217006	2
+COPY tableros.termino_variable (id, concepto, perf_term, id_snomed, id_variable_tipo, id_enfermedad) FROM stdin;
+1	coronavirus 2 del síndrome respiratorio agudo severo detectado (hallazgo)	coronavirus 2 del síndrome respiratorio agudo severo detectado (hallazgo)	1240581000000104	1	1
+2	infección asintomática por coronavirus 2 del síndrome respiratorio agudo severo (hallazgo)	infección asintomática por coronavirus 2 del síndrome respiratorio agudo severo (hallazgo)	189486241000119100	1	1
+6	enfermedad causada por coronavirus del síndrome respiratorio agudo severo 2 (trastorno)	enfermedad causada por coronavirus del síndrome respiratorio agudo severo 2 (trastorno)	840539006	1	1
+7	neumonía causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	neumonía causada por coronavirus 2 del síndrome respiratorio agudo severo	882784691000119100	1	1
+8	bronquitis aguda causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	bronquitis aguda causada por coronavirus 2 del síndrome respiratorio agudo severo	138389411000119105	1	1
+9	linfocitopenia debida a coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	linfocitopenia debida a coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	866151004	1	1
+10	miocarditis debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	miocarditis debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	1240531000000103	1	1
+11	disnea causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	disnea causada por coronavirus 2 del síndrome respiratorio agudo severo	119981000146107	1	1
+12	fiebre causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	fiebre causada por coronavirus 2 del síndrome respiratorio agudo severo	119751000146104	1	1
+13	otitis media debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	otitis media debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	1240521000000100	1	1
+14	 conjuntivitis debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno) |	conjuntivitis debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	119741000146102	1	1
+15	miocardiopatía debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	miocardiopatía debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	119731000146105	1	1
+16	encefalopatía debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	encefalopatía debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	1240561000000108	1	1
+17	trombocitopenia debida a coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	trombocitopenia debida a coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	866152006	1	1
+18	infección del tracto respiratorio inferior causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	infección del tracto respiratorio inferior causada por coronavirus 2 del síndrome respiratorio agudo severo	 880529761000119102	1	1
+19	lesión renal aguda debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	lesión renal aguda debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	870589006	1	1
+20	sepsis debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	sepsis debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	870588003	1	1
+21	síndrome de distrés respiratorio agudo debido a coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	síndrome de distrés respiratorio agudo debido a coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	674814021000119106	1	1
+22	rabdomiólisis debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	rabdomiólisis debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	870591003	1	1
+23	insuficiencia respiratoria hipoxémica aguda debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	insuficiencia respiratoria hipoxémica aguda debida a enfermedad causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	870590002	1	1
+24	infección del tracto respiratorio superior causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	infección del tracto respiratorio superior causada por coronavirus 2 del síndrome respiratorio agudo severo	1240541000000107	1	1
+27	infección por coronavirus (trastorno)	infección por coronavirus (trastorno)	186747009	1	1
+28	neumonía causada por coronavirus humano (trastorno)	neumonía causada por coronavirus humano (trastorno)	713084008	1	1
+29	neumonía causada por coronavirus del síndrome respiratorio agudo grave (trastorno)	neumonía causada por coronavirus del síndrome respiratorio agudo grave (trastorno)	441590008	1	1
+31	sospecha de enfermedad causada por COVID-19	sospecha de enfermedad causada por coronavirus del síndrome respiratorio agudo severo 2 (situación)	840544004	2	1
+35	Sospecha de infección por coronavirus	sospecha de infección por coronavirus (situación)	700217006	2	1
+36	dengue	dengue (trastorno)	38362002	1	2
+37	dengue hemorrágico	fiebre hemorrágica dengue (trastorno)	20927009	3	2
+38	dengue sin signos de alarma	dengue sin signos de alarma (trastorno)	722862003	1	2
+39	dengue con signos de alarma	dengue con signos de alarma (trastorno)	722862003	1	2
+40	síndrome de shock por Dengue	síndrome de shock por Dengue (trastorno)	409671005	3	2
+41	encefalitis por virus del dengue	encefalitis causada por virus del dengue (trastorno)	1163101003	1	2
+42	mielitis causada por virus Dengue	mielitis causada por virus Dengue (trastorno)	866057003	1	2
+43	fiebre hemorrágica por Dengue, grado I	fiebre hemorrágica por Dengue, grado I (trastorno)	409676000	3	2
+44	fiebre hemorrágica por Dengue, grado IV	fiebre hemorrágica por Dengue, grado IV (trastorno)	409679007	3	2
+45	fiebre hemorrágica por Dengue, grado II	fiebre hemorrágica por Dengue, grado II (trastorno)	409677009	3	2
+46	fiebre hemorrágica por Dengue, grado III	fiebre hemorrágica por Dengue, grado III (trastorno)	409678004	3	2
+47	anticuerpo anti-dengue, IgM, positivo	anticuerpo anti-dengue, inmunoglobulina M, positivo (hallazgo)	409693000	1	2
+48	anticuerpo anti-dengue, IgM, negativo	anticuerpo inmunoglobulina M anti-dengue, negativo (hallazgo)	409692005	2	2
+49	anticuerpo anti-dengue, IgG, negativo	anticuerpo anti-dengue, inmunoglobulina G, negativo (hallazgo)	409694006	2	2
+50	anticuerpo anti-dengue, IgG, positivo	anticuerpo anti-dengue, inmunoglobulina G, positivo (hallazgo)	409695007	1	2
+51	virus del dengue	virus del dengue (organismo)	34348001	1	2
+52	virus del dengue, tipo 2	virus del dengue, tipo 2 (organismo)	41328007	1	2
+53	virus del dengue, tipo 1	virus del dengue, tipo 1 (organismo)	60588009	1	2
+54	virus del dengue, tipo 4	virus del dengue, tipo 4 (organismo)	60588009	1	2
+55	virus del dengue, tipo 3	virus del dengue, tipo 3 (organismo)	8467002	1	2
+56	subgrupo de virus del Dengue	subgrupo de virus del Dengue (organismo)	243604005	1	2
+57	ensayo para ácido nucleico de dengue	ensayo para ácido nucleico de dengue (procedimiento)	398560008	2	2
+58	administración de vacuna contra el dengue	administración de vacuna que contiene antígeno de virus Dengue como único ingrediente (procedimiento)	827179001	4	2
+59	educación sobre brote epidémico de dengue	educación sobre brote epidémico de fiebre por dengue (procedimiento)	698613000	4	2
+60	determinación del ADN del virus del dengue	determinación del ácido desoxirribonucleico del virus del dengue (procedimiento)	122326000	2	2
+61	test PCR para detección del virus del Dengue	prueba de la reacción de polimerasa en cadena para el virus del Dengue (procedimiento)	399302007	2	2
+62	medición de anticuerpos anti-virus del dengue	medición de anticuerpos anti-virus del dengue (procedimiento)	121993008	2	2
+63	determinación del antígeno del virus del dengue	determinación del antígeno del virus del dengue (procedimiento)	122176006	2	2
+64	medición del nivel de IgG contra el virus del dengue	medición del nivel de inmunoglobulina G contra el virus del dengue (procedimiento)	315112006	2	2
+65	medición del nivel de IgM contra el virus del dengue	medición del nivel de inmunoglobulina M contra el virus del dengue (procedimiento)	315113001	2	2
+66	determinación del ARN del virus 1, 2, 3 y 4 del dengue	determinación del ácido ribonucleico del virus 1, 2, 3 y 4 del dengue (procedimiento)	118026001	2	2
+67	medición de anticuerpos anti-virus del dengue serotipo 1	medición de anticuerpos anti-virus del dengue serotipo 1 (procedimiento)	121988005	2	2
+68	medición de anticuerpos anti-virus del dengue serotipo 2	medición de anticuerpos anti-virus del dengue serotipo 2 (procedimiento)	121989002	2	2
+69	medición de anticuerpos anti-virus del dengue serotipo 4	medición de anticuerpos anti-virus del dengue serotipo 4 (procedimiento)	121992003	2	2
+70	medición de anticuerpos anti-virus del dengue serotipo 3	medición de anticuerpos anti-virus del dengue serotipo 3 (procedimiento)	121990006	2	2
+71	medición de anticuerpos contra el virus del Dengue, tipo IgG	medición de anticuerpos contra el virus del Dengue, tipo inmunoglobulina G (procedimiento)	409691003	2	2
+72	determinación de anticuerpos contra el virus del Dengue, tipo IgM	determinación de anticuerpos contra el virus del Dengue, tipo inmunoglobulina M (procedimiento)	409689006	2	2
+73	ARN de virus Dengue 1	ácido ribonucleico de virus Dengue 1 (sustancia)	707875002	2	2
+74	ARN de virus Dengue 3	ácido ribonucleico de virus Dengue 3 (sustancia)	707877005	2	2
+75	ARN de virus Dengue 2	ácido ribonucleico de virus Dengue 2 (sustancia)	707876001	2	2
+76	ARN de virus Dengue 4	ácido ribonucleico de virus Dengue 4 (sustancia)	707878000	2	2
+77	antígeno de virus Dengue	antígeno de virus Dengue (sustancia)	121020003	2	2
+78	ADN del virus del dengue	ácido desoxirribonucleico del virus del dengue (sustancia)	121182007	2	2
+79	anticuerpo anti-dengue, IgM	anticuerpo anti-dengue, inmunoglobulina M (sustancia)	409680005	2	2
+80	anticuerpo anti-dengue, IgG	anticuerpo anti-dengue, inmunoglobulina G (sustancia)	409690002	2	2
+81	anticuerpo anti - virus del dengue	anticuerpo anti - virus del dengue (sustancia)	120734004	2	2
+82	ácido ribonucleico de virus Dengue	ácido ribonucleico de virus Dengue (sustancia)	783725005	2	2
+83	anticuerpo anti - virus del dengue, tipo 1	anticuerpo anti - virus del dengue, tipo 1 (sustancia)	120872001	2	2
+84	anticuerpo anti - virus del dengue, tipo 4	anticuerpo anti - virus del dengue, tipo 4 (sustancia)	120879005	2	2
+85	anticuerpo anti - virus del dengue, tipo 3	anticuerpo anti - virus del dengue, tipo 3 (sustancia)	120874000	2	2
+86	anticuerpo anti - virus del dengue, tipo 2	anticuerpo anti - virus del dengue, tipo 2 (sustancia)	120873006	2	2
+87	sospecha de dengue	sospecha de dengue (situación)	418429061000132101	2	2
+88	vacuna con antígeno de virus Dengue	vacuna que contiene antígeno de virus Dengue (producto medicinal)	840563003	4	2
+89	vacuna con antígeno de virus Dengue como único ingrediente	vacuna que contiene antígeno de virus Dengue como único ingrediente (producto medicinal)	871720004	4	2
 \.
 
 
@@ -2181,6 +2235,17 @@ COPY tableros.termino_variable (id, concepto, perf_term, id_snomed, id_variable_
 COPY tableros.variable_tipo (id, description) FROM stdin;
 1	Confirmado
 2	Sospecha
+3	Grave
+4	Otro
+\.
+
+--
+-- Data for Name: enfermedad; Type: TABLE DATA; Schema: tableros; Owner: dashboarduser
+--
+
+COPY tableros.enfermedad (id, description) FROM stdin;
+1	Covid19
+2	Dengue
 \.
 
 
