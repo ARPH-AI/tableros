@@ -15,6 +15,13 @@ const props = defineProps({
 const totalCasosHSI = {
   measures: [props.measure],
   timeDimensions: [],
+  filters: [
+    {
+      member: 'EnfermedadEdadSexo.enfermedad',
+      operator: 'equals',
+      values: ['Covid19'],
+    }
+  ],
   order: {},
 }
 

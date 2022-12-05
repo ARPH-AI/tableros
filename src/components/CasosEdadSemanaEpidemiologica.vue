@@ -43,18 +43,25 @@ const procesaDatos = (datos, semanas) => {
 }
 
 const totalCasosHSI = {
-  measures: ['CovidEdadSexo.identificador'],
+  measures: ['EnfermedadEdadSexo.identificador'],
   timeDimensions: [
     {
-      dimension: 'CovidEdadSexo.Fecha_inicio',
+      dimension: 'EnfermedadEdadSexo.Fecha_inicio',
       granularity: 'day',
       dateRange: 'last 360 days',
     },
   ],
+  filters: [
+    {
+      member: 'EnfermedadEdadSexo.enfermedad',
+      operator: 'equals',
+      values: ['Covid19'],
+    }
+  ],
   order: {
-    'CovidEdadSexo.identificador': 'desc',
+    'EnfermedadEdadSexo.identificador': 'desc',
   },
-  dimensions: ['CovidEdadSexo.Grupo_edad'],
+  dimensions: ['EnfermedadEdadSexo.Grupo_edad'],
   filters: [],
 }
 
@@ -75,8 +82,8 @@ const totalCasosSNVS = {
 }
 
 const pivotConfigHSI = {
-  x: ['CovidEdadSexo.Fecha_inicio'],
-  y: ['CovidEdadSexo.Grupo_edad', 'measures'],
+  x: ['EnfermedadEdadSexo.Fecha_inicio'],
+  y: ['EnfermedadEdadSexo.Grupo_edad', 'measures'],
   fillMissingDates: true,
   joinDateRange: false,
 }

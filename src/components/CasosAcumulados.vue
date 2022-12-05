@@ -9,15 +9,22 @@ const props = defineProps({
 })
 const titulo = 'Casos Acumulados'
 const totalCasosAcumuladosHSI = {
-  measures: ['casosCovid.identificador'],
+  measures: ['casosEnfermedad.identificador'],
   timeDimensions: [
     {
-      dimension: 'casosCovid.Fecha_inicio',
+      dimension: 'casosEnfermedad.Fecha_inicio',
       dateRange: 'last 360 days',
       //      dateRange: [`${fechaInicio}`, `${fechaFin}`],
     },
   ],
   order: {},
+  filters: [
+    {
+      member: 'casosEnfermedad.enfermedad',
+      operator: 'equals',
+      values: ['Covid19'],
+    }
+  ],
 }
 
 const totalCasosAcumuladosSNVS = {

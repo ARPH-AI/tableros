@@ -58,6 +58,11 @@ const totalComorbilidades = {
       operator: 'equals',
       values: ['Confirmado'],
     },
+    {
+      member: 'casosComorbilidad.enfermedad',
+      operator: 'equals',
+      values: ['Covid19'],
+    }
   ],
 }
 
@@ -66,7 +71,13 @@ const totalConfirmados = {
   timeDimensions: [],
   order: {},
   dimensions: [],
-  filters: [],
+  filters: [
+    {
+      member: 'casosComorbilidad.enfermedad',
+      operator: 'equals',
+      values: ['Covid19'],
+    }
+  ],
 }
 
 const resultSet = await cubeApi.load(totalComorbilidades)

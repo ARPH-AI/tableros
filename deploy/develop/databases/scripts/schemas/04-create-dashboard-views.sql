@@ -13,10 +13,10 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: problema_con_covid; Type: VIEW; Schema: tableros; Owner: dashboarduser
+-- Name: problema; Type: VIEW; Schema: tableros; Owner: dashboarduser
 --
 
-CREATE VIEW tableros.problema_con_covid AS
+CREATE VIEW tableros.problema AS
    SELECT hc.start_date,
     hc.cie10_codes,
     s.pt,
@@ -33,13 +33,16 @@ CREATE VIEW tableros.problema_con_covid AS
     d2.description as institucion_departamento,
     p2.description as institucion_provincia,
     d3.description as departamento,
-    p3.description as provincia
+    p3.description as provincia,
+    tv.id_enfermedad as enfermedad_id,
+    e.description as enfermedad_descripcion
   FROM ((((((((((public.outpatient_consultation oc
     JOIN public.document d ON ((oc.document_id = d.id)))
     JOIN public.document_health_condition dhc ON ((dhc.document_id = d.id)))
     JOIN public.health_condition hc ON ((dhc.health_condition_id = hc.id)))
     JOIN public.snomed s ON ((s.id = hc.snomed_id)))
-    JOIN tableros.termino_variable tv ON (((tv.id_snomed)::text = (s.sctid)::text)) and tv.id_enfermedad=1)
+    JOIN tableros.termino_variable tv ON ((tv.id_snomed)::text = (s.sctid)::text))
+    JOIN tableros.enfermedad e ON ((tv.id_enfermedad = e.id))
     JOIN tableros.variable_tipo vt ON ((vt.id = tv.id_variable_tipo)))
     JOIN public.patient p ON ((p.id = oc.patient_id)))
     LEFT JOIN public.person_extended pe ON ((pe.person_id = p.person_id)))
@@ -52,33 +55,8 @@ CREATE VIEW tableros.problema_con_covid AS
     LEFT JOIN public.department d2 on ((d2.id = a2.department_id ))
     LEFT JOIN public.province p2 on ((p2.id = a2.province_id )));
 
-ALTER TABLE tableros.problema_con_covid OWNER TO dashboarduser;
+ALTER TABLE tableros.problema OWNER TO dashboarduser;
 
---
--- Name: covid_fecha; Type: VIEW; Schema: tableros; Owner: dashboarduser
---
-
-CREATE VIEW tableros.covid_fecha AS
-  SELECT pcc1.start_date,
-    pcc1.cie10_codes,
-    pcc1.sctid,
-    pcc1.description AS variable,
-    pcc1.id_consulta,
-    pcc1.patient_id,
-    pcc1.tipo_variable_id,
-    pcc1.person_id,
-    se.nombre_semana,
-    se.numero_semana,
-    se.fecha
-  FROM tableros.problema_con_covid pcc1,
-    tableros.semana_epidemiologica se
-  WHERE ((NOT (EXISTS (SELECT pcc2.id_consulta
-          FROM tableros.problema_con_covid pcc2
-          WHERE ((pcc1.id_consulta <> pcc2.id_consulta) AND (pcc1.patient_id = pcc2.patient_id) AND ((pcc1.start_date >= pcc2.start_date) AND (pcc1.start_date <= (pcc2.start_date + '14 days'::interval))))))) AND ((se.fecha >= pcc1.start_date) AND (se.fecha <= (pcc1.start_date + '10 days'::interval))));
-
-ALTER TABLE tableros.covid_fecha OWNER TO dashboarduser;
-
---
 -- Name: map_address; Type: VIEW; Schema: tableros; Owner: dashboarduser
 --
 

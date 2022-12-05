@@ -1,4 +1,4 @@
-cube(`CovidEdadSexoMasc`, {
+cube(`EnfermedadEdadSexoMasc`, {
   sqlAlias: `EdadMasc`,
   sql:`
     select
@@ -7,9 +7,11 @@ cube(`CovidEdadSexoMasc`, {
       ge.grupo_etario as grupo_edad,
       pcc.ciudad,
       pcc.departamento,
-      pcc.provincia
+      pcc.provincia,
+      pcc.enfermedad_id as enfermedad_id,
+      pcc.enfermedad_descripcion as enfermedad
     from
-      tableros.problema_con_covid pcc
+      tableros.problema pcc
         join person p on ((p.id=pcc.person_id) and p.gender_id=2)
         join tableros.grupo_edad ge on (date_part('year',age(pcc.start_date,p.birth_date)) = ge.id)
 `,
@@ -40,6 +42,10 @@ cube(`CovidEdadSexoMasc`, {
     },
     departamento: {
       sql: `departamento`,
+      type: `string`,
+    },
+    enfermedad: {
+      sql: `enfermedad`,
       type: `string`,
     },
   },

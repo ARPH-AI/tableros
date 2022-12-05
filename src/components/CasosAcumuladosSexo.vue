@@ -9,12 +9,19 @@ const props = defineProps({
 const titulo = 'Casos acumulados por edad y sexo'
 
 const totalCasosMascHSI = {
-  measures: ['CovidEdadSexoMasc.cantidad_masc'],
+  measures: ['EnfermedadEdadSexoMasc.cantidad_masc'],
   timeDimensions: [],
   order: {
-    'CovidEdadSexoMasc.grupo_edad_masc': 'asc',
+    'EnfermedadEdadSexoMasc.grupo_edad_masc': 'asc',
   },
-  dimensions: ['CovidEdadSexoMasc.grupo_edad_masc'],
+  filters: [
+    {
+      member: 'EnfermedadEdadSexoMasc.enfermedad',
+      operator: 'equals',
+      values: ['Covid19'],
+    }
+  ],
+  dimensions: ['EnfermedadEdadSexoMasc.grupo_edad_masc'],
 }
 
 const totalCasosMascSNVS = {
@@ -27,12 +34,19 @@ const totalCasosMascSNVS = {
 }
 
 const totalCasosFemHSI = {
-  measures: ['CovidEdadSexoFem.cantidad_fem'],
+  measures: ['EnfermedadEdadSexoFem.cantidad_fem'],
   timeDimensions: [],
   order: {
-    'CovidEdadSexoFem.grupo_edad_fem': 'asc',
+    'EnfermedadEdadSexoFem.grupo_edad_fem': 'asc',
   },
-  dimensions: ['CovidEdadSexoFem.grupo_edad_fem'],
+  dimensions: ['EnfermedadEdadSexoFem.grupo_edad_fem'],
+  filters: [
+    {
+      member: 'EnfermedadEdadSexoFem.enfermedad',
+      operator: 'equals',
+      values: ['Covid19'],
+    }
+  ],
 }
 
 const totalCasosFemSNVS = {
@@ -45,14 +59,14 @@ const totalCasosFemSNVS = {
 }
 
 const pivotConfigMasc = {
-  x: ['CovidEdadSexoMasc.grupo_edad_masc'],
+  x: ['EnfermedadEdadSexoMasc.grupo_edad_masc'],
   y: ['measures'],
   fillMissingDates: true,
   joinDateRange: false,
 }
 
 const pivotConfigFem = {
-  x: ['CovidEdadSexoFem.grupo_edad_fem'],
+  x: ['EnfermedadEdadSexoFem.grupo_edad_fem'],
   y: ['measures'],
   fillMissingDates: true,
   joinDateRange: false,

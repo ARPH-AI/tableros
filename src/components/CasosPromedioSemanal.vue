@@ -12,10 +12,16 @@ const date = format(new Date(), 'yyyy-MM-dd')
 const titulo = 'Promedio Semanal'
 
 const totalCasosHSI = {
-  measures: ['CovidEdadSexo.promCasosNuevosCovid'],
+  measures: ['EnfermedadEdadSexo.promCasosNuevosCovid'],
   timeDimensions: [],
   order: {},
-  filters: [],
+  filters: [
+    {
+      member: 'EnfermedadEdadSexo.enfermedad',
+      operator: 'equals',
+      values: ['Covid19'],
+    }
+  ],
   dimensions: [],
 }
 

@@ -9,7 +9,9 @@ cube(`casosCovidPromSem`, {
       (case when pcc3.cantidad is null then 0 else pcc3.cantidad end),
    	  pcc3.departamento,
       pcc3.provincia,
-      pcc3.ciudad
+      pcc3.ciudad,
+      pcc3.enfermedad_id as enfermedad_id,
+      pcc3.enfermedad_descripcion as enfermedad
     from tableros.semana_epidemiologica se
       left join (
         select
@@ -18,19 +20,22 @@ cube(`casosCovidPromSem`, {
           pcc1.provincia,
           pcc1.ciudad,
           pcc1.id_consulta,
+          pcc1.enfermedad_id,
+          pcc1.enfermedad_descripcion,
           1 as cantidad
         from
-          tableros.problema_con_covid as pcc1
+          tableros.problema as pcc1
         where
           not exists (
             select
               pcc2.id_consulta
-            from tableros.problema_con_covid as pcc2
+            from tableros.problema as pcc2
             where
               pcc1.id_consulta!=pcc2.id_consulta and
               pcc1.patient_id=pcc2.patient_id and
               pcc1.start_date between pcc2.start_date and pcc2.start_date + interval '14 day'
           ) and
+          pcc1.enfermedad_descripcion = 'Covid19' and
           pcc1.description = 'Confirmado'
       ) as pcc3
       on pcc3.start_date=se.fecha
@@ -77,6 +82,10 @@ cube(`casosCovidPromSem`, {
     },
     departamento: {
       sql: `departamento`,
+      type: `string`,
+    },
+    enfermedad: {
+      sql: `enfermedad`,
       type: `string`,
     },
   },

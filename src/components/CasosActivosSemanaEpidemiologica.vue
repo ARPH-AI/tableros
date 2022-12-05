@@ -41,6 +41,11 @@ const totalCasosHSI = {
       operator: 'inDateRange',
       values: [oneYear, today],
     },
+    {
+      member: 'casos.enfermedad',
+      operator: 'equals',
+      values: ['Covid19'],
+    }
   ],
   order: {
     'casos.anio': 'desc',

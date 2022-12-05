@@ -11,9 +11,17 @@ const props = defineProps({
 
 const titulo = 'Casos Acumulados Mujeres'
 const totalCasosAcumuladosHSI = {
-  measures: ['CovidEdadSexoFem.cantidad_fem'],
+  measures: ['EnfermedadEdadSexoFem.cantidad_fem'],
   timeDimensions: [],
   order: {},
+  filters: [
+    {
+      member: 'EnfermedadEdadSexoFem.enfermedad',
+      operator: 'equals',
+      values: ['Covid19'],
+    }
+  ],
+
 }
 const totalCasosAcumuladosSNVS = {
   measures: ['CovidEdadSexoFemSNVS.cantidad_fem_snvs'],

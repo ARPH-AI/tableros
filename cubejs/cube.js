@@ -30,12 +30,12 @@ module.exports = {
 
     //   const cubesFilter = [
     //     `casosComorbilidad`,
-    //     `casosCovid`,
+    //     `casosEnfermedad`,
     //     `casosCovidPromSem`,
     //     `casos`,
-    //     `CovidEdadSexoFem`,
-    //     `CovidEdadSexo`,
-    //     `CovidEdadSexoMasc`,
+    //     `EnfermedadEdadSexoFem`,
+    //     `EnfermedadEdadSexo`,
+    //     `EnfermedadEdadSexoMasc`,
     //     `CovidEdadSexoMascSNVS`,
     //     `CovidEdadSexoFemSNVS`,
     //     `CovidEdadSexoSNVS`,

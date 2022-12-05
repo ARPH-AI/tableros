@@ -25,6 +25,11 @@ const totalCasosActivosHSI = {
       operator: 'equals',
       values: [`${date}`],
     },
+    {
+      member: 'casos.enfermedad',
+      operator: 'equals',
+      values: ['Covid19'],
+    }
   ],
 }
 

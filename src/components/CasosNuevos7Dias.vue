@@ -20,7 +20,14 @@ const totalCasosHSI = {
     },
   ],
   order: {},
-  filters: [],
+  filters: [
+    {
+      member: 'casos.enfermedad',
+      operator: 'equals',
+      values: ['Covid19'],
+    }
+  ],
+
   dimensions: [],
 }
 

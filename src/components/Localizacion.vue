@@ -98,6 +98,11 @@ const totalCasos = (fecha) => {
         operator: 'equals',
         values: [`${fecha}`],
       },
+      {
+        member: 'casos.enfermedad',
+        operator: 'equals',
+        values: ['Covid19'],
+      }
     ],
     dimensions: ['casos.ciudad'],
   }
