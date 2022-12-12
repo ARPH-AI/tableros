@@ -2223,6 +2223,514 @@ COPY tableros.termino_variable (id, concepto, perf_term, id_snomed, id_variable_
 87	sospecha de dengue	sospecha de dengue (situación)	418429061000132101	2	2
 88	vacuna con antígeno de virus Dengue	vacuna que contiene antígeno de virus Dengue (producto medicinal)	840563003	4	2
 89	vacuna con antígeno de virus Dengue como único ingrediente	vacuna que contiene antígeno de virus Dengue como único ingrediente (producto medicinal)	871720004	4	2
+90	faringitis	síndrome de fiebre periódica y estomatitis aftosa con faringitis y linfadenitis cervical (trastorno)	717231003	5	3
+91	fiebre	fiebre manchada de las Montañas Rocosas (trastorno)	186772009	5	3
+92	fiebre	fiebre por mordedura de rata (trastorno)	1685005	5	3
+93	fiebre	enfermedad por virus Zika (trastorno)	3928002	5	3
+94	fiebre	fiebre tifoidea (trastorno)	4834000	5	3
+95	fiebre	enfermedad por virus Banzi (trastorno)	6270009	5	3
+96	fiebre	fiebre de origen desconocido (hallazgo)	7520000	5	3
+97	fiebre	fiebre purpúrica brasileña (trastorno)	8554002	5	3
+98	fiebre	fiebre de Mayaro (trastorno)	9164007	5	3
+99	fiebre	enfermedad por el virus Tensaw (trastorno)	9602009	5	3
+100	fiebre	fiebre aséptica (hallazgo)	9619006	5	3
+101	fiebre	fiebre recidivante transmitida por garrapatas (trastorno)	10301003	5	3
+102	fiebre	fiebre de Bebaru (trastorno)	11917008	5	3
+103	fiebre	fiebre amarilla (trastorno)	16541001	5	3
+104	fiebre	fiebre hemorrágica por arbovirus (trastorno)	16766000	5	3
+105	fiebre	fiebre de Lassa (trastorno)	19065005	5	3
+106	fiebre	fiebre hemorrágica dengue (trastorno)	20927009	5	3
+107	fiebre	fiebre Sennetsu (trastorno)	21013006	5	3
+108	fiebre	fiebre por Elokomin (trastorno)	22404003	5	3
+109	fiebre	fiebre del Río Bravo (trastorno)	23122001	5	3
+110	fiebre	enfermedad por el virus Caraparu (trastorno)	24776000	5	3
+111	fiebre	enfermedad por el virus Oriboca (trastorno)	25582006	5	3
+112	fiebre	fiebre recurrente del Cáucaso (trastorno)	27578005	5	3
+113	fiebre	fiebre Sindbis (trastorno)	28477001	5	3
+114	fiebre	fiebre Tahyna (trastorno)	30945003	5	3
+115	fiebre	fiebre recurrente de Asia Y/O África (trastorno)	31120005	5	3
+116	fiebre	enfermedad por el virus Wyeomyia (trastorno)	32556003	5	3
+117	fiebre	fiebre de Spondweni (trastorno)	33877000	5	3
+118	fiebre	enfermedad por el virus Guaroa (trastorno)	36448002	5	3
+119	fiebre	parotiditis (trastorno)	36989005	5	3
+120	fiebre	enfermedad por el virus Ilesha (trastorno)	37780006	5	3
+121	fiebre	dengue (trastorno)	38362002	5	3
+122	fiebre	fiebre recurrente del oeste de los Estados Unidos (trastorno)	39002001	5	3
+123	fiebre	enfermedad por virus Piry (trastorno)	41348000	5	3
+124	fiebre	convulsión febril (hallazgo)	41497008	5	3
+125	fiebre	fiebre amarilla de la jungla (trastorno)	42100005	5	3
+126	fiebre	fiebre héctica (hallazgo)	42136008	5	3
+127	fiebre	enfermedad por el virus Kemerovo (trastorno)	42523002	5	3
+128	fiebre	fiebre de Wesselsbron (trastorno)	43220007	5	3
+129	fiebre	fiebre de Mucambo (trastorno)	43416006	5	3
+130	fiebre	fiebre recurrente de África Central Y/O Sudáfrica (trastorno)	43626008	5	3
+131	fiebre	fiebre de Uganda S (trastorno)	44110002	5	3
+132	fiebre	enfermedad por el virus Tacaiuma (trastorno)	44362006	5	3
+133	fiebre	enfermedad por el virus Bwamba (trastorno)	44583001	5	3
+134	fiebre	enfermedad por el virus Calovo (trastorno)	46121008	5	3
+135	fiebre	fiebre Izumi (trastorno)	47277009	5	3
+136	fiebre	enfermedad de Brill - Zinsser (trastorno)	47761007	5	3
+137	fiebre	fiebre hemorrágica de Omsk (trastorno)	48113006	5	3
+138	fiebre	enfermedad por el virus Guama (trastorno)	48400007	5	3
+139	fiebre	enfermedad por el virus Restan (trastorno)	48922006	5	3
+140	fiebre	fiebre del bosque Semliki (trastorno)	49142006	5	3
+141	fiebre	deshidratación por fiebre en el recién nacido (trastorno)	49513005	5	3
+142	fiebre	enfermedad por el virus Tataguine (trastorno)	50386009	5	3
+143	fiebre	fiebre paratifoidea tipo C (trastorno)	51254007	5	3
+144	fiebre	enfermedad por el virus Thogoto (trastorno)	51638003	5	3
+145	fiebre	fiebre Quaranfil (trastorno)	51682007	5	3
+146	fiebre	fiebre estreptobacilar (trastorno)	52138004	5	3
+147	fiebre	fiebre recurrente de la Península Ibérica Y/O del noroeste de África (trastorno)	52635002	5	3
+148	fiebre	fiebre cíclica (hallazgo)	52715007	5	3
+149	fiebre	estomatitis vesicular por virus Indiana (trastorno)	53632005	5	3
+150	fiebre	fiebre del agua negra (trastorno)	56625005	5	3
+151	fiebre	fiebre recurrente del sur de los Estados Unidos, México, América Central Y/O América del Sur (trastorno)	58827009	5	3
+152	fiebre	fiebre hemorrágica argentina (trastorno)	58868000	5	3
+153	fiebre	fiebre transitoria del recién nacido (trastorno)	60025004	5	3
+154	fiebre	enfermedad por el virus Madrid (trastorno)	60774007	5	3
+155	fiebre	fiebre histérica (hallazgo)	62166005	5	3
+156	fiebre	fiebre Batai (trastorno)	62674007	5	3
+157	fiebre	fiebre remitente (hallazgo)	63993003	5	3
+158	fiebre	fiebre hemorrágica boliviana (trastorno)	67247008	5	3
+159	fiebre	enfermedad por el virus Germistan (trastorno)	69931008	5	3
+160	fiebre	faringoconjuntivitis adenoviral (trastorno)	70385007	5	3
+161	fiebre	fiebre paratifoidea tipo B (trastorno)	71085009	5	3
+162	fiebre	enfermedad por el virus Oropouche (trastorno)	72880002	5	3
+163	fiebre	enfermedad por el virus Murutucu (trastorno)	73701003	5	3
+164	fiebre	fiebre hemorrágica arenavirósica (trastorno)	73730005	5	3
+165	fiebre	fiebre amarilla urbana (trastorno)	74166005	5	3
+166	fiebre	enfermedad por el virus Ganjam (trastorno)	74581008	5	3
+167	fiebre	fiebre recurrente de América Central Y/O América del Sur (trastorno)	74873003	5	3
+168	fiebre	ornitosis (trastorno)	75116005	5	3
+169	fiebre	enfermedad por el virus Marituba (trastorno)	75336004	5	3
+170	fiebre	brucelosis (trastorno)	75702008	5	3
+171	fiebre	enfermedad por el virus Changuinola (trastorno)	76446006	5	3
+172	fiebre	fiebre paratifoidea tipo A (trastorno)	76623002	5	3
+173	fiebre	enfermedad por el virus Chagres (trastorno)	76872006	5	3
+174	fiebre	leptospirosis (trastorno)	77377001	5	3
+175	fiebre	fiebre intermitente (hallazgo)	77957000	5	3
+176	fiebre	enfermedad por el virus Bunyamwera (trastorno)	79376002	5	3
+177	fiebre	fiebre por granos (trastorno)	79958002	5	3
+178	fiebre	enfermedad por arañazo de gato (trastorno)	79974007	5	3
+179	fiebre	enfermedad por el virus Dugbe (trastorno)	80795005	5	3
+180	fiebre	enfermedad por virus Chandipura (trastorno)	81182003	5	3
+181	fiebre	enfermedad por el virus Ossa (trastorno)	81472005	5	3
+182	fiebre	fiebre de las trincheras (trastorno)	82214002	5	3
+183	fiebre	enfermedad virósica de los Everglades (trastorno)	84579002	5	3
+184	fiebre	enfermedad por el virus Itaqui (trastorno)	85436005	5	3
+185	fiebre	fiebre de Onyong - nyong (trastorno)	85579005	5	3
+186	fiebre	fiebre paratifoidea (trastorno)	85904008	5	3
+187	fiebre	fiebre de Kunjin (trastorno)	87048000	5	3
+188	fiebre	coccidioidomicosis pulmonar primaria (trastorno)	88036000	5	3
+189	fiebre	fiebre recurrente de Irán Y/O Asia Central (trastorno)	88808006	5	3
+190	fiebre	enfermedad por el virus Catu (trastorno)	89805002	5	3
+191	fiebre	nanukayami (trastorno)	93465000	5	3
+192	fiebre	endocarditis por fiebre Q (trastorno)	95890006	5	3
+193	fiebre	fiebre ondulante (hallazgo)	102496004	5	3
+194	fiebre	fiebre de Chikungunya (trastorno)	111864006	5	3
+195	fiebre	enfermedad por virus Bussuquara (trastorno)	111866008	5	3
+196	fiebre	fiebre por etiocolanona (trastorno)	123977005	5	3
+197	fiebre	fiebre botonosa (trastorno)	186774005	5	3
+198	fiebre	leishmaniasis visceral (trastorno)	186803007	5	3
+199	fiebre	fiebre puerperal de origen desconocido (trastorno)	200277008	5	3
+200	fiebre	pirexia puerperal (trastorno)	237348005	5	3
+201	fiebre	fiebre de Oroya (trastorno)	240453002	5	3
+202	fiebre	fiebre hemorrágica viral (trastorno)	240523007	5	3
+203	fiebre	fiebre hemorrágica filoviral (trastorno)	240525000	5	3
+204	fiebre	fiebre bifásica (hallazgo)	248444008	5	3
+205	fiebre	bartonelosis (trastorno)	266123003	5	3
+206	fiebre	fiebre fluvial del Japón (trastorno)	271425001	5	3
+207	fiebre	mononucleosis infecciosa (trastorno)	271558008	5	3
+208	fiebre	fiebre por Pixuna (trastorno)	186612006	5	3
+209	fiebre	fiebre por Leptorpira canicola (trastorno)	186957004	5	3
+210	fiebre	hepatitis en la fiebre amarilla (trastorno)	197342009	5	3
+211	fiebre	fiebre por humidificador (trastorno)	233774000	5	3
+212	fiebre	miocarditis por fiebre Q (trastorno)	233867000	5	3
+213	fiebre	pericarditis por fiebre Q (trastorno)	233884006	5	3
+214	fiebre	fiebre de Pontiac (trastorno)	240447002	5	3
+215	fiebre	fiebre de Sepik (trastorno)	240499000	5	3
+216	fiebre	fiebre por Maguari (trastorno)	240502001	5	3
+217	fiebre	fiebre trivittatus (trastorno)	240507007	5	3
+218	fiebre	fiebre de Isfahan (trastorno)	240513003	5	3
+219	fiebre	fase de la fiebre (entidad observable)	248431003	5	3
+220	fiebre	fiebre hemorrágica venezolana (trastorno)	359673001	5	3
+221	fiebre	fiebre de Candiru (trastorno)	240522002	5	3
+222	fiebre	fiebre manchada de las Montañas Rocosas orientales (trastorno)	240616003	5	3
+223	fiebre	fiebre filariásica bancroftiana (trastorno)	240822009	5	3
+224	fiebre	aumento gradual de la fiebre (hallazgo)	271750004	5	3
+225	fiebre	fiebre irregular (hallazgo)	271753002	5	3
+226	fiebre	fiebre con escalofríos (hallazgo)	274640006	5	3
+227	fiebre	fase ascendente de la fiebre (hallazgo)	248432005	5	3
+228	fiebre	fase de meseta de la fiebre (hallazgo)	248433000	5	3
+229	fiebre	fase de caída de la fiebre (hallazgo)	248434006	5	3
+230	fiebre	fiebre prolongada (hallazgo)	248435007	5	3
+231	fiebre	fiebre ligeramente remitente (hallazgo)	248436008	5	3
+232	fiebre	fiebre palúdica (hallazgo)	248437004	5	3
+233	fiebre	fiebre cotidiana (hallazgo)	248438009	5	3
+234	fiebre	fiebre cotidiana doble (hallazgo)	248439001	5	3
+235	fiebre	fiebre terciana maligna (hallazgo)	248441000	5	3
+236	fiebre	fiebre cuartana (hallazgo)	248442007	5	3
+237	fiebre	fiebre, variación diurna (hallazgo)	248445009	5	3
+238	fiebre	fiebre defervescente (hallazgo)	248447001	5	3
+239	fiebre	fiebre posoperatoria (hallazgo)	248450003	5	3
+240	fiebre	fiebre posparto (hallazgo)	248451004	5	3
+241	fiebre	infección por Schistosoma japonicum (trastorno)	268058007	5	3
+242	fiebre	fiebre central (hallazgo)	248449003	5	3
+243	fiebre	aumento agudo de la fiebre (hallazgo)	271749004	5	3
+244	fiebre	fiebre (hallazgo)	386661006	5	3
+245	fiebre	fiebre baja (hallazgo)	304213008	5	3
+246	fiebre	fiebre diurna inversa (hallazgo)	248446005	5	3
+247	fiebre	fiebre hepática intermitente (hallazgo)	248443002	5	3
+248	fiebre	fiebre continua (hallazgo)	271751000	5	3
+249	fiebre	descenso rápido de la fiebre (hallazgo)	271754008	5	3
+250	fiebre	descenso gradual de la fiebre (hallazgo)	271755009	5	3
+251	fiebre	fiebre espirilar (trastorno)	19044004	5	3
+252	fiebre	fiebre del valle del Rift (trastorno)	402917003	5	3
+253	fiebre	fiebre por virus Manzanilla (trastorno)	5497006	5	3
+254	fiebre	fiebre en escalera (hallazgo)	271752007	5	3
+255	fiebre	paludismo por Plasmodium falciparum (trastorno)	62676009	5	3
+256	fiebre	fiebre manchada de las Montañas Rocosas occidentales (trastorno)	240615004	5	3
+257	fiebre	fiebre filariásica de Malasia (trastorno)	240827003	5	3
+258	fiebre	fiebre filariásica de Timor (trastorno)	240832002	5	3
+259	fiebre	fiebre recurrente transmitida por piojos (trastorno)	14683004	5	3
+260	fiebre	fiebre de Crimea (trastorno)	402918008	5	3
+261	fiebre	fiebre hemorrágica del Congo (trastorno)	402919000	5	3
+262	fiebre	fiebre calchaquí (trastorno)	240512008	5	3
+263	fiebre	fiebre Q crónica (trastorno)	409552002	5	3
+264	fiebre	fiebre Q aguda (trastorno)	409553007	5	3
+265	fiebre	hepatitis por fiebre Q (trastorno)	409554001	5	3
+266	fiebre	meningitis aséptica por fiebre Q (trastorno)	409555000	5	3
+267	fiebre	osteomielitis por fiebre Q (trastorno)	409557008	5	3
+268	fiebre	fiebre hemorrágica por Dengue, grado I (trastorno)	409676000	5	3
+269	fiebre	fiebre hemorrágica por Dengue, grado II (trastorno)	409677009	5	3
+270	fiebre	fiebre hemorrágica por Dengue, grado III (trastorno)	409678004	5	3
+271	fiebre	fiebre hemorrágica por Dengue, grado IV (trastorno)	409679007	5	3
+272	fiebre	transpiración por fiebre (hallazgo)	186694006	5	3
+273	fiebre	fiebre por picadura de garrapata sudafricana (trastorno)	415561000	5	3
+274	fiebre	fiebre recidivante (trastorno)	420079008	5	3
+275	fiebre	escarlatina (trastorno)	30242009	5	3
+276	fiebre	fiebre terciana (hallazgo)	248440004	5	3
+277	fiebre	hallazgo relacionado con el patrón de fiebre (hallazgo)	365977007	5	3
+278	fiebre	hallazgo relacionado con la fase de la fiebre (hallazgo)	365989009	5	3
+279	fiebre	fiebre hemorrágica brasileña (trastorno)	240524001	5	3
+280	fiebre	enfermedad por virus Ébola (trastorno)	37109004	5	3
+281	fiebre	fiebre posterior a procedimiento (hallazgo)	130091000119103	5	3
+282	fiebre	fiebre superior a 38 grados Celsius (hallazgo)	426000000	5	3
+283	fiebre	sepsis puerperal (trastorno)	2858002	5	3
+284	fiebre	fiebre crónica (hallazgo)	704425001	5	3
+285	fiebre	pirexia de origen desconocido concomitante con infección por virus de la inmunodeficiencia humana (trastorno)	713731001	5	3
+286	fiebre	infección causada por Theileria parva (trastorno)	17658005	5	3
+287	fiebre	fiebre hemorrágica causada por virus Lujo (trastorno)	716585008	5	3
+288	fiebre	fiebre hemorrágica causada por virus Chapare (trastorno)	716584007	5	3
+289	fiebre	fiebre hemorrágica con síndrome renal (trastorno)	716864001	5	3
+290	fiebre	fiebre causada por virus (hallazgo)	10151000132103	5	3
+291	fiebre	fiebre del nilo occidental (trastorno)	721000221106	5	3
+292	fiebre	fiebre amarilla sospecha de epizootia (trastorno)	2291000221109	5	3
+293	fiebre	fiebre debida a Leptospira autumnalis (trastorno)	26275000	5	3
+294	fiebre	fiebre debida a infección (hallazgo)	722892007	5	3
+295	fiebre	fiebre causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	119751000146104	5	3
+296	fiebre	fiebre del humidificador (trastorno)	48347002	5	3
+297	fiebre	mononucleosis infecciosa causada por virus del herpes humano 4 (trastorno)	1186997009	5	3
+298	fiebre	fiebre de recién nacido (trastorno)	95627000	5	3
+299	fiebre	fiebre por mordedura de gato (trastorno)	199177009	5	3
+300	fiebre-faringitis	faringitis por mononucleosis infecciosa (trastorno)	232401004	5	3
+301	fiebre-gripe-influenza	fiebre Q (trastorno)	186788009	5	3
+302	fiebre-neumonia	neumonía en la fiebre Q (trastorno)	32286006	5	3
+303	fiebre-neumonia	neumonía en la fiebre tifoidea (trastorno)	45312009	5	3
+304	fiebre-tos	tos con fiebre (hallazgo)	135883003	5	3
+305	faringitis	síndrome de fiebre periódica y estomatitis aftosa con faringitis y linfadenitis cervical (trastorno)	717231003	6	3
+306	faringitis-gripe-influenza	gripe con faringitis (trastorno)	195924009	6	3
+307	fiebre	faringoconjuntivitis adenoviral (trastorno)	70385007	6	3
+308	fiebre-faringitis	faringitis por mononucleosis infecciosa (trastorno)	232401004	6	3
+309	fiebre-neumonia	neumonía en la fiebre Q (trastorno)	32286006	6	3
+310	fiebre-neumonia	neumonía en la fiebre tifoidea (trastorno)	45312009	6	3
+311	fiebre-tos	tos con fiebre (hallazgo)	135883003	6	3
+312	gripe	pleurodinia epidémica (trastorno)	83264000	6	3
+313	gripe	gripe con compromiso del tracto gastrointestinal (trastorno)	195929004	6	3
+314	gripe	gripe causada por virus Influenza A subtipo H5 (trastorno)	713083002	6	3
+315	gripe	gripe causada por virus Influenza A subtipo H7 (trastorno)	450715004	6	3
+316	gripe	gripe causada por virus Influenza A subtipo H7N9 (trastorno)	707448003	6	3
+317	gripe	gripe causada por virus Influenza A subtipo H9 (trastorno)	450716003	6	3
+318	gripe	gripe causada por virus influenza estacional (trastorno)	719590007	6	3
+319	gripe	gripe causada por virus influenza pandémico (trastorno)	719865001	6	3
+320	gripe	infección causada por virus Hendra (trastorno)	773582002	6	3
+321	gripe	gripe causada por virus Influenza A subtipo H3N2 (trastorno)	772810003	6	3
+322	gripe	gripe causada por virus Influenza A subtipo H5N1 (trastorno)	772828001	6	3
+323	gripe-influenza	enfermedad similar a la gripe (hallazgo)	95891005	6	3
+324	gripe-influenza	gripe con laringitis (trastorno)	195923003	6	3
+325	gripe-influenza	gripe asociada con la atención médica (trastorno)	408687004	6	3
+326	gripe-influenza	gripe (trastorno)	6142004	6	3
+327	gripe-influenza	gripe causada por virus Influenza A subtipo H1N1 (trastorno)	442696006	6	3
+328	gripe-influenza	gripe causada por virus Influenza A (trastorno)	442438000	6	3
+329	gripe-influenza	gripe causada por virus influenza B (trastorno)	24662006	6	3
+330	gripe-influenza	gripe causada por virus influenza C (trastorno)	81524006	6	3
+331	gripe-influenza-neumonia	neumonía y gripe (trastorno)	195878008	6	3
+332	gripe-influenza-neumonia	neumonía causada por virus de la Influenza A (trastorno)	772839003	6	3
+333	influenza	laringitis por Haemophilus influenzae (trastorno)	41048006	6	3
+334	influenza	bronconeumonía por influenza (trastorno)	41269000	6	3
+335	influenza	influenza con encefalopatía (trastorno)	74644004	6	3
+336	influenza	infección por Haemophilus influenzae (trastorno)	91428005	6	3
+337	influenza	laringitis aguda por Haemophilus influenzae (trastorno)	195684009	6	3
+338	influenza	síntomas tipo gripales (hallazgo)	315642008	6	3
+339	influenza	enfermedad invasiva por Haemophilus influenzae (trastorno)	406583002	6	3
+340	influenza	bronquiolitis causada por virus influenza (trastorno)	10629191000119100	6	3
+341	influenza	infección por Haemophilus influenzae tipo b (trastorno)	709410003	6	3
+342	influenza-neumonia	neumonía por Haemophilus influenzae (trastorno)	70036007	6	3
+343	influenza-neumonia	neumonía causada por virus influenza H1N1 (trastorno)	142931000119100	6	3
+344	influenza-neumonia	neumonía causada por virus influenza (trastorno)	16311000119108	6	3
+345	influenza-sinusitis	sinusitis causada por Haemophilus influenzae (trastorno)	721755003	6	3
+346	laringotraqueitis	laringotraqueítis causada por el virus parainfluenza (trastorno)	10809006	6	3
+347	laringotraqueitis	laringotraqueítis aguda sin obstrucción (trastorno)	37948003	6	3
+348	laringotraqueitis	difteria laríngea (trastorno)	50215002	6	3
+349	laringotraqueitis	laringotraqueítis (trastorno)	55130001	6	3
+350	laringotraqueitis	laringotraqueítis aguda con obstrucción (trastorno)	59967003	6	3
+351	laringotraqueitis	laringotraqueítis aguda (trastorno)	64375000	6	3
+352	laringotraqueitis	laringotraqueítis crónica (trastorno)	83271005	6	3
+353	laringotraqueitis	laringitis y laringotraqueítis crónicas (trastorno)	195810009	6	3
+354	laringotraqueitis	laringotraqueítis viral aguda (trastorno)	301824001	6	3
+355	neumonia	neumonía por Salmonella (trastorno)	2523007	6	3
+356	neumonia	candidiasis pulmonar (trastorno)	3487004	6	3
+357	neumonia	bronquiolitis aguda (trastorno)	5505005	6	3
+358	neumonia	neumonía estafilocócica (trastorno)	22754005	6	3
+359	neumonia	neumonía intersticial linfocítica (trastorno)	44274007	6	3
+360	neumonia	neumonía catarral (trastorno)	50804000	6	3
+361	neumonia	neumonía bacteriana (trastorno)	53084003	6	3
+362	neumonia	neumonía peribronquial (trastorno)	55679008	6	3
+363	neumonia	neumonía no resuelta (trastorno)	57702005	6	3
+364	neumonia	neumonía por Achromobacter (trastorno)	61884008	6	3
+365	neumonia	neumonía intersticial (trastorno)	64667001	6	3
+366	neumonia	neumonía causada por el virus parainfluenza (trastorno)	64917006	6	3
+367	neumonia	síndrome de Löffler (trastorno)	64936001	6	3
+368	neumonia	neumonía por cuerpo extraño (trastorno)	65141002	6	3
+369	neumonia	neumonía lobular no resuelta (trastorno)	66429007	6	3
+370	neumonia	neumonía organizada (trastorno)	68409003	6	3
+371	neumonia	neumonía infecciosa adquirida en el período prenatal (trastorno)	71926009	6	3
+372	neumonia	neumonía granulomatosa (trastorno)	72656004	6	3
+373	neumonia	neumonía viral (trastorno)	75570004	6	3
+374	neumonia	neumonía de Pittsburgh (trastorno)	76090006	6	3
+375	neumonia	neumonía tuberculosa (trastorno)	80003002	6	3
+376	neumonia	ornitosis con neumonía (trastorno)	81164001	6	3
+377	neumonia	neumonía en la micosis sistémica (trastorno)	84753008	6	3
+378	neumonia	neumonía hipostásica (trastorno)	85469005	6	3
+379	neumonia	gastroenteritis ulcerada aguda complicada con neumonía (trastorno)	109814008	6	3
+380	neumonia	neumonía en la aspergilosis (trastorno)	111900000	6	3
+381	neumonia	neumonía focal (trastorno)	123590007	6	3
+382	neumonia	neumonía confluente (trastorno)	123591006	6	3
+383	neumonia	pulmón urémico (trastorno)	123595002	6	3
+384	neumonia	neumonía intersticial inespecífica (trastorno)	129452008	6	3
+385	neumonia	neumonía de los legionarios (trastorno)	195889001	6	3
+386	neumonia	neumonía causada por el virus de la varicela (trastorno)	195911009	6	3
+387	neumonia	neumonía (trastorno)	233604007	6	3
+388	neumonia	neumonía por neumococos (trastorno)	233607000	6	3
+389	neumonia	neumonía micótica (trastorno)	233613009	6	3
+390	neumonia	neumonía micobacteriana (trastorno)	233618000	6	3
+391	neumonia	neumonía neonatal (trastorno)	233619008	6	3
+392	neumonia	neumonía por parásitos (trastorno)	233620002	6	3
+393	neumonia	neumonitis intersticial de células gigantes (trastorno)	233625007	6	3
+394	neumonia	neumonía por colesterol (trastorno)	233728004	6	3
+395	neumonia	neumonía intersticial aguda (trastorno)	236302005	6	3
+396	neumonia	neumonía lobular (trastorno)	278516003	6	3
+397	neumonia	neumonía infecciosa (trastorno)	312342009	6	3
+398	neumonia	eosinofilia pulmonar (trastorno)	367542003	6	3
+399	neumonia	neumonía lobar neumocócica (trastorno)	266350000	6	3
+400	neumonia	neumonía bacteriana congénita (trastorno)	276693005	6	3
+401	neumonia	neumonía neonatal por aspiración (trastorno)	276695003	6	3
+402	neumonia	neumonía estreptocócica del grupo B (trastorno)	195886008	6	3
+403	neumonia	neumonía por Proteus (trastorno)	195888009	6	3
+404	neumonia	neumonía actinomicótica (trastorno)	195908008	6	3
+405	neumonia	absceso de pulmón con neumonía (trastorno)	196112005	6	3
+406	neumonia	neumonía bacteriana secundaria (trastorno)	308906005	6	3
+407	neumonia	neumonía posquirúrgica (trastorno)	314978007	6	3
+408	neumonia	neumonía atípica (trastorno)	233606009	6	3
+409	neumonia	neumonía meningocócica (trastorno)	233608005	6	3
+410	neumonia	neumonía hemorrágica (trastorno)	233617005	6	3
+411	neumonia	neumonía intersticial mononuclear (trastorno)	233623000	6	3
+412	neumonia	neumonía por herpes simple (trastorno)	233624006	6	3
+413	neumonia	neumonía por nocardias (trastorno)	195909000	6	3
+414	neumonia	neumonía neonatal por Chlamydia (trastorno)	233610007	6	3
+415	neumonia	neumonía por rickettsias (trastorno)	233621003	6	3
+416	neumonia	eosinofilia pulmonar criptogénica (trastorno)	233692000	6	3
+417	neumonia	neumonía basal (trastorno)	300999006	6	3
+418	neumonia	neumonía de lóbulo superior derecho (trastorno)	301004001	6	3
+419	neumonia	histoplasmosis pulmonar africana (trastorno)	187052004	6	3
+420	neumonia	neumonía posobstructiva (trastorno)	371072008	6	3
+421	neumonia	neumonía extrahospitalaria (trastorno)	385093006	6	3
+422	neumonia	neumonía de lóbulo superior izquierdo (trastorno)	301002002	6	3
+423	neumonia	neumonía de lóbulo inferior izquierdo (trastorno)	301000005	6	3
+424	neumonia	neumonía por adenovirus (trastorno)	41207000	6	3
+425	neumonia	neumonía gangrenosa (trastorno)	7063008	6	3
+426	neumonia	neumonía por micobacterias no tuberculosas (trastorno)	277869007	6	3
+427	neumonia	neumonía por citomegalovirus (trastorno)	7678002	6	3
+428	neumonia	neumonía de lóbulo medio derecho (trastorno)	301003007	6	3
+429	neumonia	neumonía por carbunco (trastorno)	195902009	6	3
+430	neumonia	neumonía de lóbulo inferior derecho (trastorno)	301001009	6	3
+431	neumonia	neumonía estacional criptogénica en organización, con colestasis bioquímica (trastorno)	233713004	6	3
+432	neumonia	neumonía intersticial descamativa (trastorno)	8549006	6	3
+433	neumonia	neumonía bilateral (trastorno)	407671000	6	3
+434	neumonia	neumonía bacteriana asociada con la atención médica (trastorno)	408680002	6	3
+435	neumonia	neumonía por Pneumocystis jiroveci (trastorno)	415125002	6	3
+436	neumonia	neumonía posarampionosa (trastorno)	191727003	6	3
+437	neumonia	neumonía del lóbulo de la língula (trastorno)	426696003	6	3
+438	neumonia	neumonía hospitalaria (trastorno)	425464007	6	3
+439	neumonia	neumonía basal bilateral (trastorno)	425996009	6	3
+440	neumonia	neumonía asociada con el uso de respirador (trastorno)	429271009	6	3
+441	neumonia	neumonía causada por Histoplasma (trastorno)	442094008	6	3
+442	neumonia	neumonía causada por infección con Streptococcus pyogenes (trastorno)	441942006	6	3
+443	neumonia	neumonía causada por coronavirus del síndrome respiratorio agudo grave (trastorno)	441590008	6	3
+444	neumonia	enfermedad por crioaglutininas debida a neumonía por Mycoplasma (trastorno)	48397003	6	3
+445	neumonia	neumonía con coccidioidomicosis (trastorno)	195904005	6	3
+446	neumonia	neumonía cavitaria (trastorno)	471272001	6	3
+447	neumonia	neumonía recurrente (trastorno)	699014000	6	3
+448	neumonia	neumonía intersticial idiopática (trastorno)	700249006	6	3
+449	neumonia	neumonía aguda debida a coccidioidomicosis (trastorno)	184431000119108	6	3
+450	neumonia	neumonía eosinofílica idiopática (trastorno)	708031000	6	3
+451	neumonia	neumonía bacteriana concomitante con infección por virus de la inmunodeficiencia humana (trastorno)	713544008	6	3
+452	neumonia	neumonía causada por coronavirus humano (trastorno)	713084008	6	3
+453	neumonia	neumonía bacteriana recurrente (trastorno)	713525001	6	3
+454	neumonia	neumonía bacteriana recurrente concomitante con infección por virus de la inmunodeficiencia humana (trastorno)	713526000	6	3
+455	neumonia	neumonía causada por Escherichia coli (trastorno)	51530003	6	3
+456	neumonia	neumonía causada por bacterias gramnegativas (trastorno)	430395005	6	3
+457	neumonia	neumonía causada por bacterias aeróbicas (trastorno)	409665004	6	3
+458	neumonia	neumonía causada por bacterias anaerobias (trastorno)	409664000	6	3
+459	neumonia	neumonía causada por Histoplasma capsulatum (trastorno)	38699009	6	3
+460	neumonia	neumonía causada por metapneumovirus humano (trastorno)	445096001	6	3
+461	neumonia	neumonía causada por Klebsiella pneumoniae (trastorno)	64479007	6	3
+462	neumonia	neumonía causada por Staphylococcus aureus resistente a la meticilina (trastorno)	124691000119101	6	3
+463	neumonia	neumonía causada por Staphylococcus aureus sensible a la meticilina (trastorno)	128711000119106	6	3
+464	neumonia	neumonía causada por organismo tipo pleuroneumonía (trastorno)	195896004	6	3
+465	neumonia	neumonía causada por Proteus mirabilis (trastorno)	39172002	6	3
+466	neumonia	neumonía causada por Pseudomonas (trastorno)	41381004	6	3
+467	neumonia	neumonía causada por virus sincicial respiratorio (trastorno)	195881003	6	3
+468	neumonia	neumonía causada por Schistosoma haematobium (trastorno)	707508008	6	3
+469	neumonia	neumonía causada por Schistosoma japonicum (trastorno)	707507003	6	3
+470	neumonia	neumonía causada por Schistosoma mansoni (trastorno)	707503004	6	3
+471	neumonia	neumonía causada por Staphylococcus aureus (trastorno)	441658007	6	3
+472	neumonia	neumonía causada por Streptococcus (trastorno)	34020007	6	3
+473	neumonia	neumonitis causada por toxoplasmosis adquirida (trastorno)	46207001	6	3
+474	neumonia	neumonía causada por Mycoplasma pneumoniae (trastorno)	46970008	6	3
+475	neumonia	neumonía causada por Leishmania (trastorno)	240635003	6	3
+476	neumonia	neumonía criptogénica organizada (trastorno)	719218000	6	3
+477	neumonia	síndrome de neumonía idiopática (trastorno)	12381000132107	6	3
+478	neumonia	neumonía eosinofílica aguda idiopática (trastorno)	724499007	6	3
+479	neumonia	neumonía causada por Chlamydia pneumoniae (trastorno)	724498004	6	3
+480	neumonia	neumonía causada por bacterias grampositivas (trastorno)	733051000	6	3
+481	neumonia	neumonía causada por Chlamydiaceae (trastorno)	233609002	6	3
+482	neumonia	neumonía causada por coronavirus 2 del síndrome respiratorio agudo severo (trastorno)	882784691000119000	6	3
+483	neumonia	neumonía causada por Acinetobacter (trastorno)	1010634002	6	3
+484	neumonia	neumonía causada por Enterococcus resistente a vancomicina (trastorno)	1149093006	6	3
+485	neumonia	neumonía debida a sarampión (trastorno)	195900001	6	3
+486	neumonia	neumonía viral debida a mononucleosis infecciosa causada por virus del herpes humano tipo 4 (trastorno)	1187256004	6	3
+487	neumonia	neumonía causada por organismo del género Enterobacter (trastorno)	1176988004	6	3
+488	neumonia	neumonía con síndrome de inmunodeficiencia adquirida (trastorno)	421671002	6	3
+489	neumonia	neumonía bacteriana con síndrome de inmunodeficiencia adquirida (trastorno)	420544002	6	3
+490	neumonia	neumonía neumocócica con síndrome de inmunodeficiencia adquirida (trastorno)	420787001	6	3
+491	neumonia	neumonía viral con síndrome de inmunodeficiencia adquirida (trastorno)	421508002	6	3
+492	sinusitis	sinusitis esfenoidal (trastorno)	13266007	6	3
+493	sinusitis	sinusitis aguda (trastorno)	15805002	6	3
+494	sinusitis	sinusitis etmoidal (trastorno)	18643000	6	3
+495	sinusitis	sinusitis (trastorno)	36971009	6	3
+496	sinusitis	sinusitis etmoidal aguda (trastorno)	67832005	6	3
+497	sinusitis	sinusitis maxilar aguda (trastorno)	68272006	6	3
+498	sinusitis	sinusitis bacteriana aguda (trastorno)	75498004	6	3
+499	sinusitis	sinusitis esfenoidal aguda (trastorno)	77919000	6	3
+500	sinusitis	sinusitis frontal (trastorno)	78737005	6	3
+501	sinusitis	supuración aguda de seno nasal (trastorno)	80600003	6	3
+502	sinusitis	sinusitis maxilar (trastorno)	88348008	6	3
+503	sinusitis	barosinusitis (trastorno)	88548007	6	3
+504	sinusitis	sinusitis frontal aguda (trastorno)	91038008	6	3
+505	sinusitis	sinusitis recurrente (trastorno)	195788001	6	3
+506	sinusitis	sinusitis aguda recurrente (trastorno)	232391008	6	3
+507	sinusitis	sinusitis frontal aguda con osteomielitis del hueso frontal (trastorno)	232389000	6	3
+508	sinusitis	sinusitis obstructiva (trastorno)	371127003	6	3
+509	sinusitis	sinusitis supurativa con complicaciones (trastorno)	232390009	6	3
+510	sinusitis	sinusitis alérgica por hongos (trastorno)	425011002	6	3
+511	sinusitis	sinusitis crónica recurrente (trastorno)	427909005	6	3
+512	sinusitis	sinusitis micótica invasiva (trastorno)	429427008	6	3
+513	sinusitis	sinusitis viral (trastorno)	444814009	6	3
+514	sinusitis	sinusitis bacteriana (trastorno)	703470001	6	3
+515	sinusitis	sinusitis fúngica (trastorno)	104041000119108	6	3
+516	sinusitis	sinusitis concomitante con pólipos nasales (trastorno)	41931000119102	6	3
+517	sinusitis	sinusitis causada por Streptococcus pneumoniae (trastorno)	721741006	6	3
+518	sinusitis	sinusitis aguda causada por hongo (trastorno)	725916003	6	3
+519	sinusitis	sinusitis aguda causada por virus (trastorno)	725917007	6	3
+520	sinusitis	neuropatía craneal debida a sinusitis (trastorno)	840459008	6	3
+521	tos	tos seca (hallazgo)	11833005	6	3
+522	tos	tos metálica (hallazgo)	20670007	6	3
+523	tos	tos productiva (hallazgo)	28743005	6	3
+524	tos	tos paroxística (hallazgo)	43025008	6	3
+525	tos	tos postprandial (hallazgo)	46789001	6	3
+526	tos	tos del fumador (trastorno)	46802002	6	3
+527	tos	tos (hallazgo)	49727002	6	3
+528	tos	tos ferina (hallazgo)	59994004	6	3
+529	tos	tos nocturna (hallazgo)	62548007	6	3
+530	tos	tos matinal (hallazgo)	62618004	6	3
+531	tos	incremento de la tos (hallazgo)	62731002	6	3
+532	tos	tos espasmódica (hallazgo)	63000007	6	3
+533	tos	síncope tusivo (hallazgo)	90129003	6	3
+534	tos	síndrome de cefalea por tos (hallazgo)	95658004	6	3
+535	tos	supresión de la tos (hallazgo)	102580004	6	3
+536	tos	tos postural (hallazgo)	111962006	6	3
+537	tos	característica de la tos (entidad observable)	364054002	6	3
+538	tos	síndrome tipo tos ferina (trastorno)	271567008	6	3
+539	tos	características de la tos (entidad observable)	248592006	6	3
+540	tos	capacidad para toser (entidad observable)	289107006	6	3
+541	tos	capacidad para toser y expectorar (entidad observable)	301244000	6	3
+542	tos	capacidad para toser voluntariamente (entidad observable)	306779000	6	3
+543	tos	rasgos toscos (hallazgo)	248185005	6	3
+544	tos	hallazgo relacionado con la capacidad de toser voluntariamente (hallazgo)	366125009	6	3
+545	tos	capaz de toser voluntariamente (hallazgo)	306780002	6	3
+546	tos	incapaz de toser voluntariamente (hallazgo)	306781003	6	3
+547	tos	dificultad para toser voluntariamente (hallazgo)	306782005	6	3
+548	tos	capaz de toser (hallazgo)	289113002	6	3
+549	tos	tose (hallazgo)	289114008	6	3
+550	tos	dificultad para toser (hallazgo)	289116005	6	3
+551	tos	incapaz de toser (hallazgo)	248590003	6	3
+552	tos	tos efectiva (hallazgo)	301236000	6	3
+553	tos	tos persistente (hallazgo)	284523002	6	3
+554	tos	tos de causa inexplicable (hallazgo)	315246003	6	3
+555	tos	tos matutina (hallazgo)	161932002	6	3
+556	tos	tos vespertina (hallazgo)	161933007	6	3
+557	tos	tos alérgica (hallazgo)	300959008	6	3
+558	tos	tos crupal (hallazgo)	289965001	6	3
+559	tos	tos/sibilancia nocturnos (hallazgo)	161947006	6	3
+560	tos	tos productiva - esputo claro (hallazgo)	161923004	6	3
+561	tos	tos productiva - esputo verde (hallazgo)	161924005	6	3
+562	tos	tos productiva - esputo amarillo (hallazgo)	161925006	6	3
+563	tos	tos psicógena (hallazgo)	191954008	6	3
+564	tos	tos dolorosa (hallazgo)	247410004	6	3
+565	tos	reflejo de la tos (entidad observable)	34606001	6	3
+566	tos	tos a través de fístula traqueoesofágica (hallazgo)	248594007	6	3
+567	tos	tos inefectiva (hallazgo)	276314008	6	3
+568	tos	impulso de la tumoración con la tos (entidad observable)	364640009	6	3
+569	tos	tos perruna (hallazgo)	17986004	6	3
+570	tos	tose al tragar (hallazgo)	248593001	6	3
+571	tos	tos en reposo (hallazgo)	7142008	6	3
+572	tos	incapaz de eliminar esputo mediante la tos (hallazgo)	225575005	6	3
+573	tos	tos ferina (trastorno)	27836007	6	3
+574	tos	tos durante el ejercicio (hallazgo)	19282004	6	3
+575	tos	púrpura por vómitos y tos prolongados (trastorno)	402850004	6	3
+576	tos	tos ferina asociada con la atención médica (trastorno)	408682005	6	3
+577	tos	tos (entidad observable)	263731006	6	3
+578	tos	tos vacuna (hallazgo)	62427007	6	3
+579	tos	broncomoniliasis (trastorno)	418122003	6	3
+580	tos	congestión de vías respiratorias y tos (trastorno)	417850002	6	3
+581	tos	síntoma que empeora con la tos (hallazgo)	162480005	6	3
+582	tos	vómito postusígeno (trastorno)	424580008	6	3
+583	tos	dolor provocado por toser (hallazgo)	427146008	6	3
+584	tos	hallazgo relacionado con el impulso de la tumoración con la tos (hallazgo)	300864006	6	3
+585	tos	hallazgo relacionado con la capacidad para toser (hallazgo)	366124008	6	3
+586	tos	capaz de eliminar esputo mediante la tos (hallazgo)	225576006	6	3
+587	tos	tos disminuida (hallazgo)	52673003	6	3
+588	tos	tos persistente luego de infección respiratoria por virus (trastorno)	445241004	6	3
+589	tos	sin fuerza para toser (hallazgo)	769211009	6	3
+590	tos	fuerza de la tos (entidad observable)	769210005	6	3
+591	tos-neumonia	tos convulsa agravada por neumonía (trastorno)	59475000	6	3
+592	tos-neumonia	salmonelosis no tifoidea invasiva (trastorno)	763772002	6	3
+593	tos-neumonia	neumonía necrosante causada por Staphylococcus aureus productor de leucocidina de Panton-Valentine (trastorno)	763888005	6	3
+594	neumonia	neumonía gonocócica (trastorno)	1087061000119106	6	3
+595	neumonia	neumonía causada por Ascaris (trastorno)	1082721000119101	6	3
+596	neumonia	neumonía por rubéola (trastorno)	1092361000119109	6	3
+597	neumonia	neumonía causada por Bordetella parapertussis (trastorno)	1092951000119106	6	3
 \.
 
 
@@ -2237,6 +2745,8 @@ COPY tableros.variable_tipo (id, description) FROM stdin;
 2	Sospecha
 3	Grave
 4	Otro
+5	Fiebre Infecciosa
+6	Afectación respiratoria infecciosa
 \.
 
 --
@@ -2246,6 +2756,7 @@ COPY tableros.variable_tipo (id, description) FROM stdin;
 COPY tableros.enfermedad (id, description) FROM stdin;
 1	Covid19
 2	Dengue
+3	Fiebre y Sintomas respiratorios
 \.
 
 -- Completed on 2022-07-15 20:03:29 UTC
