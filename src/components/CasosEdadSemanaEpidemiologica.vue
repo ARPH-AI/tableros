@@ -62,7 +62,6 @@ const totalCasosHSI = {
     'EnfermedadEdadSexo.identificador': 'desc',
   },
   dimensions: ['EnfermedadEdadSexo.Grupo_edad'],
-  filters: [],
 }
 
 const totalCasosSNVS = {
