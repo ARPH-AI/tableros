@@ -115,6 +115,20 @@ CREATE TABLE tableros.map_coordinates (
 ALTER TABLE tableros.map_coordinates OWNER TO $PG_USER;
 
 
+CREATE TABLE tableros.snvs_dengue (
+	ideventocaso integer NOT NULL,
+	sexo character(1) NULL,
+	edad_diagnostico integer NULL,
+	id_depto_indec_residencia integer NULL,
+	departamento_residencia character varying(255) NULL,
+	clasificacion_manual character varying(255) NULL,
+    sepi_graf integer NULL,
+    anio_epi_graf integer NULL
+);
+
+
+ALTER TABLE tableros.snvs_dengue OWNER TO $PG_USER;
+
 
 --
 -- Name: cie_10 id_cie_10; Type: CONSTRAINT; Schema: tableros; Owner: $PG_USER
@@ -170,13 +184,13 @@ ALTER TABLE ONLY tableros.enfermedad
 ALTER TABLE ONLY tableros.map_coordinates
     ADD CONSTRAINT map_coordinates_pkey PRIMARY KEY (id);
 
-
-
-
-
 --
 -- Name: SCHEMA tableros; Type: ACL; Schema: -; Owner: $PG_USER
 --
+
+ALTER TABLE ONLY tableros.snvs_dengue
+    ADD CONSTRAINT id_evento_caso PRIMARY KEY (ideventocaso);
+
 
 GRANT ALL ON SCHEMA tableros TO $PG_USER;
 
@@ -185,6 +199,12 @@ GRANT ALL ON SCHEMA tableros TO $PG_USER;
 --
 
 GRANT ALL ON SCHEMA tableros TO $PG_USER;
+
+
+CREATE INDEX snvs_dengue_clasif_manual_idx ON tableros.snvs_dengue USING btree (clasificacion_manual);
+CREATE INDEX snvs_dengue_edad_diagnostico_idx ON tableros.snvs_dengue USING btree (edad_diagnostico);
+CREATE INDEX snvs_dengue_departamento_residencia_idx ON tableros.snvs_dengue USING btree (departamento_residencia);
+CREATE INDEX snvs_dengue_sexo_idx ON tableros.snvs_dengue USING btree (sexo);
 
 --
 -- Name: snvs_clasificacion_resumen_idx; Type: INDEX; Schema: tableros; Owner: dashboarduser

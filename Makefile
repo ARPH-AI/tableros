@@ -63,13 +63,15 @@ create-dashboard-schema:
 	docker exec -i postgres-dashboard psql -U $(PG_USER) -d $(PG_DBNAME) -f 02-create-esquemasnvs.sql
 	docker cp $(SQLSCRIPTS)/schemas/03-create-snvs-index.sql postgres-dashboard:/03-create-snvs-index.sql
 	docker exec -i postgres-dashboard psql -U $(PG_USER) -d $(PG_DBNAME) -f 03-create-snvs-index.sql
-	docker cp $(SQLSCRIPTS)/schemas/04-create-dashboard-views.sql postgres-dashboard:/04-create-dashboard-views.sql
-	docker exec -i postgres-dashboard psql -U $(PG_USER) -d $(PG_DBNAME) -f 04-create-dashboard-views.sql
+	docker cp $(SQLSCRIPTS)/schemas/04-create-esquema-snvs-dengue.sql postgres-dashboard:/04-create-esquema-snvs-dengue.sql
+	docker exec -i postgres-dashboard psql -U $(PG_USER) -d $(PG_DBNAME) -f 04-create-esquema-snvs-dengue.sql
+	docker cp $(SQLSCRIPTS)/schemas/06-create-dashboard-views.sql postgres-dashboard:/06-create-dashboard-views.sql
+	docker exec -i postgres-dashboard psql -U $(PG_USER) -d $(PG_DBNAME) -f 06-create-dashboard-views.sql
 
 load-public-schema:
 	@echo ":::::: Load Public DB Schema"
-	docker cp $(SQLSCRIPTS)/schemas/05-backup-public.sql postgres-dashboard:/05-backup-public.sql
-	docker exec -i postgres-dashboard psql -U $(PG_USER) -d $(PG_DBNAME) -f 05-backup-public.sql
+	docker cp $(SQLSCRIPTS)/schemas/07-backup-public.sql postgres-dashboard:/07-backup-public.sql
+	docker exec -i postgres-dashboard psql -U $(PG_USER) -d $(PG_DBNAME) -f 07-backup-public.sql
 
 load-dashboard-changes:
 	@echo ":::::: Create DASHBOARD DB Schema and load data"
@@ -82,11 +84,15 @@ load-data-dashboard:
 	@echo ":::::: Load  SVNS table and DASHBOARD DB data "
 	docker cp $(SQLSCRIPTS)/onlydata/only-data-dashboard.sql postgres-dashboard:/only-data-dashboard.sql
 	docker exec -i postgres-dashboard psql -U $(PG_USER) -d $(PG_DBNAME) -f only-data-dashboard.sql
+	make load-csv-snvs-dengue
 
 load-csv-snvs:
-
 	docker cp $(SQLSCRIPTS)/onlydata/primeros_100.csv postgres-dashboard:/primeros_100.csv
 	docker exec postgres-dashboard psql -U $(PG_USER) -d $(PG_DBNAME) -c "SET datestyle = 'ISO, DMY';COPY tableros.snvs FROM '/primeros_100.csv' WITH (FORMAT csv);"
+
+load-csv-snvs-dengue:
+	docker cp $(SQLSCRIPTS)/onlydata/snvs-dengue.csv postgres-dashboard:/snvs-dengue.csv
+	docker exec postgres-dashboard psql -U $(PG_USER) -d $(PG_DBNAME) -c "SET datestyle = 'ISO, DMY';COPY tableros.snvs_dengue FROM '/snvs-dengue.csv' WITH (FORMAT csv);"
 
 backup-snvs-table:
 	@echo ":::::: Dump SVNS table"
@@ -127,11 +133,12 @@ recreate-data-dashboard-prod:
 	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -f $(ROOT_PROD)/scripts/01-populate-dashboard-schema-prod.sql
 	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -f $(ROOT_PROD)/scripts/02-create-dashboard-views-prod.sql
 	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -f $(ROOT_PROD)/scripts/onlydata/onlydata-dashboard.sql
+	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -c "SET datestyle = 'ISO, DMY';COPY tableros.snvs_dengue FROM '$(ROOT_PROD)/scripts/onlydata/onlydata-snvs-denge.csv' WITH (FORMAT csv);"
 
 recreate-in-new-db:
 	@echo ":::::: Recreate DB"
 	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p$(PG_PORT) -f $(SQLSCRIPTS)/schemas/03-create-snvs-index.sql
-	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p$(PG_PORT) -f $(SQLSCRIPTS)/schemas/05-backup-public.sql
+	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p$(PG_PORT) -f $(SQLSCRIPTS)/schemas/07-backup-public.sql
 
 run-file-in-db:
 	@echo ":::::: File In DB"
