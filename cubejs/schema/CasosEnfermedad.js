@@ -1,5 +1,5 @@
 cube(`casosEnfermedad`, {
-  sqlAlias: `cC19`,
+  sqlAlias: `cEnfermedad`,
   sql: `
     select
       1 as identificador,
