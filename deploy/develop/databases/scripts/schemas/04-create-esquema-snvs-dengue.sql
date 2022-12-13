@@ -17,8 +17,7 @@ CREATE TABLE tableros.snvs_dengue (
 	id_depto_indec_residencia integer NULL,
 	departamento_residencia character varying(255) NULL,
 	clasificacion_manual character varying(255) NULL,
-    sepi_graf integer NULL,
-    anio_epi_graf integer NULL
+    fecha_apertura date NOT NULL
 );
 
 ALTER TABLE tableros.snvs_dengue OWNER TO dashboarduser;
