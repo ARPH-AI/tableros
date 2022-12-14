@@ -3,75 +3,39 @@
   <TabGroup :default-index="dataSource == 'hsi' ? 0 : 1">
     <div
       v-show="!isCurrentRoute(general_sections.INFORMACION.key)"
-      class="grid float-left grid-cols-1 pl-4 mt-4 ml-4 text-left h-fit"
+      class="grid justify-between grid-cols-2 pl-4 mt-4 ml-4 text-left h-fit"
     >
-      <span class="float-left text-4xl align-middle">{{}}</span>
-    </div>
-
-    <div
-      v-show="!isCurrentRoute(general_sections.INFORMACION.key)"
-      class="grid float-right grid-cols-2 mt-3 text-left h-fit"
-    >
-      <!-- Data Sources information -->
-      <div class="grid grid-cols-1 mt-3 text-xs">
-        <span class="float-left leading-relaxed align-middle">
-          Fuente de datos: <span class="uppercase text-">{{ dataSource }}</span></span
-        >
-        <span class="float-left leading-relaxed align-middle"> Actualizacion: {{ currentTime }}</span>
+      <!-- Section title -->
+      <div class="grid-cols-1 float-left">
+        <h2 class="font-medium float-left text-2xl">{{ current_section }}</h2>
       </div>
       <!-- tab list tiene que ser dinamica -->
       <TabList
         v-show="!isCurrentRoute(general_sections.INFORMACION.key)"
-        class="dark:bg-dark_smooth bg-light_smooth rounded-xl p-2 inline-flex float-right mr-6"
+        class="dark:bg-dark_smooth bg-light_smooth rounded-xl p-2 flex-row float-right mr-6 justify-self-end"
       >
         <Popper
-          placement="left"
+          v-for="(data, index) in data_sources"
+          :key="index"
+          placement="bottom"
           arrow
           disable-click-away
           hover
           interactive
-          :content="`Los datos de esta sección corresponden
-             a los registros de la atención ambulatoria en ${data_sources.HSI.title}`"
+          :content="data.content"
         >
-          <Tab v-slot="{ selected }" as="template" class="rounded-xl px-4 py-2 -mb-px">
+          <Tab v-slot="{ selected }" as="template" class="rounded-xl px-4 py-2 -mb-px flex-auto">
             <button
-              :aria-label="`Seleccionar ${data_sources.HSI.key} como fuente de datos`"
+              :aria-label="`Seleccionar como fuente de datos`"
               :class="[
                 selected
                   ? 'border-3 border-color_0 dark:bg-color_0_dark bg-color_0 opacity-100 dark:text-light_contrast text-dark_contrast'
                   : 'border-none opacity-50 dark:text-color_0_dark text-color_0',
               ]"
-              class="shadow-inner py-1 font-extrabold group"
-              @click="dataSource = 'hsi'"
+              class="shadow-inner py-1 font-extrabold group align-middle"
+              @click="setDataSource(data.key)"
             >
-              HSI
-            </button>
-          </Tab>
-        </Popper>
-        <Popper
-          arrow
-          disable-click-away
-          hover
-          interactive
-          content="Los datos de esta sección corresponden a los registros de los eventos de notificación obligatoria en
-                 el Sistema Nacional de Vigilancia en Salud"
-        >
-          <Tab
-            v-slot="{ selected }"
-            class="rounded-xl px-4 py-2 -mb-px font-semibold shadow-2xl border-3"
-            as="template"
-          >
-            <button
-              :aria-label="`Seleccionar ${data_sources.SNVS.key} como fuente de datos`"
-              :class="[
-                selected
-                  ? 'bg-color_1 dark:bg-color_1_dark border-color_1 shadow-xl opacity-100 dark:text-light_contrast text-dark_contrast'
-                  : 'border-none opacity-50 dark:text-color_1_dark text-color_1',
-              ]"
-              class="shadow-inner py-1 font-extrabol"
-              @click="dataSource = 'snvs'"
-            >
-              SNVS
+              {{ data.label }}
             </button>
           </Tab>
         </Popper>
@@ -79,36 +43,41 @@
     </div>
     <TabPanels>
       <!-- reproducir uno de estos por cada cant de tabs -->
-      <TabPanel><RouterViewTransition></RouterViewTransition></TabPanel>
-      <TabPanel><RouterViewTransition></RouterViewTransition></TabPanel>
+      <TabPanel v-for="(_data, index) in dataSources" :key="index"
+        ><RouterViewTransition></RouterViewTransition
+      ></TabPanel>
     </TabPanels>
   </TabGroup>
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import RouterViewTransition from '@/components/RouterViewTransition.vue'
 import Popper from 'vue3-popper'
-import { general_sections, data_sources } from '@/constants'
-import { storeToRefs } from 'pinia'
+import { general_sections } from '@/constants'
 import { useDataSourceStore } from '@/stores/data-source-store.ts'
 import { useEnosStore } from '@/stores/enos-store.ts'
-
-// const lista_enos = enos_array
-// console.log(lista_enos, 'UUUUII')
+import { useSectionsStore } from '@/stores/sections-store'
 import { isCurrentRoute } from '@/composables'
-import { getCurrentEnoDataSources } from '@/composables'
-const { dataSource } = storeToRefs(useDataSourceStore())
+import { storeToRefs } from 'pinia'
+const { dataSource, dataSources } = storeToRefs(useDataSourceStore())
+const dataSourceStore = useDataSourceStore()
+const enosStore = useEnosStore()
+const sectionsStores = useSectionsStore()
 
-const { current_eno } = storeToRefs(useEnosStore())
-console.log(current_eno, 'ddd')
-console.log(getCurrentEnoDataSources(current_eno), 'FFFFFF')
+const data_sources = computed(() => {
+  return enosStore.getCurrentEnoDataSources
+})
 
-var today = new Date()
-var dd = String(today.getDate()).padStart(2, '0')
-var mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
-var yyyy = today.getFullYear()
-var currentTime = dd + '/' + mm + '/' + yyyy
+const current_section = computed(() => {
+  return sectionsStores.getSectionTitle
+})
+
+const setDataSource = (value) => {
+  dataSourceStore.setCurrentDataSource(value)
+  enosStore.updateEnosDataBySource(value)
+}
 </script>
 
 <style>

@@ -34,7 +34,9 @@ function getKey(route: RouteLocationNormalized) {
         :key="getKey(route)"
         :class="isRoot ? 'router-view-root-transition-wrapper' : 'router-view-transition-wrapper'"
       >
-        <component :is="Component" />
+        <Suspense>
+          <component :is="Component" />
+        </Suspense>
       </div>
     </transition>
   </router-view>

@@ -1,35 +1,41 @@
 <script setup>
-import { sections, general_sections } from '@/constants'
+import { general_sections } from '@/constants'
 import { getThemeByDataSource } from '@/composables'
 import { storeToRefs } from 'pinia'
 import { useDataSourceStore } from '@/stores/data-source-store.ts'
 import { useSectionsStore } from '@/stores/sections-store.ts'
 import { isCurrentRoute } from '@/composables'
+import { useEnosStore } from '@/stores/enos-store'
 
 const { currentSection } = storeToRefs(useSectionsStore())
-console.log()
 const { dataSource } = storeToRefs(useDataSourceStore())
+const sectionsStore = useSectionsStore()
+const dataSourceStore = useDataSourceStore()
+const enosStore = useEnosStore()
+const updateStoresValuesToHome = () => {
+  enosStore.setCurrentEnoString('')
+  dataSourceStore.dataSource = 'hsi'
+  sectionsStore.setAxisTitle('')
+  sectionsStore.setPageTitle('')
+}
+const onCliclHandler = (value) => {
+  if (value === 'home') {
+    updateStoresValuesToHome()
+  }
+  sectionsStore.setCurrentSection(value)
+}
+const { current_eno_data } = storeToRefs(useEnosStore())
 </script>
 <template>
   <nav class="grid grid-cols-1 place-items-center px-2 mt-32 font-sans">
     <BaseMinimalSideBarButton
       :section="general_sections.HOME"
       :color-theme="getThemeByDataSource(dataSource)"
-      @click="currentSection = general_sections.HOME.key"
+      @click="onCliclHandler(general_sections.HOME.key)"
     ></BaseMinimalSideBarButton>
-    <!-- <BaseMinimalSideBarButton
-      :key="index"
-      :section="main_axis.VIGILANCIA_SINDROMICA"
-      :color-theme="getThemeByDataSource(dataSource)"
-    ></BaseMinimalSideBarButton>
-    <BaseMinimalSideBarButton
-      :key="index"
-      :section="main_axis.ENOS"
-      :color-theme="getThemeByDataSource(dataSource)"
-    ></BaseMinimalSideBarButton> -->
     <div class="mt-16">
       <BaseMinimalSideBarButton
-        v-for="(section, index) in sections"
+        v-for="(section, index) in current_eno_data.secciones"
         v-show="currentSection == 'enos' && !isCurrentRoute(currentSection)"
         :key="index"
         :section="section"

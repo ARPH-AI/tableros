@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import cubeApi from '@/cube'
-import { QueryBuilder } from '@cubejs-client/vue3'
 import { flattenColumns, getDisplayedColumns, keepProps, filterIncludes } from '@/cube/utils'
 import { getThemeByDataSource } from '@/composables'
 import { format, addYears } from 'date-fns'
@@ -131,7 +130,7 @@ const titulosMostrados = filterIncludes(getDisplayedColumns(tableColumns), getKe
     </template>
     <template #default>
       <TableCard
-        tableDimensions="sm:h-[38vh] xl:h-[43.2vh] 2xl:h-[52vh]"
+        table-dimensions="sm:h-[38vh] xl:h-[43.2vh] 2xl:h-[52vh]"
         :color-theme="getThemeByDataSource(props.dataSource)"
         :datos="datos"
         :titulo="titulo"

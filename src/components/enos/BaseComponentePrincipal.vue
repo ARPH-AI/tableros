@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { useDataSourceStore } from '@/stores/data-source-store'
-import { shallowRef } from 'vue'
 import { useEnosStore } from '@/stores/enos-store'
-const { current_eno } = storeToRefs(useEnosStore())
-
+import { useSectionsStore } from '@/stores/sections-store'
 const { dataSource } = storeToRefs(useDataSourceStore())
+const enosStore = useEnosStore()
+const sectionsStore = useSectionsStore()
 
 const props = defineProps({
   eno: {
@@ -13,15 +13,24 @@ const props = defineProps({
     required: true,
   },
 })
-const componente = shallowRef(props.eno.eno.mainComponent)
+const module = await import(props.eno.eno.mainComponent)
+const componente = module.default
+
+const onClickHandler = () => {
+  enosStore.setCurrentEnoString(props.eno.eno.key)
+  enosStore.setCurrentEnoData(props.eno.eno)
+  sectionsStore.setSectionTitle(props.eno.eno.title)
+}
 </script>
 <template>
   <div>
-    <div class="hover:opacity-50">
-      <router-link :to="props.eno.eno.main_page" @click="current_eno = props.eno.eno.key"
-        ><h3 class="mb-3 p-3 bg-light_smooth dark:bg-dark_smooth rounded-lg font-medium">{{ props.eno.eno.title }}</h3>
-        <Suspense><component :is="componente" :data-source="dataSource"></component></Suspense>
+    <div>
+      <router-link :to="props.eno.eno.main_page" @click="onClickHandler"
+        ><h3 class="mb-3 p-3 bg-light_smooth dark:bg-dark_smooth rounded-lg font-medium hover:opacity-50">
+          {{ props.eno.eno.title }}
+        </h3>
       </router-link>
+      <Suspense><component :is="componente" :data-source="dataSource"></component></Suspense>
     </div>
   </div>
 </template>

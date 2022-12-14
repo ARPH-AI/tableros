@@ -14,8 +14,11 @@ import { useDataSourceStore } from '@/stores/data-source-store.ts'
 import { isCurrentRoute } from '@/composables'
 import { general_sections } from '@/constants'
 import { QuestionMarkCircleIcon } from '@heroicons/vue/outline'
+import { useSectionsStore } from '@/stores/sections-store'
 
 const { dataSource } = storeToRefs(useDataSourceStore())
+const { axisTitle } = storeToRefs(useSectionsStore())
+const user_location = "Buenos Aires"
 </script>
 
 <template>
@@ -23,24 +26,6 @@ const { dataSource } = storeToRefs(useDataSourceStore())
     <div class="flex justify-between items-center p-2">
       <!-- Navbar left -->
       <div class="flex items-center space-x-3">
-        <!-- Toggle sidebar button -->
-        <!-- <button
-          v-show="!isCurrentRoute(general_sections.HOME.key)"
-          class="p-2 dark:text-dark_contrast"
-          aria-label="Desplegar menú lalteral"
-          @click="sidebarState.isOpen = !sidebarState.isOpen"
-        >
-          <svg
-            class="w-4 h-4 dark:text-dark_contrast text-light_contrast"
-            :class="{ 'transform transition-transform -rotate-180': sidebarState.isOpen }"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
-          </svg>
-        </button> -->
         <a aria-label="Navegar al inicio del sitio" href="/" class="p-1">
           <img alt="ARPHAI logo" src="@/assets/logo.png" class="w-20" />
         </a>
@@ -48,6 +33,12 @@ const { dataSource } = storeToRefs(useDataSourceStore())
         <span class="float-left font-sans font-semibold leading-relaxed align-middle">
           Tablero de información epidemiológica
         </span>
+        <span v-show="axisTitle" class="float-left font-sans font-semibold leading-relaxed align-middle"
+          >/ {{ axisTitle }}</span
+        >
+        <span v-show="user_location" class="float-left font-sans font-semibold leading-relaxed align-middle"
+          >/ {{ user_location }}</span
+        >
       </div>
       <div class="flex items-center space-x-3">
         <router-link
