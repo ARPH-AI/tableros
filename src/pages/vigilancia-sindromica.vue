@@ -5,8 +5,8 @@ meta:
 
 <script setup lang="ts">
 import { main_axis } from '@/constants'
-const title = main_axis.VIGILANCIA_SINDROMICA.title
-const description = main_axis.VIGILANCIA_SINDROMICA.description
+const title = main_axis.find((axis) => axis.key === 'vigilancia-sindromica')?.title
+const description = main_axis.find((axis) => axis.key === 'vigilancia-sindromica')?.description
 </script>
 
 <template>

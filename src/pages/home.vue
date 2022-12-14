@@ -4,7 +4,12 @@ meta:
 </route>
 
 <script setup lang="ts">
-import { main_axis } from '@/constants'
+import { useSectionsStore } from '@/stores/sections-store'
+import { computed } from 'vue'
+const sectionsStore = useSectionsStore()
+const axis = computed(() => {
+  return sectionsStore.getAxis
+})
 </script>
 
 <template>
@@ -13,7 +18,7 @@ import { main_axis } from '@/constants'
       <h1 class="font-medium float-left text-2xl">Vigilancia epidemiológica</h1>
     </div>
     <div class="grid md:grid-cols-2 gap-3">
-      <AxisCover v-for="(section, index) in main_axis" :key="index" class="" :section="section"></AxisCover>
+      <AxisCover v-for="(section, index) in axis" :key="index" class="" :section="section"></AxisCover>
     </div>
   </div>
 </template>
