@@ -1,5 +1,6 @@
 import { App, computed, reactive, readonly, ref } from 'vue'
 import { setupDevtools } from './devtools'
+import jwt_decode from "jwt-decode"
 import { configureAuthorizationHeaderInterceptor, configureRefreshTokenResponseInterceptor } from './interceptors'
 import { configureNavigationGuards } from './navigationGuards'
 import { ANONYMOUS_USER, AuthOptions, AuthPlugin, RequiredAuthOptions, User, UserTokens } from './types'
@@ -86,8 +87,9 @@ function setupAuthPlugin(options: RequiredAuthOptions): AuthPlugin {
 
       const info = await getHsiAccountInfo()
       const perm = await getHsiAccountPermissions()
-      user.value = Object.assign({}, info, perm)
-
+      const jwtDecoded = jwt_decode(cubeAccessToken.value)
+      const { userDepartment, userRole } = jwtDecoded
+      user.value = Object.assign({}, info, perm, { userDepartment, userRole })
       const finalData = Object.assign({ cubeAccessToken: cubeAccessToken }, data)
       storeTokens({ accessToken: data.accessToken, refreshToken: data.refreshToken, cubeAccessToken: data.cubeAccessToken })
       router.push(router.currentRoute.value.query.redirectTo?.toString() || options.loginRedirectRoute)
