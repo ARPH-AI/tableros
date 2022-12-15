@@ -1,6 +1,4 @@
 import { sections } from '@/constants'
-const ROOT_PATH = import.meta.env.ROOT_PATH || '/media/leonardo/almacenamiento/arphai/arphai-dashboard'
-
 
 export const data_sources = {
   HSI: {
@@ -27,11 +25,11 @@ export const enos = [
     main_page: 'seccion-situacion-actual',
     secciones: [sections.SITUACION_ACTUAL, sections.CARACTERIZACION, sections.GEO],
     componentes: {
-      situacion_actual: `${ROOT_PATH}/src/components/enos/covid/SituacionActualCovid.vue`,
-      caracterizacion: `${ROOT_PATH}/src/components/enos/covid/CaracterizacionCovid.vue`,
-      geo: `${ROOT_PATH}/src/components/enos/covid/GeoCovid.vue`,
+      situacion_actual: `SituacionActualCovid`,
+      caracterizacion: `CaracterizacionCovid`,
+      geo: `GeoCovid`,
     },
-    mainComponent: `${ROOT_PATH}/src/components/CasosActivosSemanaEpidemiologica.vue`,
+    mainComponent: `CasosActivosSemanaEpidemiologica`,
   },
   {
     key: 'dengue',
@@ -40,12 +38,11 @@ export const enos = [
     main_page: 'seccion-situacion-actual',
     secciones: [sections.SITUACION_ACTUAL, sections.CARACTERIZACION, sections.GEO],
     componentes: {
-      situacion_actual: `${ROOT_PATH}/src/components/enos/covid/SituacionActualCovid.vue`,
-      caracterizacion: `${ROOT_PATH}/src/components/enos/covid/CaracterizacionCovid.vue`,
-      geo: `${ROOT_PATH}/src/components/enos/covid/GeoCovid.vue`,
+      situacion_actual: `SituacionActualCovid`,
+      caracterizacion: `CaracterizacionCovid`,
+      geo: `GeoCovid`,
     },
-    mainComponent: `${ROOT_PATH}/src/components/CasosActivosSemanaEpidemiologica.vue`,
-    mainComponentName: 'CasosActivosSemanaEpidemiologica',
+    mainComponent: `CasosActivosSemanaEpidemiologica`,
   },
   {
     key: 'fiebre_ama',
@@ -54,10 +51,9 @@ export const enos = [
     main_page: 'seccion-situacion-actual',
     secciones: [sections.SITUACION_ACTUAL, sections.CARACTERIZACION],
     componentes: {
-      situacion_actual: `${ROOT_PATH}/src/components/enos/covid/SituacionActualCovid.vue`,
-      caracterizacion: `${ROOT_PATH}/src/components/enos/covid/CaracterizacionCovid.vue`,
+      situacion_actual: `SituacionActualCovid`,
+      caracterizacion: `CaracterizacionCovid`,
     },
-    mainComponent: `${ROOT_PATH}/src/components/CasosActivosSemanaEpidemiologica.vue`,
-    mainComponentName: 'CasosActivosSemanaEpidemiologica',
+    mainComponent: `CasosActivosSemanaEpidemiologica`,
   },
 ]
