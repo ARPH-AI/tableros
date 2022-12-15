@@ -30,11 +30,7 @@ const procesaDatos = (lista, total) => {
     num = (value * 100) / total
     resultado.push({
       value: num.toFixed(2),
-<<<<<<< HEAD
-      name: key != 0 ? key : 'Ninguno',
-=======
       name: key != 0 ? key : 'Ninguna',
->>>>>>> Se comienza a construir estructura para soportar multi-eno y vigilancia sindromica.
     })
   }
   return resultado
