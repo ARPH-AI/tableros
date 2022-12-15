@@ -26,13 +26,13 @@ export const sections = {
 
 export const data_sources = {
   HSI: {
-    key: 'HSI',
+    key: 'hsi',
     title: 'Historia Clínica Electrónica',
     content:
       'Desde la HSI se relevan datos de posibles eventos registrados en campos estructurados codificados con SNOMED CT, ya sean síntomas (para el caso de la vigilancia sindrómica) cómo diagnósticos que registra el personal de salud en la HSI.',
   },
   SNVS: {
-    key: 'SNVS',
+    key: 'snvs',
     title: 'Sistema Nacional de Vigilancia en Salud',
     content:
       'En la solapa identificada cómo SNVS se visualizan los casos notificados al sistema. Actualmente no se cuenta con vínculo de transmisión de información entre ambos sistemas.',

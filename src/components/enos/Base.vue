@@ -1,6 +1,6 @@
 <template>
   <!-- Data Sources Tabs -->
-  <TabGroup :default-index="dataSource == 'hsi' ? 0 : 1">
+  <TabGroup :default-index="dataSource == 'hsi' ? 0 : 1" :selected-index="selectedTab">
     <div
       v-show="!isCurrentRoute(general_sections.INFORMACION.key)"
       class="grid justify-between grid-cols-2 pl-4 mt-4 ml-4 text-left h-fit"
@@ -15,8 +15,8 @@
         class="dark:bg-dark_smooth bg-light_smooth rounded-xl p-2 flex-row float-right mr-6 justify-self-end"
       >
         <Popper
-          v-for="(data, index) in data_sources"
-          :key="index"
+          v-for="data in data_sources"
+          :key="data.label"
           placement="bottom"
           arrow
           disable-click-away
@@ -39,9 +39,7 @@
     </div>
     <TabPanels>
       <!-- reproducir uno de estos por cada cant de tabs -->
-      <TabPanel v-for="(_data, index) in dataSources" :key="index"
-        ><RouterViewTransition></RouterViewTransition
-      ></TabPanel>
+      <TabPanel v-for="data in data_sources" :key="data.label"><RouterViewTransition></RouterViewTransition></TabPanel>
     </TabPanels>
   </TabGroup>
 </template>
@@ -57,7 +55,7 @@ import { useEnosStore } from '@/stores/enos-store.ts'
 import { useSectionsStore } from '@/stores/sections-store'
 import { isCurrentRoute } from '@/composables'
 import { storeToRefs } from 'pinia'
-const { dataSource, dataSources } = storeToRefs(useDataSourceStore())
+const { dataSource } = storeToRefs(useDataSourceStore())
 const dataSourceStore = useDataSourceStore()
 const enosStore = useEnosStore()
 const sectionsStores = useSectionsStore()
@@ -73,10 +71,6 @@ const tab_styles = {
       'bg-color_1 dark:bg-color_1_dark border-color_1 shadow-xl opacity-100 dark:text-light_contrast text-dark_contrast',
     non_selected: 'border-none opacity-50 dark:text-color_1_dark text-color_1',
   },
-}
-
-const getStyleClass = (key, isSelected) => {
-  return isSelected ? tab_styles[key]?.selected : tab_styles[key]?.non_selected
 }
 
 const data_sources = computed(() => {
