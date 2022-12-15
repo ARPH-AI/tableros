@@ -1,9 +1,7 @@
 // Cube.js configuration options: https://cube.dev/docs/config
 module.exports = {
   queryRewrite: (query, { securityContext }) => {
-  // Tenemos en JWT `securityContext` `userId, userRole, userName`
-  // Deberiamos agregar userDepartamento
-
+  // Tenemos en JWT `securityContext` `userId, userRole, userName, userDepartament`
     // if (!securityContext.userId) {
     //   throw new Error('No id found in Security Context!');
     // }
@@ -19,7 +17,7 @@ module.exports = {
 
     // if (securityContext.userRole == 'User') {
 
-    //   if (!securityContext.userDepartamento) {
+    //   if (!securityContext.userDepartament) {
     //     throw new Error('No encontro departamento en Security Context!');
     //   }
 
@@ -55,7 +53,7 @@ module.exports = {
     //       query.filters.push({
     //         member: `${cubeNames[0]}.${filterKey}`,
     //         operator: 'equals',
-    //         values: [securityContext.userDepartamento],
+    //         values: [securityContext.userDepartament],
     //       });
     //     }
     //   }

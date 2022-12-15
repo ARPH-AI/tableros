@@ -23,7 +23,8 @@ const VALID_USER = {
   userId: '1',
   sub: 'Administradxr',
   username: 'admin@email.com',
-  password: 'admin'
+  password: 'admin',
+  department: 'Quilmes'
 }
 const ERole = {
   PARTNER: 'PARTNER',
@@ -37,10 +38,27 @@ const ERole = {
 
 // UTILS
 const getPermissions = async (req, token, userData) => {
-  const permUrl = `${req.protocol}://${req.hostname}:${process.env.SERVER_PORT}/hsi/account/permissions`
-  const permRes = await axios.get(permUrl, { headers: { 'Authorization': `Bearer ${token}` }})
-  const userRole = permRes.data.roleAssignments[0].role
-  return { ...userData, userRole }
+  let userDepartment
+  const baseUrl = `${req.protocol}://${req.hostname}:${process.env.SERVER_PORT}`
+  const authHeaders = { headers: { 'Authorization': `Bearer ${token}` }}
+
+  const permUrl = baseUrl + `/hsi/account/permissions`
+  const permRes = await axios.get(permUrl, authHeaders)
+  const userRole = permRes?.data?.roleAssignments[0]?.role
+  const institutionId = permRes?.data?.roleAssignments[0]?.institutionId
+
+  if (institutionId) {
+    const instUrl = `${baseUrl}/hsi/institution/${institutionId}/address`
+    const instRes = await axios.get(instUrl, authHeaders)
+    const { departmentId, province } = instRes.data
+    if (departmentId) {
+      const depUrl = `${baseUrl}/hsi/institution/department/${departmentId}`
+      const depRes = await axios.get(depUrl, authHeaders)
+      userDepartment = depRes?.data[0]?.name
+    }
+  }
+
+  return { ...userData, userRole, userDepartment }
 }
 
 // CORS
@@ -110,7 +128,8 @@ let rutasSinAuth = [
 const rutasAuthHsi= [
   '/hsi/public/version',
   '/hsi/account/info',
-  '/hsi/account/permissions'
+  '/hsi/account/permissions',
+  '/hsi/institution'
 ]
 
 if (process.env.MODE != 'development') {
@@ -280,6 +299,44 @@ if (process.env.MODE == 'development') {
   app.get('/hsi/public/recaptcha', (req, res) => {
     res.status(200).send({"siteKey":"test-key","enabled":false})
   })
+
+  app.get('/hsi/institution/:id/address', (req, res) => {
+    return res.status(200).send({
+      "id": 0,
+      "street": "string",
+      "number": "string",
+      "floor": "string",
+      "apartment": "string",
+      "quarter": "string",
+      "postcode": "string",
+      "city": {
+        "id": 0,
+        "description": "string"
+      },
+      "cityId": 0,
+      "province": {
+        "id": 0,
+        "description": "string"
+      },
+      "provinceId": 0,
+      "departmentId": 1,
+      "latitude": 0,
+      "longitude": 0,
+      "countryId": 0
+    })
+  })
+
+  app.get('/hsi/institution/department/:id', (req, res) => {
+    return res.status(200).send(
+      [
+        {
+          "id": 1,
+          "name": VALID_USER.department
+        }
+      ]
+    )
+  })
+
 }
 
 app.listen(process.env.SERVER_PORT, () => {
