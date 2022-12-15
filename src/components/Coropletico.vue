@@ -16,13 +16,13 @@ const provincias = await provinciasImport.json()
 
 const titulo = 'Casos activos por departamento'
 const formatter = ref({
-  date: 'YYYY MM DD',
+  date: 'DD-MM-YYYY',
   month: 'MMM',
 })
 let resultSet = {}
 let datos = ref([])
 //let  fecha = ref('2021-04-09')
-let fecha = ref(format(new Date(), 'yyyy-MM-dd'))
+let fecha = ref(format(new Date(), 'dd-MM-yyyy'))
 let key = ref(0)
 let zoomChild = ref(null)
 
@@ -211,34 +211,16 @@ const changeProvincia = (event) => {
           <vue-tailwind-datepicker
             v-model="fecha"
             aria-label="Seleccion de fecha"
-            class="flex-1 float-right focus:outline-none shadow-xl rounded-lg"
+            class="flex-1 float-right focus:outline-none shadow-xl rounded-lg bg-light_smooth border-none"
             overlay
             :formatter="formatter"
             as-single
             input-classes="block text-sm font-medium text-light_contrast dark:text-dark_contrast"
+            :placeholder="fecha"
+            i18n="es-ar"
             @change="changeDate"
           />
         </div>
-        <!-- <input
-          v-model="fecha"
-          aria-label="Seleccion de fecha"
-          class="
-            z-40
-            flex-1
-            p-1
-            dark:text-light_contrast
-            pl-3
-            mt-1
-            text-left
-            bg-light_smooth
-            rounded-lg
-            shadow-xl
-            cursor-default
-            focus:outline-none
-          "
-          type="date"
-          @change="changeDate"
-        /> -->
       </div>
     </div>
     <div class="flex-1 flex flex-row">

@@ -13,9 +13,8 @@ const props = defineProps({
     required: true,
   },
 })
-const module = await import(props.eno.eno.mainComponent)
-const componente = module.default
-
+const localeFiles = import.meta.globEager('../../components/*.vue')
+const componente = localeFiles[`../../components/${props.eno.eno.mainComponent}.vue`].default
 const onClickHandler = () => {
   enosStore.setCurrentEnoString(props.eno.eno.key)
   enosStore.setCurrentEnoData(props.eno.eno)

@@ -26,7 +26,7 @@
         >
           <Tab v-slot="{ selected }" as="template" class="rounded-xl px-4 py-2 -mb-px flex-auto">
             <button
-              :aria-label="`Seleccionar como fuente de datos`"
+              :aria-label="`Seleccionar ${data.key} como fuente de datos`"
               :class="[
                 selected
                   ? 'border-3 border-color_0 dark:bg-color_0_dark bg-color_0 opacity-100 dark:text-light_contrast text-dark_contrast'

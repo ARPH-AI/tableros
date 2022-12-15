@@ -78,9 +78,9 @@ let key = ref(0)
 let coords = ref([])
 
 //let fecha = ref('2021-09-09')
-let fecha = ref(format(new Date(), 'yyyy-MM-dd'))
+let fecha = ref(format(new Date(), 'dd-MM-yyyy'))
 const formatter = ref({
-  date: 'YYYY MM DD',
+  date: 'DD-MM-YYYY',
   month: 'MMM',
 })
 const titulo = 'Total de casos activos por lugar de residencia'
@@ -146,7 +146,9 @@ watchEffect(async () => {
         </h5>
         <Popover class="ml-4 float-left relative">
           <PopoverButton> <QuestionMarkCircleIcon class="w-5" aria-hidden="true" /></PopoverButton>
-          <PopoverPanel class="text-dark_contrast bg-[#000] absolute z-50 rounded-lg p-3 w-80">
+          <PopoverPanel
+            class="text-dark_contrast bg-[#000] absolute z-50 rounded-lg p-3 w-80 bg-light_smooth border-none"
+          >
             <p class="text-left text-sm">
               Este mapa se ha elaborado tomando en cuenta la residencia de las personas, permitiendo la identificación
               de clusters de casos activos registrados en la HSI.
@@ -158,33 +160,15 @@ watchEffect(async () => {
         <vue-tailwind-datepicker
           v-model="fecha"
           aria-label="Seleccion de fecha"
-          class="flex-1 float-right focus:outline-none shadow-xl rounded-lg"
+          class="flex-1 float-right focus:outline-none shadow-xl rounded-lg bg-light_smooth border-none"
           overlay
           :formatter="formatter"
           as-single
           input-classes="block text-sm font-medium text-light_contrast dark:text-dark_contrast"
+          :placeholder="fecha"
+          i18n="es-ar"
         />
       </div>
-      <!-- <input
-        v-model="fecha"
-        aria-label="Seleccion de fecha"
-        class="
-          z-40
-          flex-1
-          p-2
-          float-right
-          text-left
-          bg-light_smooth
-          rounded-lg
-          shadow-xl
-          cursor-default
-          focus:outline-none
-          text-dark_co
-          dark:text-light_contrast
-        "
-        type="date"
-        @change="changeDate"
-      /> -->
     </div>
 
     <MapaClustering :key="key" :center="center" :zoom="zoom" :coords="coords" />
