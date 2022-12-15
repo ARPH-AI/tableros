@@ -11,8 +11,9 @@ import { useEnosStore } from '@/stores/enos-store'
 const { dataSource } = storeToRefs(useDataSourceStore())
 const { current_eno_data } = storeToRefs(useEnosStore())
 
-const module = await import(current_eno_data.value.componentes.situacion_actual)
-const componente = module.default
+const localeFiles = import.meta.globEager('../components/*.vue')
+const componente =
+  localeFiles[`../components/${current_eno_data.value.componentes.situacion_actual}.vue`]?.default || null
 </script>
 <template>
   <div>
