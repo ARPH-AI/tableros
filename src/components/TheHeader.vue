@@ -18,7 +18,6 @@ import { useSectionsStore } from '@/stores/sections-store'
 
 const { dataSource } = storeToRefs(useDataSourceStore())
 const { axisTitle } = storeToRefs(useSectionsStore())
-const user_location = "Buenos Aires"
 </script>
 
 <template>
@@ -36,8 +35,8 @@ const user_location = "Buenos Aires"
         <span v-show="axisTitle" class="float-left font-sans font-semibold leading-relaxed align-middle"
           >/ {{ axisTitle }}</span
         >
-        <span v-show="user_location" class="float-left font-sans font-semibold leading-relaxed align-middle"
-          >/ {{ user_location }}</span
+        <span v-show="$auth.user.userDepartment" class="float-left font-sans font-semibold leading-relaxed align-middle"
+          >/ {{ $auth.user.userDepartment }}</span
         >
       </div>
       <div class="flex items-center space-x-3">

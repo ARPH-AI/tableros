@@ -211,11 +211,11 @@ const changeProvincia = (event) => {
           <vue-tailwind-datepicker
             v-model="fecha"
             aria-label="Seleccion de fecha"
-            class="flex-1 float-right focus:outline-none shadow-xl rounded-lg bg-light_smooth border-none"
+            class="flex-1 float-right focus:outline-none shadow-md rounded-lg bg-light_smooth border-none"
             overlay
             :formatter="formatter"
             as-single
-            input-classes="block text-sm font-medium text-light_contrast dark:text-dark_contrast"
+            input-classes="block text-sm font-medium text-light_contrast dark:text-dark_contrast shadow-none"
             :placeholder="fecha"
             i18n="es-ar"
             @change="changeDate"

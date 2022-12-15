@@ -11,7 +11,7 @@
       </div>
       <!-- tab list tiene que ser dinamica -->
       <TabList
-        v-show="!isCurrentRoute(general_sections.INFORMACION.key)"
+        v-show="!isCurrentRoute(general_sections.INFORMACION.key) && !isCurrentRoute(general_sections.HOME.key)"
         class="dark:bg-dark_smooth bg-light_smooth rounded-xl p-2 flex-row float-right mr-6 justify-self-end"
       >
         <Popper
@@ -27,11 +27,7 @@
           <Tab v-slot="{ selected }" as="template" class="rounded-xl px-4 py-2 -mb-px flex-auto">
             <button
               :aria-label="`Seleccionar ${data.key} como fuente de datos`"
-              :class="[
-                selected
-                  ? 'border-3 border-color_0 dark:bg-color_0_dark bg-color_0 opacity-100 dark:text-light_contrast text-dark_contrast'
-                  : 'border-none opacity-50 dark:text-color_0_dark text-color_0',
-              ]"
+              :class="selected ? tab_styles[data.key]?.selected : tab_styles[data.key]?.non_selected"
               class="shadow-inner py-1 font-extrabold group align-middle"
               @click="setDataSource(data.key)"
             >
@@ -65,6 +61,23 @@ const { dataSource, dataSources } = storeToRefs(useDataSourceStore())
 const dataSourceStore = useDataSourceStore()
 const enosStore = useEnosStore()
 const sectionsStores = useSectionsStore()
+
+const tab_styles = {
+  hsi: {
+    selected:
+      'border-3 border-color_0 dark:bg-color_0_dark bg-color_0 opacity-100 dark:text-light_contrast text-dark_contrast',
+    non_selected: 'border-none opacity-50 dark:text-color_0_dark text-color_0',
+  },
+  snvs: {
+    selected:
+      'bg-color_1 dark:bg-color_1_dark border-color_1 shadow-xl opacity-100 dark:text-light_contrast text-dark_contrast',
+    non_selected: 'border-none opacity-50 dark:text-color_1_dark text-color_1',
+  },
+}
+
+const getStyleClass = (key, isSelected) => {
+  return isSelected ? tab_styles[key]?.selected : tab_styles[key]?.non_selected
+}
 
 const data_sources = computed(() => {
   return enosStore.getCurrentEnoDataSources

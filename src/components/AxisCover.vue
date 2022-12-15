@@ -10,19 +10,7 @@
         {{ props.section.title }}
       </h3>
 
-      <div
-        class="
-          p-3
-          h-full
-          bg-light_smooth
-          dark:bg-dark_smooth
-          rounded-3xl
-          w-full
-          place-items-center
-          text-justify
-          rounded-2xl
-        "
-      >
+      <div class="p-3 h-40 bg-light_smooth dark:bg-dark_smooth w-full place-items-center text-justify rounded-2xl">
         <p class="line-clamp-5">{{ props.section.description }}</p>
       </div>
     </router-link>
@@ -30,7 +18,6 @@
 </template>
 
 <script setup>
-
 import { useSectionsStore } from '@/stores/sections-store.ts'
 const sectionsStore = useSectionsStore()
 
