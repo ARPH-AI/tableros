@@ -44,16 +44,4 @@ export const enos = [
     },
     mainComponent: `CasosActivosSemanaEpidemiologica`,
   },
-  {
-    key: 'fiebre_ama',
-    title: 'Fiebre Amarilla',
-    fuente_datos: [data_sources.HSI],
-    main_page: 'seccion-situacion-actual',
-    secciones: [sections.SITUACION_ACTUAL, sections.CARACTERIZACION],
-    componentes: {
-      situacion_actual: `SituacionActualCovid`,
-      caracterizacion: `CaracterizacionCovid`,
-    },
-    mainComponent: `CasosActivosSemanaEpidemiologica`,
-  },
 ]
