@@ -4,17 +4,19 @@ import { useAuth } from './useAuth'
 import { useSectionsStore } from '@/stores/sections-store'
 import { storeToRefs } from 'pinia'
 
+const isSection = (route: string): boolean => route.split('-').includes('seccion')
+
 export function configureNavigationGuards(router: Router, options: RequiredAuthOptions) {
-  router.beforeEach(async (to): Promise<boolean | RouteLocationRaw> => {
+  router.beforeEach(async (to, from): Promise<boolean | RouteLocationRaw> => {
     const auth = useAuth()
     const sectionsStore = useSectionsStore()
     const { currentSection, previousTitle } = storeToRefs(sectionsStore)
 
     window.onpopstate = () => {
-      if (currentSection.value !== 'home' && previousTitle.value.length > 1) {
-        sectionsStore.popTitle()
-      } else {
-        sectionsStore.popTitle()
+      if (!(isSection(to.name) && isSection(from.name))) {
+        if (currentSection.value !== 'home' && previousTitle.value.length > 1) {
+          sectionsStore.popTitle()
+        }
       }
     }
 
