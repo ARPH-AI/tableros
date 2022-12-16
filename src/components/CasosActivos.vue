@@ -15,13 +15,13 @@ const totalCasosActivosHSI = {
   measures: ['casos.identificador'],
   timeDimensions: [
     {
-      dimension: 'casos.fecha_covid',
+      dimension: 'casos.fecha_activo',
     },
   ],
   order: {},
   filters: [
     {
-      member: 'casos.fecha_covid',
+      member: 'casos.fecha_activo',
       operator: 'equals',
       values: [`${date}`],
     },

@@ -15,7 +15,7 @@ const totalCasosHSI = {
   measures: ['casos.identificador'],
   timeDimensions: [
     {
-      dimension: 'casos.inicio_covid',
+      dimension: 'casos.fecha_inicio',
       dateRange: 'Last 7 days',
     },
   ],

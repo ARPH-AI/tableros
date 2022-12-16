@@ -37,7 +37,7 @@ const totalCasosHSI = {
   measures: ['casos.identificador'],
   filters: [
     {
-      member: 'casos.inicio_covid',
+      member: 'casos.fecha_inicio',
       operator: 'inDateRange',
       values: [oneYear, today],
     },

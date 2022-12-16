@@ -64,11 +64,11 @@ cube(`casos`, {
       sql: `anio`,
       type: `number`,
     },
-    inicio_covid: {
+    fecha_inicio: {
       sql: `start_date`,
       type: `time`,
     },
-    fecha_covid: {
+    fecha_activo: {
       sql: `fecha`,
       type: `time`,
     },

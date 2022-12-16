@@ -94,7 +94,7 @@ const totalCasos = (fecha) => {
     },
     filters: [
       {
-        member: 'casos.fecha_covid',
+        member: 'casos.fecha_activo',
         operator: 'equals',
         values: [`${fecha}`],
       },

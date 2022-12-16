@@ -38,6 +38,12 @@ module.exports = {
     //     `CovidEdadSexoFemSNVS`,
     //     `CovidEdadSexoSNVS`,
     //     `casosCovidPromSemSNVS`,
+    //     `casosFebriles`,
+    //     `casosDenguePromSem`,
+    //     `casosDenguePromSemSNVS`,
+    //     `DengueEdadSexoFemSNVS`,
+    //     `DengueEdadSexoMascSNVS`,
+    //     `DengueEdadSexoSNVS`
     //   ]
 
     //   const cubesFilterMap = [
