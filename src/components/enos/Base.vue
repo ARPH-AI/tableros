@@ -1,13 +1,16 @@
 <template>
   <!-- Data Sources Tabs -->
-  <TabGroup :default-index="dataSource == 'hsi' ? 0 : 1" :selected-index="selectedTab">
+  <TabGroup :default-index="dataSource == 'hsi' ? 0 : 1">
     <div
       v-show="!isCurrentRoute(general_sections.INFORMACION.key)"
       class="grid justify-between grid-cols-2 pl-4 mt-4 ml-4 text-left h-fit"
     >
       <!-- Section title -->
       <div class="grid-cols-1 float-left">
-        <h2 class="font-medium float-left text-2xl">{{ current_section }}</h2>
+        <h2 v-if="!isCurrentRoute(general_sections.HOME.key)" class="font-medium float-left text-2xl">
+          {{ current_section }}
+        </h2>
+        <h2 v-else class="font-medium float-left text-2xl">{{}}</h2>
       </div>
       <!-- tab list tiene que ser dinamica -->
       <TabList
