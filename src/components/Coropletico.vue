@@ -2,7 +2,7 @@
 import cubeApi from '@/cube'
 import { QueryBuilder } from '@cubejs-client/vue3'
 import { flattenColumns, getDisplayedColumns, mergeArrayByKey } from '@/cube/utils'
-import { ref, watchEffect } from 'vue'
+import { ref, watchEffect, computed } from 'vue'
 import { format } from 'date-fns'
 import { osmApi, datosgeoApi } from '@/api'
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue'
@@ -21,11 +21,10 @@ const formatter = ref({
 })
 let resultSet = {}
 let datos = ref([])
-//let  fecha = ref('2021-04-09')
-let fecha = ref(format(new Date(), 'yyyy-MM-dd'))
-let fecha_placeholder = ref(format(new Date(), 'dd-MM-yyyy'))
+let fecha = ref(format(new Date(), 'dd-MM-yyyy'))
 let key = ref(0)
 let zoomChild = ref(null)
+const fecha_for_cube = computed(() => fecha.value.split('-').reverse().join('-'))
 
 //Se podria tomar directamente de provincia, buscando por nombre para el por defecto
 let provinciaSel = ref(provincias[0])
@@ -68,7 +67,7 @@ const forceUpdate = () => key.value++
 
 watchEffect(async () => {
   if (fecha.value && fecha.value.trim()) {
-    resultSet = await cubeApi.load(totalCasos(fecha.value))
+    resultSet = await cubeApi.load(totalCasos(fecha_for_cube.value))
     datos.value = await getData(resultSet.rawData())
     zoom.value = zoomChild.value ? zoomChild.value : zoom.value
     forceUpdate()
@@ -77,7 +76,6 @@ watchEffect(async () => {
 
 const changeDate = (event: { target: { value: string } }) => {
   fecha.value = event.target.value
-  fecha_placeholder = value
 }
 
 // const changeZoom = (event: null) => {
@@ -213,12 +211,21 @@ const changeProvincia = (event) => {
           <vue-tailwind-datepicker
             v-model="fecha"
             aria-label="Seleccion de fecha"
-            class="flex-1 float-right focus:outline-none shadow-md rounded-lg bg-light_smooth border-none"
+            class="
+              flex-1
+              float-right
+              focus:outline-none
+              shadow-md
+              rounded-lg
+              bg-light_smooth
+              border-none
+              cursor-pointer
+            "
             overlay
             :formatter="formatter"
             as-single
             input-classes="block text-sm font-medium text-light_contrast dark:text-dark_contrast shadow-none"
-            :placeholder="fecha_placeholder"
+            :placeholder="fecha"
             i18n="es-ar"
             @change="changeDate"
           />

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import cubeApi from '@/cube'
 import { mergeArrayByKey } from '@/cube/utils'
-import { ref, watchEffect } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { osmApi, datosgeoApi } from '@/api'
 import { format } from 'date-fns'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
@@ -77,13 +77,12 @@ let zoom = ref(5)
 let key = ref(0)
 let coords = ref([])
 
-//let fecha = ref('2021-09-09')
-let fecha = ref(format(new Date(), 'yyyy-MM-dd'))
-let fecha_placeholder = ref(format(new Date(), 'dd-MM-yyyy'))
+let fecha = ref(format(new Date(), 'dd-MM-yyyy'))
 const formatter = ref({
   date: 'DD-MM-YYYY',
   month: 'MMM',
 })
+const fecha_for_cube = computed(() => fecha.value.split('-').reverse().join('-'))
 const titulo = 'Total de casos activos por lugar de residencia'
 
 const totalCasos = (fecha) => {
@@ -126,7 +125,7 @@ const forceUpdate = () => key.value++
 
 watchEffect(async () => {
   if (fecha.value) {
-    resultSet = await cubeApi.load(totalCasos(fecha.value))
+    resultSet = await cubeApi.load(totalCasos(fecha_for_cube.value))
     coords.value = await getCoords(resultSet.rawData())
     forceUpdate()
   }
@@ -167,12 +166,12 @@ watchEffect(async () => {
         <vue-tailwind-datepicker
           v-model="fecha"
           aria-label="Seleccion de fecha"
-          class="flex-1 float-right focus:outline-none shadow-md rounded-lg bg-light_smooth border-none"
+          class="flex-1 float-right focus:outline-none shadow-md rounded-lg bg-light_smooth border-none cursor-pointer"
           overlay
           :formatter="formatter"
           as-single
           input-classes="block text-sm font-medium text-light_contrast dark:text-dark_contrast shadow-none"
-          :placeholder="fecha_placeholder"
+          :placeholder="fecha"
           i18n="es-ar"
         />
       </div>
