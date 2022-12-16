@@ -78,7 +78,8 @@ let key = ref(0)
 let coords = ref([])
 
 //let fecha = ref('2021-09-09')
-let fecha = ref(format(new Date(), 'dd-MM-yyyy'))
+let fecha = ref(format(new Date(), 'yyyy-MM-dd'))
+let fecha_placeholder = ref(format(new Date(), 'dd-MM-yyyy'))
 const formatter = ref({
   date: 'DD-MM-YYYY',
   month: 'MMM',
@@ -112,6 +113,7 @@ const pivotConfig = {
 const changeDate = (event) => {
   if (event.target.value) {
     fecha.value = event.target.value
+    fecha_placeholder = event.target.value
   }
 }
 
@@ -165,7 +167,7 @@ watchEffect(async () => {
           :formatter="formatter"
           as-single
           input-classes="block text-sm font-medium text-light_contrast dark:text-dark_contrast shadow-none"
-          :placeholder="fecha"
+          :placeholder="fecha_placeholder"
           i18n="es-ar"
         />
       </div>

@@ -22,7 +22,8 @@ const formatter = ref({
 let resultSet = {}
 let datos = ref([])
 //let  fecha = ref('2021-04-09')
-let fecha = ref(format(new Date(), 'dd-MM-yyyy'))
+let fecha = ref(format(new Date(), 'yyyy-MM-dd'))
+let fecha_placeholder = ref(format(new Date(), 'dd-MM-yyyy'))
 let key = ref(0)
 let zoomChild = ref(null)
 
@@ -76,6 +77,7 @@ watchEffect(async () => {
 
 const changeDate = (event: { target: { value: string } }) => {
   fecha.value = event.target.value
+  fecha_placeholder = value
 }
 
 // const changeZoom = (event: null) => {
@@ -216,7 +218,7 @@ const changeProvincia = (event) => {
             :formatter="formatter"
             as-single
             input-classes="block text-sm font-medium text-light_contrast dark:text-dark_contrast shadow-none"
-            :placeholder="fecha"
+            :placeholder="fecha_placeholder"
             i18n="es-ar"
             @change="changeDate"
           />
