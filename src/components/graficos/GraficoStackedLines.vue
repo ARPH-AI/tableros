@@ -4,7 +4,7 @@ import 'echarts'
 import VChart from 'vue-echarts'
 import { isDark } from '@/composables'
 
-const props = defineProps<{
+interface Props {
   colorTheme: string
   series: object[]
   etiquetas: string[]
@@ -12,7 +12,11 @@ const props = defineProps<{
   tituloX: string
   tituloY: string
   chartHeight: string
-}>()
+  stacked?: boolean
+  chartType?: string
+}
+
+const props = withDefaults(defineProps<Props>(), { stacked: false, chartType: 'line' })
 
 const emphasisStyle = {
   focus: 'series',
@@ -26,9 +30,11 @@ const stackSeries = (series) => {
     return {
       name: item.title,
       data: item.series.map(({ value }) => value),
-      type: 'line',
+      type: props.chartType,
       showSymbol: false,
       emphasis: emphasisStyle,
+      ...(item.itemStyle ? { itemStyle: item.itemStyle } : {}),
+      ...(props.stacked ? { stack: "group" } : {})
     }
   })
 }

@@ -12,7 +12,8 @@ cube(`casosFebriles`, {
       pcc3.provincia,
       pcc3.ciudad,
       pcc3.enfermedad_id as enfermedad_id,
-      pcc3.enfermedad_descripcion as enfermedad
+      pcc3.enfermedad_descripcion as enfermedad,
+      pcc3.description
     from tableros.semana_epidemiologica se
       left join (
         select
@@ -45,22 +46,24 @@ cube(`casosFebriles`, {
     count: {
       sql: `id`,
       type: `count`,
+      title: `Totales`,
+      filters: [{ sql: `${CUBE}.description = 'Fiebre Infecciosa' OR ${CUBE}.description = 'Afectación respiratoria infecciosa'` }],
     },
-    CasosNoRespiratorios: {
+    NoRespiratorios: {
       sql: `id`,
       type: `count`,
       title: `No respiratorios`,
       filters: [{ sql: `${CUBE}.description = 'Fiebre Infecciosa'` }],
     },
-    CasosRespiratorios: {
+    Respiratorios: {
       sql: `id`,
       type: `count`,
       title: `Respiratorios`,
-      filters: [{ sql: `${CUBE}.description = 'Afectacion respiratoria infecciosa'` }],
+      filters: [{ sql: `${CUBE}.description = 'Afectación respiratoria infecciosa'` }],
     },
   },
   dimensions: {
-    Fecha_inicio_Conf: {
+    fecha: {
       sql: `fecha`,
       type: `time`,
     },

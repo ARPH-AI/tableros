@@ -29,12 +29,12 @@ import { getThemeByDataSource } from '@/composables'
             <CasosNuevosPorcentaje
               data-source="hsi"
               title="Casos Nuevos Mayores 60"
-              measure="CovidEdadSexo.frecuenciaCasosMay"
+              measure="EnfermedadEdadSexo.frecuenciaCasosMay"
             />
             <CasosNuevosPorcentaje
               data-source="hsi"
               title="Casos Nuevos Menores 20"
-              measure="CovidEdadSexo.frecuenciaCasosMen"
+              measure="EnfermedadEdadSexo.frecuenciaCasosMen"
             />
           </div>
           <Suspense
