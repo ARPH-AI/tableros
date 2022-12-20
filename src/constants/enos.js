@@ -41,13 +41,13 @@ export const data_sources = {
 
 export const enos = {
   COVID: {
-    key: 'covid',
+    key: 'Covid19',
     title: 'COVID-19',
     fuente_datos: [data_sources.HSI, data_sources.SNVS],
   },
   DENGUE: {
-    key: 'dengue',
+    key: 'Dengue',
     title: 'Dengue',
-    fuente_datos: [data_sources.HSI],
+    fuente_datos: [data_sources.HSI, data_sources.SNVS],
   },
 }

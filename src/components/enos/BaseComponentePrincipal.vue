@@ -29,7 +29,7 @@ const onClickHandler = () => {
           {{ props.eno.eno.title }}
         </h3>
       </router-link>
-      <Suspense><component :is="componente" :data-source="dataSource"></component></Suspense>
+      <Suspense><component :is="componente" :data-source="dataSource" :enfermedad="props.eno.eno.key"></component></Suspense>
     </div>
   </div>
 </template>

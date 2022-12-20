@@ -4,6 +4,7 @@ import { getThemeByDataSource } from '@/composables'
 
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
+  enfermedad: { type: String, default: 'Covid19' },
 })
 
 const titulo = 'Casos acumulados por edad y sexo'
@@ -18,19 +19,21 @@ const totalCasosMascHSI = {
     {
       member: 'EnfermedadEdadSexoMasc.enfermedad',
       operator: 'equals',
-      values: ['Covid19'],
+      values: [ props.enfermedad ],
     }
   ],
   dimensions: ['EnfermedadEdadSexoMasc.grupo_edad_masc'],
 }
 
+const e = (props.enfermedad == 'Covid19') ? 'Covid' : props.enfermedad
+
 const totalCasosMascSNVS = {
-  measures: ['CovidEdadSexoMascSNVS.cantidad_masc_snvs'],
+  measures: [ e + 'EdadSexoMascSNVS.cantidad_masc_snvs' ],
   timeDimensions: [],
   order: {
-    'CovidEdadSexoMascSNVS.grupo_edad_masc': 'asc',
+    [e + 'EdadSexoMascSNVS.grupo_edad_masc']: 'asc',
   },
-  dimensions: ['CovidEdadSexoMascSNVS.grupo_edad_masc'],
+  dimensions: [ e + 'EdadSexoMascSNVS.grupo_edad_masc'],
 }
 
 const totalCasosFemHSI = {
@@ -44,18 +47,18 @@ const totalCasosFemHSI = {
     {
       member: 'EnfermedadEdadSexoFem.enfermedad',
       operator: 'equals',
-      values: ['Covid19'],
+      values: [ props.enfermedad ],
     }
   ],
 }
 
 const totalCasosFemSNVS = {
-  measures: ['CovidEdadSexoFemSNVS.cantidad_fem_snvs'],
+  measures: [ e + 'EdadSexoFemSNVS.cantidad_fem_snvs'],
   timeDimensions: [],
   order: {
-    'CovidEdadSexoFemSNVS.grupo_edad_fem': 'asc',
+    [e + 'EdadSexoFemSNVS.grupo_edad_fem']: 'asc',
   },
-  dimensions: ['CovidEdadSexoFemSNVS.grupo_edad_fem'],
+  dimensions: [ e + 'EdadSexoFemSNVS.grupo_edad_fem'],
 }
 
 const pivotConfigMasc = {

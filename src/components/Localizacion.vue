@@ -8,6 +8,10 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import { QuestionMarkCircleIcon } from '@heroicons/vue/outline'
 import VueTailwindDatepicker from 'vue-tailwind-datepicker'
 
+const props = defineProps({
+  enfermedad: { type: String, default: 'Covid19' },
+})
+
 const ciudadesFilter = (item) => item['casos.ciudad']
 const getCoords = async (resultSet) => {
   const centroide_lat = 'centroide.lat'
@@ -100,7 +104,7 @@ const totalCasos = (fecha) => {
       {
         member: 'casos.enfermedad',
         operator: 'equals',
-        values: ['Covid19'],
+        values: [ props.enfermedad ],
       }
     ],
     dimensions: ['casos.ciudad'],

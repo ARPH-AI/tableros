@@ -10,12 +10,12 @@ module.exports = {
     //   throw new Error('No role found in Security Context!');
     // }
 
-    // const validRoles = [ 'Admin', 'User']
+    // const validRoles = [ 'PERFIL_EDPIDEMIO_MESO', 'PERFIL_EPIDEMIO_INSTITUCION']
     // if (!validRoles.includes(securityContext.userRole)) {
     //   throw new Error('No valid role found in Security Context!');
     // }
 
-    // if (securityContext.userRole == 'User') {
+    // if (securityContext.userRole == 'PERFIL_EPIDEMIO_INSTITUCION') {
 
     //   if (!securityContext.userDepartament) {
     //     throw new Error('No encontro departamento en Security Context!');

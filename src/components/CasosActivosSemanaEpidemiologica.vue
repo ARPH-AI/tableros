@@ -6,6 +6,7 @@ import { format, addYears } from 'date-fns'
 
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
+  enfermedad: { type: String, default: 'Covid19' },
 })
 
 const dateFormat = 'yyyy-MM-dd'
@@ -15,22 +16,25 @@ const oneYear = format(addYears(todayDate, -1), dateFormat)
 
 const titulo = 'Casos activos por Semana Epidemiológica'
 
+const e = (props.enfermedad == 'Covid19') ? 'Covid' : props.enfermedad
+const casosPromSemSNVS = `casos${e}PromSemSNVS`
+
 const totalCasosSNVS = {
-  measures: ['casosCovidPromSemSNVS.cantidadXDiaSNVS'],
+  measures: [`${casosPromSemSNVS}.cantidadXDiaSNVS`],
   timeDimensions: [],
   order: {
     //    'casosCovidPromSem.cantidadXDiaSNVS': 'desc',
-    'casosCovidPromSemSNVS.anio': 'desc',
-    'casosCovidPromSemSNVS.numero_semana': 'desc',
+    [`${casosPromSemSNVS}.anio`]: 'desc',
+    [`${casosPromSemSNVS}.numero_semana`]: 'desc',
   },
   filters: [
     {
-      member: 'casosCovidPromSemSNVS.Fecha_inicio_Conf',
+      member: `${casosPromSemSNVS}.Fecha_inicio_Conf`,
       operator: 'inDateRange',
       values: [oneYear, today],
     },
   ],
-  dimensions: ['casosCovidPromSemSNVS.nombre_semana', 'casosCovidPromSemSNVS.anio', 'casosCovidPromSemSNVS.numero_semana'],
+  dimensions: [`${casosPromSemSNVS}.nombre_semana`,  `${casosPromSemSNVS}.anio`, `${casosPromSemSNVS}.numero_semana`],
 }
 
 const totalCasosHSI = {
@@ -44,7 +48,7 @@ const totalCasosHSI = {
     {
       member: 'casos.enfermedad',
       operator: 'equals',
-      values: ['Covid19'],
+      values: [ props.enfermedad ],
     }
   ],
   order: {
@@ -62,8 +66,8 @@ const pivotConfigHSI = {
 }
 
 const pivotConfigSNVS = {
-  x: ['casosCovidPromSemSNVS.nombre_semana'],
-  y: ['casosCovidPromSemSNVS.cantidadXDiaSNVS'],
+  x: [ `${casosPromSemSNVS}.nombre_semana` ],
+  y: [ `${casosPromSemSNVS}.cantidadXDiaSNVS` ],
   fillMissingDates: true,
   joinDateRange: false,
 }
@@ -94,9 +98,9 @@ const getKeys = {
     'Sospecha,casos.identificador',
   ],
   snvs: [
-    'casosCovidPromSemSNVS.nombre_semana',
+    `${casosPromSemSNVS}.nombre_semana`,
     //        "casosCovidPromSem.anio",
-    'casosCovidPromSemSNVS.cantidadXDiaSNVS',
+    `${casosPromSemSNVS}.cantidadXDiaSNVS`,
   ],
 }
 
@@ -116,11 +120,8 @@ const getKeysColumnas = {
 
 const resultSet = await cubeApi.load(getTotalCasosActivos())
 const tablePivot = await resultSet.tablePivot(getPivotConfig())
-
 const datos = keepProps(tablePivot, getKeys[props.dataSource])
-
 const tableColumns = await resultSet.tableColumns(getPivotConfig())
-
 const titulosColumnas = filterIncludes(flattenColumns(tableColumns), getKeysColumnas[props.dataSource])
 const titulosMostrados = filterIncludes(getDisplayedColumns(tableColumns), getKeys[props.dataSource])
 </script>

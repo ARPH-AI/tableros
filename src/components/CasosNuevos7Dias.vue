@@ -7,9 +7,12 @@ import { getThemeByDataSource } from '@/composables'
 
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
+  enfermedad: { type: String, default: 'Covid19' },
 })
+
 const date = format(new Date(), 'yyyy-MM-dd')
 const titulo = 'Últimos 7 días'
+const e = (props.enfermedad == 'Covid19') ? 'Covid' : props.enfermedad
 
 const totalCasosHSI = {
   measures: ['casos.identificador'],
@@ -24,18 +27,17 @@ const totalCasosHSI = {
     {
       member: 'casos.enfermedad',
       operator: 'equals',
-      values: ['Covid19'],
+      values: [ props.enfermedad ],
     }
   ],
-
   dimensions: [],
 }
 
 const totalCasosSNVS = {
-  measures: ['CovidEdadSexoSNVS.ideventocaso'],
+  measures: [ e + 'EdadSexoSNVS.ideventocaso' ],
   timeDimensions: [
     {
-      dimension: 'CovidEdadSexoSNVS.Fecha_apertura',
+      dimension: e + 'EdadSexoSNVS.Fecha_apertura',
       dateRange: 'Last 7 days',
     },
   ],

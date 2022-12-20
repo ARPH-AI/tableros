@@ -41,6 +41,16 @@ const createSeries = (series) => {
 const formatTooltip = (args: any) => formatLeftDataToNaturalNumber(normalizeArgsDecimals(args))
 
 const light_theme_options = ref({
+  title: {
+    show: props.series.length === 0,
+    textStyle: {
+      color: "grey",
+      fontSize: 20
+    },
+    text: "Sin datos",
+    left: "center",
+    top: "center"
+  },
   textStyle: {
     fontFamily: 'sans-serif',
     fontSize: 14,
@@ -113,6 +123,16 @@ const light_theme_options = ref({
 })
 
 const dark_theme_options = ref({
+  title: {
+    show: props.series.length === 0,
+    textStyle: {
+      color: "grey",
+      fontSize: 20
+    },
+    text: "Sin datos",
+    left: "center",
+    top: "center"
+  },
   textStyle: {
     fontFamily: 'sans-serif',
     fontSize: 14,

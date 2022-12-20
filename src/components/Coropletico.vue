@@ -11,6 +11,12 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import { QuestionMarkCircleIcon } from '@heroicons/vue/outline'
 import VueTailwindDatepicker from 'vue-tailwind-datepicker'
 
+
+const props = defineProps({
+  enfermedad: { type: String, default: 'Covid19' },
+})
+const e = (props.enfermedad == 'Covid19') ? 'Covid' : props.enfermedad
+
 const provinciasImport = await fetch('provincias-argentina.json')
 const provincias = await provinciasImport.json()
 
@@ -32,32 +38,33 @@ let zoom = ref(provincias[0].zoom)
 let center = ref([provinciaSel.value.centroide.lon, provinciaSel.value.centroide.lat])
 let url = ref('departamentos-buenos_aires.json')
 
-const dataFilter = (item) => item['CovidEdadSexoSNVS.Ciudad']
+const edadSexoSNVS = `${e}EdadSexoSNVS`
+const dataFilter = (item) => item[`${edadSexoSNVS}.Ciudad`]
 const dataMap = (item) => ({
-  nombre: item['CovidEdadSexoSNVS.Ciudad'].toUpperCase().trim(),
-  valor: parseInt(item['CovidEdadSexoSNVS.ideventocaso']),
+  nombre: item[`${edadSexoSNVS}.Ciudad`].toUpperCase().trim(),
+  valor: parseInt(item[`${edadSexoSNVS}.ideventocaso`]),
 })
 const getData = async (resultSet) => resultSet.filter(dataFilter).map(dataMap)
 
 const totalCasos = (fecha) => {
   return {
-    measures: ['CovidEdadSexoSNVS.ideventocaso'],
+    measures: [`${edadSexoSNVS}.ideventocaso`],
     order: {
-      'CovidEdadSexoSNVS.ideventocaso': 'asc',
+      [`${edadSexoSNVS}.ideventocaso`]: 'asc',
     },
     filters: [
       {
-        member: 'CovidEdadSexoSNVS.Fecha_apertura',
+        member: `${edadSexoSNVS}.Fecha_apertura`,
         operator: 'equals',
         values: [`${fecha}`],
       },
     ],
-    dimensions: ['CovidEdadSexoSNVS.Ciudad'],
+    dimensions: [`${edadSexoSNVS}.Ciudad`],
   }
 }
 
 const pivotConfig = {
-  x: ['CovidEdadSexoSNVS.Ciudad'],
+  x: [`${edadSexoSNVS}.Ciudad`],
   y: ['measures'],
   fillMissingDates: true,
   joinDateRange: false,

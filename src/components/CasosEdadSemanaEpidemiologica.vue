@@ -5,6 +5,7 @@ import { getThemeByDataSource } from '@/composables'
 
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
+  enfermedad: { type: String, default: 'Covid19' },
 })
 
 const titulo = 'Nuevos casos por grupo de edad'
@@ -55,7 +56,7 @@ const totalCasosHSI = {
     {
       member: 'EnfermedadEdadSexo.enfermedad',
       operator: 'equals',
-      values: ['Covid19'],
+      values: [ props.enfermedad ],
     }
   ],
   order: {
@@ -64,19 +65,20 @@ const totalCasosHSI = {
   dimensions: ['EnfermedadEdadSexo.Grupo_edad'],
 }
 
+const e = (props.enfermedad == 'Covid19') ? 'Covid' : props.enfermedad
 const totalCasosSNVS = {
-  measures: ['CovidEdadSexoSNVS.ideventocaso'],
+  measures: [ e + 'EdadSexoSNVS.ideventocaso'],
   timeDimensions: [
     {
-      dimension: 'CovidEdadSexoSNVS.Fecha_apertura',
+      dimension: e + 'EdadSexoSNVS.Fecha_apertura',
       granularity: 'day',
       dateRange: 'last 360 days',
     },
   ],
   order: {
-    'CovidEdadSexoSNVS.ideventocaso': 'desc',
+    [e + 'EdadSexoSNVS.ideventocaso']: 'desc',
   },
-  dimensions: ['CovidEdadSexoSNVS.Grupo_edad'],
+  dimensions: [ e + 'EdadSexoSNVS.Grupo_edad' ],
   filters: [],
 }
 
@@ -88,8 +90,8 @@ const pivotConfigHSI = {
 }
 
 const pivotConfigSNVS = {
-  x: ['CovidEdadSexoSNVS.Fecha_apertura.day'],
-  y: ['CovidEdadSexoSNVS.Grupo_edad', 'measures'],
+  x: [ e + 'EdadSexoSNVS.Fecha_apertura.day'],
+  y: [ e + 'EdadSexoSNVS.Grupo_edad', 'measures'],
   fillMissingDates: true,
   joinDateRange: false,
 }
@@ -134,7 +136,6 @@ const getPivotConfig = () => {
 }
 
 const resultSet = await cubeApi.load(getTotalCasos())
-
 const semanaSet = await cubeApi.load(SemanaQuery)
 const semanaSetPivot = semanaSet.pivot(pivotConfigSemana)
 const semanas = semanaSetPivot.reduce((todasSemanas, semana) => {

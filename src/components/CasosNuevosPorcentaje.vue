@@ -10,6 +10,7 @@ const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
   title: { type: String, required: true },
   measure: { type: String, required: true },
+  enfermedad: { type: String, default: 'Covid19' },
 })
 
 const totalCasosHSI = {
@@ -19,7 +20,7 @@ const totalCasosHSI = {
     {
       member: 'EnfermedadEdadSexo.enfermedad',
       operator: 'equals',
-      values: ['Covid19'],
+      values: [ props.enfermedad ],
     }
   ],
   order: {},

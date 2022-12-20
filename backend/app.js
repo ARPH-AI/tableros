@@ -19,13 +19,6 @@ const REFRESH_TOKEN_EXPIRE = process.env.REFRESH_TOKEN_EXPIRE
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY
 const DEV_TOKEN = process.env.DEV_TOKEN
 const WHITE_LIST = process.env.WHITE_LIST.split(',')
-const VALID_USER = {
-  userId: '1',
-  sub: 'Administradxr',
-  username: 'admin@email.com',
-  password: 'admin',
-  department: 'Quilmes'
-}
 const ERole = {
   PARTNER: 'PARTNER',
   HR: 'HR',
@@ -34,6 +27,30 @@ const ERole = {
   FUNCTIONAL: 'FUNCTIONAL',
   DEVELOPER: 'DEVELOPER',
   ADMINISTRATIVO: 'ADMIN',
+  PERFIL_EPIDEMIO_MESO: 'PERFIL_EPIDEMIO_MESO',
+  PERFIL_EPIDEMIO_INSTITUCION: 'PERFIL_EPIDEMIO_INSTITUCION'
+}
+const VALID_USER = {
+  userId: 2,
+  sub: 'User',
+  username: 'user@email.com',
+  password: 'user',
+  department: 'Quilmes',
+  firstName: 'userFirstname',
+  lastName: 'userLastname',
+  email: 'user@email.com',
+  role: ERole['PERFIL_EPIDEMIO_INSTITUCION']
+}
+const VALID_USER_ADMIN = {
+  userId: 1,
+  sub: 'Administradxr',
+  username: 'admin@email.com',
+  password: 'admin',
+  department: '',
+  firstName: 'adminFirstname',
+  lastName: 'adminLastname',
+  email: 'admin@email.com',
+  role: ERole['PERFIL_EPIDEMIO_MESO']
 }
 
 // UTILS
@@ -229,8 +246,10 @@ app.get('/public/version', (req, res) => {
 if (process.env.MODE == 'development') {
   app.post('/auth', async (req, res) => {
     const { username, password } = req.body
-    if (username == VALID_USER.username && password == VALID_USER.password) {
-      const userData = { userId: VALID_USER.userId, userName: VALID_USER.sub }
+    if ((username == VALID_USER.username && password == VALID_USER.password) ||
+        (username == VALID_USER_ADMIN.username && password == VALID_USER_ADMIN.password)
+    ) {
+      const userData = (username == VALID_USER.username) ? { userId: VALID_USER.userId, userName: VALID_USER.sub } : { userId: VALID_USER_ADMIN.userId, userName: VALID_USER_ADMIN.sub }
       const token = generateToken(userData)
       const refresh = generateToken(userData, true)
       const cubeUserData = await getPermissions(req, token, userData)
@@ -253,11 +272,12 @@ if (process.env.MODE == 'development') {
 
   app.get('/hsi/account/permissions', (req, res) => {
     if (req.auth) {
+      const u =  (req.auth.data.userId == 1) ? VALID_USER_ADMIN : VALID_USER
       const data = {
         roleAssignments: [
           {
             institutionId: 1,
-            role: ERole['ADMINISTRATIVO'],
+            role: u.role,
             roleDescription: "dev"
           },
         ],
@@ -270,12 +290,13 @@ if (process.env.MODE == 'development') {
 
   app.get('/hsi/account/info', (req, res) => {
     if (req.auth) {
+      const u =  (req.auth.data.userId == 1) ? VALID_USER_ADMIN : VALID_USER
       const data = {
         "id": 1,
-        "email": "admin@email.com",
+        "email": u.email,
         "personDto": {
-          "firstName": "Usuarix",
-          "lastName": "Administradxr"
+          "firstName": u.firstName,
+          "lastName": u.lastName,
         },
         "previousLogin": {
           "date": {"year":2022,"month":9,"day":15},
@@ -327,14 +348,19 @@ if (process.env.MODE == 'development') {
   })
 
   app.get('/hsi/institution/department/:id', (req, res) => {
-    return res.status(200).send(
-      [
-        {
-          "id": 1,
-          "name": VALID_USER.department
-        }
-      ]
-    )
+    if (req.auth) {
+      const u =  (req.auth.data.userId == 1) ? VALID_USER_ADMIN : VALID_USER
+      return res.status(200).send(
+        [
+          {
+            "id": 1,
+            "name": u.department
+          }
+        ]
+      )
+    } else {
+      res.status(401).send({ error: 'Unauthorized' })
+    }
   })
 
 }

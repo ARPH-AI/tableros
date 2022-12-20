@@ -7,6 +7,7 @@ import { getThemeByDataSource } from '@/composables'
 
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
+  enfermedad: { type: String, default: 'Covid19' },
 })
 
 const titulo = 'Casos Acumulados Mujeres'
@@ -18,13 +19,15 @@ const totalCasosAcumuladosHSI = {
     {
       member: 'EnfermedadEdadSexoFem.enfermedad',
       operator: 'equals',
-      values: ['Covid19'],
+      values: [ props.enfermedad ],
     }
   ],
-
 }
+
+const e = (props.enfermedad == 'Covid19') ? 'Covid' : props.enfermedad
+const measures = [ e + 'EdadSexoFemSNVS.cantidad_fem_snvs' ]
 const totalCasosAcumuladosSNVS = {
-  measures: ['CovidEdadSexoFemSNVS.cantidad_fem_snvs'],
+  measures,
   timeDimensions: [],
   order: {},
 }

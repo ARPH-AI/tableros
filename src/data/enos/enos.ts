@@ -19,7 +19,7 @@ export const data_sources = {
 
 export const enos = [
   {
-    key: 'covid',
+    key: 'Covid19',
     title: 'COVID-19',
     fuente_datos: [data_sources.HSI, data_sources.SNVS],
     main_page: 'seccion-situacion-actual',
@@ -32,15 +32,15 @@ export const enos = [
     mainComponent: `CasosActivosSemanaEpidemiologica`,
   },
   {
-    key: 'dengue',
+    key: 'Dengue',
     title: 'Dengue',
     fuente_datos: [data_sources.HSI, data_sources.SNVS],
     main_page: 'seccion-situacion-actual',
     secciones: [sections.SITUACION_ACTUAL, sections.CARACTERIZACION, sections.GEO],
     componentes: {
-      situacion_actual: `SituacionActualCovid`,
-      caracterizacion: `CaracterizacionCovid`,
-      geo: `GeoCovid`,
+      situacion_actual: `SituacionActualDengue`,
+      caracterizacion: `CaracterizacionDengue`,
+      geo: `GeoDengue`,
     },
     mainComponent: `CasosActivosSemanaEpidemiologica`,
   },
