@@ -19,6 +19,52 @@ const titulo = 'Casos activos por Semana Epidemiológica'
 const e = (props.enfermedad == 'Covid19') ? 'Covid' : props.enfermedad
 const casosPromSemSNVS = `casos${e}PromSemSNVS`
 
+const getKeys = {
+  hsiCovid19: [
+    'casos.semana',
+    'Confirmado,casos.identificador',
+    'Sospecha,casos.identificador',
+  ],
+  hsiDengue: [
+    'casos.semana',
+    'Confirmado,casos.identificador',
+    'Sospecha,casos.identificador',
+    'Grave,casos.identificador',
+    'Otro,casos.identificador',
+  ],
+  snvsCovid19: [
+    `${casosPromSemSNVS}.nombre_semana`,
+    `${casosPromSemSNVS}.cantidadXDiaSNVS`,
+  ],
+  snvsDengue: [
+    `${casosPromSemSNVS}.nombre_semana`,
+    `${casosPromSemSNVS}.cantidadXDiaSNVS`,
+  ],
+}
+
+const getKeysColumnas = {
+  hsiCovid19: [
+    'Semana',
+    'Confirmado',
+    'Sospecha',
+  ],
+  hsiDengue: [
+    'Semana',
+    'Confirmado',
+    'Sospecha',
+    'Grave',
+    'Otro'
+  ],
+  snvsCovid19: [
+    'Nombre Semana',
+    'Casos Diarios SNVS',
+  ],
+  snvsDengue: [
+    'Nombre Semana',
+    'Casos Diarios SNVS',
+  ],
+}
+
 const totalCasosSNVS = {
   measures: [`${casosPromSemSNVS}.cantidadXDiaSNVS`],
   timeDimensions: [],
@@ -90,40 +136,12 @@ const getPivotConfig = () => {
   }
 }
 
-const getKeys = {
-  hsi: [
-    'casos.semana',
-    //        "casos.anio",
-    'Confirmado,casos.identificador',
-    'Sospecha,casos.identificador',
-  ],
-  snvs: [
-    `${casosPromSemSNVS}.nombre_semana`,
-    //        "casosCovidPromSem.anio",
-    `${casosPromSemSNVS}.cantidadXDiaSNVS`,
-  ],
-}
-
-const getKeysColumnas = {
-  hsi: [
-    'Semana',
-    //        'Anio',
-    'Confirmado',
-    'Sospecha',
-  ],
-  snvs: [
-    'Nombre Semana',
-    //        'Anio',
-    'Casos Diarios SNVS',
-  ],
-}
-
 const resultSet = await cubeApi.load(getTotalCasosActivos())
 const tablePivot = await resultSet.tablePivot(getPivotConfig())
-const datos = keepProps(tablePivot, getKeys[props.dataSource])
+const datos = keepProps(tablePivot, getKeys[`${props.dataSource}${props.enfermedad}`])
 const tableColumns = await resultSet.tableColumns(getPivotConfig())
-const titulosColumnas = filterIncludes(flattenColumns(tableColumns), getKeysColumnas[props.dataSource])
-const titulosMostrados = filterIncludes(getDisplayedColumns(tableColumns), getKeys[props.dataSource])
+const titulosColumnas = filterIncludes(flattenColumns(tableColumns), getKeysColumnas[`${props.dataSource}${props.enfermedad}`])
+const titulosMostrados = filterIncludes(getDisplayedColumns(tableColumns), getKeys[`${props.dataSource}${props.enfermedad}`])
 </script>
 
 <template>
