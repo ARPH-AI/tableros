@@ -87,8 +87,8 @@ load-data-dashboard:
 	make load-csv-snvs-dengue
 
 load-csv-snvs:
-	docker cp $(SQLSCRIPTS)/onlydata/primeros_100.csv postgres-dashboard:/primeros_100.csv
-	docker exec postgres-dashboard psql -U $(PG_USER) -d $(PG_DBNAME) -c "SET datestyle = 'ISO, DMY';COPY tableros.snvs FROM '/primeros_100.csv' WITH (FORMAT csv);"
+	docker cp $(SQLSCRIPTS)/onlydata/snvs-covid19.csv postgres-dashboard:/snvs-covid19.csv
+	docker exec postgres-dashboard psql -U $(PG_USER) -d $(PG_DBNAME) -c "SET datestyle = 'ISO, DMY';COPY tableros.snvs FROM '/snvs-covid19.csv' WITH (FORMAT csv);"
 
 load-csv-snvs-dengue:
 	docker cp $(SQLSCRIPTS)/onlydata/snvs-dengue.csv postgres-dashboard:/snvs-dengue.csv
