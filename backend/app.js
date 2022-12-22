@@ -6,6 +6,7 @@ const { expressjwt } = require('express-jwt')
 const moment = require('moment')
 const morgan = require('morgan')
 const axios = require('axios').default
+const { pathToRegexp } = require("path-to-regexp")
 require('dotenv').config({ path: './.env' })
 
 // CONSTANTES
@@ -56,6 +57,8 @@ const VALID_USER_ADMIN = {
 // UTILS
 const getPermissions = async (req, token, userData) => {
   let userDepartment
+  let instRes
+  let depRes
   const baseUrl = `${req.protocol}://${req.hostname}:${process.env.SERVER_PORT}`
   const authHeaders = { headers: { 'Authorization': `Bearer ${token}` }}
 
@@ -63,18 +66,29 @@ const getPermissions = async (req, token, userData) => {
   const permRes = await axios.get(permUrl, authHeaders)
   const userRole = permRes?.data?.roleAssignments[0]?.role
   const institutionId = permRes?.data?.roleAssignments[0]?.institutionId
-
-  if (institutionId) {
+  if (institutionId && institutionId > 0) {
     const instUrl = `${baseUrl}/hsi/institution/${institutionId}/address`
-    const instRes = await axios.get(instUrl, authHeaders)
-    const { departmentId, province } = instRes.data
-    if (departmentId) {
-      const depUrl = `${baseUrl}/hsi/institution/department/${departmentId}`
-      const depRes = await axios.get(depUrl, authHeaders)
-      userDepartment = depRes?.data[0]?.name
+    try {
+    	instRes = await axios.get(instUrl, authHeaders)
+    } catch(error) { 
+      console.log(error);
     }
+    console.log(instRes)
+    const { departmentId, provinceId } = instRes.data
+    if (provinceId && departmentId) {
+      // No encontre otro endpoint que traiga directamente la description del departamento de una institucion
+      const depUrl = `${baseUrl}/hsi/address/masterdata/province/${provinceId}/departments`
+      try {
+        depRes = await axios.get(depUrl, authHeaders)
+      } catch(error) {
+      	console.log(error)
+      } 
+	    console.log(depRes)
+      userDepartment = depRes.data.find(x => x.id === departmentId)?.description
+      console.log(userDepartment)
+    }
+	  
   }
-
   return { ...userData, userRole, userDepartment }
 }
 
@@ -136,17 +150,18 @@ const generateToken = (options, refresh = false) => {
 }
 
 let rutasSinAuth = [
-	'/auth',
-	'/public/version',
-	'/hsi/public/version',
-	'/hsi/public/info',
-	'/hsi/public/recaptcha',
+  '/auth',
+  '/public/version',
+  '/hsi/public/version',
+  '/hsi/public/info',
+  '/hsi/public/recaptcha',
 ]
 const rutasAuthHsi= [
   '/hsi/public/version',
   '/hsi/account/info',
   '/hsi/account/permissions',
-  '/hsi/institution'
+  pathToRegexp('/hsi/institution/:id/address'),
+  pathToRegexp('/hsi/address/masterdata/province/:id/departments')
 ]
 
 if (process.env.MODE != 'development') {
@@ -158,10 +173,14 @@ const filterHsiAccount = (path) => path.match('^/hsi/account/(info|permissions)'
 
 const filterHsiPublic = (path) => path.match('^/hsi/public/(info|version|recaptcha)')
 
+const filterHsiInstitution = (path) => path.match('^/hsi/institution')
+
+const filterHsiAdd = (path) => path.match('^/hsi/address/')
+
 const filterMethod = (req, method) => req.method === method
 
 const filterHsi = function (pathname, req) {
-  return filterHsiPublic(pathname) || filterHsiAccount(pathname) && filterMethod(req, 'GET')
+  return filterHsiPublic(pathname) || filterHsiAccount(pathname) || filterHsiInstitution(pathname) || filterHsiAdd(pathname) && filterMethod(req, 'GET')
 }
 
 const filterAuth = function (pathname, req) {
