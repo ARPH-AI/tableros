@@ -132,8 +132,8 @@ recreate-data-dashboard-prod:
 	make create-file-dashboard-prod
 	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -f $(ROOT_PROD)/scripts/01-populate-dashboard-schema-prod.sql
 	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -f $(ROOT_PROD)/scripts/02-create-dashboard-views-prod.sql
-	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -f $(ROOT_PROD)/scripts/onlydata/onlydata-dashboard.sql
-	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -c "SET datestyle = 'ISO, DMY';COPY tableros.snvs_dengue FROM '$(ROOT_PROD)/scripts/onlydata/onlydata-snvs-denge.csv' WITH (FORMAT csv);"
+	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -f $(ROOT_PROD)/scripts/onlydata/only-data-dashboard.sql
+	PGPASSWORD=$(PG_PASSWORD) psql -h $(PG_HOST) -U $(PG_USER) -d $(PG_DBNAME) -p $(PG_PORT) -f $(ROOT_PROD)/scripts/onlydata/only-data-snvs-dengue.sql
 
 recreate-in-new-db:
 	@echo ":::::: Recreate DB"
