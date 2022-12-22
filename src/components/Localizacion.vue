@@ -38,7 +38,7 @@ const getCoords = async (resultSet) => {
     const {
       data: { resultados: localidades },
     } = await datosgeoApi.obtenerLocalidadesPorLote(params)
-    const cantidad_ciudad = localidades.flatMap((item) => item.localidades[0])
+    const cantidad_ciudad = localidades.flatMap((item) => item.localidades[0]).filter(i => i)
     const resultado = mergeArrayByKey(cantidad_ciudad, resultSet, 'casos.ciudad', 'nombre')
     return resultado.reduce((prev, cur, idx, arr) => {
       return [
