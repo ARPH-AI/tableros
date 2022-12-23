@@ -12,11 +12,12 @@ const props = defineProps({
 const e = (props.enfermedad == 'Covid19') ? 'Covid' : props.enfermedad
 const titulo = 'Nuevos casos y promedio de los últimos 7 días'
 
+const casosEnfermedad = `casos${e}PromSem`
 const totalNuevosCasosHSI = {
-  measures: ['casos' + e + 'PromSem.cantidadXDia', 'casos' + e + 'PromSem.promedioSemanal'],
+  measures: [`${casosEnfermedad}.cantidadXDia`, `${casosEnfermedad}.promedioSemanal`],
   timeDimensions: [
     {
-      dimension: 'casos' + e + 'PromSem.Fecha_inicio_Conf',
+      dimension: `${casosEnfermedad}.Fecha_inicio_Conf`,
       granularity: 'day',
       dateRange: 'last 360 days',
       //      dateRange: [`${fechaInicio}`, `${fechaFin}`],
@@ -26,10 +27,10 @@ const totalNuevosCasosHSI = {
 }
 
 const totalNuevosCasosSNVS = {
-  measures: ['casos' + e + 'PromSemSNVS.cantidadXDiaSNVS', 'casos' + e + 'PromSemSNVS.promedioSemanalSNVS'],
+  measures: [`${casosEnfermedad}SNVS.cantidadXDiaSNVS`, `${casosEnfermedad}SNVS.promedioSemanalSNVS`],
   timeDimensions: [
     {
-      dimension: 'casos' + e + 'PromSemSNVS.Fecha_inicio_Conf',
+      dimension: `${casosEnfermedad}SNVS.Fecha_inicio_Conf`,
       granularity: 'day',
       dateRange: 'last 360 days',
       //      dateRange: [`${fechaInicio}`, `${fechaFin}`],
@@ -66,7 +67,7 @@ const getSeriesBarName = () => {
 }
 
 const pivotConfig = {
-  x: ['casos' + e + 'PromSem.Fecha_inicio_Conf.day'],
+  x: [`${casosEnfermedad}.Fecha_inicio_Conf.day`],
   y: ['measures'],
   fillMissingDates: true,
   joinDateRange: false,
