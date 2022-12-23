@@ -70,10 +70,9 @@ const getPermissions = async (req, token, userData) => {
     const instUrl = `${baseUrl}/hsi/institution/${institutionId}/address`
     try {
     	instRes = await axios.get(instUrl, authHeaders)
-    } catch(error) { 
+    } catch(error) {
       console.log(error);
     }
-    console.log(instRes)
     const { departmentId, provinceId } = instRes.data
     if (provinceId && departmentId) {
       // No encontre otro endpoint que traiga directamente la description del departamento de una institucion
@@ -82,12 +81,9 @@ const getPermissions = async (req, token, userData) => {
         depRes = await axios.get(depUrl, authHeaders)
       } catch(error) {
       	console.log(error)
-      } 
-	    console.log(depRes)
+      }
       userDepartment = depRes.data.find(x => x.id === departmentId)?.description
-      console.log(userDepartment)
     }
-	  
   }
   return { ...userData, userRole, userDepartment }
 }
@@ -354,26 +350,21 @@ if (process.env.MODE == 'development') {
         "description": "string"
       },
       "cityId": 0,
-      "province": {
-        "id": 0,
-        "description": "string"
-      },
-      "provinceId": 0,
+      "provinceId": 1,
       "departmentId": 1,
       "latitude": 0,
       "longitude": 0,
       "countryId": 0
     })
   })
-
-  app.get('/hsi/institution/department/:id', (req, res) => {
+  app.get('/hsi/address/masterdata/province/:id/departments', (req, res) => {
     if (req.auth) {
       const u =  (req.auth.data.userId == 1) ? VALID_USER_ADMIN : VALID_USER
       return res.status(200).send(
         [
           {
             "id": 1,
-            "name": u.department
+            "description": u.department
           }
         ]
       )
