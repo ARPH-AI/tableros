@@ -32,7 +32,7 @@ const default_eno: ENO = {
     caracterizacion: '',
     geo: '',
   },
-  mainComponent: ''
+  mainComponent: '',
 }
 
 export const useEnosStore = defineStore('enosStore', {
@@ -56,7 +56,7 @@ export const useEnosStore = defineStore('enosStore', {
     },
     getCurrentEnoData(state) {
       return state.current_eno_data
-    }
+    },
   },
   actions: {
     setCurrentEno(state: { current_eno: any }) {

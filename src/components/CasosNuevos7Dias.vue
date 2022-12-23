@@ -12,7 +12,7 @@ const props = defineProps({
 
 const date = format(new Date(), 'yyyy-MM-dd')
 const titulo = 'Últimos 7 días'
-const e = (props.enfermedad == 'Covid19') ? 'Covid' : props.enfermedad
+const e = props.enfermedad == 'Covid19' ? 'Covid' : props.enfermedad
 
 const totalCasosHSI = {
   measures: ['casos.identificador'],
@@ -27,14 +27,14 @@ const totalCasosHSI = {
     {
       member: 'casos.enfermedad',
       operator: 'equals',
-      values: [ props.enfermedad ],
-    }
+      values: [props.enfermedad],
+    },
   ],
   dimensions: [],
 }
 
 const totalCasosSNVS = {
-  measures: [ e + 'EdadSexoSNVS.ideventocaso' ],
+  measures: [e + 'EdadSexoSNVS.ideventocaso'],
   timeDimensions: [
     {
       dimension: e + 'EdadSexoSNVS.Fecha_apertura',

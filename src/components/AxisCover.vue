@@ -6,11 +6,23 @@
       :to="props.section.key"
       @click="onClickHandler()"
     >
-      <h3 class="w-full p-3 bg-light_smooth dark:bg-dark_smooth rounded-lg font-medium">
+      <h2 class="dark:text-dark_contrast w-full p-3 bg-light_smooth dark:bg-dark_smooth rounded-lg font-medium">
         {{ props.section.title }}
-      </h3>
+      </h2>
 
-      <div class="p-3 h-40 bg-light_smooth dark:bg-dark_smooth w-full place-items-center text-justify rounded-2xl">
+      <div
+        class="
+          dark:text-dark_contrast
+          p-3
+          h-40
+          bg-light_smooth
+          dark:bg-dark_smooth
+          w-full
+          place-items-center
+          text-justify
+          rounded-2xl
+        "
+      >
         <p class="line-clamp-5">{{ props.section.description }}</p>
       </div>
     </router-link>

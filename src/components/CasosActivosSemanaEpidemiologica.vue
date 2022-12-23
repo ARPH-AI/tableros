@@ -16,7 +16,7 @@ const oneYear = format(addYears(todayDate, -1), dateFormat)
 
 const titulo = 'Casos activos por Semana Epidemiológica'
 
-const e = (props.enfermedad == 'Covid19') ? 'Covid' : props.enfermedad
+const e = props.enfermedad == 'Covid19' ? 'Covid' : props.enfermedad
 const casosPromSemSNVS = `casos${e}PromSemSNVS`
 
 const getKeys = {
@@ -80,7 +80,7 @@ const totalCasosSNVS = {
       values: [oneYear, today],
     },
   ],
-  dimensions: [`${casosPromSemSNVS}.nombre_semana`,  `${casosPromSemSNVS}.anio`, `${casosPromSemSNVS}.numero_semana`],
+  dimensions: [`${casosPromSemSNVS}.nombre_semana`, `${casosPromSemSNVS}.anio`, `${casosPromSemSNVS}.numero_semana`],
 }
 
 const totalCasosHSI = {
@@ -94,8 +94,8 @@ const totalCasosHSI = {
     {
       member: 'casos.enfermedad',
       operator: 'equals',
-      values: [ props.enfermedad ],
-    }
+      values: [props.enfermedad],
+    },
   ],
   order: {
     'casos.anio': 'desc',
@@ -112,8 +112,8 @@ const pivotConfigHSI = {
 }
 
 const pivotConfigSNVS = {
-  x: [ `${casosPromSemSNVS}.nombre_semana` ],
-  y: [ `${casosPromSemSNVS}.cantidadXDiaSNVS` ],
+  x: [`${casosPromSemSNVS}.nombre_semana`],
+  y: [`${casosPromSemSNVS}.cantidadXDiaSNVS`],
   fillMissingDates: true,
   joinDateRange: false,
 }
@@ -145,24 +145,24 @@ const titulosMostrados = filterIncludes(getDisplayedColumns(tableColumns), getKe
 </script>
 
 <template>
-  <Suspense>
-    <template #fallback>
-      <BaseTableSkeleton
-        styles="sm:h-[38vh] xl:h-[55vh] 2xl:h-[60vh]"
-        :color-theme="getThemeByDataSource(props.dataSource)"
-      ></BaseTableSkeleton>
-    </template>
-    <template #default>
+  <KeepAlive>
+    <Suspense>
+      <template #fallback>
+        <BaseTableSkeleton
+          styles="sm:h-[38vh] xl:h-[55vh] 2xl:h-[60vh]"
+          :color-theme="getThemeByDataSource(props.dataSource)"
+        ></BaseTableSkeleton>
+      </template>
       <TableCard
-        table-dimensions="sm:h-[38vh] xl:h-[43.2vh] 2xl:h-[52vh]"
+        table-dimensions="sm:h-[38vh] xl:h-[45vh] 2xl:h-[52vh]"
         :color-theme="getThemeByDataSource(props.dataSource)"
         :datos="datos"
         :titulo="titulo"
         :titulos-columnas="titulosColumnas"
         :titulos-mostrados="titulosMostrados"
       />
-    </template>
-  </Suspense>
+    </Suspense>
+  </KeepAlive>
 </template>
 
 <style scoped></style>

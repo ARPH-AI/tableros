@@ -8,7 +8,7 @@ const props = defineProps({
   colorTheme: { type: String, default: 'third' },
 })
 
-const normalize = (property: any, type='') => {
+const normalize = (property: any, type = '') => {
   const propertyNormalized = normalizeDecimals(property)
   return propertyNormalized == 'NaN' ? property : propertyNormalized
 }
@@ -23,9 +23,9 @@ const normalize = (property: any, type='') => {
         {{ titulo }}
       </h4>
       <h4 class="text-xs uppercase mb-1">TASA x 100 mil hab.</h4>
-      <h3 :class="`text-3xl font-semibold text-${props.colorTheme} mb-2`">
+      <h2 :class="`text-3xl font-semibold text-${props.colorTheme} mb-2`">
         {{ normalize(tasa, 'tasa') }}
-      </h3>
+      </h2>
       <h4 class="text-xs uppercase">CANT. CASOS ACTIVOS</h4>
       <h3 :class="`text-3xl font-semibold text-${props.colorTheme} mb-2`">
         {{ normalize(cantidad) }}

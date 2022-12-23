@@ -13,7 +13,7 @@ const tituloX = '% de casos confirmados'
 const tituloY = ''
 
 const procesaDatos = (lista: any[], total: number) => {
-  const calculaFrecuencia = (item: { value: string|number }) => {
+  const calculaFrecuencia = (item: { value: string | number }) => {
     const num = (Number(item.value) * 100) / total
     item.value = num.toFixed(2)
     return item
@@ -43,7 +43,7 @@ const totalComorbilidades = {
       member: 'casosComorbilidad.enfermedad',
       operator: 'equals',
       values: ['Covid19'],
-    }
+    },
   ],
   dimensions: ['casosComorbilidad.comorbilidad', 'casosComorbilidad.sexo'],
 }
@@ -64,7 +64,7 @@ const totalConfirmados = {
       member: 'casosComorbilidad.enfermedad',
       operator: 'equals',
       values: ['Covid19'],
-    }
+    },
   ],
 }
 
@@ -76,22 +76,24 @@ const total = await cubeApi.load(totalConfirmados)
   <Suspense>
     <template #fallback>
       <BaseGraphSkeleton
-        styles="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
+        height="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
         :color-theme="getThemeByDataSource(props.dataSource)"
       ></BaseGraphSkeleton>
     </template>
     <template #default>
-      <GraficoBar
-        :chart-height="
-          props.dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[26vh]' : 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]'
-        "
-        :color-theme="getThemeByDataSource(props.dataSource)"
-        :series="procesaDatos(resultSet.series(pivotConfig), obtenerCantidad(total))"
-        :titulo="titulo"
-        :titulo-x="tituloX"
-        :titulo-y="tituloY"
-        :etiquetas="resultSet.chartPivot(pivotConfig).map((row) => row.x)"
-      />
+      <base-visualizacion :titulo="titulo" :color-theme="getThemeByDataSource(props.dataSource)">
+        <GraficoBar
+          :chart-height="
+            props.dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[26vh]' : 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]'
+          "
+          :color-theme="getThemeByDataSource(props.dataSource)"
+          :series="procesaDatos(resultSet.series(pivotConfig), obtenerCantidad(total))"
+          :titulo="titulo"
+          :titulo-x="tituloX"
+          :titulo-y="tituloY"
+          :etiquetas="resultSet.chartPivot(pivotConfig).map((row) => row.x)"
+        />
+      </base-visualizacion>
     </template>
   </Suspense>
 </template>

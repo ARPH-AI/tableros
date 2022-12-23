@@ -7,12 +7,11 @@
     >
       <!-- Section title -->
       <div class="grid-cols-1 float-left">
-        <h2 v-if="!isCurrentRoute(general_sections.HOME.key)" class="font-medium float-left text-2xl">
+        <h1 v-if="!isCurrentRoute(general_sections.HOME.key)" class="font-medium float-left text-2xl">
           {{ current_section }}
-        </h2>
+        </h1>
         <h2 v-else class="font-medium float-left text-2xl">{{}}</h2>
       </div>
-      <!-- tab list tiene que ser dinamica -->
       <TabList
         v-show="!isCurrentRoute(general_sections.INFORMACION.key) && !isCurrentRoute(general_sections.HOME.key)"
         class="dark:bg-dark_smooth bg-light_smooth rounded-xl p-2 flex-row float-right mr-6 justify-self-end"
@@ -30,8 +29,10 @@
           <Tab v-slot="{ selected }" as="template" class="rounded-xl px-4 py-2 -mb-px flex-auto">
             <button
               :aria-label="`Seleccionar ${data.key} como fuente de datos`"
-              :class="selected ? tab_styles[data.key]?.selected : tab_styles[data.key]?.non_selected"
-              class="shadow-inner py-1 font-extrabold group align-middle"
+              :class="
+                selected ? `${tab_styles[data.key]?.selected} focus:outline-nones` : tab_styles[data.key]?.non_selected
+              "
+              class="focus:outline-none shadow-inner py-1 font-extrabold group align-middle"
               @click="setDataSource(data.key)"
             >
               {{ data.label }}
@@ -41,8 +42,7 @@
       </TabList>
     </div>
     <TabPanels>
-      <!-- reproducir uno de estos por cada cant de tabs -->
-      <TabPanel v-for="data in data_sources" :key="data.label"><RouterViewTransition></RouterViewTransition></TabPanel>
+      <TabPanel v-for="data in data_sources" :key="data.label"><RouterViewTransition /> </TabPanel>
     </TabPanels>
   </TabGroup>
 </template>
@@ -71,7 +71,7 @@ const tab_styles = {
   },
   snvs: {
     selected:
-      'bg-color_1 dark:bg-color_1_dark border-color_1 shadow-xl opacity-100 dark:text-light_contrast text-dark_contrast',
+      'border-3 bg-color_1 dark:bg-color_1_dark border-color_1 shadow-xl opacity-100 dark:text-light_contrast text-dark_contrast',
     non_selected: 'border-none opacity-50 dark:text-color_1_dark text-color_1',
   },
 }

@@ -104,8 +104,8 @@ const totalCasos = (fecha) => {
       {
         member: 'casos.enfermedad',
         operator: 'equals',
-        values: [ props.enfermedad ],
-      }
+        values: [props.enfermedad],
+      },
     ],
     dimensions: ['casos.ciudad'],
   }
@@ -166,15 +166,15 @@ watchEffect(async () => {
           </PopoverPanel>
         </Popover>
       </div>
-      <div class="flex">
+      <div class="flex w-2/5">
         <vue-tailwind-datepicker
           v-model="fecha"
           aria-label="Seleccion de fecha"
-          class="flex-1 float-right focus:outline-none shadow-md rounded-lg bg-light_smooth border-none cursor-pointer"
+          class="flex-1 focus:outline-none shadow-md rounded-lg bg-light_smooth border-none cursor-pointer"
           overlay
           :formatter="formatter"
           as-single
-          input-classes="block text-sm font-medium text-light_contrast dark:text-dark_contrast shadow-none"
+          input-classes="block text-sm font-medium text-right text-light_contrast dark:text-light_contrast shadow-none"
           :placeholder="fecha"
           i18n="es-ar"
         />

@@ -24,7 +24,7 @@ const totalCasosAcumuladosHSI = {
     {
       member: 'casosEnfermedad.enfermedad',
       operator: 'equals',
-      values: [ props.enfermedad ],
+      values: [props.enfermedad],
     },
     {
       member: 'casosEnfermedad.Estado',
@@ -34,7 +34,7 @@ const totalCasosAcumuladosHSI = {
   ],
 }
 
-const e = (props.enfermedad == 'Covid19') ? 'Covid' : props.enfermedad
+const e = props.enfermedad == 'Covid19' ? 'Covid' : props.enfermedad
 const totalCasosAcumuladosSNVS = {
   measures: ['casos' + e + 'PromSemSNVS.cantidadXDiaSNVS'],
   timeDimensions: [

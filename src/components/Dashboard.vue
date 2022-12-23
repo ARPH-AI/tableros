@@ -14,7 +14,6 @@
         overflow-visible
         fixed
         inset-y-0
-        z-40
         flex-col flex-shrink-0
         px-2
         w-60
@@ -41,7 +40,7 @@
       <!-- Header -->
       <TheHeader />
       <!-- Main Content -->
-      <div
+      <main
         class="
           h-full
           font-sans
@@ -57,7 +56,7 @@
 
         <!-- Vigilancia Sindromica  -->
         <div v-else><RouterViewTransition></RouterViewTransition></div>
-      </div>
+      </main>
     </div>
   </div>
 </template>

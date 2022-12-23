@@ -25,11 +25,13 @@ const onClickHandler = () => {
   <div>
     <div>
       <router-link :to="props.eno.eno.main_page" @click="onClickHandler"
-        ><h3 class="mb-3 p-3 bg-light_smooth dark:bg-dark_smooth rounded-lg font-medium hover:opacity-50">
+        ><h2 class="mb-3 p-3 bg-light_smooth dark:bg-dark_smooth rounded-lg font-medium hover:opacity-50">
           {{ props.eno.eno.title }}
-        </h3>
+        </h2>
       </router-link>
-      <Suspense><component :is="componente" :data-source="dataSource" :enfermedad="props.eno.eno.key"></component></Suspense>
+      <Suspense
+        ><component :is="componente" :data-source="dataSource" :enfermedad="props.eno.eno.key"></component
+      ></Suspense>
     </div>
   </div>
 </template>

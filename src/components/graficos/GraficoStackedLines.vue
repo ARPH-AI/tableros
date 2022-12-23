@@ -8,7 +8,6 @@ interface Props {
   colorTheme: string
   series: object[]
   etiquetas: string[]
-  titulo: string
   tituloX: string
   tituloY: string
   chartHeight: string
@@ -24,6 +23,7 @@ const emphasisStyle = {
     width: 3,
   },
 }
+const colorPalette = ['#00becb', '#53c07a', '#c2ab1a', '#f7931e', '#f3591a']
 
 const stackSeries = (series) => {
   return series.map((item) => {
@@ -34,7 +34,7 @@ const stackSeries = (series) => {
       showSymbol: false,
       emphasis: emphasisStyle,
       ...(item.itemStyle ? { itemStyle: item.itemStyle } : {}),
-      ...(props.stacked ? { stack: "group" } : {})
+      ...(props.stacked ? { stack: 'group' } : {}),
     }
   })
 }
@@ -109,6 +109,7 @@ const light_theme_options = ref({
     },
   },
   series: stackSeries(props.series),
+  colorPalette,
 })
 
 const dark_theme_options = ref({
@@ -221,18 +222,16 @@ const dark_theme_options = ref({
     },
   },
   series: stackSeries(props.series),
+  colorPalette,
 })
 </script>
 
 <template>
-  <div
-    :class="`sm:p-2 xl:p-4 2xl:p-5 rounded-lg border-r-4 shadow-2xl bg-light_smooth dark:bg-dark_smooth border-${props.colorTheme} dark:border-${props.colorTheme}_dark `"
-  >
-    <div class="leading-tight text-left text-light_contrast dark:text-dark_contrast">
-      <h5 class="pl-2 text-sm uppercase border-l-4 border-light_contrast dark:border-dark_contrast">
-        {{ titulo }}
-      </h5>
-      <v-chart :class="`${props.chartHeight}`" autoresize :option="isDark ? dark_theme_options : light_theme_options" />
-    </div>
-  </div>
+  <v-chart
+    v-if="props.series.length > 0"
+    :class="`${props.chartHeight}`"
+    autoresize
+    :option="isDark ? dark_theme_options : light_theme_options"
+  />
+  <no-data-found v-else :chart-height="props.chartHeight"></no-data-found>
 </template>

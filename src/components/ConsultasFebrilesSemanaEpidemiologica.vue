@@ -52,37 +52,34 @@ const getTotalCasosActivos = () => {
   }
 }
 
-const getPivotConfig = () => {
-  switch (props.dataSource) {
-    case 'hsi':
-      return pivotConfigHSI
-    case 'snvs':
-      return pivotConfigSNVS
-  }
-}
+// const getPivotConfig = () => {
+//   switch (props.dataSource) {
+//     case 'hsi':
+//       return pivotConfigHSI
+//     case 'snvs':
+//       return pivotConfigSNVS
+//   }
+// }
 
 const resultSet = await cubeApi.load(getTotalCasosActivos())
 
 const colors = ['#ff6c0a', '#33ccd6']
 
-const series = resultSet.series().map(
-    (item, idx) => {
-        return  {
-            ...item,
-            itemStyle: {
-                color: colors[idx],
-                barBorderRadius: 3,
-                opacity: 0.8
-            }
-        }
-    }
-)
+const series = resultSet.series().map((item, idx) => {
+  return {
+    ...item,
+    itemStyle: {
+      color: colors[idx],
+      borderRadius: 3,
+      opacity: 0.8,
+    },
+  }
+})
 
 let semanas = []
 if (series.length) {
-  semanas = series[0].series.map(({x}) => x.split(',').reverse().join(' '))
+  semanas = series[0].series.map(({ x }) => x.split(',').reverse().join(' '))
 }
-
 </script>
 
 <template>
@@ -94,9 +91,11 @@ if (series.length) {
       ></BaseTableSkeleton>
     </template>
     <template #default>
+      <base-visualizacion :titulo="titulo" :color-theme="getThemeByDataSource(props.dataSource)">
         <GraficoStackedLines
           :chart-height="
-            props.dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[55vh] 2xl:h-[60vh]' : 'sm:h-[38vh] xl:h-[55vh] 2xl:h-[60vh]'"
+            props.dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[55vh] 2xl:h-[60vh]' : 'sm:h-[38vh] xl:h-[55vh] 2xl:h-[60vh]'
+          "
           :color-theme="getThemeByDataSource(props.dataSource)"
           :series="series"
           :titulo="titulo"
@@ -106,6 +105,7 @@ if (series.length) {
           chart-type="bar"
           :stacked="true"
         />
+      </base-visualizacion>
     </template>
   </Suspense>
 </template>

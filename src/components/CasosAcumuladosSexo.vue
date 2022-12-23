@@ -5,6 +5,7 @@ import { getThemeByDataSource } from '@/composables'
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
   enfermedad: { type: String, default: 'Covid19' },
+  chartHeight: { type: String, default: 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]' },
 })
 
 const titulo = 'Casos acumulados por edad y sexo'
@@ -19,21 +20,21 @@ const totalCasosMascHSI = {
     {
       member: 'EnfermedadEdadSexoMasc.enfermedad',
       operator: 'equals',
-      values: [ props.enfermedad ],
-    }
+      values: [props.enfermedad],
+    },
   ],
   dimensions: ['EnfermedadEdadSexoMasc.grupo_edad_masc'],
 }
 
-const e = (props.enfermedad == 'Covid19') ? 'Covid' : props.enfermedad
+const e = props.enfermedad == 'Covid19' ? 'Covid' : props.enfermedad
 
 const totalCasosMascSNVS = {
-  measures: [ e + 'EdadSexoMascSNVS.cantidad_masc_snvs' ],
+  measures: [e + 'EdadSexoMascSNVS.cantidad_masc_snvs'],
   timeDimensions: [],
   order: {
     [e + 'EdadSexoMascSNVS.grupo_edad_masc']: 'asc',
   },
-  dimensions: [ e + 'EdadSexoMascSNVS.grupo_edad_masc'],
+  dimensions: [e + 'EdadSexoMascSNVS.grupo_edad_masc'],
 }
 
 const totalCasosFemHSI = {
@@ -47,18 +48,18 @@ const totalCasosFemHSI = {
     {
       member: 'EnfermedadEdadSexoFem.enfermedad',
       operator: 'equals',
-      values: [ props.enfermedad ],
-    }
+      values: [props.enfermedad],
+    },
   ],
 }
 
 const totalCasosFemSNVS = {
-  measures: [ e + 'EdadSexoFemSNVS.cantidad_fem_snvs'],
+  measures: [e + 'EdadSexoFemSNVS.cantidad_fem_snvs'],
   timeDimensions: [],
   order: {
     [e + 'EdadSexoFemSNVS.grupo_edad_fem']: 'asc',
   },
-  dimensions: [ e + 'EdadSexoFemSNVS.grupo_edad_fem'],
+  dimensions: [e + 'EdadSexoFemSNVS.grupo_edad_fem'],
 }
 
 const pivotConfigMasc = {
@@ -100,15 +101,14 @@ const resultSetFem = await cubeApi.load(getTotalCasosFem())
 <template>
   <Transition mode="out-in">
     <Suspense>
-      <GraficoPiramide
-        :chart-height="
-          dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[26vh]' : 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]'
-        "
-        :color-theme="getThemeByDataSource(props.dataSource)"
-        :series="[...resultSetMasc.series(pivotConfigMasc), ...resultSetFem.series(pivotConfigFem)]"
-        :titulo="titulo"
-        :etiquetas="resultSetMasc.chartPivot(pivotConfigMasc).map((row) => row.x)"
-      />
+      <base-visualizacion :titulo="titulo" :color-theme="getThemeByDataSource(props.dataSource)">
+        <GraficoPiramide
+          :chart-height="props.chartHeight"
+          :color-theme="getThemeByDataSource(props.dataSource)"
+          :series="[...resultSetMasc.series(pivotConfigMasc), ...resultSetFem.series(pivotConfigFem)]"
+          :etiquetas="resultSetMasc.chartPivot(pivotConfigMasc).map((row) => row.x)"
+        />
+      </base-visualizacion>
       <template #fallback>
         <BaseGraphSkeleton
           styles="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"

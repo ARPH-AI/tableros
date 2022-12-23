@@ -62,7 +62,7 @@ const totalComorbilidades = {
       member: 'casosComorbilidad.enfermedad',
       operator: 'equals',
       values: ['Covid19'],
-    }
+    },
   ],
 }
 
@@ -76,7 +76,7 @@ const totalConfirmados = {
       member: 'casosComorbilidad.enfermedad',
       operator: 'equals',
       values: ['Covid19'],
-    }
+    },
   ],
 }
 
@@ -88,19 +88,21 @@ const total = await cubeApi.load(totalConfirmados)
   <Suspense>
     <template #fallback>
       <BaseGraphSkeleton
-        styles="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
+        height="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
         :color-theme="getThemeByDataSource(props.dataSource)"
       ></BaseGraphSkeleton>
     </template>
     <template #default>
-      <GraficoDona
-        :chart-height="
-          props.dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[26vh]' : 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]'
-        "
-        :color-theme="getThemeByDataSource(props.dataSource)"
-        :series="procesaDatos(resultSet.series(pivotConfig), obtenerCantidad(total))"
-        :titulo="titulo"
-      />
+      <base-visualizacion :titulo="titulo" :color-theme="getThemeByDataSource(props.dataSource)">
+        <GraficoDona
+          :chart-height="
+            props.dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[26vh]' : 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]'
+          "
+          :color-theme="getThemeByDataSource(props.dataSource)"
+          :series="procesaDatos(resultSet.series(pivotConfig), obtenerCantidad(total))"
+          :titulo="titulo"
+        />
+      </base-visualizacion>
     </template>
   </Suspense>
 </template>

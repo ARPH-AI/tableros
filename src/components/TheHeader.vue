@@ -68,7 +68,6 @@ const { axisTitle } = storeToRefs(useSectionsStore())
             <ProfileAvatar
               :bg-color="isDark ? '#FFFF' : '#000'"
               border-color="isDark ? '#FFFF' : '#000'"
-              border
               :username="$auth.user.email"
               :text-color="isDark ? '#000' : '#FFF'"
             ></ProfileAvatar>

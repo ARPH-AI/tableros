@@ -30,19 +30,19 @@ const totalCasosActivosHSI = {
     {
       member: 'casos.enfermedad',
       operator: 'equals',
-      values: [ props.enfermedad ],
-    }
+      values: [props.enfermedad],
+    },
   ],
 }
 
-const e = (props.enfermedad == 'Covid19') ? 'Covid' : props.enfermedad
+const e = props.enfermedad == 'Covid19' ? 'Covid' : props.enfermedad
 const totalCasosActivosSNVS = {
   measures: ['casos' + e + 'PromSemSNVS.cantidadXDiaSNVS'],
   timeDimensions: [],
   order: {},
   filters: [
     {
-      member: 'casos' + e  + 'PromSemSNVS.Fecha_inicio_Conf',
+      member: 'casos' + e + 'PromSemSNVS.Fecha_inicio_Conf',
       operator: 'equals',
       values: [`${date}`],
     },

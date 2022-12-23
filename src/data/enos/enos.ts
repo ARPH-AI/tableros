@@ -29,7 +29,7 @@ export const enos = [
       caracterizacion: `CaracterizacionCovid`,
       geo: `GeoCovid`,
     },
-    mainComponent: `CasosActivosSemanaEpidemiologica`,
+    mainComponent: `NuevosCasos`,
   },
   {
     key: 'Dengue',
@@ -42,6 +42,6 @@ export const enos = [
       caracterizacion: `CaracterizacionDengue`,
       geo: `GeoDengue`,
     },
-    mainComponent: `CasosActivosSemanaEpidemiologica`,
+    mainComponent: `NuevosCasos`,
   },
 ]

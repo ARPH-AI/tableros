@@ -12,7 +12,10 @@ import { getThemeByDataSource } from '@/composables'
 
 <template>
   <div>
-    <div v-if="dataSource == 'hsi'" class="grid px-4 py-3 w-full md:px-10">
+    <div
+      v-if="dataSource == 'hsi'"
+      class="focus:outline-none focus:ring focus:ring-violet-300 select-none border-none grid px-4 py-3 w-full md:px-10"
+    >
       <div class="grid grid-cols-1 gap-3 w-full lg:grid-cols-2">
         <!-- Left column -->
         <div class="grid grid-cols-1 col-span-1 gap-3">
@@ -20,8 +23,14 @@ import { getThemeByDataSource } from '@/composables'
             <CasosAcumuladosMujeres data-source="hsi" />
             <CasosAcumuladosVarones data-source="hsi" />
           </div>
-          <Suspense><CasosEdadSemanaEpidemiologica data-source="hsi" /></Suspense>
-          <Suspense><ComorbilidadesCantidad data-source="hsi" /></Suspense>
+          <Suspense
+            ><CasosEdadSemanaEpidemiologica
+              :chart-height="
+                dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[26vh]' : 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]'
+              "
+              data-source="hsi"
+          /></Suspense>
+          <Suspense><ComorbilidadesCantidad chart-height="" data-source="hsi" /></Suspense>
         </div>
         <!-- Right column -->
         <div class="grid gap-3 lg:grid-cols-1">
@@ -40,7 +49,7 @@ import { getThemeByDataSource } from '@/composables'
           <Suspense
             ><CasosAcumuladosSexo data-source="hsi" /><template #fallback>
               <BaseGraphSkeleton
-                styles="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
+                height="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
                 :color-theme="getThemeByDataSource(dataSource)"
               ></BaseGraphSkeleton>
             </template>

@@ -6,6 +6,7 @@ import { getThemeByDataSource } from '@/composables'
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
   enfermedad: { type: String, default: 'Covid19' },
+  chartHeight: { type: String, default: 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]' },
 })
 
 const titulo = 'Nuevos casos por grupo de edad'
@@ -56,18 +57,18 @@ const totalCasosHSI = {
     {
       member: 'EnfermedadEdadSexo.enfermedad',
       operator: 'equals',
-      values: [ props.enfermedad ],
-    }
+      values: [props.enfermedad],
+    },
   ],
   order: {
     'EnfermedadEdadSexo.identificador': 'desc',
   },
   dimensions: ['EnfermedadEdadSexo.Grupo_edad'],
 }
+const e = props.enfermedad == 'Covid19' ? 'Covid' : props.enfermedad
 
-const e = (props.enfermedad == 'Covid19') ? 'Covid' : props.enfermedad
 const totalCasosSNVS = {
-  measures: [ e + 'EdadSexoSNVS.ideventocaso'],
+  measures: [e + 'EdadSexoSNVS.ideventocaso'],
   timeDimensions: [
     {
       dimension: e + 'EdadSexoSNVS.Fecha_apertura',
@@ -78,7 +79,7 @@ const totalCasosSNVS = {
   order: {
     [e + 'EdadSexoSNVS.ideventocaso']: 'desc',
   },
-  dimensions: [ e + 'EdadSexoSNVS.Grupo_edad' ],
+  dimensions: [e + 'EdadSexoSNVS.Grupo_edad'],
   filters: [],
 }
 
@@ -90,8 +91,8 @@ const pivotConfigHSI = {
 }
 
 const pivotConfigSNVS = {
-  x: [ e + 'EdadSexoSNVS.Fecha_apertura.day'],
-  y: [ e + 'EdadSexoSNVS.Grupo_edad', 'measures'],
+  x: [e + 'EdadSexoSNVS.Fecha_apertura.day'],
+  y: [e + 'EdadSexoSNVS.Grupo_edad', 'measures'],
   fillMissingDates: true,
   joinDateRange: false,
 }
@@ -153,24 +154,21 @@ const semanasUnicas = [...new Set(semanaSetPivot.map((semana) => semana.xValues[
   <Suspense>
     <template #fallback>
       <BaseGraphSkeleton
-        styles="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
+        height="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
         :color-theme="getThemeByDataSource(props.dataSource)"
       ></BaseGraphSkeleton>
     </template>
     <template #default>
-      <div>
+      <base-visualizacion :titulo="titulo" :color-theme="getThemeByDataSource(props.dataSource)">
         <GraficoStackedLines
-          :chart-height="
-            props.dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[26vh]' : 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]'"
-
+          :chart-height="props.chartHeight"
           :color-theme="getThemeByDataSource(props.dataSource)"
           :series="procesaDatos(resultSet.series(getPivotConfig()).filter(filterV).map(itemSplit), semanas)"
-          :titulo="titulo"
           :titulo-y="tituloY"
           :titulo-x="tituloX"
           :etiquetas="semanasUnicas"
         />
-      </div>
+      </base-visualizacion>
     </template>
   </Suspense>
 </template>

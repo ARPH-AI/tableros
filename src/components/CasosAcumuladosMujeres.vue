@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import cubeApi from '@/cube'
 import { QueryBuilder } from '@cubejs-client/vue3'
-import Card from '@/components/Card.vue'
 import { obtenerCantidad } from '@/cube/utils'
 import { getThemeByDataSource } from '@/composables'
 
@@ -19,13 +18,13 @@ const totalCasosAcumuladosHSI = {
     {
       member: 'EnfermedadEdadSexoFem.enfermedad',
       operator: 'equals',
-      values: [ props.enfermedad ],
-    }
+      values: [props.enfermedad],
+    },
   ],
 }
 
-const e = (props.enfermedad == 'Covid19') ? 'Covid' : props.enfermedad
-const measures = [ e + 'EdadSexoFemSNVS.cantidad_fem_snvs' ]
+const e = props.enfermedad == 'Covid19' ? 'Covid' : props.enfermedad
+const measures = [e + 'EdadSexoFemSNVS.cantidad_fem_snvs']
 const totalCasosAcumuladosSNVS = {
   measures,
   timeDimensions: [],
@@ -53,7 +52,7 @@ const getTotalCasosAcumulados = () => {
           :color-theme="getThemeByDataSource(props.dataSource)"
           :cantidad="obtenerCantidad(resultSet)"
           :titulo="titulo"
-          :miles=true
+          :miles="true"
         />
       </div>
     </template>

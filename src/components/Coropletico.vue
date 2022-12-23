@@ -11,11 +11,10 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import { QuestionMarkCircleIcon } from '@heroicons/vue/outline'
 import VueTailwindDatepicker from 'vue-tailwind-datepicker'
 
-
 const props = defineProps({
   enfermedad: { type: String, default: 'Covid19' },
 })
-const e = (props.enfermedad == 'Covid19') ? 'Covid' : props.enfermedad
+const e = props.enfermedad == 'Covid19' ? 'Covid' : props.enfermedad
 
 const provinciasImport = await fetch('provincias-argentina.json')
 const provincias = await provinciasImport.json()
@@ -110,7 +109,7 @@ const changeProvincia = (event) => {
   <div class="relative flex flex-col">
     <div class="flex flex-row flex-1 mb-2 shadow-b-xl">
       <div class="flex place-items-center shadow-b-xl">
-        <h5
+        <h4
           class="
             pl-2
             border-l-4
@@ -124,7 +123,7 @@ const changeProvincia = (event) => {
           "
         >
           {{ titulo }}
-        </h5>
+        </h4>
         <Popover class="pr-10 relative">
           <PopoverButton aria-label="Informacion sobre el mapa">
             <QuestionMarkCircleIcon class="w-5" aria-hidden="true"
@@ -213,8 +212,8 @@ const changeProvincia = (event) => {
           </transition>
         </div>
       </Listbox>
-      <div class="flex flex-1 w-1/4">
-        <div class="flex">
+      <div class="flex flex-1">
+        <div class="flex w-full py-1">
           <vue-tailwind-datepicker
             v-model="fecha"
             aria-label="Seleccion de fecha"
@@ -231,7 +230,7 @@ const changeProvincia = (event) => {
             overlay
             :formatter="formatter"
             as-single
-            input-classes="block text-sm font-medium text-light_contrast dark:text-dark_contrast shadow-none"
+            input-classes="text-right block text-sm font-medium text-light_contrast dark:text-light_contrast shadow-none"
             :placeholder="fecha"
             i18n="es-ar"
             @change="changeDate"
