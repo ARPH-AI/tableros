@@ -25,6 +25,11 @@ const totalCasosAcumuladosHSI = {
       member: 'casosEnfermedad.enfermedad',
       operator: 'equals',
       values: [ props.enfermedad ],
+    },
+    {
+      member: 'casosEnfermedad.Estado',
+      operator: 'equals',
+      values: [ 'Confirmado' ],
     }
   ],
 }
