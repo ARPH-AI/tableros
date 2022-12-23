@@ -1,3 +1,5 @@
+// Busco los casos de enfermedades evitando duplicados durante los
+// próximos 14 días y los hago vigentes por 10 días
 cube(`casos`, {
   sqlAlias: `casos`,
   sql: `
