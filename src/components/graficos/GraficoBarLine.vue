@@ -5,7 +5,7 @@ import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { obtenerMinimo, obtenerMaximo, porcentaje } from '@/cube/utils'
 import { isDark } from '@/composables'
-import { formatDecimalValues } from '@/utils'
+import { formatDecimalValuesUno } from '@/utils'
 
 const props = defineProps<{
   colorTheme: string
@@ -30,7 +30,6 @@ const min = minLine > minBar ? minBar : minLine
 
 const etiquetasFormateadas = props.etiquetas.map((item) => format(new Date(item), 'd MMM', { locale: es }))
 
-
 const light_theme_options = {
   grid: {
     top: '12%',
@@ -45,7 +44,7 @@ const light_theme_options = {
     color: 'black',
   },
   tooltip: {
-    formatter: formatDecimalValues,
+    formatter: formatDecimalValuesUno,
     trigger: 'axis',
     axisPointer: {
       type: 'cross',
@@ -158,7 +157,7 @@ const dark_theme_options = {
     color: 'white',
   },
   tooltip: {
-    formatter: formatDecimalValues,
+    formatter: formatDecimalValuesUno,
     trigger: 'axis',
     axisPointer: {
       type: 'cross',

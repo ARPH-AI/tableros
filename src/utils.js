@@ -43,6 +43,12 @@ export const formatDecimalValues = (args) => `
   ${marker(args[1])} ${seriesName(args[1])}: ${bold((normalizeDecimals(value(args[1])) || 0 )+' %')}
 `
 
+export const formatDecimalValuesUno = (args) => `
+  ${axisValueLabel(args[0])} <br/>
+  ${marker(args[0])} ${seriesName(args[0])}: ${bold((normalizeDecimals(value(args[0])) || 0 ))} <br/>
+  ${marker(args[1])} ${seriesName(args[1])}: ${bold((normalizeDecimals(value(args[1])) || 0 )+' %')}
+`
+
 export const formatDonaDecimalValues = (args) => `
   ${getName(args)} <br/>
   ${bold(normalizeDecimals(value(args))+' %')}
