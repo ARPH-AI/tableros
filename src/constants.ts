@@ -33,7 +33,7 @@ export const general_sections = {
   HOME: {
     key: 'home',
     value: 0,
-    title: 'Home',
+    title: 'Inicio',
     iconComponent: HomeIcon,
   },
 }
