@@ -1,9 +1,15 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}', './node_modules/vue-tailwind-datepicker/**/*.js'],
   darkMode: 'class',
   theme: {
+    extend: {
+      colors: {
+        'vtd-primary': colors.sky, // Light mode Datepicker color
+        'vtd-secondary': colors.gray, // Dark mode Datepicker color
+      },
+    },
     colors: {
       color_0_dark: '#f7931e',
       color_0: '#ae5d00',
@@ -28,7 +34,7 @@ module.exports = {
       ...colors,
     },
   },
-  plugins: [require('tailwind-scrollbar')],
+  plugins: [require('tailwind-scrollbar'), require('@tailwindcss/forms'), require('@tailwindcss/line-clamp')],
   variants: {
     scrollbar: ['dark'],
   },

@@ -9,7 +9,7 @@ from
 	pg_tables
 where
 	schemaname = 'tableros'
-	and tablename not like 'snvs')
+	and (tablename not like 'snvs' or tablename not like 'snsv_'))
 loop
     execute 'DROP TABLE IF EXISTS ' || 'tableros.' || quote_ident(tabname.tablename) || ' CASCADE';
 end loop;

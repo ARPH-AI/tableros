@@ -1,0 +1,107 @@
+--
+-- PostgreSQL tableros database views dump
+--
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: problema; Type: VIEW; Schema: tableros; Owner: dashboarduser
+--
+
+CREATE VIEW tableros.problema AS
+   SELECT hc.start_date,
+    hc.cie10_codes,
+    s.pt,
+    s.id,
+    s.sctid,
+    oc.patient_id,
+    p.person_id,
+    vt.description,
+    oc.id AS id_consulta,
+    a.id AS direccion,
+    c.description AS ciudad,
+    c.id AS id_ciudad,
+    vt.id AS tipo_variable_id,
+    d2.description as institucion_departamento,
+    p2.description as institucion_provincia,
+    d3.description as departamento,
+    p3.description as provincia,
+    tv.id_enfermedad as enfermedad_id,
+    e.description as enfermedad_descripcion
+  FROM ((((((((((public.outpatient_consultation oc
+    JOIN public.document d ON ((oc.document_id = d.id)))
+    JOIN public.document_health_condition dhc ON ((dhc.document_id = d.id)))
+    JOIN public.health_condition hc ON ((dhc.health_condition_id = hc.id)))
+    JOIN public.snomed s ON ((s.id = hc.snomed_id)))
+    JOIN tableros.termino_variable tv ON ((tv.id_snomed)::text = (s.sctid)::text))
+    JOIN tableros.enfermedad e ON ((tv.id_enfermedad = e.id))
+    JOIN tableros.variable_tipo vt ON ((vt.id = tv.id_variable_tipo)))
+    JOIN public.patient p ON ((p.id = oc.patient_id)))
+    LEFT JOIN public.person_extended pe ON ((pe.person_id = p.person_id)))
+    LEFT JOIN public.address a ON ((a.id = pe.address_id)))
+    LEFT JOIN public.city c ON ((c.id = a.city_id))
+    LEFT JOIN public.department d3 on ((d3.id = a.department_id ))
+    LEFT JOIN public.province p3 on ((p3.id = a.province_id ))
+    LEFT JOIN public.institution i on ((i.id = oc.institution_id))
+    LEFT JOIN public.address a2 on ((a2.id = i.address_id))
+    LEFT JOIN public.department d2 on ((d2.id = a2.department_id ))
+    LEFT JOIN public.province p2 on ((p2.id = a2.province_id )));
+
+ALTER TABLE tableros.problema OWNER TO dashboarduser;
+
+-- Name: map_address; Type: VIEW; Schema: tableros; Owner: dashboarduser
+--
+
+CREATE VIEW tableros.map_address AS
+ SELECT pe.id,
+    ad.street,
+    ad.number,
+    ad.postcode,
+    ci.description AS city,
+    de.description AS department,
+    pr.description AS province,
+    co.description AS country
+   FROM ((((((public.person pe
+     JOIN public.person_extended pee ON ((pe.id = pee.person_id)))
+     JOIN public.address ad ON ((pee.address_id = ad.id)))
+     JOIN public.city ci ON ((ad.city_id = ci.id)))
+     JOIN public.department de ON ((ci.department_id = de.id)))
+     JOIN public.province pr ON ((de.province_id = pr.id)))
+     JOIN public.country co ON ((pr.country_id = co.id)));
+
+
+ALTER TABLE tableros.map_address OWNER TO dashboarduser;
+
+--
+-- Name: pacientes_con_comorbilidad; Type: VIEW; Schema: tableros; Owner: dashboarduser
+--
+
+CREATE VIEW tableros.pacientes_con_comorbilidad AS
+ SELECT oc.patient_id,
+    t_cie.descripcion AS comorbilidad,
+    d2.description as institucion_departamento,
+    p2.description as institucion_provincia
+   FROM (((((public.outpatient_consultation oc
+     JOIN public.document d ON ((oc.document_id = d.id)))
+     JOIN public.document_health_condition dhc ON ((dhc.document_id = d.id)))
+     JOIN public.health_condition hc ON ((dhc.health_condition_id = hc.id)))
+     JOIN public.snomed s ON ((s.id = hc.snomed_id)))
+     JOIN public.patient p ON ((p.id = oc.patient_id)))
+     LEFT JOIN public.institution i on ((i.id = oc.institution_id))
+     LEFT JOIN public.address a2 on ((a2.id = i.address_id))
+     LEFT JOIN public.department d2 on ((d2.id = a2.department_id ))
+     LEFT JOIN public.province p2 on ((p2.id = a2.province_id )),
+    tableros.cie_10 t_cie
+  WHERE ((t_cie.codigo_cie)::text ~~ (hc.cie10_codes)::text)
+  GROUP BY t_cie.descripcion, oc.patient_id, d2.description, p2.description;
+
+
+ALTER TABLE tableros.pacientes_con_comorbilidad OWNER TO dashboarduser;

@@ -280,7 +280,7 @@ El archivo debe ser de extension .sql para que se ejecute correctamente.
 **Comando para borrar toda la información agregada en producción y dejar la db en producción**
 
 ```bash
-make run-file-in-db FILE=/deploy/production/databases/scripts/03-remove-dashboard-prod.sql
+make run-file-in-db FILE=./deploy/production/databases/scripts/03-remove-dashboard-prod.sql
 ```
 
 **Comandos para la utilización de docker-compose en producción**

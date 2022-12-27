@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import cubeApi from '@/cube'
-import { QueryBuilder } from '@cubejs-client/vue3'
 import { flattenColumns, getDisplayedColumns, keepProps, filterIncludes } from '@/cube/utils'
 import { getThemeByDataSource } from '@/composables'
 import { format, addYears } from 'date-fns'
 
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
+  enfermedad: { type: String, default: 'Covid19' },
 })
 
 const dateFormat = 'yyyy-MM-dd'
@@ -16,31 +16,85 @@ const oneYear = format(addYears(todayDate, -1), dateFormat)
 
 const titulo = 'Casos activos por Semana Epidemiológica'
 
+const e = props.enfermedad == 'Covid19' ? 'Covid' : props.enfermedad
+const casosPromSemSNVS = `casos${e}PromSemSNVS`
+
+const getKeys = {
+  hsiCovid19: [
+    'casos.semana',
+    'Confirmado,casos.identificador',
+    'Sospecha,casos.identificador',
+  ],
+  hsiDengue: [
+    'casos.semana',
+    'Confirmado,casos.identificador',
+    'Sospecha,casos.identificador',
+    'Grave,casos.identificador',
+    'Otro,casos.identificador',
+  ],
+  snvsCovid19: [
+    `${casosPromSemSNVS}.nombre_semana`,
+    `${casosPromSemSNVS}.cantidadXDiaSNVS`,
+  ],
+  snvsDengue: [
+    `${casosPromSemSNVS}.nombre_semana`,
+    `${casosPromSemSNVS}.cantidadXDiaSNVS`,
+  ],
+}
+
+const getKeysColumnas = {
+  hsiCovid19: [
+    'Semana',
+    'Confirmado',
+    'Sospecha',
+  ],
+  hsiDengue: [
+    'Semana',
+    'Confirmado',
+    'Sospecha',
+    'Grave',
+    'Otro'
+  ],
+  snvsCovid19: [
+    'Nombre Semana',
+    'Casos Diarios SNVS',
+  ],
+  snvsDengue: [
+    'Nombre Semana',
+    'Casos Diarios SNVS',
+  ],
+}
+
 const totalCasosSNVS = {
-  measures: ['casosCovidPromSem.cantidadXDiaSNVS'],
+  measures: [`${casosPromSemSNVS}.cantidadXDiaSNVS`],
   timeDimensions: [],
   order: {
     //    'casosCovidPromSem.cantidadXDiaSNVS': 'desc',
-    'casosCovidPromSem.anio': 'desc',
-    'casosCovidPromSem.numero_semana': 'desc',
+    [`${casosPromSemSNVS}.anio`]: 'desc',
+    [`${casosPromSemSNVS}.numero_semana`]: 'desc',
   },
   filters: [
     {
-      member: 'casosCovidPromSem.Fecha_inicio_Conf',
+      member: `${casosPromSemSNVS}.Fecha_inicio_Conf`,
       operator: 'inDateRange',
       values: [oneYear, today],
     },
   ],
-  dimensions: ['casosCovidPromSem.nombre_semana', 'casosCovidPromSem.anio', 'casosCovidPromSem.numero_semana'],
+  dimensions: [`${casosPromSemSNVS}.nombre_semana`, `${casosPromSemSNVS}.anio`, `${casosPromSemSNVS}.numero_semana`],
 }
 
 const totalCasosHSI = {
   measures: ['casos.identificador'],
   filters: [
     {
-      member: 'casos.inicio_covid',
+      member: 'casos.fecha_inicio',
       operator: 'inDateRange',
       values: [oneYear, today],
+    },
+    {
+      member: 'casos.enfermedad',
+      operator: 'equals',
+      values: [props.enfermedad],
     },
   ],
   order: {
@@ -58,8 +112,8 @@ const pivotConfigHSI = {
 }
 
 const pivotConfigSNVS = {
-  x: ['casosCovidPromSem.nombre_semana'],
-  y: ['casosCovidPromSem.cantidadXDiaSNVS'],
+  x: [`${casosPromSemSNVS}.nombre_semana`],
+  y: [`${casosPromSemSNVS}.cantidadXDiaSNVS`],
   fillMissingDates: true,
   joinDateRange: false,
 }
@@ -82,64 +136,33 @@ const getPivotConfig = () => {
   }
 }
 
-const getKeys = {
-  hsi: [
-    'casos.semana',
-    //        "casos.anio",
-    'Confirmado,casos.identificador',
-    'Sospecha,casos.identificador',
-  ],
-  snvs: [
-    'casosCovidPromSem.nombre_semana',
-    //        "casosCovidPromSem.anio",
-    'casosCovidPromSem.cantidadXDiaSNVS',
-  ],
-}
-
-const getKeysColumnas = {
-  hsi: [
-    'Semana',
-    //        'Anio',
-    'Confirmado',
-    'Sospecha',
-  ],
-  snvs: [
-    'Nombre Semana',
-    //        'Anio',
-    'Casos Diarios SNVS',
-  ],
-}
-
 const resultSet = await cubeApi.load(getTotalCasosActivos())
 const tablePivot = await resultSet.tablePivot(getPivotConfig())
-
-const datos = keepProps(tablePivot, getKeys[props.dataSource])
-
+const datos = keepProps(tablePivot, getKeys[`${props.dataSource}${props.enfermedad}`])
 const tableColumns = await resultSet.tableColumns(getPivotConfig())
-
-const titulosColumnas = filterIncludes(flattenColumns(tableColumns), getKeysColumnas[props.dataSource])
-const titulosMostrados = filterIncludes(getDisplayedColumns(tableColumns), getKeys[props.dataSource])
+const titulosColumnas = filterIncludes(flattenColumns(tableColumns), getKeysColumnas[`${props.dataSource}${props.enfermedad}`])
+const titulosMostrados = filterIncludes(getDisplayedColumns(tableColumns), getKeys[`${props.dataSource}${props.enfermedad}`])
 </script>
 
 <template>
-  <Suspense>
-    <template #fallback>
-      <BaseTableSkeleton
-        styles="sm:h-[38vh] xl:h-[55vh] 2xl:h-[60vh]"
-        :color-theme="getThemeByDataSource(props.dataSource)"
-      ></BaseTableSkeleton>
-    </template>
-    <template #default>
+  <KeepAlive>
+    <Suspense>
+      <template #fallback>
+        <BaseTableSkeleton
+          styles="sm:h-[38vh] xl:h-[55vh] 2xl:h-[60vh]"
+          :color-theme="getThemeByDataSource(props.dataSource)"
+        ></BaseTableSkeleton>
+      </template>
       <TableCard
-        tableDimensions="sm:h-[38vh] xl:h-[43.2vh] 2xl:h-[52vh]"
+        table-dimensions="sm:h-[38vh] xl:h-[45vh] 2xl:h-[52vh]"
         :color-theme="getThemeByDataSource(props.dataSource)"
         :datos="datos"
         :titulo="titulo"
         :titulos-columnas="titulosColumnas"
         :titulos-mostrados="titulosMostrados"
       />
-    </template>
-  </Suspense>
+    </Suspense>
+  </KeepAlive>
 </template>
 
 <style scoped></style>

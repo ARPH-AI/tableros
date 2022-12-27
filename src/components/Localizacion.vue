@@ -1,25 +1,27 @@
 <script setup lang="ts">
 import cubeApi from '@/cube'
 import { mergeArrayByKey } from '@/cube/utils'
-import { ref, watchEffect } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import { osmApi, datosgeoApi } from '@/api'
 import { format } from 'date-fns'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import { QuestionMarkCircleIcon } from '@heroicons/vue/outline'
+import VueTailwindDatepicker from 'vue-tailwind-datepicker'
 
+const props = defineProps({
+  enfermedad: { type: String, default: 'Covid19' },
+})
 
 const ciudadesFilter = (item) => item['casos.ciudad']
 const getCoords = async (resultSet) => {
   const centroide_lat = 'centroide.lat'
   const centroide_lon = 'centroide.lon'
   const campos = `${centroide_lat},${centroide_lon}`
-  const ciudades = resultSet
-    .filter(ciudadesFilter)
-    .map((item) => ({
-        nombre: item['casos.ciudad'],
-        campos,
-        max: 1,
-    }))
+  const ciudades = resultSet.filter(ciudadesFilter).map((item) => ({
+    nombre: item['casos.ciudad'],
+    campos,
+    max: 1,
+  }))
 
   const params = {
     inlineObject: {
@@ -36,7 +38,7 @@ const getCoords = async (resultSet) => {
     const {
       data: { resultados: localidades },
     } = await datosgeoApi.obtenerLocalidadesPorLote(params)
-    const cantidad_ciudad = localidades.flatMap((item) => item.localidades[0])
+    const cantidad_ciudad = localidades.flatMap((item) => item.localidades[0]).filter(i => i)
     const resultado = mergeArrayByKey(cantidad_ciudad, resultSet, 'casos.ciudad', 'nombre')
     return resultado.reduce((prev, cur, idx, arr) => {
       return [
@@ -79,9 +81,12 @@ let zoom = ref(5)
 let key = ref(0)
 let coords = ref([])
 
-//let fecha = ref('2021-09-09')
-let fecha = ref(format(new Date(), 'yyyy-MM-dd'))
-
+let fecha = ref(format(new Date(), 'dd-MM-yyyy'))
+const formatter = ref({
+  date: 'DD-MM-YYYY',
+  month: 'MMM',
+})
+const fecha_for_cube = computed(() => fecha.value.split('-').reverse().join('-'))
 const titulo = 'Total de casos activos por lugar de residencia'
 
 const totalCasos = (fecha) => {
@@ -92,9 +97,14 @@ const totalCasos = (fecha) => {
     },
     filters: [
       {
-        member: 'casos.fecha_covid',
+        member: 'casos.fecha_activo',
         operator: 'equals',
         values: [`${fecha}`],
+      },
+      {
+        member: 'casos.enfermedad',
+        operator: 'equals',
+        values: [props.enfermedad],
       },
     ],
     dimensions: ['casos.ciudad'],
@@ -111,6 +121,7 @@ const pivotConfig = {
 const changeDate = (event) => {
   if (event.target.value) {
     fecha.value = event.target.value
+    fecha_placeholder = event.target.value
   }
 }
 
@@ -118,7 +129,7 @@ const forceUpdate = () => key.value++
 
 watchEffect(async () => {
   if (fecha.value) {
-    resultSet = await cubeApi.load(totalCasos(fecha.value))
+    resultSet = await cubeApi.load(totalCasos(fecha_for_cube.value))
     coords.value = await getCoords(resultSet.rawData())
     forceUpdate()
   }
@@ -145,7 +156,9 @@ watchEffect(async () => {
         </h5>
         <Popover class="ml-4 float-left relative">
           <PopoverButton> <QuestionMarkCircleIcon class="w-5" aria-hidden="true" /></PopoverButton>
-          <PopoverPanel class="text-dark_contrast bg-[#000] absolute z-50 rounded-lg p-3 w-80">
+          <PopoverPanel
+            class="text-dark_contrast bg-[#000] absolute z-50 rounded-lg p-3 w-80 bg-light_smooth border-none"
+          >
             <p class="text-left text-sm">
               Este mapa se ha elaborado tomando en cuenta la residencia de las personas, permitiendo la identificación
               de clusters de casos activos registrados en la HSI.
@@ -153,26 +166,19 @@ watchEffect(async () => {
           </PopoverPanel>
         </Popover>
       </div>
-      <input
-        v-model="fecha"
-        aria-label="Seleccion de fecha"
-        class="
-          z-40
-          flex-1
-          p-2
-          float-right
-          text-left
-          bg-light_smooth
-          rounded-lg
-          shadow-xl
-          cursor-default
-          focus:outline-none
-          text-dark_co
-          dark:text-light_contrast
-        "
-        type="date"
-        @change="changeDate"
-      />
+      <div class="flex w-2/5">
+        <vue-tailwind-datepicker
+          v-model="fecha"
+          aria-label="Seleccion de fecha"
+          class="flex-1 focus:outline-none shadow-md rounded-lg bg-light_smooth border-none cursor-pointer"
+          overlay
+          :formatter="formatter"
+          as-single
+          input-classes="block text-sm font-medium text-right text-light_contrast dark:text-light_contrast shadow-none"
+          :placeholder="fecha"
+          i18n="es-ar"
+        />
+      </div>
     </div>
 
     <MapaClustering :key="key" :center="center" :zoom="zoom" :coords="coords" />

@@ -1,4 +1,5 @@
 cube(`CovidEdadSexoSNVS`, {
+  sqlAlias: `EdadSNVS`,
   sql: `
     select
       snvs.ideventocaso,
@@ -11,6 +12,7 @@ cube(`CovidEdadSexoSNVS`, {
         end
       ) as grupo_edad,
       snvs.departamento_residencia as ciudad,
+      snvs.departamento_residencia as departamento,
       se.numero_semana,
       se.anio
   from tableros.snvs
@@ -81,6 +83,10 @@ cube(`CovidEdadSexoSNVS`, {
       sql: `ciudad`,
       type: `string`,
     },
+    departamento: {
+      sql: `departamento`,
+      type: `string`,
+    },
     Numero_semana_snvs: {
       sql: `numero_semana`,
       type: `number`,
@@ -93,6 +99,9 @@ cube(`CovidEdadSexoSNVS`, {
   preAggregations: {
     main: {
       type: `originalSql`,
+      refreshKey: {
+        every: `1 day`,
+      },
     },
   },
   dataSource: `default`,

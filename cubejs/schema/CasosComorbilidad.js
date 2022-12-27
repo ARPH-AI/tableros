@@ -25,22 +25,28 @@ const createPercentageMeasure = (status) => ({
 */
 
 cube(`casosComorbilidad`, {
+  sqlAlias: `cCom`,
   sql: `
   select
      ROW_NUMBER () OVER (ORDER BY pcc1.id_consulta) as identificador,
      pcc1.patient_id as paciente,
      pcc.comorbilidad as comorbilidad,
      pcc1.description as estado,
-     g.description as sexo
+     g.description as sexo,
+     pcc1.ciudad as ciudad,
+     pcc1.provincia as provincia,
+     pcc1.departamento as departamento,
+     pcc1.enfermedad_id as enfermedad_id,
+     pcc1.enfermedad_descripcion as enfermedad
    from
-     tableros.problema_con_covid as pcc1
+     tableros.problema as pcc1
        join person p on (p.id=pcc1.person_id)
        join gender g on (p.gender_id=g.id)
        left join tableros.pacientes_con_comorbilidad pcc on pcc1.patient_id=pcc.patient_id
    where
      not exists (
        select pcc2.id_consulta
-       from tableros.problema_con_covid as pcc2
+       from tableros.problema as pcc2
        where
          pcc1.id_consulta!=pcc2.id_consulta and
          pcc1.patient_id=pcc2.patient_id and
@@ -87,10 +93,29 @@ cube(`casosComorbilidad`, {
       sql: `paciente`,
       type: `number`,
     },
+    ciudad: {
+      sql: `ciudad`,
+      type: `string`,
+    },
+    provincia: {
+      sql: `provincia`,
+      type: `string`,
+    },
+    departamento: {
+      sql: `departamento`,
+      type: `string`,
+    },
+    enfermedad: {
+      sql: `enfermedad`,
+      type: `string`,
+    },
   },
   preAggregations: {
     main: {
       type: `originalSql`,
+      refreshKey: {
+        every: `1 day`,
+      },
     },
   },
   title: ` `,

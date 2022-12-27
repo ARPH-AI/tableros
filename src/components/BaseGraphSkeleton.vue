@@ -1,13 +1,13 @@
 <script setup lang="ts">
-const props = defineProps({
+defineProps({
   colorTheme: { type: String, default: 'third' },
-  styles: { type: String, default: '' },
+  height: { type: String, default: '' },
 })
 </script>
 
 <template>
   <div
-    :class="`${props.styles} w-full sm:p-2 xl:p-4 2xl:p-5 rounded-lg border-r-4 shadow-2xl bg-light_smooth dark:bg-dark_smooth dark:border-${props.colorTheme}_dark border-${props.colorTheme}`"
+    :class="`${height} w-full sm:p-2 xl:p-4 2xl:p-5 rounded-3xl border-r-4 shadow-2xl bg-light_smooth dark:bg-dark_smooth dark:border-${colorTheme}_dark border-${colorTheme}`"
   >
     <div class="flex justify-around flex-col">
       <div class="animate-pulse rounded m-2 w-2/3 h-4 text-left bg-slate-200 dark:bg-slate-400"></div>

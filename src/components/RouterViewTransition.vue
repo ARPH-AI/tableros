@@ -28,13 +28,15 @@ function getKey(route: RouteLocationNormalized) {
 
 <template>
   <router-view v-if="enableTransitions" v-slot="{ Component, route }">
-    <transition :name="route.meta.transition || 'fade'" mode="out-in">
+    <transition :name="route.meta.transition || 'slide-fade'" mode="out-in">
       <!-- This div is required because <transition> requires a single children node -->
       <div
         :key="getKey(route)"
         :class="isRoot ? 'router-view-root-transition-wrapper' : 'router-view-transition-wrapper'"
       >
-        <component :is="Component" />
+        <Suspense>
+          <component :is="Component" />
+        </Suspense>
       </div>
     </transition>
   </router-view>

@@ -9,6 +9,10 @@ const props = defineProps({
 })
 
 const procesaDatos = (lista, total) => {
+  if (lista.length === 0) {
+    return lista
+  }
+
   let resultado_intermedio = {}
   for (let i = 0; i < lista[0].series.length; i++) {
     let val = lista[0].series[i].value
@@ -26,7 +30,7 @@ const procesaDatos = (lista, total) => {
     num = (value * 100) / total
     resultado.push({
       value: num.toFixed(2),
-      name: key != 0 ? key : 'Ninugno',
+      name: key != 0 ? key : 'Ninguna',
     })
   }
   return resultado
@@ -54,6 +58,11 @@ const totalComorbilidades = {
       operator: 'equals',
       values: ['Confirmado'],
     },
+    {
+      member: 'casosComorbilidad.enfermedad',
+      operator: 'equals',
+      values: ['Covid19'],
+    },
   ],
 }
 
@@ -62,7 +71,13 @@ const totalConfirmados = {
   timeDimensions: [],
   order: {},
   dimensions: [],
-  filters: [],
+  filters: [
+    {
+      member: 'casosComorbilidad.enfermedad',
+      operator: 'equals',
+      values: ['Covid19'],
+    },
+  ],
 }
 
 const resultSet = await cubeApi.load(totalComorbilidades)
@@ -73,19 +88,21 @@ const total = await cubeApi.load(totalConfirmados)
   <Suspense>
     <template #fallback>
       <BaseGraphSkeleton
-        styles="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
+        height="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
         :color-theme="getThemeByDataSource(props.dataSource)"
       ></BaseGraphSkeleton>
     </template>
     <template #default>
-      <GraficoDona
-        :chart-height="
-          props.dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[26vh]' : 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]'
-        "
-        :color-theme="getThemeByDataSource(props.dataSource)"
-        :series="procesaDatos(resultSet.series(pivotConfig), obtenerCantidad(total))"
-        :titulo="titulo"
-      />
+      <base-visualizacion :titulo="titulo" :color-theme="getThemeByDataSource(props.dataSource)">
+        <GraficoDona
+          :chart-height="
+            props.dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[26vh]' : 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]'
+          "
+          :color-theme="getThemeByDataSource(props.dataSource)"
+          :series="procesaDatos(resultSet.series(pivotConfig), obtenerCantidad(total))"
+          :titulo="titulo"
+        />
+      </base-visualizacion>
     </template>
   </Suspense>
 </template>

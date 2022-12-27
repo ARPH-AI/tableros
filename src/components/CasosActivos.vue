@@ -7,7 +7,9 @@ import { getThemeByDataSource } from '@/composables'
 
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
+  enfermedad: { type: String, default: 'Covid19' },
 })
+
 const date = format(new Date(), 'yyyy-MM-dd')
 const titulo = 'Casos Activos'
 
@@ -15,26 +17,32 @@ const totalCasosActivosHSI = {
   measures: ['casos.identificador'],
   timeDimensions: [
     {
-      dimension: 'casos.fecha_covid',
+      dimension: 'casos.fecha_activo',
     },
   ],
   order: {},
   filters: [
     {
-      member: 'casos.fecha_covid',
+      member: 'casos.fecha_activo',
       operator: 'equals',
       values: [`${date}`],
+    },
+    {
+      member: 'casos.enfermedad',
+      operator: 'equals',
+      values: [props.enfermedad],
     },
   ],
 }
 
+const e = props.enfermedad == 'Covid19' ? 'Covid' : props.enfermedad
 const totalCasosActivosSNVS = {
-  measures: ['casosCovidPromSem.cantidadXDiaSNVS'],
+  measures: ['casos' + e + 'PromSemSNVS.cantidadXDiaSNVS'],
   timeDimensions: [],
   order: {},
   filters: [
     {
-      member: 'casosCovidPromSem.Fecha_inicio_Conf',
+      member: 'casos' + e + 'PromSemSNVS.Fecha_inicio_Conf',
       operator: 'equals',
       values: [`${date}`],
     },
@@ -58,10 +66,11 @@ const getTotalCasosActivos = () => {
         <BaseCardSkeleton :color-theme="getThemeByDataSource(props.dataSource)" />
       </div>
       <div v-if="!loading && resultSet !== undefined">
-        <Card
+        <NumberCard
           :color-theme="getThemeByDataSource(props.dataSource)"
           :cantidad="obtenerCantidad(resultSet)"
           :titulo="titulo"
+          styles="bg-light_smooth dark:bg-dark_smooth"
         />
       </div>
     </template>

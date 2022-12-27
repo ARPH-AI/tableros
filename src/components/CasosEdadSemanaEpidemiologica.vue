@@ -5,6 +5,8 @@ import { getThemeByDataSource } from '@/composables'
 
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
+  enfermedad: { type: String, default: 'Covid19' },
+  chartHeight: { type: String, default: 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]' },
 })
 
 const titulo = 'Nuevos casos por grupo de edad'
@@ -43,47 +45,54 @@ const procesaDatos = (datos, semanas) => {
 }
 
 const totalCasosHSI = {
-  measures: ['CovidEdadSexo.identificador'],
+  measures: ['EnfermedadEdadSexo.identificador'],
   timeDimensions: [
     {
-      dimension: 'CovidEdadSexo.Fecha_inicio',
+      dimension: 'EnfermedadEdadSexo.Fecha_inicio',
       granularity: 'day',
       dateRange: 'last 360 days',
     },
   ],
+  filters: [
+    {
+      member: 'EnfermedadEdadSexo.enfermedad',
+      operator: 'equals',
+      values: [props.enfermedad],
+    },
+  ],
   order: {
-    'CovidEdadSexo.identificador': 'desc',
+    'EnfermedadEdadSexo.identificador': 'desc',
   },
-  dimensions: ['CovidEdadSexo.Grupo_edad'],
-  filters: [],
+  dimensions: ['EnfermedadEdadSexo.Grupo_edad'],
 }
+const e = props.enfermedad == 'Covid19' ? 'Covid' : props.enfermedad
 
 const totalCasosSNVS = {
-  measures: ['CovidEdadSexoSNVS.ideventocaso'],
+  measures: [e + 'EdadSexoSNVS.ideventocaso'],
   timeDimensions: [
     {
-      dimension: 'CovidEdadSexoSNVS.Fecha_apertura',
+      dimension: e + 'EdadSexoSNVS.Fecha_apertura',
       granularity: 'day',
       dateRange: 'last 360 days',
     },
   ],
   order: {
-    'CovidEdadSexoSNVS.ideventocaso': 'desc',
+    [e + 'EdadSexoSNVS.ideventocaso']: 'desc',
   },
-  dimensions: ['CovidEdadSexoSNVS.Grupo_edad'],
+  dimensions: [e + 'EdadSexoSNVS.Grupo_edad'],
   filters: [],
 }
 
 const pivotConfigHSI = {
-  x: ['CovidEdadSexo.Fecha_inicio'],
-  y: ['CovidEdadSexo.Grupo_edad', 'measures'],
+  x: ['EnfermedadEdadSexo.Fecha_inicio'],
+  y: ['EnfermedadEdadSexo.Grupo_edad', 'measures'],
   fillMissingDates: true,
   joinDateRange: false,
 }
 
 const pivotConfigSNVS = {
-  x: ['CovidEdadSexoSNVS.Fecha_apertura.day'],
-  y: ['CovidEdadSexoSNVS.Grupo_edad', 'measures'],
+  x: [e + 'EdadSexoSNVS.Fecha_apertura.day'],
+  y: [e + 'EdadSexoSNVS.Grupo_edad', 'measures'],
   fillMissingDates: true,
   joinDateRange: false,
 }
@@ -128,7 +137,6 @@ const getPivotConfig = () => {
 }
 
 const resultSet = await cubeApi.load(getTotalCasos())
-
 const semanaSet = await cubeApi.load(SemanaQuery)
 const semanaSetPivot = semanaSet.pivot(pivotConfigSemana)
 const semanas = semanaSetPivot.reduce((todasSemanas, semana) => {
@@ -146,24 +154,21 @@ const semanasUnicas = [...new Set(semanaSetPivot.map((semana) => semana.xValues[
   <Suspense>
     <template #fallback>
       <BaseGraphSkeleton
-        styles="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
+        height="sm:h-[38vh] xl:h-[50vh] 2xl:h-[60vh]"
         :color-theme="getThemeByDataSource(props.dataSource)"
       ></BaseGraphSkeleton>
     </template>
     <template #default>
-      <div>
+      <base-visualizacion :titulo="titulo" :color-theme="getThemeByDataSource(props.dataSource)">
         <GraficoStackedLines
-          :chart-height="
-            props.dataSource == 'hsi' ? 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[26vh]' : 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]'"
-
+          :chart-height="props.chartHeight"
           :color-theme="getThemeByDataSource(props.dataSource)"
           :series="procesaDatos(resultSet.series(getPivotConfig()).filter(filterV).map(itemSplit), semanas)"
-          :titulo="titulo"
           :titulo-y="tituloY"
           :titulo-x="tituloX"
           :etiquetas="semanasUnicas"
         />
-      </div>
+      </base-visualizacion>
     </template>
   </Suspense>
 </template>

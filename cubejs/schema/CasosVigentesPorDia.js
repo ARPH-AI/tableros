@@ -1,4 +1,7 @@
+// Busco los casos de enfermedades evitando duplicados durante los
+// próximos 14 días y los hago vigentes por 10 días
 cube(`casos`, {
+  sqlAlias: `casos`,
   sql: `
     select
       ROW_NUMBER () OVER (ORDER BY pcc1.id_consulta) as identificador,
@@ -12,16 +15,20 @@ cube(`casos`, {
       se.numero_semana,
       se.fecha,
       se.anio,
-      pcc1.ciudad
+      pcc1.ciudad,
+      pcc1.provincia as provincia,
+      pcc1.departamento as departamento,
+      pcc1.enfermedad_id as enfermedad_id,
+      pcc1.enfermedad_descripcion as enfermedad
     from
-      tableros.problema_con_covid as pcc1,
+      tableros.problema as pcc1,
       tableros.semana_epidemiologica se
     where
       not exists (
         select
           pcc2.id_consulta
         from
-          tableros.problema_con_covid as pcc2
+          tableros.problema as pcc2
         where
           pcc1.id_consulta!=pcc2.id_consulta and
           pcc1.patient_id=pcc2.patient_id and
@@ -59,11 +66,11 @@ cube(`casos`, {
       sql: `anio`,
       type: `number`,
     },
-    inicio_covid: {
+    fecha_inicio: {
       sql: `start_date`,
       type: `time`,
     },
-    fecha_covid: {
+    fecha_activo: {
       sql: `fecha`,
       type: `time`,
     },
@@ -71,10 +78,25 @@ cube(`casos`, {
       sql: `ciudad`,
       type: `string`,
     },
+    provincia: {
+      sql: `provincia`,
+      type: `string`,
+    },
+    departamento: {
+      sql: `departamento`,
+      type: `string`,
+    },
+    enfermedad: {
+      sql: `enfermedad`,
+      type: `string`,
+    },
   },
   preAggregations: {
     main: {
       type: `originalSql`,
+      refreshKey: {
+        every: `1 day`,
+      },
     },
   },
   title: ` `,

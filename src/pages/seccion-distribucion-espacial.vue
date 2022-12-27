@@ -5,17 +5,13 @@ meta:
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { useDataSourceStore } from '@/stores/data-source-store.js'
-const { dataSource } = storeToRefs(useDataSourceStore())
+import { useEnosStore } from '@/stores/enos-store'
+
+const { current_eno_data } = storeToRefs(useEnosStore())
+
+const localeFiles = import.meta.globEager('../components/*.vue')
+const componente = localeFiles[`../components/${current_eno_data.value.componentes.geo}.vue`]?.default || null
 </script>
-
 <template>
-  <div v-if="dataSource == 'hsi'" class="grid px-4 pt-3 w-full md:px-10">
-    <Suspense><Localizacion /></Suspense>
-  </div>
-  <div v-if="dataSource == 'snvs'" class="flex flex-col px-4 pt-3 w-full h-full md:px-10">
-    <Suspense><Coropletico /></Suspense>
-  </div>
+  <Suspense><component :is="componente" /></Suspense>
 </template>
-
-<style scoped></style>

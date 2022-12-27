@@ -4,16 +4,25 @@ import { QueryBuilder } from '@cubejs-client/vue3'
 import Card from '@/components/Card.vue'
 import { obtenerCantidad } from '@/cube/utils'
 import { getThemeByDataSource } from '@/composables'
+import { normalizeDecimals } from '@/utils'
 
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
   title: { type: String, required: true },
   measure: { type: String, required: true },
+  enfermedad: { type: String, default: 'Covid19' },
 })
 
 const totalCasosHSI = {
   measures: [props.measure],
   timeDimensions: [],
+  filters: [
+    {
+      member: 'EnfermedadEdadSexo.enfermedad',
+      operator: 'equals',
+      values: [ props.enfermedad ],
+    }
+  ],
   order: {},
 }
 
@@ -40,11 +49,12 @@ const getTotalCasos = () => {
         <BaseCardSkeleton :color-theme="getThemeByDataSource(props.dataSource)"></BaseCardSkeleton>
       </div>
       <div v-if="!loading && resultSet !== undefined">
-        <Card
+        <NumberCard
           :color-theme="getThemeByDataSource(props.dataSource)"
           :cantidad="obtenerCantidad(resultSet)"
           :titulo="title"
           :percent="true"
+          styles="bg-light_smooth dark:bg-dark_smooth"
         />
       </div>
     </template>

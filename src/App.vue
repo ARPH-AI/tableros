@@ -1,11 +1,6 @@
-<script setup lang="ts">
-import RouterViewTransition from '@/components/RouterViewTransition.vue'
-import Notification from '@/components/Notification.vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <div>
-    <RouterViewTransition is-root></RouterViewTransition>
-    <Notification />
-  </div>
+  <RouterViewTransition is-root />
+  <Notification />
 </template>

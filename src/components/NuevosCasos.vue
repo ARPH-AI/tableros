@@ -6,13 +6,19 @@ import { getThemeByDataSource } from '@/composables'
 
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
+  enfermedad: { type: String, default: 'Covid19' },
+  chartHeight: { type: String, default: 'sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]' },
 })
+
+const e = props.enfermedad == 'Covid19' ? 'Covid' : props.enfermedad
 const titulo = 'Nuevos casos y promedio de los últimos 7 días'
+
+const casosEnfermedad = `casos${e}PromSem`
 const totalNuevosCasosHSI = {
-  measures: ['casosCovidPromSem.cantidadXDia', 'casosCovidPromSem.promedioSemanal'],
+  measures: [`${casosEnfermedad}.cantidadXDia`, `${casosEnfermedad}.promedioSemanal`],
   timeDimensions: [
     {
-      dimension: 'casosCovidPromSem.Fecha_inicio_Conf',
+      dimension: `${casosEnfermedad}.Fecha_inicio_Conf`,
       granularity: 'day',
       dateRange: 'last 360 days',
       //      dateRange: [`${fechaInicio}`, `${fechaFin}`],
@@ -22,10 +28,10 @@ const totalNuevosCasosHSI = {
 }
 
 const totalNuevosCasosSNVS = {
-  measures: ['casosCovidPromSem.cantidadXDiaSNVS', 'casosCovidPromSem.promedioSemanalSNVS'],
+  measures: [`${casosEnfermedad}SNVS.cantidadXDiaSNVS`, `${casosEnfermedad}SNVS.promedioSemanalSNVS`],
   timeDimensions: [
     {
-      dimension: 'casosCovidPromSem.Fecha_inicio_Conf',
+      dimension: `${casosEnfermedad}SNVS.Fecha_inicio_Conf`,
       granularity: 'day',
       dateRange: 'last 360 days',
       //      dateRange: [`${fechaInicio}`, `${fechaFin}`],
@@ -62,7 +68,7 @@ const getSeriesBarName = () => {
 }
 
 const pivotConfig = {
-  x: ['casosCovidPromSem.Fecha_inicio_Conf.day'],
+  x: [`${casosEnfermedad}.Fecha_inicio_Conf.day`],
   y: ['measures'],
   fillMissingDates: true,
   joinDateRange: false,
@@ -83,19 +89,18 @@ const getSeries = (result: ResultSet, filterStr: string, pivot: PivotConfig) => 
     <template #default="{ loading, resultSet }">
       <div v-if="loading" class="flex justify-center items-center">
         <BaseGraphSkeleton
-          styles="sm:h-[38vh] xl:h-[55vh] 2xl:h-[60vh]"
+          height="sm:h-[38vh] xl:h-[55vh] 2xl:h-[60vh]"
           :color-theme="getThemeByDataSource(props.dataSource)"
         />
       </div>
       <div v-if="!loading && resultSet !== undefined">
-        <GraficoBarLine
-          chart-height="sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]"
-          :series-line="getSeries(resultSet, getSeriesLineName() || 'Promedio Sem.', pivotConfig)[0]"
-          :series-bar="getSeries(resultSet, getSeriesBarName() || 'Promedio Sem.', pivotConfig)[0]"
-          :etiquetas="resultSet.chartPivot(pivotConfig).map((row) => row.x)"
-          :titulo="titulo"
-          :color-theme="getThemeByDataSource(props.dataSource)"
-        />
+        <base-visualizacion :titulo="titulo" :color-theme="getThemeByDataSource(props.dataSource)">
+          <GraficoBarLine
+            chart-height="sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]"
+            :series-line="getSeries(resultSet, getSeriesLineName() || 'Promedio Sem.', pivotConfig)[0]"
+            :series-bar="getSeries(resultSet, getSeriesBarName() || 'Promedio Sem.', pivotConfig)[0]"
+            :etiquetas="resultSet.chartPivot(pivotConfig).map((row) => row.x)"
+        /></base-visualizacion>
       </div>
     </template>
   </query-builder>

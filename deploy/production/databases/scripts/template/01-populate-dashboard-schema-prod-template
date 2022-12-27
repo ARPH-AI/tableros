@@ -36,7 +36,8 @@ CREATE TABLE tableros.termino_variable (
     concepto character varying(255) NOT NULL,
     perf_term character varying(255) NOT NULL,
     id_snomed character varying(255) NOT NULL,
-    id_variable_tipo integer NOT NULL
+    id_variable_tipo integer NOT NULL,
+    id_enfermedad integer NOT NULL
 );
 
 
@@ -53,6 +54,20 @@ CREATE TABLE tableros.variable_tipo (
 
 
 ALTER TABLE tableros.variable_tipo OWNER TO $PG_USER;
+
+
+--
+-- Name: enfermedad; Type: TABLE; Schema: tableros; Owner: dashboarduser
+--
+
+CREATE TABLE tableros.enfermedad (
+    id integer NOT NULL,
+    description character varying(255) NOT NULL
+);
+
+
+ALTER TABLE tableros.enfermedad OWNER TO dashboarduser;
+
 
 --
 -- Name: semana_epidemiologica; Type: TABLE; Schema: tableros; Owner: $PG_USER
@@ -100,6 +115,19 @@ CREATE TABLE tableros.map_coordinates (
 ALTER TABLE tableros.map_coordinates OWNER TO $PG_USER;
 
 
+CREATE TABLE tableros.snvs_dengue (
+	ideventocaso integer NOT NULL,
+	sexo character(1) NULL,
+	edad_diagnostico integer NULL,
+	id_depto_indec_residencia integer NULL,
+	departamento_residencia character varying(255) NULL,
+	clasificacion_manual character varying(255) NULL,
+    fecha_apertura date NOT NULL
+);
+
+
+ALTER TABLE tableros.snvs_dengue OWNER TO $PG_USER;
+
 
 --
 -- Name: cie_10 id_cie_10; Type: CONSTRAINT; Schema: tableros; Owner: $PG_USER
@@ -141,6 +169,13 @@ ALTER TABLE ONLY tableros.variable_tipo
     ADD CONSTRAINT id_variable_tipo PRIMARY KEY (id);
 
 
+-- Name: enfermedad id_enfermedad; Type: CONSTRAINT; Schema: tableros; Owner: $PG_USER
+--
+
+ALTER TABLE ONLY tableros.enfermedad
+    ADD CONSTRAINT id_enfermedad_tipo PRIMARY KEY (id);
+
+
 --
 -- Name: map_coordinates map_coordinates_pkey; Type: CONSTRAINT; Schema: tableros; Owner: $PG_USER
 --
@@ -148,13 +183,13 @@ ALTER TABLE ONLY tableros.variable_tipo
 ALTER TABLE ONLY tableros.map_coordinates
     ADD CONSTRAINT map_coordinates_pkey PRIMARY KEY (id);
 
-
-
-
-
 --
 -- Name: SCHEMA tableros; Type: ACL; Schema: -; Owner: $PG_USER
 --
+
+ALTER TABLE ONLY tableros.snvs_dengue
+    ADD CONSTRAINT id_evento_caso PRIMARY KEY (ideventocaso);
+
 
 GRANT ALL ON SCHEMA tableros TO $PG_USER;
 
@@ -163,6 +198,12 @@ GRANT ALL ON SCHEMA tableros TO $PG_USER;
 --
 
 GRANT ALL ON SCHEMA tableros TO $PG_USER;
+
+
+CREATE INDEX snvs_dengue_clasif_manual_idx ON tableros.snvs_dengue USING btree (clasificacion_manual);
+CREATE INDEX snvs_dengue_edad_diagnostico_idx ON tableros.snvs_dengue USING btree (edad_diagnostico);
+CREATE INDEX snvs_dengue_departamento_residencia_idx ON tableros.snvs_dengue USING btree (departamento_residencia);
+CREATE INDEX snvs_dengue_sexo_idx ON tableros.snvs_dengue USING btree (sexo);
 
 --
 -- Name: snvs_clasificacion_resumen_idx; Type: INDEX; Schema: tableros; Owner: dashboarduser

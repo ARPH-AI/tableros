@@ -15,7 +15,7 @@ let app = null
 
 const auth = createAuth({
   router,
-  loginRedirectRoute: 'seccion-situacion-actual',
+  loginRedirectRoute: 'home',
   logoutRedirectRoute: 'login',
   autoConfigureNavigationGuards: true,
   axios: {

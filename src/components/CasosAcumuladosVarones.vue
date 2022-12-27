@@ -7,20 +7,31 @@ import { getThemeByDataSource } from '@/composables'
 
 const props = defineProps({
   dataSource: { type: String, default: 'hsi' },
+  enfermedad: { type: String, default: 'Covid19' },
 })
+
 const titulo = 'Casos Acumulados Varones'
-
 const totalCasosAcumuladosHSI = {
-  measures: ['CovidEdadSexoMasc.cantidad_masc'],
+  measures: ['EnfermedadEdadSexoMasc.cantidad_masc'],
+  timeDimensions: [],
+  order: {},
+  filters: [
+    {
+      member: 'EnfermedadEdadSexoMasc.enfermedad',
+      operator: 'equals',
+      values: [ props.enfermedad ],
+    }
+  ],
+}
+
+const e = (props.enfermedad == 'Covid19') ? 'Covid' : props.enfermedad
+const measures = [ e + 'EdadSexoMascSNVS.cantidad_masc_snvs' ]
+const totalCasosAcumuladosSNVS = {
+  measures,
   timeDimensions: [],
   order: {},
 }
 
-const totalCasosAcumuladosSNVS = {
-  measures: ['CovidEdadSexoMasc.cantidad_masc_snvs'],
-  timeDimensions: [],
-  order: {},
-}
 const getTotalCasosAcumulados = () => {
   switch (props.dataSource) {
     case 'hsi':
@@ -38,10 +49,11 @@ const getTotalCasosAcumulados = () => {
         <BaseCardSkeleton :color-theme="getThemeByDataSource(props.dataSource)"></BaseCardSkeleton>
       </div>
       <div v-if="!loading && resultSet !== undefined">
-        <Card
+        <NumberCard
           :color-theme="getThemeByDataSource(props.dataSource)"
           :cantidad="obtenerCantidad(resultSet)"
           :titulo="titulo"
+          :miles=true
         />
       </div>
     </template>

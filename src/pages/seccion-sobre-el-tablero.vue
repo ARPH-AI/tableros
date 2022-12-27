@@ -4,7 +4,8 @@ meta:
 </route>
 
 <script setup lang="ts">
-import { sections, data_sources } from '@/constants'
+import { sections } from '@/constants'
+import { data_sources } from '@/data/enos/enos'
 </script>
 
 <template>
