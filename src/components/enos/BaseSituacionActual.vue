@@ -15,6 +15,7 @@ console.log(current_eno, 'current_eno')
 </script>
 
 <template>
+  <div>
   <div v-if="dataSource == 'hsi'" class="grid px-4 pt-3 w-full md:px-10">
     <div class="grid grid-cols-1 gap-3 w-full lg:grid-cols-2">
       <!-- Left column -->
@@ -54,6 +55,7 @@ console.log(current_eno, 'current_eno')
         <Suspense><CasosActivosSemanaEpidemiologica data-source="snvs" /></Suspense>
       </div>
     </div>
+  </div>
   </div>
 </template>
 

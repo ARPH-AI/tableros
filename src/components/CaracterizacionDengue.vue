@@ -16,16 +16,16 @@ const { dataSource } = storeToRefs(useDataSourceStore())
       <div class="grid grid-row-1 gap-3 w-full">
         <div class="grid grid-row-1 col-span-1 gap-3">
           <div class="grid grid-cols-4 gap-3">
-            <CasosAcumuladosMujeres :data-source="dataSource" enfermedad="Dengue" />
-            <CasosAcumuladosVarones :data-source="dataSource" enfermedad="Dengue" />
+            <CasosAcumuladosMujeres data-source="hsi" enfermedad="Dengue" />
+            <CasosAcumuladosVarones data-source="hsi" enfermedad="Dengue" />
             <CasosNuevosPorcentaje
-              :data-source="dataSource"
+              data-source="hsi"
               title="Casos Nuevos Mayores 60"
               measure="EnfermedadEdadSexo.frecuenciaCasosMay"
               enfermedad="Dengue"
             />
             <CasosNuevosPorcentaje
-              :data-source="dataSource"
+              data-source="hsi"
               title="Casos Nuevos Menores 20"
               measure="EnfermedadEdadSexo.frecuenciaCasosMen"
               enfermedad="Dengue"
@@ -36,13 +36,13 @@ const { dataSource } = storeToRefs(useDataSourceStore())
               <Suspense
                 ><CasosEdadSemanaEpidemiologica
                   chart-height="sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]"
-                  :data-source="dataSource"
+                  data-source="hsi"
                   enfermedad="Dengue"
               /></Suspense>
               <Suspense>
                 <CasosAcumuladosSexo
                   chart-height="sm:h-[38vh] xl:h-[47vh] 2xl:h-[54vh]"
-                  :data-source="dataSource"
+                  data-source="hsi"
                   enfermedad="Dengue"
                 />
               </Suspense>
@@ -58,27 +58,27 @@ const { dataSource } = storeToRefs(useDataSourceStore())
         <!-- Left column -->
         <div class="grid grid-cols-1 col-span-1 gap-3">
           <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
-            <CasosAcumuladosMujeres :data-source="dataSource" enfermedad="Dengue" />
-            <CasosAcumuladosVarones :data-source="dataSource" enfermedad="Dengue" />
+            <CasosAcumuladosMujeres data-source="snvs" enfermedad="Dengue" />
+            <CasosAcumuladosVarones data-source="snvs" enfermedad="Dengue" />
           </div>
-          <Suspense><CasosEdadSemanaEpidemiologica :data-source="dataSource" enfermedad="Dengue" /></Suspense>
+          <Suspense><CasosEdadSemanaEpidemiologica data-source="snvs" enfermedad="Dengue" /></Suspense>
         </div>
         <!-- Right column -->
         <div class="grid gap-3 lg:grid-cols-1">
           <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
             <CasosNuevosPorcentaje
-              :data-source="dataSource"
+              data-source="snvs"
               title="Casos Nuevos Mayores 60"
               measure="DengueEdadSexoSNVS.frecuenciaCasosMaySNVS"
             />
             <CasosNuevosPorcentaje
-              :data-source="dataSource"
+              data-source="snvs"
               title="Casos Nuevos Menores 20"
               measure="DengueEdadSexoSNVS.frecuenciaCasosMenSNVS"
             />
           </div>
           <Suspense>
-            <CasosAcumuladosSexo :data-source="dataSource" enfermedad="Dengue" />
+            <CasosAcumuladosSexo data-source="snvs" enfermedad="Dengue" />
           </Suspense>
         </div>
       </div>
