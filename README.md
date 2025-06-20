@@ -1,4 +1,15 @@
-# Entorno de desarrollo para Arphai Dashboard
+#  Desarrollo de Tablero para la mesogestión epidemiológica
+
+El tablero desarrollado por la línea de investigación de Tableros para la mesogestión epidemiológica utiliza dos grandes fuentes de información: los datos de las consultas en el momento de atención que los profesionales registran en la HSI y el Sistema Nacional de Vigilancia en Salud (SNVS) donde los responsables notifican formalmente el caso o evento de acuerdo con el marco normativo vigente. Complementariamente, se incluyen fuentes de proyecciones de población para la construcción de indicadores de base poblacional. El Tablero, transferido a la Provincia de Buenos Aires (PBA), presenta información epidemiológica sobre Covid 19, Dengue y vigilancia sindrómica (fiebres) en base a datos de la HSI y fue implementado en los servidores de prueba de la Provincia en contacto con los usuarios finales (por ej. responsables de la gestión epidemiológica de la provincia y de los municipios).
+
+## Integrantes
+- Ridao, Marina (Laboratorio de Innovación - FMED, UBA)
+- Rojo, Marina (Laboratorio de Innovación - FMED, UBA)
+- Rodríguez Cámara, Julieta  (Programa de Innovación Tecnológica en Salud Pública, Facultad de Medicina,
+UBA)
+Risso, Mariano (Pladema. UNICEN)
+
+# Entorno de desarrollo para ARPHAI Dashboard
 
 ## Antes de empezar
 
